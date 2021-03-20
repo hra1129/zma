@@ -1,0 +1,57 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	INCLUDE ".//sub_repeat.asm"] begin
+[REPEAT I , 5]
+	Scope path: @REPEAT0:
+
+[	INCLUDE ".//sub_repeat.asm"] end
+
+	repeat begin
+[	DEFB I]
+000000: 00
+
+[	DEFB I]
+000001: 01
+
+[	DEFB I]
+000002: 02
+
+[	DEFB I]
+000003: 03
+
+[	DEFB I]
+000004: 04
+
+	repeat end
+	Scope path: 
+
+
+
+[	INCLUDE ".//sub_macro.asm"] begin
+Define macro {HOGE MACRO}
+
+[	INCLUDE ".//sub_macro.asm"] end
+
+[	INCLUDE ".//sub_if.asm"] begin
+[IF 1]
+
+[	INCLUDE ".//sub_if.asm"] end
+
+[	DEFB 9]
+000005: 09
+
+
+[	INCLUDE ".//sub_scope.asm"] begin
+[	SCOPE MMM]
+	Scope path: MMM:
+
+[	INCLUDE ".//sub_scope.asm"] end
+
+[	ENDSCOPE]
+	Scope path: 
+
+<< label >>
+@REPEAT0:I 4 ( 0x4 )

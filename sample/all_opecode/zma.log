@@ -1,0 +1,10077 @@
+Z80 Macro Assembler ZMA v1.0.4
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	ORG 0XC000]
+	code address: 0x00c000
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c000: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c001: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c002: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c003: 00
+
+[	LD BC , 0X0000] Z80:11cyc, R800:3cyc
+00c004: 01 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c007: 00
+
+[	LD [ BC ] , A] Z80:8cyc, R800:4cyc
+00c008: 02
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c009: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c00a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c00b: 00
+
+[	INC BC] Z80:7cyc, R800:1cyc
+00c00c: 03
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c00d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c00e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c00f: 00
+
+[	INC B] Z80:5cyc, R800:1cyc
+00c010: 04
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c011: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c012: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c013: 00
+
+[	DEC B] Z80:5cyc, R800:1cyc
+00c014: 05
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c015: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c016: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c017: 00
+
+[	LD B , 0X00] Z80:8cyc, R800:2cyc
+00c018: 06 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c01a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c01b: 00
+
+[	RLCA] Z80:5cyc, R800:1cyc
+00c01c: 07
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c01d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c01e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c01f: 00
+
+[	EX AF , AF '] Z80:5cyc, R800:1cyc
+00c020: 08
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c021: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c022: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c023: 00
+
+[	ADD HL , BC] Z80:12cyc, R800:1cyc
+00c024: 09
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c025: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c026: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c027: 00
+
+[	LD A , [ BC ]] Z80:8cyc, R800:4cyc
+00c028: 0a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c029: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c02a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c02b: 00
+
+[	DEC BC] Z80:7cyc, R800:1cyc
+00c02c: 0b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c02d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c02e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c02f: 00
+
+[	INC C] Z80:5cyc, R800:1cyc
+00c030: 0c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c031: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c032: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c033: 00
+
+[	DEC C] Z80:5cyc, R800:1cyc
+00c034: 0d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c035: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c036: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c037: 00
+
+[	LD C , 0X00] Z80:8cyc, R800:2cyc
+00c038: 0e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c03a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c03b: 00
+
+[	RRCA] Z80:5cyc, R800:1cyc
+00c03c: 0f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c03d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c03e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c03f: 00
+
+[	DJNZ LABEL_DJNZ] Z80:14cyc(cond=true), 9cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)
+00c040: 10 00
+
+[LABEL_DJNZ :]
+	label address: 0x00c042
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c042: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c043: 00
+
+[	LD DE , 0X0000] Z80:11cyc, R800:3cyc
+00c044: 11 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c047: 00
+
+[	LD [ DE ] , A] Z80:8cyc, R800:4cyc
+00c048: 12
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c049: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c04a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c04b: 00
+
+[	INC DE] Z80:7cyc, R800:1cyc
+00c04c: 13
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c04d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c04e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c04f: 00
+
+[	INC D] Z80:5cyc, R800:1cyc
+00c050: 14
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c051: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c052: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c053: 00
+
+[	DEC D] Z80:5cyc, R800:1cyc
+00c054: 15
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c055: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c056: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c057: 00
+
+[	LD D , 0X00] Z80:8cyc, R800:2cyc
+00c058: 16 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c05a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c05b: 00
+
+[	RLA] Z80:5cyc, R800:1cyc
+00c05c: 17
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c05d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c05e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c05f: 00
+
+[	JR LABEL_JR] Z80:13cyc, R800:3cyc
+00c060: 18 00
+
+[LABEL_JR :]
+	label address: 0x00c062
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c062: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c063: 00
+
+[	ADD HL , DE] Z80:12cyc, R800:1cyc
+00c064: 19
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c065: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c066: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c067: 00
+
+[	LD A , [ DE ]] Z80:8cyc, R800:4cyc
+00c068: 1a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c069: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c06a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c06b: 00
+
+[	DEC DE] Z80:7cyc, R800:1cyc
+00c06c: 1b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c06d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c06e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c06f: 00
+
+[	INC E] Z80:5cyc, R800:1cyc
+00c070: 1c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c071: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c072: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c073: 00
+
+[	DEC E] Z80:5cyc, R800:1cyc
+00c074: 1d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c075: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c076: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c077: 00
+
+[	LD E , 0X00] Z80:8cyc, R800:2cyc
+00c078: 1e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c07a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c07b: 00
+
+[	RRA] Z80:5cyc, R800:1cyc
+00c07c: 1f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c07d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c07e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c07f: 00
+
+[	JR NZ , LABEL_JR_NZ] Z80:13cyc(cond=true), 8cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)
+00c080: 20 00
+
+[LABEL_JR_NZ :]
+	label address: 0x00c082
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c082: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c083: 00
+
+[	LD HL , 0X0000] Z80:11cyc, R800:3cyc
+00c084: 21 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c087: 00
+
+[	LD [ 0X0000 ] , HL] Z80:17cyc, R800:7cyc
+00c088: 22 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c08b: 00
+
+[	INC HL] Z80:7cyc, R800:1cyc
+00c08c: 23
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c08d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c08e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c08f: 00
+
+[	INC H] Z80:5cyc, R800:1cyc
+00c090: 24
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c091: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c092: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c093: 00
+
+[	DEC H] Z80:5cyc, R800:1cyc
+00c094: 25
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c095: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c096: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c097: 00
+
+[	LD H , 0X00] Z80:8cyc, R800:2cyc
+00c098: 26 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c09a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c09b: 00
+
+[	DAA] Z80:5cyc, R800:1cyc
+00c09c: 27
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c09d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c09e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c09f: 00
+
+[	JR Z , LABEL_JR_Z] Z80:13cyc(cond=true), 8cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)
+00c0a0: 28 00
+
+[LABEL_JR_Z :]
+	label address: 0x00c0a2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0a2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0a3: 00
+
+[	ADD HL , HL] Z80:12cyc, R800:1cyc
+00c0a4: 29
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0a5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0a7: 00
+
+[	LD HL , [ 0X0000 ]] Z80:17cyc, R800:7cyc
+00c0a8: 2a 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0ab: 00
+
+[	DEC HL] Z80:7cyc, R800:1cyc
+00c0ac: 2b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0ad: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0af: 00
+
+[	INC L] Z80:5cyc, R800:1cyc
+00c0b0: 2c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0b1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0b3: 00
+
+[	DEC L] Z80:5cyc, R800:1cyc
+00c0b4: 2d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0b5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0b7: 00
+
+[	LD L , 0X00] Z80:8cyc, R800:2cyc
+00c0b8: 2e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0ba: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0bb: 00
+
+[	CPL] Z80:5cyc, R800:1cyc
+00c0bc: 2f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0bd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0be: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0bf: 00
+
+[	JR NC , LABEL_JR_NC] Z80:13cyc(cond=true), 8cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)
+00c0c0: 30 00
+
+[LABEL_JR_NC :]
+	label address: 0x00c0c2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0c2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0c3: 00
+
+[	LD SP , 0X0000] Z80:11cyc, R800:3cyc
+00c0c4: 31 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0c7: 00
+
+[	LD [ 0X0000 ] , A] Z80:14cyc, R800:6cyc
+00c0c8: 32 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0cb: 00
+
+[	INC SP] Z80:7cyc, R800:1cyc
+00c0cc: 33
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0cd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0ce: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0cf: 00
+
+[	INC [ HL ]] Z80:12cyc, R800:7cyc
+00c0d0: 34
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0d1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0d2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0d3: 00
+
+[	DEC [ HL ]] Z80:12cyc, R800:7cyc
+00c0d4: 35
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0d5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0d6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0d7: 00
+
+[	LD [ HL ] , 0X00] Z80:11cyc, R800:5cyc
+00c0d8: 36 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0da: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0db: 00
+
+[	SCF] Z80:5cyc, R800:1cyc
+00c0dc: 37
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0dd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0de: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0df: 00
+
+[	JR C , LABEL_JR_C] Z80:13cyc(cond=true), 8cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)
+00c0e0: 38 00
+
+[LABEL_JR_C :]
+	label address: 0x00c0e2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0e2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0e3: 00
+
+[	ADD HL , SP] Z80:12cyc, R800:1cyc
+00c0e4: 39
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0e5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0e6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0e7: 00
+
+[	LD A , [ 0X0000 ]] Z80:14cyc, R800:6cyc
+00c0e8: 3a 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0eb: 00
+
+[	DEC SP] Z80:7cyc, R800:1cyc
+00c0ec: 3b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0ed: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0ee: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0ef: 00
+
+[	INC A] Z80:5cyc, R800:1cyc
+00c0f0: 3c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0f1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0f2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0f3: 00
+
+[	DEC A] Z80:5cyc, R800:1cyc
+00c0f4: 3d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0f5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0f6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0f7: 00
+
+[	LD A , 0X00] Z80:8cyc, R800:2cyc
+00c0f8: 3e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0fa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0fb: 00
+
+[	CCF] Z80:5cyc, R800:1cyc
+00c0fc: 3f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0fd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0fe: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c0ff: 00
+
+[	LD B , B] Z80:5cyc, R800:2cyc
+00c100: 40
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c101: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c102: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c103: 00
+
+[	LD B , C] Z80:5cyc, R800:2cyc
+00c104: 41
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c105: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c106: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c107: 00
+
+[	LD B , D] Z80:5cyc, R800:2cyc
+00c108: 42
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c109: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c10a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c10b: 00
+
+[	LD B , E] Z80:5cyc, R800:2cyc
+00c10c: 43
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c10d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c10e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c10f: 00
+
+[	LD B , H] Z80:5cyc, R800:2cyc
+00c110: 44
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c111: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c112: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c113: 00
+
+[	LD B , L] Z80:5cyc, R800:2cyc
+00c114: 45
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c115: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c116: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c117: 00
+
+[	LD B , [ HL ]] Z80:8cyc, R800:4cyc
+00c118: 46
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c119: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c11a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c11b: 00
+
+[	LD B , A] Z80:5cyc, R800:2cyc
+00c11c: 47
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c11d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c11e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c11f: 00
+
+[	LD C , B] Z80:5cyc, R800:2cyc
+00c120: 48
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c121: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c122: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c123: 00
+
+[	LD C , C] Z80:5cyc, R800:2cyc
+00c124: 49
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c125: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c126: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c127: 00
+
+[	LD C , D] Z80:5cyc, R800:2cyc
+00c128: 4a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c129: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c12a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c12b: 00
+
+[	LD C , E] Z80:5cyc, R800:2cyc
+00c12c: 4b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c12d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c12e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c12f: 00
+
+[	LD C , H] Z80:5cyc, R800:2cyc
+00c130: 4c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c131: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c132: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c133: 00
+
+[	LD C , L] Z80:5cyc, R800:2cyc
+00c134: 4d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c135: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c136: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c137: 00
+
+[	LD C , [ HL ]] Z80:8cyc, R800:4cyc
+00c138: 4e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c139: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c13a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c13b: 00
+
+[	LD C , A] Z80:5cyc, R800:2cyc
+00c13c: 4f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c13d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c13e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c13f: 00
+
+[	LD D , B] Z80:5cyc, R800:2cyc
+00c140: 50
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c141: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c142: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c143: 00
+
+[	LD D , C] Z80:5cyc, R800:2cyc
+00c144: 51
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c145: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c146: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c147: 00
+
+[	LD D , D] Z80:5cyc, R800:2cyc
+00c148: 52
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c149: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c14a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c14b: 00
+
+[	LD D , E] Z80:5cyc, R800:2cyc
+00c14c: 53
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c14d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c14e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c14f: 00
+
+[	LD D , H] Z80:5cyc, R800:2cyc
+00c150: 54
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c151: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c152: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c153: 00
+
+[	LD D , L] Z80:5cyc, R800:2cyc
+00c154: 55
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c155: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c156: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c157: 00
+
+[	LD D , [ HL ]] Z80:8cyc, R800:4cyc
+00c158: 56
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c159: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c15a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c15b: 00
+
+[	LD D , A] Z80:5cyc, R800:2cyc
+00c15c: 57
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c15d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c15e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c15f: 00
+
+[	LD E , B] Z80:5cyc, R800:2cyc
+00c160: 58
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c161: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c162: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c163: 00
+
+[	LD E , C] Z80:5cyc, R800:2cyc
+00c164: 59
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c165: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c166: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c167: 00
+
+[	LD E , D] Z80:5cyc, R800:2cyc
+00c168: 5a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c169: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c16a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c16b: 00
+
+[	LD E , E] Z80:5cyc, R800:2cyc
+00c16c: 5b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c16d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c16e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c16f: 00
+
+[	LD E , H] Z80:5cyc, R800:2cyc
+00c170: 5c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c171: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c172: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c173: 00
+
+[	LD E , L] Z80:5cyc, R800:2cyc
+00c174: 5d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c175: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c176: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c177: 00
+
+[	LD E , [ HL ]] Z80:8cyc, R800:4cyc
+00c178: 5e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c179: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c17a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c17b: 00
+
+[	LD E , A] Z80:5cyc, R800:2cyc
+00c17c: 5f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c17d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c17e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c17f: 00
+
+[	LD H , B] Z80:5cyc, R800:2cyc
+00c180: 60
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c181: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c182: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c183: 00
+
+[	LD H , C] Z80:5cyc, R800:2cyc
+00c184: 61
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c185: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c186: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c187: 00
+
+[	LD H , D] Z80:5cyc, R800:2cyc
+00c188: 62
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c189: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c18a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c18b: 00
+
+[	LD H , E] Z80:5cyc, R800:2cyc
+00c18c: 63
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c18d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c18e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c18f: 00
+
+[	LD H , H] Z80:5cyc, R800:2cyc
+00c190: 64
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c191: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c192: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c193: 00
+
+[	LD H , L] Z80:5cyc, R800:2cyc
+00c194: 65
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c195: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c196: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c197: 00
+
+[	LD H , [ HL ]] Z80:8cyc, R800:4cyc
+00c198: 66
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c199: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c19a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c19b: 00
+
+[	LD L , A] Z80:5cyc, R800:2cyc
+00c19c: 6f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c19d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c19e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c19f: 00
+
+[	LD L , B] Z80:5cyc, R800:2cyc
+00c1a0: 68
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1a1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1a2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1a3: 00
+
+[	LD L , C] Z80:5cyc, R800:2cyc
+00c1a4: 69
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1a5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1a7: 00
+
+[	LD L , D] Z80:5cyc, R800:2cyc
+00c1a8: 6a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1a9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1aa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1ab: 00
+
+[	LD L , E] Z80:5cyc, R800:2cyc
+00c1ac: 6b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1ad: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1af: 00
+
+[	LD L , H] Z80:5cyc, R800:2cyc
+00c1b0: 6c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1b1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1b3: 00
+
+[	LD L , L] Z80:5cyc, R800:2cyc
+00c1b4: 6d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1b5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1b7: 00
+
+[	LD L , [ HL ]] Z80:8cyc, R800:4cyc
+00c1b8: 6e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1b9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1ba: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1bb: 00
+
+[	LD L , A] Z80:5cyc, R800:2cyc
+00c1bc: 6f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1bd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1be: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1bf: 00
+
+[	LD [ HL ] , B] Z80:8cyc, R800:4cyc
+00c1c0: 70
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1c1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1c2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1c3: 00
+
+[	LD [ HL ] , C] Z80:8cyc, R800:4cyc
+00c1c4: 71
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1c5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1c6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1c7: 00
+
+[	LD [ HL ] , D] Z80:8cyc, R800:4cyc
+00c1c8: 72
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1c9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1ca: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1cb: 00
+
+[	LD [ HL ] , E] Z80:8cyc, R800:4cyc
+00c1cc: 73
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1cd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1ce: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1cf: 00
+
+[	LD [ HL ] , H] Z80:8cyc, R800:4cyc
+00c1d0: 74
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1d1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1d2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1d3: 00
+
+[	LD [ HL ] , L] Z80:8cyc, R800:4cyc
+00c1d4: 75
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1d5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1d6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1d7: 00
+
+[	HALT] Z80:5cyc, R800:2cyc and wait interrupt
+00c1d8: 76
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1d9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1da: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1db: 00
+
+[	LD A , A] Z80:5cyc, R800:2cyc
+00c1dc: 7f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1dd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1de: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1df: 00
+
+[	LD A , B] Z80:5cyc, R800:2cyc
+00c1e0: 78
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1e1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1e2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1e3: 00
+
+[	LD A , C] Z80:5cyc, R800:2cyc
+00c1e4: 79
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1e5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1e6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1e7: 00
+
+[	LD A , D] Z80:5cyc, R800:2cyc
+00c1e8: 7a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1e9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1ea: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1eb: 00
+
+[	LD A , E] Z80:5cyc, R800:2cyc
+00c1ec: 7b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1ed: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1ee: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1ef: 00
+
+[	LD A , H] Z80:5cyc, R800:2cyc
+00c1f0: 7c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1f1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1f2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1f3: 00
+
+[	LD A , L] Z80:5cyc, R800:2cyc
+00c1f4: 7d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1f5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1f6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1f7: 00
+
+[	LD A , [ HL ]] Z80:8cyc, R800:4cyc
+00c1f8: 7e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1f9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1fa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1fb: 00
+
+[	LD A , A] Z80:5cyc, R800:2cyc
+00c1fc: 7f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1fd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1fe: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c1ff: 00
+
+[	ADD A , B] Z80:5cyc, R800:1cyc
+00c200: 80
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c201: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c202: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c203: 00
+
+[	ADD A , C] Z80:5cyc, R800:1cyc
+00c204: 81
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c205: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c206: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c207: 00
+
+[	ADD A , D] Z80:5cyc, R800:1cyc
+00c208: 82
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c209: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c20a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c20b: 00
+
+[	ADD A , E] Z80:5cyc, R800:1cyc
+00c20c: 83
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c20d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c20e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c20f: 00
+
+[	ADD A , H] Z80:5cyc, R800:1cyc
+00c210: 84
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c211: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c212: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c213: 00
+
+[	ADD A , L] Z80:5cyc, R800:1cyc
+00c214: 85
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c215: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c216: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c217: 00
+
+[	ADD A , [ HL ]] Z80:8cyc, R800:4cyc
+00c218: 86
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c219: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c21a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c21b: 00
+
+[	ADD A , A] Z80:5cyc, R800:1cyc
+00c21c: 87
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c21d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c21e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c21f: 00
+
+[	ADC A , B] Z80:5cyc, R800:1cyc
+00c220: 88
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c221: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c222: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c223: 00
+
+[	ADC A , C] Z80:5cyc, R800:1cyc
+00c224: 89
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c225: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c226: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c227: 00
+
+[	ADC A , D] Z80:5cyc, R800:1cyc
+00c228: 8a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c229: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c22a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c22b: 00
+
+[	ADC A , E] Z80:5cyc, R800:1cyc
+00c22c: 8b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c22d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c22e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c22f: 00
+
+[	ADC A , H] Z80:5cyc, R800:1cyc
+00c230: 8c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c231: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c232: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c233: 00
+
+[	ADC A , L] Z80:5cyc, R800:1cyc
+00c234: 8d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c235: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c236: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c237: 00
+
+[	ADC A , [ HL ]] Z80:8cyc, R800:4cyc
+00c238: 8e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c239: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c23a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c23b: 00
+
+[	ADC A , A] Z80:5cyc, R800:1cyc
+00c23c: 8f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c23d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c23e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c23f: 00
+
+[	SUB A , B] Z80:5cyc, R800:1cyc
+00c240: 90
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c241: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c242: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c243: 00
+
+[	SUB A , C] Z80:5cyc, R800:1cyc
+00c244: 91
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c245: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c246: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c247: 00
+
+[	SUB A , D] Z80:5cyc, R800:1cyc
+00c248: 92
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c249: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c24a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c24b: 00
+
+[	SUB A , E] Z80:5cyc, R800:1cyc
+00c24c: 93
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c24d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c24e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c24f: 00
+
+[	SUB A , H] Z80:5cyc, R800:1cyc
+00c250: 94
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c251: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c252: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c253: 00
+
+[	SUB A , L] Z80:5cyc, R800:1cyc
+00c254: 95
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c255: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c256: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c257: 00
+
+[	SUB A , [ HL ]] Z80:8cyc, R800:4cyc
+00c258: 96
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c259: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c25a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c25b: 00
+
+[	SUB A , A] Z80:5cyc, R800:1cyc
+00c25c: 97
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c25d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c25e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c25f: 00
+
+[	SBC A , B] Z80:5cyc, R800:1cyc
+00c260: 98
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c261: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c262: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c263: 00
+
+[	SBC A , C] Z80:5cyc, R800:1cyc
+00c264: 99
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c265: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c266: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c267: 00
+
+[	SBC A , D] Z80:5cyc, R800:1cyc
+00c268: 9a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c269: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c26a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c26b: 00
+
+[	SBC A , E] Z80:5cyc, R800:1cyc
+00c26c: 9b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c26d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c26e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c26f: 00
+
+[	SBC A , H] Z80:5cyc, R800:1cyc
+00c270: 9c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c271: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c272: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c273: 00
+
+[	SBC A , L] Z80:5cyc, R800:1cyc
+00c274: 9d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c275: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c276: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c277: 00
+
+[	SBC A , [ HL ]] Z80:8cyc, R800:4cyc
+00c278: 9e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c279: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c27a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c27b: 00
+
+[	SBC A , A] Z80:5cyc, R800:1cyc
+00c27c: 9f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c27d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c27e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c27f: 00
+
+[	AND A , B] Z80:5cyc, R800:1cyc
+00c280: a0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c281: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c282: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c283: 00
+
+[	AND A , C] Z80:5cyc, R800:1cyc
+00c284: a1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c285: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c286: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c287: 00
+
+[	AND A , D] Z80:5cyc, R800:1cyc
+00c288: a2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c289: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c28a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c28b: 00
+
+[	AND A , E] Z80:5cyc, R800:1cyc
+00c28c: a3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c28d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c28e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c28f: 00
+
+[	AND A , H] Z80:5cyc, R800:1cyc
+00c290: a4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c291: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c292: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c293: 00
+
+[	AND A , L] Z80:5cyc, R800:1cyc
+00c294: a5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c295: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c296: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c297: 00
+
+[	AND A , [ HL ]] Z80:8cyc, R800:4cyc
+00c298: a6
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c299: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c29a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c29b: 00
+
+[	AND A , A] Z80:5cyc, R800:1cyc
+00c29c: a7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c29d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c29e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c29f: 00
+
+[	XOR A , B] Z80:5cyc, R800:1cyc
+00c2a0: a8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2a1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2a2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2a3: 00
+
+[	XOR A , C] Z80:5cyc, R800:1cyc
+00c2a4: a9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2a5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2a7: 00
+
+[	XOR A , D] Z80:5cyc, R800:1cyc
+00c2a8: aa
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2a9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2aa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2ab: 00
+
+[	XOR A , E] Z80:5cyc, R800:1cyc
+00c2ac: ab
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2ad: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2af: 00
+
+[	XOR A , H] Z80:5cyc, R800:1cyc
+00c2b0: ac
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2b1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2b3: 00
+
+[	XOR A , L] Z80:5cyc, R800:1cyc
+00c2b4: ad
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2b5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2b7: 00
+
+[	XOR A , [ HL ]] Z80:8cyc, R800:4cyc
+00c2b8: ae
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2b9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2ba: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2bb: 00
+
+[	XOR A , A] Z80:5cyc, R800:1cyc
+00c2bc: af
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2bd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2be: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2bf: 00
+
+[	OR A , B] Z80:5cyc, R800:1cyc
+00c2c0: b0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2c1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2c2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2c3: 00
+
+[	OR A , C] Z80:5cyc, R800:1cyc
+00c2c4: b1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2c5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2c6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2c7: 00
+
+[	OR A , D] Z80:5cyc, R800:1cyc
+00c2c8: b2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2c9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2ca: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2cb: 00
+
+[	OR A , E] Z80:5cyc, R800:1cyc
+00c2cc: b3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2cd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2ce: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2cf: 00
+
+[	OR A , H] Z80:5cyc, R800:1cyc
+00c2d0: b4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2d1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2d2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2d3: 00
+
+[	OR A , L] Z80:5cyc, R800:1cyc
+00c2d4: b5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2d5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2d6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2d7: 00
+
+[	OR A , [ HL ]] Z80:8cyc, R800:4cyc
+00c2d8: b6
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2d9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2da: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2db: 00
+
+[	OR A , A] Z80:5cyc, R800:1cyc
+00c2dc: b7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2dd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2de: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2df: 00
+
+[	CP A , B] Z80:5cyc, R800:1cyc
+00c2e0: b8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2e1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2e2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2e3: 00
+
+[	CP A , C] Z80:5cyc, R800:1cyc
+00c2e4: b9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2e5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2e6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2e7: 00
+
+[	CP A , D] Z80:5cyc, R800:1cyc
+00c2e8: ba
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2e9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2ea: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2eb: 00
+
+[	CP A , E] Z80:5cyc, R800:1cyc
+00c2ec: bb
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2ed: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2ee: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2ef: 00
+
+[	CP A , H] Z80:5cyc, R800:1cyc
+00c2f0: bc
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2f1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2f2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2f3: 00
+
+[	CP A , L] Z80:5cyc, R800:1cyc
+00c2f4: bd
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2f5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2f6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2f7: 00
+
+[	CP A , [ HL ]] Z80:8cyc, R800:4cyc
+00c2f8: be
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2f9: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2fa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2fb: 00
+
+[	CP A , A] Z80:5cyc, R800:1cyc
+00c2fc: bf
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2fd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2fe: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c2ff: 00
+
+[	RET NZ] Z80:12cyc(branch), 6cyc(through), R800:5cyc(branch), 1cyc(through)
+00c300: c0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c301: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c302: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c303: 00
+
+[	POP BC] Z80:11cyc, R800:5cyc
+00c304: c1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c305: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c306: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c307: 00
+
+[	JP NZ , 0X0000] Z80:11cyc, R800:5cyc(cond=true), 3cyc(cond=false)
+00c308: c2 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c30b: 00
+
+[	JP 0X0000] Z80:11cyc, R800:5cyc
+00c30c: c3 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c30f: 00
+
+[	CALL NZ , 0X0000] Z80:18cyc(branch), 11cyc(through), R800:5cyc(branch), 3cyc(through)
+00c310: c4 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c313: 00
+
+[	PUSH BC] Z80:12cyc, R800:6cyc
+00c314: c5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c315: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c316: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c317: 00
+
+[	ADD A , 0X00] Z80:8cyc, R800:2cyc
+00c318: c6 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c31a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c31b: 00
+
+[	RST 0X00] Z80:12cyc, R800:6 or 7cyc
+00c31c: c7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c31d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c31e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c31f: 00
+
+[	RET Z] Z80:12cyc(branch), 6cyc(through), R800:5cyc(branch), 1cyc(through)
+00c320: c8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c321: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c322: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c323: 00
+
+[	RET] Z80:11cyc, R800:5cyc
+00c324: c9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c325: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c326: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c327: 00
+
+[	JP Z , 0X0000] Z80:11cyc, R800:5cyc(cond=true), 3cyc(cond=false)
+00c328: ca 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c32b: 00
+
+[	DEFB 0XCB]
+00c32c: cb
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c32d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c32e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c32f: 00
+
+[	CALL Z , 0X0000] Z80:18cyc(branch), 11cyc(through), R800:5cyc(branch), 3cyc(through)
+00c330: cc 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c333: 00
+
+[	CALL 0X0000] Z80:18cyc, R800:5cyc
+00c334: cd 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c337: 00
+
+[	ADC A , 0X00] Z80:8cyc, R800:2cyc
+00c338: ce 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c33a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c33b: 00
+
+[	RST 0X08] Z80:12cyc, R800:6 or 7cyc
+00c33c: cf
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c33d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c33e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c33f: 00
+
+[	RET NC] Z80:12cyc(branch), 6cyc(through), R800:5cyc(branch), 1cyc(through)
+00c340: d0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c341: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c342: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c343: 00
+
+[	POP DE] Z80:11cyc, R800:5cyc
+00c344: d1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c345: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c346: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c347: 00
+
+[	JP NC , 0X0000] Z80:11cyc, R800:5cyc(cond=true), 3cyc(cond=false)
+00c348: d2 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c34b: 00
+
+[	OUT [ 0X00 ] , A] Z80:12cyc, R800:10 or 9cyc
+00c34c: d3 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c34e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c34f: 00
+
+[	CALL NC , 0X0000] Z80:18cyc(branch), 11cyc(through), R800:5cyc(branch), 3cyc(through)
+00c350: d4 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c353: 00
+
+[	PUSH DE] Z80:12cyc, R800:6cyc
+00c354: d5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c355: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c356: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c357: 00
+
+[	SUB A , 0X00] Z80:8cyc, R800:2cyc
+00c358: d6 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c35a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c35b: 00
+
+[	RST 0X10] Z80:12cyc, R800:6 or 7cyc
+00c35c: d7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c35d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c35e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c35f: 00
+
+[	RET C] Z80:12cyc(branch), 6cyc(through), R800:5cyc(branch), 1cyc(through)
+00c360: d8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c361: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c362: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c363: 00
+
+[	EXX] Z80:5cyc, R800:1cyc
+00c364: d9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c365: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c366: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c367: 00
+
+[	JP C , 0X0000] Z80:11cyc, R800:5cyc(cond=true), 3cyc(cond=false)
+00c368: da 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c36b: 00
+
+[	IN A , [ 0X00 ]] Z80:12cyc, R800:10 or 9cyc
+00c36c: db 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c36e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c36f: 00
+
+[	CALL C , 0X0000] Z80:18cyc(branch), 11cyc(through), R800:5cyc(branch), 3cyc(through)
+00c370: dc 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c373: 00
+
+[	DEFB 0XDD]
+00c374: dd
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c375: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c376: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c377: 00
+
+[	SBC A , 0X00] Z80:8cyc, R800:2cyc
+00c378: de 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c37a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c37b: 00
+
+[	RST 0X18] Z80:12cyc, R800:6 or 7cyc
+00c37c: df
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c37d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c37e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c37f: 00
+
+[	RET PO] Z80:12cyc(branch), 6cyc(through), R800:5cyc(branch), 1cyc(through)
+00c380: e0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c381: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c382: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c383: 00
+
+[	POP HL] Z80:11cyc, R800:5cyc
+00c384: e1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c385: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c386: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c387: 00
+
+[	JP PO , 0X0000] Z80:11cyc, R800:5cyc(cond=true), 3cyc(cond=false)
+00c388: e2 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c38b: 00
+
+[	EX [ SP ] , HL] Z80:20cyc, R800:7cyc
+00c38c: e3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c38d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c38e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c38f: 00
+
+[	CALL PO , 0X0000] Z80:18cyc(branch), 11cyc(through), R800:5cyc(branch), 3cyc(through)
+00c390: e4 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c393: 00
+
+[	PUSH HL] Z80:12cyc, R800:6cyc
+00c394: e5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c395: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c396: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c397: 00
+
+[	AND A , 0X00] Z80:8cyc, R800:2cyc
+00c398: e6 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c39a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c39b: 00
+
+[	RST 0X20] Z80:12cyc, R800:6 or 7cyc
+00c39c: e7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c39d: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c39e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c39f: 00
+
+[	RET PE] Z80:12cyc(branch), 6cyc(through), R800:5cyc(branch), 1cyc(through)
+00c3a0: e8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3a1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3a2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3a3: 00
+
+[	JP HL] Z80:5cyc, R800:3cyc
+00c3a4: e9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3a5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3a7: 00
+
+[	JP PE , 0X0000] Z80:11cyc, R800:5cyc(cond=true), 3cyc(cond=false)
+00c3a8: ea 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3ab: 00
+
+[	EX DE , HL] Z80:5cyc, R800:1cyc
+00c3ac: eb
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3ad: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3af: 00
+
+[	CALL PE , 0X0000] Z80:18cyc(branch), 11cyc(through), R800:5cyc(branch), 3cyc(through)
+00c3b0: ec 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3b3: 00
+
+[	DEFB 0XED]
+00c3b4: ed
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3b5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3b7: 00
+
+[	XOR A , 0X00] Z80:8cyc, R800:2cyc
+00c3b8: ee 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3ba: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3bb: 00
+
+[	RST 0X28] Z80:12cyc, R800:6 or 7cyc
+00c3bc: ef
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3bd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3be: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3bf: 00
+
+[	RET P] Z80:12cyc(branch), 6cyc(through), R800:5cyc(branch), 1cyc(through)
+00c3c0: f0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3c1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3c2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3c3: 00
+
+[	POP AF] Z80:11cyc, R800:5cyc
+00c3c4: f1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3c5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3c6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3c7: 00
+
+[	JP P , 0X0000] Z80:11cyc, R800:5cyc(cond=true), 3cyc(cond=false)
+00c3c8: f2 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3cb: 00
+
+[	DI] Z80:5cyc, R800:2cyc
+00c3cc: f3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3cd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3ce: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3cf: 00
+
+[	CALL P , 0X0000] Z80:18cyc(branch), 11cyc(through), R800:5cyc(branch), 3cyc(through)
+00c3d0: f4 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3d3: 00
+
+[	PUSH AF] Z80:12cyc, R800:6cyc
+00c3d4: f5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3d5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3d6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3d7: 00
+
+[	OR A , 0X00] Z80:8cyc, R800:2cyc
+00c3d8: f6 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3da: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3db: 00
+
+[	RST 0X30] Z80:12cyc, R800:6 or 7cyc
+00c3dc: f7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3dd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3de: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3df: 00
+
+[	RET M] Z80:12cyc(branch), 6cyc(through), R800:5cyc(branch), 1cyc(through)
+00c3e0: f8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3e1: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3e2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3e3: 00
+
+[	LD SP , HL] Z80:7cyc, R800:1cyc
+00c3e4: f9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3e5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3e6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3e7: 00
+
+[	JP M , 0X0000] Z80:11cyc, R800:5cyc(cond=true), 3cyc(cond=false)
+00c3e8: fa 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3eb: 00
+
+[	EI] Z80:5cyc, R800:1cyc
+00c3ec: fb
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3ed: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3ee: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3ef: 00
+
+[	CALL M , 0X0000] Z80:18cyc(branch), 11cyc(through), R800:5cyc(branch), 3cyc(through)
+00c3f0: fc 00 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3f3: 00
+
+[	DEFB 0XFD]
+00c3f4: fd
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3f5: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3f6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3f7: 00
+
+[	CP A , 0X00] Z80:8cyc, R800:2cyc
+00c3f8: fe 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3fa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3fb: 00
+
+[	RST 0X38] Z80:12cyc, R800:6 or 7cyc
+00c3fc: ff
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3fd: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3fe: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c3ff: 00
+
+[	DEFB 0XDD , 0X00 , 0 , 0]
+00c400: dd 00 00 00
+
+[	DEFB 0XDD , 0X01 , 0 , 0]
+00c404: dd 01 00 00
+
+[	DEFB 0XDD , 0X02 , 0 , 0]
+00c408: dd 02 00 00
+
+[	DEFB 0XDD , 0X03 , 0 , 0]
+00c40c: dd 03 00 00
+
+[	DEFB 0XDD , 0X04 , 0 , 0]
+00c410: dd 04 00 00
+
+[	DEFB 0XDD , 0X05 , 0 , 0]
+00c414: dd 05 00 00
+
+[	DEFB 0XDD , 0X06 , 0 , 0]
+00c418: dd 06 00 00
+
+[	DEFB 0XDD , 0X07 , 0 , 0]
+00c41c: dd 07 00 00
+
+[	DEFB 0XDD , 0X08 , 0 , 0]
+00c420: dd 08 00 00
+
+[	ADD IX , BC] Z80:17cyc, R800:2cyc
+00c424: dd 09
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c426: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c427: 00
+
+[	DEFB 0XDD , 0X0A , 0 , 0]
+00c428: dd 0a 00 00
+
+[	DEFB 0XDD , 0X0B , 0 , 0]
+00c42c: dd 0b 00 00
+
+[	DEFB 0XDD , 0X0C , 0 , 0]
+00c430: dd 0c 00 00
+
+[	DEFB 0XDD , 0X0D , 0 , 0]
+00c434: dd 0d 00 00
+
+[	DEFB 0XDD , 0X0E , 0 , 0]
+00c438: dd 0e 00 00
+
+[	DEFB 0XDD , 0X0F , 0 , 0]
+00c43c: dd 0f 00 00
+
+[	DEFB 0XDD , 0X10 , 0 , 0]
+00c440: dd 10 00 00
+
+[	DEFB 0XDD , 0X11 , 0 , 0]
+00c444: dd 11 00 00
+
+[	DEFB 0XDD , 0X12 , 0 , 0]
+00c448: dd 12 00 00
+
+[	DEFB 0XDD , 0X13 , 0 , 0]
+00c44c: dd 13 00 00
+
+[	DEFB 0XDD , 0X14 , 0 , 0]
+00c450: dd 14 00 00
+
+[	DEFB 0XDD , 0X15 , 0 , 0]
+00c454: dd 15 00 00
+
+[	DEFB 0XDD , 0X16 , 0 , 0]
+00c458: dd 16 00 00
+
+[	DEFB 0XDD , 0X17 , 0 , 0]
+00c45c: dd 17 00 00
+
+[	DEFB 0XDD , 0X18 , 0 , 0]
+00c460: dd 18 00 00
+
+[	ADD IX , DE] Z80:17cyc, R800:2cyc
+00c464: dd 19
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c466: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c467: 00
+
+[	DEFB 0XDD , 0X1A , 0 , 0]
+00c468: dd 1a 00 00
+
+[	DEFB 0XDD , 0X1B , 0 , 0]
+00c46c: dd 1b 00 00
+
+[	DEFB 0XDD , 0X1C , 0 , 0]
+00c470: dd 1c 00 00
+
+[	DEFB 0XDD , 0X1D , 0 , 0]
+00c474: dd 1d 00 00
+
+[	DEFB 0XDD , 0X1E , 0 , 0]
+00c478: dd 1e 00 00
+
+[	DEFB 0XDD , 0X1F , 0 , 0]
+00c47c: dd 1f 00 00
+
+[	DEFB 0XDD , 0X20 , 0 , 0]
+00c480: dd 20 00 00
+
+[	LD IX , 0X0000] Z80:16cyc, R800:4cyc
+00c484: dd 21 00 00
+
+[	LD [ 0X0000 ] , IX] Z80:22cyc, R800:8cyc
+00c488: dd 22 00 00
+
+[	INC IX] Z80:12cyc, R800:1cyc
+00c48c: dd 23
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c48e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c48f: 00
+
+[	INC IXH] Z80:10cyc, R800:2cyc
+00c490: dd 24
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c492: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c493: 00
+
+[	DEC IXH] Z80:10cyc, R800:2cyc
+00c494: dd 25
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c496: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c497: 00
+
+[	LD IXH , 0] Z80:13cyc, R800:3cyc
+00c498: dd 26 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c49b: 00
+
+[	DEFB 0XDD , 0X27 , 0 , 0]
+00c49c: dd 27 00 00
+
+[	DEFB 0XDD , 0X28 , 0 , 0]
+00c4a0: dd 28 00 00
+
+[	ADD IX , HL] Z80:17cyc, R800:2cyc
+00c4a4: dd 29
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4a7: 00
+
+[	LD IX , [ 0X0000 ]] Z80:22cyc, R800:8cyc
+00c4a8: dd 2a 00 00
+
+[	DEC IX] Z80:12cyc, R800:2cyc
+00c4ac: dd 2b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4af: 00
+
+[	INC IXL] Z80:10cyc, R800:2cyc
+00c4b0: dd 2c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4b3: 00
+
+[	DEC IXL] Z80:10cyc, R800:2cyc
+00c4b4: dd 2d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4b7: 00
+
+[	LD IXL , 0] Z80:13cyc, R800:3cyc
+00c4b8: dd 2e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4bb: 00
+
+[	DEFB 0XDD , 0X2F , 0 , 0]
+00c4bc: dd 2f 00 00
+
+[	DEFB 0XDD , 0X30 , 0 , 0]
+00c4c0: dd 30 00 00
+
+[	DEFB 0XDD , 0X31 , 0 , 0]
+00c4c4: dd 31 00 00
+
+[	DEFB 0XDD , 0X32 , 0 , 0]
+00c4c8: dd 32 00 00
+
+[	DEFB 0XDD , 0X33 , 0 , 0]
+00c4cc: dd 33 00 00
+
+[	INC [ IX + 0X00 ]] Z80:25cyc, R800:10cyc
+00c4d0: dd 34 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4d3: 00
+
+[	DEC [ IX + 0X00 ]] Z80:25cyc, R800:10cyc
+00c4d4: dd 35 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4d7: 00
+
+[	LD [ IX + 0X00 ] , 0X00] Z80:21cyc, R800:7cyc
+00c4d8: dd 36 00 00
+
+[	DEFB 0XDD , 0X37 , 0 , 0]
+00c4dc: dd 37 00 00
+
+[	DEFB 0XDD , 0X38 , 0 , 0]
+00c4e0: dd 38 00 00
+
+[	ADD IX , SP] Z80:17cyc, R800:2cyc
+00c4e4: dd 39
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4e6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c4e7: 00
+
+[	DEFB 0XDD , 0X3A , 0 , 0]
+00c4e8: dd 3a 00 00
+
+[	DEFB 0XDD , 0X3B , 0 , 0]
+00c4ec: dd 3b 00 00
+
+[	DEFB 0XDD , 0X3C , 0 , 0]
+00c4f0: dd 3c 00 00
+
+[	DEFB 0XDD , 0X3D , 0 , 0]
+00c4f4: dd 3d 00 00
+
+[	DEFB 0XDD , 0X3E , 0 , 0]
+00c4f8: dd 3e 00 00
+
+[	DEFB 0XDD , 0X3F , 0 , 0]
+00c4fc: dd 3f 00 00
+
+[	DEFB 0XDD , 0X40 , 0 , 0]
+00c500: dd 40 00 00
+
+[	DEFB 0XDD , 0X41 , 0 , 0]
+00c504: dd 41 00 00
+
+[	DEFB 0XDD , 0X42 , 0 , 0]
+00c508: dd 42 00 00
+
+[	DEFB 0XDD , 0X43 , 0 , 0]
+00c50c: dd 43 00 00
+
+[	LD B , IXH] Z80:10cyc, R800:2cyc
+00c510: dd 44
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c512: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c513: 00
+
+[	LD B , IXL] Z80:10cyc, R800:2cyc
+00c514: dd 45
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c516: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c517: 00
+
+[	LD B , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c518: dd 46 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c51b: 00
+
+[	DEFB 0XDD , 0X47 , 0 , 0]
+00c51c: dd 47 00 00
+
+[	DEFB 0XDD , 0X48 , 0 , 0]
+00c520: dd 48 00 00
+
+[	DEFB 0XDD , 0X49 , 0 , 0]
+00c524: dd 49 00 00
+
+[	DEFB 0XDD , 0X4A , 0 , 0]
+00c528: dd 4a 00 00
+
+[	DEFB 0XDD , 0X4B , 0 , 0]
+00c52c: dd 4b 00 00
+
+[	LD C , IXH] Z80:10cyc, R800:2cyc
+00c530: dd 4c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c532: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c533: 00
+
+[	LD C , IXL] Z80:10cyc, R800:2cyc
+00c534: dd 4d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c536: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c537: 00
+
+[	LD C , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c538: dd 4e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c53b: 00
+
+[	DEFB 0XDD , 0X4F , 0 , 0]
+00c53c: dd 4f 00 00
+
+[	DEFB 0XDD , 0X50 , 0 , 0]
+00c540: dd 50 00 00
+
+[	DEFB 0XDD , 0X51 , 0 , 0]
+00c544: dd 51 00 00
+
+[	DEFB 0XDD , 0X52 , 0 , 0]
+00c548: dd 52 00 00
+
+[	DEFB 0XDD , 0X53 , 0 , 0]
+00c54c: dd 53 00 00
+
+[	LD D , IXH] Z80:10cyc, R800:2cyc
+00c550: dd 54
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c552: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c553: 00
+
+[	LD D , IXL] Z80:10cyc, R800:2cyc
+00c554: dd 55
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c556: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c557: 00
+
+[	LD D , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c558: dd 56 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c55b: 00
+
+[	DEFB 0XDD , 0X57 , 0 , 0]
+00c55c: dd 57 00 00
+
+[	DEFB 0XDD , 0X58 , 0 , 0]
+00c560: dd 58 00 00
+
+[	DEFB 0XDD , 0X59 , 0 , 0]
+00c564: dd 59 00 00
+
+[	DEFB 0XDD , 0X5A , 0 , 0]
+00c568: dd 5a 00 00
+
+[	DEFB 0XDD , 0X5B , 0 , 0]
+00c56c: dd 5b 00 00
+
+[	LD E , IXH] Z80:10cyc, R800:2cyc
+00c570: dd 5c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c572: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c573: 00
+
+[	LD E , IXL] Z80:10cyc, R800:2cyc
+00c574: dd 5d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c576: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c577: 00
+
+[	LD E , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c578: dd 5e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c57b: 00
+
+[	DEFB 0XDD , 0X5F , 0 , 0]
+00c57c: dd 5f 00 00
+
+[	LD IXH , B] Z80:10cyc, R800:2cyc
+00c580: dd 60
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c582: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c583: 00
+
+[	LD IXH , C] Z80:10cyc, R800:2cyc
+00c584: dd 61
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c586: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c587: 00
+
+[	LD IXH , D] Z80:10cyc, R800:2cyc
+00c588: dd 62
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c58a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c58b: 00
+
+[	LD IXH , E] Z80:10cyc, R800:2cyc
+00c58c: dd 63
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c58e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c58f: 00
+
+[	LD IXH , H] Z80:10cyc, R800:2cyc
+00c590: dd 64
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c592: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c593: 00
+
+[	LD IXH , L] Z80:10cyc, R800:2cyc
+00c594: dd 65
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c596: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c597: 00
+
+[	LD H , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c598: dd 66 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c59b: 00
+
+[	LD IXH , A] Z80:10cyc, R800:2cyc
+00c59c: dd 67
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c59e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c59f: 00
+
+[	LD IXL , B] Z80:10cyc, R800:2cyc
+00c5a0: dd 68
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5a2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5a3: 00
+
+[	LD IXL , C] Z80:10cyc, R800:2cyc
+00c5a4: dd 69
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5a7: 00
+
+[	LD IXL , D] Z80:10cyc, R800:2cyc
+00c5a8: dd 6a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5aa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5ab: 00
+
+[	LD IXL , E] Z80:10cyc, R800:2cyc
+00c5ac: dd 6b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5af: 00
+
+[	LD IXL , H] Z80:10cyc, R800:2cyc
+00c5b0: dd 6c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5b3: 00
+
+[	LD IXL , L] Z80:10cyc, R800:2cyc
+00c5b4: dd 6d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5b7: 00
+
+[	LD L , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c5b8: dd 6e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5bb: 00
+
+[	LD IXL , A] Z80:10cyc, R800:2cyc
+00c5bc: dd 6f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5be: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5bf: 00
+
+[	LD [ IX + 0X00 ] , B] Z80:8cyc, R800:4cyc
+00c5c0: dd 70 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5c3: 00
+
+[	LD [ IX + 0X00 ] , C] Z80:8cyc, R800:4cyc
+00c5c4: dd 71 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5c7: 00
+
+[	LD [ IX + 0X00 ] , D] Z80:8cyc, R800:4cyc
+00c5c8: dd 72 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5cb: 00
+
+[	LD [ IX + 0X00 ] , E] Z80:8cyc, R800:4cyc
+00c5cc: dd 73 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5cf: 00
+
+[	LD [ IX + 0X00 ] , H] Z80:8cyc, R800:4cyc
+00c5d0: dd 74 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5d3: 00
+
+[	LD [ IX + 0X00 ] , L] Z80:8cyc, R800:4cyc
+00c5d4: dd 75 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5d7: 00
+
+[	DEFB 0XDD , 0X76 , 0 , 0]
+00c5d8: dd 76 00 00
+
+[	LD [ IX + 0X00 ] , A] Z80:8cyc, R800:4cyc
+00c5dc: dd 77 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5df: 00
+
+[	DEFB 0XDD , 0X78 , 0 , 0]
+00c5e0: dd 78 00 00
+
+[	DEFB 0XDD , 0X79 , 0 , 0]
+00c5e4: dd 79 00 00
+
+[	DEFB 0XDD , 0X7A , 0 , 0]
+00c5e8: dd 7a 00 00
+
+[	DEFB 0XDD , 0X7B , 0 , 0]
+00c5ec: dd 7b 00 00
+
+[	LD A , IXH] Z80:10cyc, R800:2cyc
+00c5f0: dd 7c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5f2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5f3: 00
+
+[	LD A , IXL] Z80:10cyc, R800:2cyc
+00c5f4: dd 7d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5f6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5f7: 00
+
+[	LD A , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c5f8: dd 7e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c5fb: 00
+
+[	DEFB 0XDD , 0X7F , 0 , 0]
+00c5fc: dd 7f 00 00
+
+[	DEFB 0XDD , 0X80 , 0 , 0]
+00c600: dd 80 00 00
+
+[	DEFB 0XDD , 0X81 , 0 , 0]
+00c604: dd 81 00 00
+
+[	DEFB 0XDD , 0X82 , 0 , 0]
+00c608: dd 82 00 00
+
+[	DEFB 0XDD , 0X83 , 0 , 0]
+00c60c: dd 83 00 00
+
+[	ADD A , IXH] Z80:10cyc, R800:2cyc
+00c610: dd 84
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c612: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c613: 00
+
+[	ADD A , IXL] Z80:10cyc, R800:2cyc
+00c614: dd 85
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c616: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c617: 00
+
+[	ADD A , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c618: dd 86 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c61b: 00
+
+[	DEFB 0XDD , 0X87 , 0 , 0]
+00c61c: dd 87 00 00
+
+[	DEFB 0XDD , 0X88 , 0 , 0]
+00c620: dd 88 00 00
+
+[	DEFB 0XDD , 0X89 , 0 , 0]
+00c624: dd 89 00 00
+
+[	DEFB 0XDD , 0X8A , 0 , 0]
+00c628: dd 8a 00 00
+
+[	DEFB 0XDD , 0X8B , 0 , 0]
+00c62c: dd 8b 00 00
+
+[	ADC A , IXH] Z80:10cyc, R800:2cyc
+00c630: dd 8c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c632: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c633: 00
+
+[	ADC A , IXL] Z80:10cyc, R800:2cyc
+00c634: dd 8d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c636: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c637: 00
+
+[	ADC A , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c638: dd 8e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c63b: 00
+
+[	DEFB 0XDD , 0X8F , 0 , 0]
+00c63c: dd 8f 00 00
+
+[	DEFB 0XDD , 0X90 , 0 , 0]
+00c640: dd 90 00 00
+
+[	DEFB 0XDD , 0X91 , 0 , 0]
+00c644: dd 91 00 00
+
+[	DEFB 0XDD , 0X92 , 0 , 0]
+00c648: dd 92 00 00
+
+[	DEFB 0XDD , 0X93 , 0 , 0]
+00c64c: dd 93 00 00
+
+[	SUB A , IXH] Z80:10cyc, R800:2cyc
+00c650: dd 94
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c652: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c653: 00
+
+[	SUB A , IXL] Z80:10cyc, R800:2cyc
+00c654: dd 95
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c656: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c657: 00
+
+[	SUB A , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c658: dd 96 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c65b: 00
+
+[	DEFB 0XDD , 0X97 , 0 , 0]
+00c65c: dd 97 00 00
+
+[	DEFB 0XDD , 0X98 , 0 , 0]
+00c660: dd 98 00 00
+
+[	DEFB 0XDD , 0X99 , 0 , 0]
+00c664: dd 99 00 00
+
+[	DEFB 0XDD , 0X9A , 0 , 0]
+00c668: dd 9a 00 00
+
+[	DEFB 0XDD , 0X9B , 0 , 0]
+00c66c: dd 9b 00 00
+
+[	SBC A , IXH] Z80:10cyc, R800:2cyc
+00c670: dd 9c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c672: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c673: 00
+
+[	SBC A , IXL] Z80:10cyc, R800:2cyc
+00c674: dd 9d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c676: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c677: 00
+
+[	SBC A , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c678: dd 9e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c67b: 00
+
+[	DEFB 0XDD , 0X9F , 0 , 0]
+00c67c: dd 9f 00 00
+
+[	DEFB 0XDD , 0XA0 , 0 , 0]
+00c680: dd a0 00 00
+
+[	DEFB 0XDD , 0XA1 , 0 , 0]
+00c684: dd a1 00 00
+
+[	DEFB 0XDD , 0XA2 , 0 , 0]
+00c688: dd a2 00 00
+
+[	DEFB 0XDD , 0XA3 , 0 , 0]
+00c68c: dd a3 00 00
+
+[	AND A , IXH] Z80:10cyc, R800:2cyc
+00c690: dd a4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c692: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c693: 00
+
+[	AND A , IXL] Z80:10cyc, R800:2cyc
+00c694: dd a5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c696: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c697: 00
+
+[	AND A , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c698: dd a6 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c69b: 00
+
+[	DEFB 0XDD , 0XA7 , 0 , 0]
+00c69c: dd a7 00 00
+
+[	DEFB 0XDD , 0XA8 , 0 , 0]
+00c6a0: dd a8 00 00
+
+[	DEFB 0XDD , 0XA9 , 0 , 0]
+00c6a4: dd a9 00 00
+
+[	DEFB 0XDD , 0XAA , 0 , 0]
+00c6a8: dd aa 00 00
+
+[	DEFB 0XDD , 0XAB , 0 , 0]
+00c6ac: dd ab 00 00
+
+[	XOR A , IXH] Z80:10cyc, R800:2cyc
+00c6b0: dd ac
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6b3: 00
+
+[	XOR A , IXL] Z80:10cyc, R800:2cyc
+00c6b4: dd ad
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6b7: 00
+
+[	XOR A , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c6b8: dd ae 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6bb: 00
+
+[	DEFB 0XDD , 0XAF , 0 , 0]
+00c6bc: dd af 00 00
+
+[	DEFB 0XDD , 0XB0 , 0 , 0]
+00c6c0: dd b0 00 00
+
+[	DEFB 0XDD , 0XB1 , 0 , 0]
+00c6c4: dd b1 00 00
+
+[	DEFB 0XDD , 0XB2 , 0 , 0]
+00c6c8: dd b2 00 00
+
+[	DEFB 0XDD , 0XB3 , 0 , 0]
+00c6cc: dd b3 00 00
+
+[	OR A , IXH] Z80:10cyc, R800:2cyc
+00c6d0: dd b4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6d2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6d3: 00
+
+[	OR A , IXL] Z80:10cyc, R800:2cyc
+00c6d4: dd b5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6d6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6d7: 00
+
+[	OR A , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c6d8: dd b6 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6db: 00
+
+[	DEFB 0XDD , 0XB7 , 0 , 0]
+00c6dc: dd b7 00 00
+
+[	DEFB 0XDD , 0XB8 , 0 , 0]
+00c6e0: dd b8 00 00
+
+[	DEFB 0XDD , 0XB9 , 0 , 0]
+00c6e4: dd b9 00 00
+
+[	DEFB 0XDD , 0XBA , 0 , 0]
+00c6e8: dd ba 00 00
+
+[	DEFB 0XDD , 0XBB , 0 , 0]
+00c6ec: dd bb 00 00
+
+[	CP A , IXH] Z80:10cyc, R800:2cyc
+00c6f0: dd bc
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6f2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6f3: 00
+
+[	CP A , IXL] Z80:10cyc, R800:2cyc
+00c6f4: dd bd
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6f6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6f7: 00
+
+[	CP A , [ IX + 0X00 ]] Z80:21cyc, R800:7cyc
+00c6f8: dd be 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c6fb: 00
+
+[	DEFB 0XDD , 0XBF , 0 , 0]
+00c6fc: dd bf 00 00
+
+[	DEFB 0XDD , 0XC0 , 0 , 0]
+00c700: dd c0 00 00
+
+[	DEFB 0XDD , 0XC1 , 0 , 0]
+00c704: dd c1 00 00
+
+[	DEFB 0XDD , 0XC2 , 0 , 0]
+00c708: dd c2 00 00
+
+[	DEFB 0XDD , 0XC3 , 0 , 0]
+00c70c: dd c3 00 00
+
+[	DEFB 0XDD , 0XC4 , 0 , 0]
+00c710: dd c4 00 00
+
+[	DEFB 0XDD , 0XC5 , 0 , 0]
+00c714: dd c5 00 00
+
+[	DEFB 0XDD , 0XC6 , 0 , 0]
+00c718: dd c6 00 00
+
+[	DEFB 0XDD , 0XC7 , 0 , 0]
+00c71c: dd c7 00 00
+
+[	DEFB 0XDD , 0XC8 , 0 , 0]
+00c720: dd c8 00 00
+
+[	DEFB 0XDD , 0XC9 , 0 , 0]
+00c724: dd c9 00 00
+
+[	DEFB 0XDD , 0XCA , 0 , 0]
+00c728: dd ca 00 00
+
+[	DEFB 0XDD , 0XCB , 0 , 0]
+00c72c: dd cb 00 00
+
+[	DEFB 0XDD , 0XCC , 0 , 0]
+00c730: dd cc 00 00
+
+[	DEFB 0XDD , 0XCD , 0 , 0]
+00c734: dd cd 00 00
+
+[	DEFB 0XDD , 0XCE , 0 , 0]
+00c738: dd ce 00 00
+
+[	DEFB 0XDD , 0XCF , 0 , 0]
+00c73c: dd cf 00 00
+
+[	DEFB 0XDD , 0XD0 , 0 , 0]
+00c740: dd d0 00 00
+
+[	DEFB 0XDD , 0XD1 , 0 , 0]
+00c744: dd d1 00 00
+
+[	DEFB 0XDD , 0XD2 , 0 , 0]
+00c748: dd d2 00 00
+
+[	DEFB 0XDD , 0XD3 , 0 , 0]
+00c74c: dd d3 00 00
+
+[	DEFB 0XDD , 0XD4 , 0 , 0]
+00c750: dd d4 00 00
+
+[	DEFB 0XDD , 0XD5 , 0 , 0]
+00c754: dd d5 00 00
+
+[	DEFB 0XDD , 0XD6 , 0 , 0]
+00c758: dd d6 00 00
+
+[	DEFB 0XDD , 0XD7 , 0 , 0]
+00c75c: dd d7 00 00
+
+[	DEFB 0XDD , 0XD8 , 0 , 0]
+00c760: dd d8 00 00
+
+[	DEFB 0XDD , 0XD9 , 0 , 0]
+00c764: dd d9 00 00
+
+[	DEFB 0XDD , 0XDA , 0 , 0]
+00c768: dd da 00 00
+
+[	DEFB 0XDD , 0XDB , 0 , 0]
+00c76c: dd db 00 00
+
+[	DEFB 0XDD , 0XDC , 0 , 0]
+00c770: dd dc 00 00
+
+[	DEFB 0XDD , 0XDD , 0 , 0]
+00c774: dd dd 00 00
+
+[	DEFB 0XDD , 0XDE , 0 , 0]
+00c778: dd de 00 00
+
+[	DEFB 0XDD , 0XDF , 0 , 0]
+00c77c: dd df 00 00
+
+[	DEFB 0XDD , 0XE0 , 0 , 0]
+00c780: dd e0 00 00
+
+[	POP IX] Z80:16cyc, R800:6cyc
+00c784: dd e1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c786: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c787: 00
+
+[	DEFB 0XDD , 0XE2 , 0 , 0]
+00c788: dd e2 00 00
+
+[	EX [ SP ] , IX] Z80:25cyc, R800:8cyc
+00c78c: dd e3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c78e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c78f: 00
+
+[	DEFB 0XDD , 0XE4 , 0 , 0]
+00c790: dd e4 00 00
+
+[	PUSH IX] Z80:17cyc, R800:7cyc
+00c794: dd e5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c796: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c797: 00
+
+[	DEFB 0XDD , 0XE6 , 0 , 0]
+00c798: dd e6 00 00
+
+[	DEFB 0XDD , 0XE7 , 0 , 0]
+00c79c: dd e7 00 00
+
+[	DEFB 0XDD , 0XE8 , 0 , 0]
+00c7a0: dd e8 00 00
+
+[	JP IX] Z80:10cyc, R800:4cyc
+00c7a4: dd e9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c7a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c7a7: 00
+
+[	DEFB 0XDD , 0XEA , 0 , 0]
+00c7a8: dd ea 00 00
+
+[	DEFB 0XDD , 0XEB , 0 , 0]
+00c7ac: dd eb 00 00
+
+[	DEFB 0XDD , 0XEC , 0 , 0]
+00c7b0: dd ec 00 00
+
+[	DEFB 0XDD , 0XED , 0 , 0]
+00c7b4: dd ed 00 00
+
+[	DEFB 0XDD , 0XEE , 0 , 0]
+00c7b8: dd ee 00 00
+
+[	DEFB 0XDD , 0XEF , 0 , 0]
+00c7bc: dd ef 00 00
+
+[	DEFB 0XDD , 0XF0 , 0 , 0]
+00c7c0: dd f0 00 00
+
+[	DEFB 0XDD , 0XF1 , 0 , 0]
+00c7c4: dd f1 00 00
+
+[	DEFB 0XDD , 0XF2 , 0 , 0]
+00c7c8: dd f2 00 00
+
+[	DEFB 0XDD , 0XF3 , 0 , 0]
+00c7cc: dd f3 00 00
+
+[	DEFB 0XDD , 0XF4 , 0 , 0]
+00c7d0: dd f4 00 00
+
+[	DEFB 0XDD , 0XF5 , 0 , 0]
+00c7d4: dd f5 00 00
+
+[	DEFB 0XDD , 0XF6 , 0 , 0]
+00c7d8: dd f6 00 00
+
+[	DEFB 0XDD , 0XF7 , 0 , 0]
+00c7dc: dd f7 00 00
+
+[	DEFB 0XDD , 0XF8 , 0 , 0]
+00c7e0: dd f8 00 00
+
+[	LD SP , IX] Z80:12cyc, R800:2cyc
+00c7e4: dd f9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c7e6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c7e7: 00
+
+[	DEFB 0XDD , 0XFA , 0 , 0]
+00c7e8: dd fa 00 00
+
+[	DEFB 0XDD , 0XFB , 0 , 0]
+00c7ec: dd fb 00 00
+
+[	DEFB 0XDD , 0XFC , 0 , 0]
+00c7f0: dd fc 00 00
+
+[	DEFB 0XDD , 0XFD , 0 , 0]
+00c7f4: dd fd 00 00
+
+[	DEFB 0XDD , 0XFE , 0 , 0]
+00c7f8: dd fe 00 00
+
+[	DEFB 0XDD , 0XFF , 0 , 0]
+00c7fc: dd ff 00 00
+
+[	DEFB 0XFD , 0X00 , 0 , 0]
+00c800: fd 00 00 00
+
+[	DEFB 0XFD , 0X01 , 0 , 0]
+00c804: fd 01 00 00
+
+[	DEFB 0XFD , 0X02 , 0 , 0]
+00c808: fd 02 00 00
+
+[	DEFB 0XFD , 0X03 , 0 , 0]
+00c80c: fd 03 00 00
+
+[	DEFB 0XFD , 0X04 , 0 , 0]
+00c810: fd 04 00 00
+
+[	DEFB 0XFD , 0X05 , 0 , 0]
+00c814: fd 05 00 00
+
+[	DEFB 0XFD , 0X06 , 0 , 0]
+00c818: fd 06 00 00
+
+[	DEFB 0XFD , 0X07 , 0 , 0]
+00c81c: fd 07 00 00
+
+[	DEFB 0XFD , 0X08 , 0 , 0]
+00c820: fd 08 00 00
+
+[	ADD IY , BC] Z80:17cyc, R800:2cyc
+00c824: fd 09
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c826: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c827: 00
+
+[	DEFB 0XFD , 0X0A , 0 , 0]
+00c828: fd 0a 00 00
+
+[	DEFB 0XFD , 0X0B , 0 , 0]
+00c82c: fd 0b 00 00
+
+[	DEFB 0XFD , 0X0C , 0 , 0]
+00c830: fd 0c 00 00
+
+[	DEFB 0XFD , 0X0D , 0 , 0]
+00c834: fd 0d 00 00
+
+[	DEFB 0XFD , 0X0E , 0 , 0]
+00c838: fd 0e 00 00
+
+[	DEFB 0XFD , 0X0F , 0 , 0]
+00c83c: fd 0f 00 00
+
+[	DEFB 0XFD , 0X10 , 0 , 0]
+00c840: fd 10 00 00
+
+[	DEFB 0XFD , 0X11 , 0 , 0]
+00c844: fd 11 00 00
+
+[	DEFB 0XFD , 0X12 , 0 , 0]
+00c848: fd 12 00 00
+
+[	DEFB 0XFD , 0X13 , 0 , 0]
+00c84c: fd 13 00 00
+
+[	DEFB 0XFD , 0X14 , 0 , 0]
+00c850: fd 14 00 00
+
+[	DEFB 0XFD , 0X15 , 0 , 0]
+00c854: fd 15 00 00
+
+[	DEFB 0XFD , 0X16 , 0 , 0]
+00c858: fd 16 00 00
+
+[	DEFB 0XFD , 0X17 , 0 , 0]
+00c85c: fd 17 00 00
+
+[	DEFB 0XFD , 0X18 , 0 , 0]
+00c860: fd 18 00 00
+
+[	ADD IY , DE] Z80:17cyc, R800:2cyc
+00c864: fd 19
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c866: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c867: 00
+
+[	DEFB 0XFD , 0X1A , 0 , 0]
+00c868: fd 1a 00 00
+
+[	DEFB 0XFD , 0X1B , 0 , 0]
+00c86c: fd 1b 00 00
+
+[	DEFB 0XFD , 0X1C , 0 , 0]
+00c870: fd 1c 00 00
+
+[	DEFB 0XFD , 0X1D , 0 , 0]
+00c874: fd 1d 00 00
+
+[	DEFB 0XFD , 0X1E , 0 , 0]
+00c878: fd 1e 00 00
+
+[	DEFB 0XFD , 0X1F , 0 , 0]
+00c87c: fd 1f 00 00
+
+[	DEFB 0XFD , 0X20 , 0 , 0]
+00c880: fd 20 00 00
+
+[	LD IY , 0X0000] Z80:16cyc, R800:4cyc
+00c884: fd 21 00 00
+
+[	LD [ 0X0000 ] , IY] Z80:22cyc, R800:8cyc
+00c888: fd 22 00 00
+
+[	INC IY] Z80:12cyc, R800:1cyc
+00c88c: fd 23
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c88e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c88f: 00
+
+[	INC IYH] Z80:10cyc, R800:2cyc
+00c890: fd 24
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c892: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c893: 00
+
+[	DEC IYH] Z80:10cyc, R800:2cyc
+00c894: fd 25
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c896: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c897: 00
+
+[	LD IYH , 0] Z80:13cyc, R800:3cyc
+00c898: fd 26 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c89b: 00
+
+[	DEFB 0XFD , 0X27 , 0 , 0]
+00c89c: fd 27 00 00
+
+[	DEFB 0XFD , 0X28 , 0 , 0]
+00c8a0: fd 28 00 00
+
+[	ADD IY , HL] Z80:17cyc, R800:2cyc
+00c8a4: fd 29
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8a7: 00
+
+[	LD IY , [ 0X0000 ]] Z80:22cyc, R800:8cyc
+00c8a8: fd 2a 00 00
+
+[	DEC IY] Z80:12cyc, R800:2cyc
+00c8ac: fd 2b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8af: 00
+
+[	INC IYL] Z80:10cyc, R800:2cyc
+00c8b0: fd 2c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8b3: 00
+
+[	DEC IYL] Z80:10cyc, R800:2cyc
+00c8b4: fd 2d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8b7: 00
+
+[	LD IYL , 0] Z80:13cyc, R800:3cyc
+00c8b8: fd 2e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8bb: 00
+
+[	DEFB 0XFD , 0X2F , 0 , 0]
+00c8bc: fd 2f 00 00
+
+[	DEFB 0XFD , 0X30 , 0 , 0]
+00c8c0: fd 30 00 00
+
+[	DEFB 0XFD , 0X31 , 0 , 0]
+00c8c4: fd 31 00 00
+
+[	DEFB 0XFD , 0X32 , 0 , 0]
+00c8c8: fd 32 00 00
+
+[	DEFB 0XFD , 0X33 , 0 , 0]
+00c8cc: fd 33 00 00
+
+[	INC [ IY + 0X00 ]] Z80:25cyc, R800:10cyc
+00c8d0: fd 34 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8d3: 00
+
+[	DEC [ IY + 0X00 ]] Z80:25cyc, R800:10cyc
+00c8d4: fd 35 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8d7: 00
+
+[	LD [ IY + 0X00 ] , 0X00] Z80:21cyc, R800:7cyc
+00c8d8: fd 36 00 00
+
+[	DEFB 0XFD , 0X37 , 0 , 0]
+00c8dc: fd 37 00 00
+
+[	DEFB 0XFD , 0X38 , 0 , 0]
+00c8e0: fd 38 00 00
+
+[	ADD IY , SP] Z80:17cyc, R800:2cyc
+00c8e4: fd 39
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8e6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c8e7: 00
+
+[	DEFB 0XFD , 0X3A , 0 , 0]
+00c8e8: fd 3a 00 00
+
+[	DEFB 0XFD , 0X3B , 0 , 0]
+00c8ec: fd 3b 00 00
+
+[	DEFB 0XFD , 0X3C , 0 , 0]
+00c8f0: fd 3c 00 00
+
+[	DEFB 0XFD , 0X3D , 0 , 0]
+00c8f4: fd 3d 00 00
+
+[	DEFB 0XFD , 0X3E , 0 , 0]
+00c8f8: fd 3e 00 00
+
+[	DEFB 0XFD , 0X3F , 0 , 0]
+00c8fc: fd 3f 00 00
+
+[	DEFB 0XFD , 0X40 , 0 , 0]
+00c900: fd 40 00 00
+
+[	DEFB 0XFD , 0X41 , 0 , 0]
+00c904: fd 41 00 00
+
+[	DEFB 0XFD , 0X42 , 0 , 0]
+00c908: fd 42 00 00
+
+[	DEFB 0XFD , 0X43 , 0 , 0]
+00c90c: fd 43 00 00
+
+[	LD B , IYH] Z80:10cyc, R800:2cyc
+00c910: fd 44
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c912: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c913: 00
+
+[	LD B , IYL] Z80:10cyc, R800:2cyc
+00c914: fd 45
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c916: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c917: 00
+
+[	LD B , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00c918: fd 46 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c91b: 00
+
+[	DEFB 0XFD , 0X47 , 0 , 0]
+00c91c: fd 47 00 00
+
+[	DEFB 0XFD , 0X48 , 0 , 0]
+00c920: fd 48 00 00
+
+[	DEFB 0XFD , 0X49 , 0 , 0]
+00c924: fd 49 00 00
+
+[	DEFB 0XFD , 0X4A , 0 , 0]
+00c928: fd 4a 00 00
+
+[	DEFB 0XFD , 0X4B , 0 , 0]
+00c92c: fd 4b 00 00
+
+[	LD C , IYH] Z80:10cyc, R800:2cyc
+00c930: fd 4c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c932: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c933: 00
+
+[	LD C , IYL] Z80:10cyc, R800:2cyc
+00c934: fd 4d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c936: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c937: 00
+
+[	LD C , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00c938: fd 4e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c93b: 00
+
+[	DEFB 0XFD , 0X4F , 0 , 0]
+00c93c: fd 4f 00 00
+
+[	DEFB 0XFD , 0X50 , 0 , 0]
+00c940: fd 50 00 00
+
+[	DEFB 0XFD , 0X51 , 0 , 0]
+00c944: fd 51 00 00
+
+[	DEFB 0XFD , 0X52 , 0 , 0]
+00c948: fd 52 00 00
+
+[	DEFB 0XFD , 0X53 , 0 , 0]
+00c94c: fd 53 00 00
+
+[	LD D , IYH] Z80:10cyc, R800:2cyc
+00c950: fd 54
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c952: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c953: 00
+
+[	LD D , IYL] Z80:10cyc, R800:2cyc
+00c954: fd 55
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c956: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c957: 00
+
+[	LD D , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00c958: fd 56 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c95b: 00
+
+[	DEFB 0XFD , 0X57 , 0 , 0]
+00c95c: fd 57 00 00
+
+[	DEFB 0XFD , 0X58 , 0 , 0]
+00c960: fd 58 00 00
+
+[	DEFB 0XFD , 0X59 , 0 , 0]
+00c964: fd 59 00 00
+
+[	DEFB 0XFD , 0X5A , 0 , 0]
+00c968: fd 5a 00 00
+
+[	DEFB 0XFD , 0X5B , 0 , 0]
+00c96c: fd 5b 00 00
+
+[	LD E , IYH] Z80:10cyc, R800:2cyc
+00c970: fd 5c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c972: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c973: 00
+
+[	LD E , IYL] Z80:10cyc, R800:2cyc
+00c974: fd 5d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c976: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c977: 00
+
+[	LD E , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00c978: fd 5e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c97b: 00
+
+[	DEFB 0XFD , 0X5F , 0 , 0]
+00c97c: fd 5f 00 00
+
+[	LD IYH , B] Z80:10cyc, R800:2cyc
+00c980: fd 60
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c982: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c983: 00
+
+[	LD IYH , C] Z80:10cyc, R800:2cyc
+00c984: fd 61
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c986: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c987: 00
+
+[	LD IYH , D] Z80:10cyc, R800:2cyc
+00c988: fd 62
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c98a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c98b: 00
+
+[	LD IYH , E] Z80:10cyc, R800:2cyc
+00c98c: fd 63
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c98e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c98f: 00
+
+[	LD IYH , H] Z80:10cyc, R800:2cyc
+00c990: fd 64
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c992: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c993: 00
+
+[	LD IYH , L] Z80:10cyc, R800:2cyc
+00c994: fd 65
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c996: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c997: 00
+
+[	LD H , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00c998: fd 66 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c99b: 00
+
+[	LD IYH , A] Z80:10cyc, R800:2cyc
+00c99c: fd 67
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c99e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c99f: 00
+
+[	LD IYL , B] Z80:10cyc, R800:2cyc
+00c9a0: fd 68
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9a2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9a3: 00
+
+[	LD IYL , C] Z80:10cyc, R800:2cyc
+00c9a4: fd 69
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9a7: 00
+
+[	LD IYL , D] Z80:10cyc, R800:2cyc
+00c9a8: fd 6a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9aa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9ab: 00
+
+[	LD IYL , E] Z80:10cyc, R800:2cyc
+00c9ac: fd 6b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9af: 00
+
+[	LD IYL , H] Z80:10cyc, R800:2cyc
+00c9b0: fd 6c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9b3: 00
+
+[	LD IYL , L] Z80:10cyc, R800:2cyc
+00c9b4: fd 6d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9b7: 00
+
+[	LD L , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00c9b8: fd 6e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9bb: 00
+
+[	LD IYL , A] Z80:10cyc, R800:2cyc
+00c9bc: fd 6f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9be: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9bf: 00
+
+[	LD [ IY + 0X00 ] , B] Z80:8cyc, R800:4cyc
+00c9c0: fd 70 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9c3: 00
+
+[	LD [ IY + 0X00 ] , C] Z80:8cyc, R800:4cyc
+00c9c4: fd 71 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9c7: 00
+
+[	LD [ IY + 0X00 ] , D] Z80:8cyc, R800:4cyc
+00c9c8: fd 72 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9cb: 00
+
+[	LD [ IY + 0X00 ] , E] Z80:8cyc, R800:4cyc
+00c9cc: fd 73 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9cf: 00
+
+[	LD [ IY + 0X00 ] , H] Z80:8cyc, R800:4cyc
+00c9d0: fd 74 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9d3: 00
+
+[	LD [ IY + 0X00 ] , L] Z80:8cyc, R800:4cyc
+00c9d4: fd 75 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9d7: 00
+
+[	DEFB 0XFD , 0X76 , 0 , 0]
+00c9d8: fd 76 00 00
+
+[	LD [ IY + 0X00 ] , A] Z80:8cyc, R800:4cyc
+00c9dc: fd 77 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9df: 00
+
+[	DEFB 0XFD , 0X78 , 0 , 0]
+00c9e0: fd 78 00 00
+
+[	DEFB 0XFD , 0X79 , 0 , 0]
+00c9e4: fd 79 00 00
+
+[	DEFB 0XFD , 0X7A , 0 , 0]
+00c9e8: fd 7a 00 00
+
+[	DEFB 0XFD , 0X7B , 0 , 0]
+00c9ec: fd 7b 00 00
+
+[	LD A , IYH] Z80:10cyc, R800:2cyc
+00c9f0: fd 7c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9f2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9f3: 00
+
+[	LD A , IYL] Z80:10cyc, R800:2cyc
+00c9f4: fd 7d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9f6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9f7: 00
+
+[	LD A , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00c9f8: fd 7e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00c9fb: 00
+
+[	DEFB 0XFD , 0X7F , 0 , 0]
+00c9fc: fd 7f 00 00
+
+[	DEFB 0XFD , 0X80 , 0 , 0]
+00ca00: fd 80 00 00
+
+[	DEFB 0XFD , 0X81 , 0 , 0]
+00ca04: fd 81 00 00
+
+[	DEFB 0XFD , 0X82 , 0 , 0]
+00ca08: fd 82 00 00
+
+[	DEFB 0XFD , 0X83 , 0 , 0]
+00ca0c: fd 83 00 00
+
+[	ADD A , IYH] Z80:10cyc, R800:2cyc
+00ca10: fd 84
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca12: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca13: 00
+
+[	ADD A , IYL] Z80:10cyc, R800:2cyc
+00ca14: fd 85
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca16: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca17: 00
+
+[	ADD A , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00ca18: fd 86 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca1b: 00
+
+[	DEFB 0XFD , 0X87 , 0 , 0]
+00ca1c: fd 87 00 00
+
+[	DEFB 0XFD , 0X88 , 0 , 0]
+00ca20: fd 88 00 00
+
+[	DEFB 0XFD , 0X89 , 0 , 0]
+00ca24: fd 89 00 00
+
+[	DEFB 0XFD , 0X8A , 0 , 0]
+00ca28: fd 8a 00 00
+
+[	DEFB 0XFD , 0X8B , 0 , 0]
+00ca2c: fd 8b 00 00
+
+[	ADC A , IYH] Z80:10cyc, R800:2cyc
+00ca30: fd 8c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca32: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca33: 00
+
+[	ADC A , IYL] Z80:10cyc, R800:2cyc
+00ca34: fd 8d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca36: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca37: 00
+
+[	ADC A , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00ca38: fd 8e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca3b: 00
+
+[	DEFB 0XFD , 0X8F , 0 , 0]
+00ca3c: fd 8f 00 00
+
+[	DEFB 0XFD , 0X90 , 0 , 0]
+00ca40: fd 90 00 00
+
+[	DEFB 0XFD , 0X91 , 0 , 0]
+00ca44: fd 91 00 00
+
+[	DEFB 0XFD , 0X92 , 0 , 0]
+00ca48: fd 92 00 00
+
+[	DEFB 0XFD , 0X93 , 0 , 0]
+00ca4c: fd 93 00 00
+
+[	SUB A , IYH] Z80:10cyc, R800:2cyc
+00ca50: fd 94
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca52: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca53: 00
+
+[	SUB A , IYL] Z80:10cyc, R800:2cyc
+00ca54: fd 95
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca56: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca57: 00
+
+[	SUB A , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00ca58: fd 96 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca5b: 00
+
+[	DEFB 0XFD , 0X97 , 0 , 0]
+00ca5c: fd 97 00 00
+
+[	DEFB 0XFD , 0X98 , 0 , 0]
+00ca60: fd 98 00 00
+
+[	DEFB 0XFD , 0X99 , 0 , 0]
+00ca64: fd 99 00 00
+
+[	DEFB 0XFD , 0X9A , 0 , 0]
+00ca68: fd 9a 00 00
+
+[	DEFB 0XFD , 0X9B , 0 , 0]
+00ca6c: fd 9b 00 00
+
+[	SBC A , IYH] Z80:10cyc, R800:2cyc
+00ca70: fd 9c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca72: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca73: 00
+
+[	SBC A , IYL] Z80:10cyc, R800:2cyc
+00ca74: fd 9d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca76: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca77: 00
+
+[	SBC A , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00ca78: fd 9e 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca7b: 00
+
+[	DEFB 0XFD , 0X9F , 0 , 0]
+00ca7c: fd 9f 00 00
+
+[	DEFB 0XFD , 0XA0 , 0 , 0]
+00ca80: fd a0 00 00
+
+[	DEFB 0XFD , 0XA1 , 0 , 0]
+00ca84: fd a1 00 00
+
+[	DEFB 0XFD , 0XA2 , 0 , 0]
+00ca88: fd a2 00 00
+
+[	DEFB 0XFD , 0XA3 , 0 , 0]
+00ca8c: fd a3 00 00
+
+[	AND A , IYH] Z80:10cyc, R800:2cyc
+00ca90: fd a4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca92: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca93: 00
+
+[	AND A , IYL] Z80:10cyc, R800:2cyc
+00ca94: fd a5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca96: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca97: 00
+
+[	AND A , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00ca98: fd a6 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ca9b: 00
+
+[	DEFB 0XFD , 0X97 , 0 , 0]
+00ca9c: fd 97 00 00
+
+[	DEFB 0XFD , 0X98 , 0 , 0]
+00caa0: fd 98 00 00
+
+[	DEFB 0XFD , 0X99 , 0 , 0]
+00caa4: fd 99 00 00
+
+[	DEFB 0XFD , 0X9A , 0 , 0]
+00caa8: fd 9a 00 00
+
+[	DEFB 0XFD , 0X9B , 0 , 0]
+00caac: fd 9b 00 00
+
+[	XOR A , IYH] Z80:10cyc, R800:2cyc
+00cab0: fd ac
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cab2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cab3: 00
+
+[	XOR A , IYL] Z80:10cyc, R800:2cyc
+00cab4: fd ad
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cab6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cab7: 00
+
+[	XOR A , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00cab8: fd ae 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cabb: 00
+
+[	DEFB 0XFD , 0XAF , 0 , 0]
+00cabc: fd af 00 00
+
+[	DEFB 0XFD , 0XB0 , 0 , 0]
+00cac0: fd b0 00 00
+
+[	DEFB 0XFD , 0XB1 , 0 , 0]
+00cac4: fd b1 00 00
+
+[	DEFB 0XFD , 0XB2 , 0 , 0]
+00cac8: fd b2 00 00
+
+[	DEFB 0XFD , 0XB3 , 0 , 0]
+00cacc: fd b3 00 00
+
+[	OR A , IYH] Z80:10cyc, R800:2cyc
+00cad0: fd b4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cad2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cad3: 00
+
+[	OR A , IYL] Z80:10cyc, R800:2cyc
+00cad4: fd b5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cad6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cad7: 00
+
+[	OR A , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00cad8: fd b6 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cadb: 00
+
+[	DEFB 0XFD , 0X97 , 0 , 0]
+00cadc: fd 97 00 00
+
+[	DEFB 0XFD , 0X98 , 0 , 0]
+00cae0: fd 98 00 00
+
+[	DEFB 0XFD , 0X99 , 0 , 0]
+00cae4: fd 99 00 00
+
+[	DEFB 0XFD , 0X9A , 0 , 0]
+00cae8: fd 9a 00 00
+
+[	DEFB 0XFD , 0X9B , 0 , 0]
+00caec: fd 9b 00 00
+
+[	CP A , IYH] Z80:10cyc, R800:2cyc
+00caf0: fd bc
+
+[	NOP] Z80:5cyc, R800:1cyc
+00caf2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00caf3: 00
+
+[	CP A , IYL] Z80:10cyc, R800:2cyc
+00caf4: fd bd
+
+[	NOP] Z80:5cyc, R800:1cyc
+00caf6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00caf7: 00
+
+[	CP A , [ IY + 0X00 ]] Z80:21cyc, R800:7cyc
+00caf8: fd be 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cafb: 00
+
+[	DEFB 0XFD , 0XBF , 0 , 0]
+00cafc: fd bf 00 00
+
+[	DEFB 0XFD , 0XC0 , 0 , 0]
+00cb00: fd c0 00 00
+
+[	DEFB 0XFD , 0XC1 , 0 , 0]
+00cb04: fd c1 00 00
+
+[	DEFB 0XFD , 0XC2 , 0 , 0]
+00cb08: fd c2 00 00
+
+[	DEFB 0XFD , 0XC3 , 0 , 0]
+00cb0c: fd c3 00 00
+
+[	DEFB 0XFD , 0XC4 , 0 , 0]
+00cb10: fd c4 00 00
+
+[	DEFB 0XFD , 0XC5 , 0 , 0]
+00cb14: fd c5 00 00
+
+[	DEFB 0XFD , 0XC6 , 0 , 0]
+00cb18: fd c6 00 00
+
+[	DEFB 0XFD , 0XC7 , 0 , 0]
+00cb1c: fd c7 00 00
+
+[	DEFB 0XFD , 0XC8 , 0 , 0]
+00cb20: fd c8 00 00
+
+[	DEFB 0XFD , 0XC9 , 0 , 0]
+00cb24: fd c9 00 00
+
+[	DEFB 0XFD , 0XCA , 0 , 0]
+00cb28: fd ca 00 00
+
+[	DEFB 0XFD , 0XCB , 0 , 0]
+00cb2c: fd cb 00 00
+
+[	DEFB 0XFD , 0XCC , 0 , 0]
+00cb30: fd cc 00 00
+
+[	DEFB 0XFD , 0XCD , 0 , 0]
+00cb34: fd cd 00 00
+
+[	DEFB 0XFD , 0XCE , 0 , 0]
+00cb38: fd ce 00 00
+
+[	DEFB 0XFD , 0XCF , 0 , 0]
+00cb3c: fd cf 00 00
+
+[	DEFB 0XFD , 0XE0 , 0 , 0]
+00cb40: fd e0 00 00
+
+[	POP IY] Z80:16cyc, R800:6cyc
+00cb44: fd e1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cb46: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cb47: 00
+
+[	DEFB 0XFD , 0XE2 , 0 , 0]
+00cb48: fd e2 00 00
+
+[	EX [ SP ] , IY] Z80:25cyc, R800:8cyc
+00cb4c: fd e3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cb4e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cb4f: 00
+
+[	DEFB 0XFD , 0XE4 , 0 , 0]
+00cb50: fd e4 00 00
+
+[	PUSH IY] Z80:17cyc, R800:7cyc
+00cb54: fd e5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cb56: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cb57: 00
+
+[	DEFB 0XFD , 0XE6 , 0 , 0]
+00cb58: fd e6 00 00
+
+[	DEFB 0XFD , 0XE7 , 0 , 0]
+00cb5c: fd e7 00 00
+
+[	DEFB 0XFD , 0XE8 , 0 , 0]
+00cb60: fd e8 00 00
+
+[	JP IY] Z80:10cyc, R800:4cyc
+00cb64: fd e9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cb66: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cb67: 00
+
+[	DEFB 0XFD , 0XEA , 0 , 0]
+00cb68: fd ea 00 00
+
+[	DEFB 0XFD , 0XEB , 0 , 0]
+00cb6c: fd eb 00 00
+
+[	DEFB 0XFD , 0XEC , 0 , 0]
+00cb70: fd ec 00 00
+
+[	DEFB 0XFD , 0XED , 0 , 0]
+00cb74: fd ed 00 00
+
+[	DEFB 0XFD , 0XEE , 0 , 0]
+00cb78: fd ee 00 00
+
+[	DEFB 0XFD , 0XEF , 0 , 0]
+00cb7c: fd ef 00 00
+
+[	DEFB 0XFD , 0XF0 , 0 , 0]
+00cb80: fd f0 00 00
+
+[	DEFB 0XFD , 0XF1 , 0 , 0]
+00cb84: fd f1 00 00
+
+[	DEFB 0XFD , 0XF2 , 0 , 0]
+00cb88: fd f2 00 00
+
+[	DEFB 0XFD , 0XF3 , 0 , 0]
+00cb8c: fd f3 00 00
+
+[	DEFB 0XFD , 0XF4 , 0 , 0]
+00cb90: fd f4 00 00
+
+[	DEFB 0XFD , 0XF5 , 0 , 0]
+00cb94: fd f5 00 00
+
+[	DEFB 0XFD , 0XF6 , 0 , 0]
+00cb98: fd f6 00 00
+
+[	DEFB 0XFD , 0XF7 , 0 , 0]
+00cb9c: fd f7 00 00
+
+[	DEFB 0XFD , 0XF8 , 0 , 0]
+00cba0: fd f8 00 00
+
+[	LD SP , IY] Z80:12cyc, R800:2cyc
+00cba4: fd f9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cba6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cba7: 00
+
+[	DEFB 0XFD , 0XFA , 0 , 0]
+00cba8: fd fa 00 00
+
+[	DEFB 0XFD , 0XFB , 0 , 0]
+00cbac: fd fb 00 00
+
+[	DEFB 0XFD , 0XFC , 0 , 0]
+00cbb0: fd fc 00 00
+
+[	DEFB 0XFD , 0XFD , 0 , 0]
+00cbb4: fd fd 00 00
+
+[	DEFB 0XFD , 0XFE , 0 , 0]
+00cbb8: fd fe 00 00
+
+[	DEFB 0XFD , 0XFF , 0 , 0]
+00cbbc: fd ff 00 00
+
+[	DEFB 0XED , 0X00 , 0 , 0]
+00cbc0: ed 00 00 00
+
+[	DEFB 0XED , 0X01 , 0 , 0]
+00cbc4: ed 01 00 00
+
+[	DEFB 0XED , 0X02 , 0 , 0]
+00cbc8: ed 02 00 00
+
+[	DEFB 0XED , 0X03 , 0 , 0]
+00cbcc: ed 03 00 00
+
+[	DEFB 0XED , 0X04 , 0 , 0]
+00cbd0: ed 04 00 00
+
+[	DEFB 0XED , 0X05 , 0 , 0]
+00cbd4: ed 05 00 00
+
+[	DEFB 0XED , 0X06 , 0 , 0]
+00cbd8: ed 06 00 00
+
+[	DEFB 0XED , 0X07 , 0 , 0]
+00cbdc: ed 07 00 00
+
+[	DEFB 0XED , 0X08 , 0 , 0]
+00cbe0: ed 08 00 00
+
+[	DEFB 0XED , 0X09 , 0 , 0]
+00cbe4: ed 09 00 00
+
+[	DEFB 0XED , 0X0A , 0 , 0]
+00cbe8: ed 0a 00 00
+
+[	DEFB 0XED , 0X0B , 0 , 0]
+00cbec: ed 0b 00 00
+
+[	DEFB 0XED , 0X0C , 0 , 0]
+00cbf0: ed 0c 00 00
+
+[	DEFB 0XED , 0X0D , 0 , 0]
+00cbf4: ed 0d 00 00
+
+[	DEFB 0XED , 0X0E , 0 , 0]
+00cbf8: ed 0e 00 00
+
+[	DEFB 0XED , 0X0F , 0 , 0]
+00cbfc: ed 0f 00 00
+
+[	DEFB 0XED , 0X10 , 0 , 0]
+00cc00: ed 10 00 00
+
+[	DEFB 0XED , 0X11 , 0 , 0]
+00cc04: ed 11 00 00
+
+[	DEFB 0XED , 0X12 , 0 , 0]
+00cc08: ed 12 00 00
+
+[	DEFB 0XED , 0X13 , 0 , 0]
+00cc0c: ed 13 00 00
+
+[	DEFB 0XED , 0X14 , 0 , 0]
+00cc10: ed 14 00 00
+
+[	DEFB 0XED , 0X15 , 0 , 0]
+00cc14: ed 15 00 00
+
+[	DEFB 0XED , 0X16 , 0 , 0]
+00cc18: ed 16 00 00
+
+[	DEFB 0XED , 0X17 , 0 , 0]
+00cc1c: ed 17 00 00
+
+[	DEFB 0XED , 0X18 , 0 , 0]
+00cc20: ed 18 00 00
+
+[	DEFB 0XED , 0X19 , 0 , 0]
+00cc24: ed 19 00 00
+
+[	DEFB 0XED , 0X1A , 0 , 0]
+00cc28: ed 1a 00 00
+
+[	DEFB 0XED , 0X1B , 0 , 0]
+00cc2c: ed 1b 00 00
+
+[	DEFB 0XED , 0X1C , 0 , 0]
+00cc30: ed 1c 00 00
+
+[	DEFB 0XED , 0X1D , 0 , 0]
+00cc34: ed 1d 00 00
+
+[	DEFB 0XED , 0X1E , 0 , 0]
+00cc38: ed 1e 00 00
+
+[	DEFB 0XED , 0X1F , 0 , 0]
+00cc3c: ed 1f 00 00
+
+[	DEFB 0XED , 0X20 , 0 , 0]
+00cc40: ed 20 00 00
+
+[	DEFB 0XED , 0X21 , 0 , 0]
+00cc44: ed 21 00 00
+
+[	DEFB 0XED , 0X22 , 0 , 0]
+00cc48: ed 22 00 00
+
+[	DEFB 0XED , 0X23 , 0 , 0]
+00cc4c: ed 23 00 00
+
+[	DEFB 0XED , 0X24 , 0 , 0]
+00cc50: ed 24 00 00
+
+[	DEFB 0XED , 0X25 , 0 , 0]
+00cc54: ed 25 00 00
+
+[	DEFB 0XED , 0X26 , 0 , 0]
+00cc58: ed 26 00 00
+
+[	DEFB 0XED , 0X27 , 0 , 0]
+00cc5c: ed 27 00 00
+
+[	DEFB 0XED , 0X28 , 0 , 0]
+00cc60: ed 28 00 00
+
+[	DEFB 0XED , 0X29 , 0 , 0]
+00cc64: ed 29 00 00
+
+[	DEFB 0XED , 0X2A , 0 , 0]
+00cc68: ed 2a 00 00
+
+[	DEFB 0XED , 0X2B , 0 , 0]
+00cc6c: ed 2b 00 00
+
+[	DEFB 0XED , 0X2C , 0 , 0]
+00cc70: ed 2c 00 00
+
+[	DEFB 0XED , 0X2D , 0 , 0]
+00cc74: ed 2d 00 00
+
+[	DEFB 0XED , 0X2E , 0 , 0]
+00cc78: ed 2e 00 00
+
+[	DEFB 0XED , 0X2F , 0 , 0]
+00cc7c: ed 2f 00 00
+
+[	DEFB 0XED , 0X30 , 0 , 0]
+00cc80: ed 30 00 00
+
+[	DEFB 0XED , 0X31 , 0 , 0]
+00cc84: ed 31 00 00
+
+[	DEFB 0XED , 0X32 , 0 , 0]
+00cc88: ed 32 00 00
+
+[	DEFB 0XED , 0X33 , 0 , 0]
+00cc8c: ed 33 00 00
+
+[	DEFB 0XED , 0X34 , 0 , 0]
+00cc90: ed 34 00 00
+
+[	DEFB 0XED , 0X35 , 0 , 0]
+00cc94: ed 35 00 00
+
+[	DEFB 0XED , 0X36 , 0 , 0]
+00cc98: ed 36 00 00
+
+[	DEFB 0XED , 0X37 , 0 , 0]
+00cc9c: ed 37 00 00
+
+[	DEFB 0XED , 0X38 , 0 , 0]
+00cca0: ed 38 00 00
+
+[	DEFB 0XED , 0X39 , 0 , 0]
+00cca4: ed 39 00 00
+
+[	DEFB 0XED , 0X3A , 0 , 0]
+00cca8: ed 3a 00 00
+
+[	DEFB 0XED , 0X3B , 0 , 0]
+00ccac: ed 3b 00 00
+
+[	DEFB 0XED , 0X3C , 0 , 0]
+00ccb0: ed 3c 00 00
+
+[	DEFB 0XED , 0X3D , 0 , 0]
+00ccb4: ed 3d 00 00
+
+[	DEFB 0XED , 0X3E , 0 , 0]
+00ccb8: ed 3e 00 00
+
+[	DEFB 0XED , 0X3F , 0 , 0]
+00ccbc: ed 3f 00 00
+
+[	IN B , [ C ]] Z80:14cyc, R800:10 or 9cyc
+00ccc0: ed 40
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccc2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccc3: 00
+
+[	OUT [ C ] , B] Z80:14cyc, R800:10 or 9cyc
+00ccc4: ed 41
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccc6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccc7: 00
+
+[	SBC HL , BC] Z80:17cyc, R800:2cyc
+00ccc8: ed 42
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccca: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cccb: 00
+
+[	LD [ 0X0000 ] , BC] Z80:22cyc, R800:8cyc
+00cccc: ed 43 00 00
+
+[	NEG] Z80:10cyc, R800:2cyc
+00ccd0: ed 44
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccd2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccd3: 00
+
+[	RETN] Z80:16cyc, R800:7cyc
+00ccd4: ed 45
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccd6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccd7: 00
+
+[	IM0] Z80:10cyc, R800:3cyc
+00ccd8: ed 46
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccda: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccdb: 00
+
+[	LD I , A] Z80:11cyc, R800:2cyc
+00ccdc: ed 47
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccde: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccdf: 00
+
+[	IN C , [ C ]] Z80:14cyc, R800:10 or 9cyc
+00cce0: ed 48
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cce2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cce3: 00
+
+[	OUT [ C ] , C] Z80:14cyc, R800:10 or 9cyc
+00cce4: ed 49
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cce6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cce7: 00
+
+[	ADC HL , BC] Z80:17cyc, R800:2cyc
+00cce8: ed 4a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccea: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cceb: 00
+
+[	LD BC , [ 0X0000 ]] Z80:22cyc, R800:8cyc
+00ccec: ed 4b 00 00
+
+[	DEFB 0XED , 0X4C , 0 , 0]
+00ccf0: ed 4c 00 00
+
+[	RETI] Z80:16cyc, R800:7cyc
+00ccf4: ed 4d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccf6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccf7: 00
+
+[	DEFB 0XED , 0X4E , 0 , 0]
+00ccf8: ed 4e 00 00
+
+[	LD R , A] Z80:11cyc, R800:2cyc
+00ccfc: ed 4f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccfe: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ccff: 00
+
+[	IN D , [ C ]] Z80:14cyc, R800:10 or 9cyc
+00cd00: ed 50
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd02: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd03: 00
+
+[	OUT [ C ] , D] Z80:14cyc, R800:10 or 9cyc
+00cd04: ed 51
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd06: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd07: 00
+
+[	SBC HL , DE] Z80:17cyc, R800:2cyc
+00cd08: ed 52
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd0a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd0b: 00
+
+[	LD [ 0X0000 ] , DE] Z80:22cyc, R800:8cyc
+00cd0c: ed 53 00 00
+
+[	DEFB 0XED , 0X54 , 0 , 0]
+00cd10: ed 54 00 00
+
+[	DEFB 0XED , 0X55 , 0 , 0]
+00cd14: ed 55 00 00
+
+[	IM1] Z80:10cyc, R800:3cyc
+00cd18: ed 56
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd1a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd1b: 00
+
+[	LD A , I] Z80:11cyc, R800:2cyc
+00cd1c: ed 57
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd1e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd1f: 00
+
+[	IN E , [ C ]] Z80:14cyc, R800:10 or 9cyc
+00cd20: ed 58
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd22: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd23: 00
+
+[	OUT [ C ] , E] Z80:14cyc, R800:10 or 9cyc
+00cd24: ed 59
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd26: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd27: 00
+
+[	ADC HL , DE] Z80:17cyc, R800:2cyc
+00cd28: ed 5a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd2a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd2b: 00
+
+[	LD DE , [ 0X0000 ]] Z80:22cyc, R800:8cyc
+00cd2c: ed 5b 00 00
+
+[	DEFB 0XED , 0X5C , 0 , 0]
+00cd30: ed 5c 00 00
+
+[	DEFB 0XED , 0X5D , 0 , 0]
+00cd34: ed 5d 00 00
+
+[	IM2] Z80:10cyc, R800:3cyc
+00cd38: ed 5e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd3a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd3b: 00
+
+[	LD A , R] Z80:11cyc, R800:2cyc
+00cd3c: ed 5f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd3e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd3f: 00
+
+[	IN H , [ C ]] Z80:14cyc, R800:10 or 9cyc
+00cd40: ed 60
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd42: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd43: 00
+
+[	OUT [ C ] , H] Z80:14cyc, R800:10 or 9cyc
+00cd44: ed 61
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd46: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd47: 00
+
+[	SBC HL , HL] Z80:17cyc, R800:2cyc
+00cd48: ed 62
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd4a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd4b: 00
+
+[	DEFB 0XED , 0X63 , 0 , 0]
+00cd4c: ed 63 00 00
+
+[	DEFB 0XED , 0X64 , 0 , 0]
+00cd50: ed 64 00 00
+
+[	DEFB 0XED , 0X65 , 0 , 0]
+00cd54: ed 65 00 00
+
+[	DEFB 0XED , 0X66 , 0 , 0]
+00cd58: ed 66 00 00
+
+[	RRD] Z80:20cyc, R800:8cyc
+00cd5c: ed 67
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd5e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd5f: 00
+
+[	IN L , [ C ]] Z80:14cyc, R800:10 or 9cyc
+00cd60: ed 68
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd62: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd63: 00
+
+[	OUT [ C ] , L] Z80:14cyc, R800:10 or 9cyc
+00cd64: ed 69
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd66: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd67: 00
+
+[	ADC HL , HL] Z80:17cyc, R800:2cyc
+00cd68: ed 6a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd6a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd6b: 00
+
+[	DEFB 0XED , 0X6B , 0 , 0]
+00cd6c: ed 6b 00 00
+
+[	DEFB 0XED , 0X6C , 0 , 0]
+00cd70: ed 6c 00 00
+
+[	DEFB 0XED , 0X6D , 0 , 0]
+00cd74: ed 6d 00 00
+
+[	DEFB 0XED , 0X6E , 0 , 0]
+00cd78: ed 6e 00 00
+
+[	RLD] Z80:20cyc, R800:8cyc
+00cd7c: ed 6f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd7e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd7f: 00
+
+[	DEFB 0XED , 0X70 , 0 , 0]
+00cd80: ed 70 00 00
+
+[	DEFB 0XED , 0X71 , 0 , 0]
+00cd84: ed 71 00 00
+
+[	SBC HL , SP] Z80:17cyc, R800:2cyc
+00cd88: ed 72
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd8a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cd8b: 00
+
+[	LD [ 0X0000 ] , SP] Z80:22cyc, R800:8cyc
+00cd8c: ed 73 00 00
+
+[	DEFB 0XED , 0X74 , 0 , 0]
+00cd90: ed 74 00 00
+
+[	DEFB 0XED , 0X75 , 0 , 0]
+00cd94: ed 75 00 00
+
+[	DEFB 0XED , 0X76 , 0 , 0]
+00cd98: ed 76 00 00
+
+[	DEFB 0XED , 0X77 , 0 , 0]
+00cd9c: ed 77 00 00
+
+[	IN A , [ C ]] Z80:14cyc, R800:10 or 9cyc
+00cda0: ed 78
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cda2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cda3: 00
+
+[	OUT [ C ] , A] Z80:14cyc, R800:10 or 9cyc
+00cda4: ed 79
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cda6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cda7: 00
+
+[	ADC HL , SP] Z80:17cyc, R800:2cyc
+00cda8: ed 7a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cdaa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cdab: 00
+
+[	LD SP , [ 0X0000 ]] Z80:22cyc, R800:8cyc
+00cdac: ed 7b 00 00
+
+[	DEFB 0XED , 0X7C , 0 , 0]
+00cdb0: ed 7c 00 00
+
+[	DEFB 0XED , 0X7D , 0 , 0]
+00cdb4: ed 7d 00 00
+
+[	DEFB 0XED , 0X7E , 0 , 0]
+00cdb8: ed 7e 00 00
+
+[	DEFB 0XED , 0X7F , 0 , 0]
+00cdbc: ed 7f 00 00
+
+[	DEFB 0XED , 0X80 , 0 , 0]
+00cdc0: ed 80 00 00
+
+[	DEFB 0XED , 0X81 , 0 , 0]
+00cdc4: ed 81 00 00
+
+[	DEFB 0XED , 0X82 , 0 , 0]
+00cdc8: ed 82 00 00
+
+[	DEFB 0XED , 0X83 , 0 , 0]
+00cdcc: ed 83 00 00
+
+[	DEFB 0XED , 0X84 , 0 , 0]
+00cdd0: ed 84 00 00
+
+[	DEFB 0XED , 0X85 , 0 , 0]
+00cdd4: ed 85 00 00
+
+[	DEFB 0XED , 0X86 , 0 , 0]
+00cdd8: ed 86 00 00
+
+[	DEFB 0XED , 0X87 , 0 , 0]
+00cddc: ed 87 00 00
+
+[	DEFB 0XED , 0X88 , 0 , 0]
+00cde0: ed 88 00 00
+
+[	DEFB 0XED , 0X89 , 0 , 0]
+00cde4: ed 89 00 00
+
+[	DEFB 0XED , 0X8A , 0 , 0]
+00cde8: ed 8a 00 00
+
+[	DEFB 0XED , 0X8B , 0 , 0]
+00cdec: ed 8b 00 00
+
+[	DEFB 0XED , 0X8C , 0 , 0]
+00cdf0: ed 8c 00 00
+
+[	DEFB 0XED , 0X8D , 0 , 0]
+00cdf4: ed 8d 00 00
+
+[	DEFB 0XED , 0X8E , 0 , 0]
+00cdf8: ed 8e 00 00
+
+[	DEFB 0XED , 0X8F , 0 , 0]
+00cdfc: ed 8f 00 00
+
+[	DEFB 0XED , 0X90 , 0 , 0]
+00ce00: ed 90 00 00
+
+[	DEFB 0XED , 0X91 , 0 , 0]
+00ce04: ed 91 00 00
+
+[	DEFB 0XED , 0X92 , 0 , 0]
+00ce08: ed 92 00 00
+
+[	DEFB 0XED , 0X93 , 0 , 0]
+00ce0c: ed 93 00 00
+
+[	DEFB 0XED , 0X94 , 0 , 0]
+00ce10: ed 94 00 00
+
+[	DEFB 0XED , 0X95 , 0 , 0]
+00ce14: ed 95 00 00
+
+[	DEFB 0XED , 0X96 , 0 , 0]
+00ce18: ed 96 00 00
+
+[	DEFB 0XED , 0X97 , 0 , 0]
+00ce1c: ed 97 00 00
+
+[	DEFB 0XED , 0X98 , 0 , 0]
+00ce20: ed 98 00 00
+
+[	DEFB 0XED , 0X99 , 0 , 0]
+00ce24: ed 99 00 00
+
+[	DEFB 0XED , 0X9A , 0 , 0]
+00ce28: ed 9a 00 00
+
+[	DEFB 0XED , 0X9B , 0 , 0]
+00ce2c: ed 9b 00 00
+
+[	DEFB 0XED , 0X9C , 0 , 0]
+00ce30: ed 9c 00 00
+
+[	DEFB 0XED , 0X9D , 0 , 0]
+00ce34: ed 9d 00 00
+
+[	DEFB 0XED , 0X9E , 0 , 0]
+00ce38: ed 9e 00 00
+
+[	DEFB 0XED , 0X9F , 0 , 0]
+00ce3c: ed 9f 00 00
+
+[	LDI] Z80:18cyc, R800:7cyc
+00ce40: ed a0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce42: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce43: 00
+
+[	CPI] Z80:18cyc, R800:6cyc
+00ce44: ed a1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce46: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce47: 00
+
+[	INI] Z80:18cyc, R800:12 or 11cyc
+00ce48: ed a2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce4a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce4b: 00
+
+[	OUTI] Z80:18cyc, R800:12 or 11cyc
+00ce4c: ed a3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce4e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce4f: 00
+
+[	DEFB 0XED , 0XA4 , 0 , 0]
+00ce50: ed a4 00 00
+
+[	DEFB 0XED , 0XA5 , 0 , 0]
+00ce54: ed a5 00 00
+
+[	DEFB 0XED , 0XA6 , 0 , 0]
+00ce58: ed a6 00 00
+
+[	DEFB 0XED , 0XA7 , 0 , 0]
+00ce5c: ed a7 00 00
+
+[	LDD] Z80:18cyc, R800:7cyc
+00ce60: ed a8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce62: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce63: 00
+
+[	CPD] Z80:18cyc, R800:6cyc
+00ce64: ed a9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce66: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce67: 00
+
+[	IND] Z80:18cyc, R800:12 or 11cyc
+00ce68: ed aa
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce6a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce6b: 00
+
+[	OUTD] Z80:18cyc, R800:12 or 11cyc
+00ce6c: ed ab
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce6e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce6f: 00
+
+[	DEFB 0XED , 0XAC , 0 , 0]
+00ce70: ed ac 00 00
+
+[	DEFB 0XED , 0XAD , 0 , 0]
+00ce74: ed ad 00 00
+
+[	DEFB 0XED , 0XAE , 0 , 0]
+00ce78: ed ae 00 00
+
+[	DEFB 0XED , 0XAF , 0 , 0]
+00ce7c: ed af 00 00
+
+[	LDIR] Z80:23cyc(BC!=0), 18cyc(BC=0), R800:?cyc(BC!=0), 7cyc(BC=0)
+00ce80: ed b0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce82: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce83: 00
+
+[	CPIR] Z80:23cyc(BC!=0 && A!=[HL]), 18cyc(others), R800:?cyc(BC!=0 && A!=[HL]), 8cyc(others)
+00ce84: ed b1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce86: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce87: 00
+
+[	INIR] Z80:23 or 18cyc, R800:? or 12 or 11cyc
+00ce88: ed b2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce8a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce8b: 00
+
+[	OTIR] Z80:23 or 18cyc, R800:? or 12 or 11cyc
+00ce8c: ed b3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce8e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ce8f: 00
+
+[	DEFB 0XED , 0XB4 , 0 , 0]
+00ce90: ed b4 00 00
+
+[	DEFB 0XED , 0XB5 , 0 , 0]
+00ce94: ed b5 00 00
+
+[	DEFB 0XED , 0XB6 , 0 , 0]
+00ce98: ed b6 00 00
+
+[	DEFB 0XED , 0XB7 , 0 , 0]
+00ce9c: ed b7 00 00
+
+[	LDDR] Z80:23cyc(BC!=0), 18cyc(BC=0), R800:?cyc(BC!=0), 7cyc(BC=0)
+00cea0: ed b8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cea2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cea3: 00
+
+[	CPDR] Z80:23cyc(BC!=0 && A!=[HL]), 18cyc(others), R800:?cyc(BC!=0 && A!=[HL]), 8cyc(others)
+00cea4: ed b9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cea6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cea7: 00
+
+[	INDR] Z80:23 or 18cyc, R800:? or 12 or 11cyc
+00cea8: ed ba
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ceaa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ceab: 00
+
+[	OTDR] Z80:23 or 18cyc, R800:? or 12 or 11cyc
+00ceac: ed bb
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ceae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ceaf: 00
+
+[	DEFB 0XED , 0XBC , 0 , 0]
+00ceb0: ed bc 00 00
+
+[	DEFB 0XED , 0XBD , 0 , 0]
+00ceb4: ed bd 00 00
+
+[	DEFB 0XED , 0XBE , 0 , 0]
+00ceb8: ed be 00 00
+
+[	DEFB 0XED , 0XBF , 0 , 0]
+00cebc: ed bf 00 00
+
+[	DEFB 0XED , 0XC0 , 0 , 0]
+00cec0: ed c0 00 00
+
+[	MULUB A , B] Z80:--, R800:14cyc
+00cec4: ed c1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cec6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cec7: 00
+
+[	DEFB 0XED , 0XC2 , 0 , 0]
+00cec8: ed c2 00 00
+
+[	MULUW HL , BC] Z80:--, R800:36cyc
+00cecc: ed c3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cece: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cecf: 00
+
+[	DEFB 0XED , 0XC4 , 0 , 0]
+00ced0: ed c4 00 00
+
+[	MULUW HL , SP] Z80:--, R800:36cyc
+00ced4: ed c5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ced6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00ced7: 00
+
+[	DEFB 0XED , 0XC6 , 0 , 0]
+00ced8: ed c6 00 00
+
+[	DEFB 0XED , 0XC7 , 0 , 0]
+00cedc: ed c7 00 00
+
+[	DEFB 0XED , 0XC8 , 0 , 0]
+00cee0: ed c8 00 00
+
+[	MULUB A , C] Z80:--, R800:14cyc
+00cee4: ed c9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cee6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cee7: 00
+
+[	DEFB 0XED , 0XCA , 0 , 0]
+00cee8: ed ca 00 00
+
+[	DEFB 0XED , 0XCB , 0 , 0]
+00ceec: ed cb 00 00
+
+[	DEFB 0XED , 0XCC , 0 , 0]
+00cef0: ed cc 00 00
+
+[	DEFB 0XED , 0XCD , 0 , 0]
+00cef4: ed cd 00 00
+
+[	DEFB 0XED , 0XCE , 0 , 0]
+00cef8: ed ce 00 00
+
+[	DEFB 0XED , 0XCF , 0 , 0]
+00cefc: ed cf 00 00
+
+[	DEFB 0XED , 0XD0 , 0 , 0]
+00cf00: ed d0 00 00
+
+[	MULUB A , D] Z80:--, R800:14cyc
+00cf04: ed d1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cf06: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cf07: 00
+
+[	DEFB 0XED , 0XD2 , 0 , 0]
+00cf08: ed d2 00 00
+
+[	DEFB 0XED , 0XD3 , 0 , 0]
+00cf0c: ed d3 00 00
+
+[	DEFB 0XED , 0XD4 , 0 , 0]
+00cf10: ed d4 00 00
+
+[	DEFB 0XED , 0XD5 , 0 , 0]
+00cf14: ed d5 00 00
+
+[	DEFB 0XED , 0XD6 , 0 , 0]
+00cf18: ed d6 00 00
+
+[	DEFB 0XED , 0XD7 , 0 , 0]
+00cf1c: ed d7 00 00
+
+[	DEFB 0XED , 0XD8 , 0 , 0]
+00cf20: ed d8 00 00
+
+[	MULUB A , E] Z80:--, R800:14cyc
+00cf24: ed d9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cf26: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cf27: 00
+
+[	DEFB 0XED , 0XDA , 0 , 0]
+00cf28: ed da 00 00
+
+[	DEFB 0XED , 0XDB , 0 , 0]
+00cf2c: ed db 00 00
+
+[	DEFB 0XED , 0XDC , 0 , 0]
+00cf30: ed dc 00 00
+
+[	DEFB 0XED , 0XDD , 0 , 0]
+00cf34: ed dd 00 00
+
+[	DEFB 0XED , 0XDE , 0 , 0]
+00cf38: ed de 00 00
+
+[	DEFB 0XED , 0XDF , 0 , 0]
+00cf3c: ed df 00 00
+
+[	DEFB 0XED , 0XE0 , 0 , 0]
+00cf40: ed e0 00 00
+
+[	DEFB 0XED , 0XE1 , 0 , 0]
+00cf44: ed e1 00 00
+
+[	DEFB 0XED , 0XE2 , 0 , 0]
+00cf48: ed e2 00 00
+
+[	DEFB 0XED , 0XE3 , 0 , 0]
+00cf4c: ed e3 00 00
+
+[	DEFB 0XED , 0XE4 , 0 , 0]
+00cf50: ed e4 00 00
+
+[	DEFB 0XED , 0XE5 , 0 , 0]
+00cf54: ed e5 00 00
+
+[	DEFB 0XED , 0XE6 , 0 , 0]
+00cf58: ed e6 00 00
+
+[	DEFB 0XED , 0XE7 , 0 , 0]
+00cf5c: ed e7 00 00
+
+[	DEFB 0XED , 0XE8 , 0 , 0]
+00cf60: ed e8 00 00
+
+[	DEFB 0XED , 0XE9 , 0 , 0]
+00cf64: ed e9 00 00
+
+[	DEFB 0XED , 0XEA , 0 , 0]
+00cf68: ed ea 00 00
+
+[	DEFB 0XED , 0XEB , 0 , 0]
+00cf6c: ed eb 00 00
+
+[	DEFB 0XED , 0XEC , 0 , 0]
+00cf70: ed ec 00 00
+
+[	DEFB 0XED , 0XED , 0 , 0]
+00cf74: ed ed 00 00
+
+[	DEFB 0XED , 0XEE , 0 , 0]
+00cf78: ed ee 00 00
+
+[	DEFB 0XED , 0XEF , 0 , 0]
+00cf7c: ed ef 00 00
+
+[	DEFB 0XED , 0XF0 , 0 , 0]
+00cf80: ed f0 00 00
+
+[	DEFB 0XED , 0XF1 , 0 , 0]
+00cf84: ed f1 00 00
+
+[	DEFB 0XED , 0XF2 , 0 , 0]
+00cf88: ed f2 00 00
+
+[	DEFB 0XED , 0XF3 , 0 , 0]
+00cf8c: ed f3 00 00
+
+[	DEFB 0XED , 0XF4 , 0 , 0]
+00cf90: ed f4 00 00
+
+[	DEFB 0XED , 0XF5 , 0 , 0]
+00cf94: ed f5 00 00
+
+[	DEFB 0XED , 0XF6 , 0 , 0]
+00cf98: ed f6 00 00
+
+[	DEFB 0XED , 0XF7 , 0 , 0]
+00cf9c: ed f7 00 00
+
+[	DEFB 0XED , 0XF8 , 0 , 0]
+00cfa0: ed f8 00 00
+
+[	DEFB 0XED , 0XF9 , 0 , 0]
+00cfa4: ed f9 00 00
+
+[	DEFB 0XED , 0XFA , 0 , 0]
+00cfa8: ed fa 00 00
+
+[	DEFB 0XED , 0XFB , 0 , 0]
+00cfac: ed fb 00 00
+
+[	DEFB 0XED , 0XFC , 0 , 0]
+00cfb0: ed fc 00 00
+
+[	DEFB 0XED , 0XFD , 0 , 0]
+00cfb4: ed fd 00 00
+
+[	DEFB 0XED , 0XFE , 0 , 0]
+00cfb8: ed fe 00 00
+
+[	DEFB 0XED , 0XFF , 0 , 0]
+00cfbc: ed ff 00 00
+
+[	RLC B] Z80:10cyc, R800:2cyc
+00cfc0: cb 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfc2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfc3: 00
+
+[	RLC C] Z80:10cyc, R800:2cyc
+00cfc4: cb 01
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfc6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfc7: 00
+
+[	RLC D] Z80:10cyc, R800:2cyc
+00cfc8: cb 02
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfca: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfcb: 00
+
+[	RLC E] Z80:10cyc, R800:2cyc
+00cfcc: cb 03
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfce: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfcf: 00
+
+[	RLC H] Z80:10cyc, R800:2cyc
+00cfd0: cb 04
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfd2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfd3: 00
+
+[	RLC L] Z80:10cyc, R800:2cyc
+00cfd4: cb 05
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfd6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfd7: 00
+
+[	RLC [ HL ]] Z80:17cyc, R800:8cyc
+00cfd8: cb 06
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfda: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfdb: 00
+
+[	RLC A] Z80:10cyc, R800:2cyc
+00cfdc: cb 07
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfde: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfdf: 00
+
+[	RRC B] Z80:10cyc, R800:2cyc
+00cfe0: cb 08
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfe2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfe3: 00
+
+[	RRC C] Z80:10cyc, R800:2cyc
+00cfe4: cb 09
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfe6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfe7: 00
+
+[	RRC D] Z80:10cyc, R800:2cyc
+00cfe8: cb 0a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfea: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfeb: 00
+
+[	RRC E] Z80:10cyc, R800:2cyc
+00cfec: cb 0b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfee: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfef: 00
+
+[	RRC H] Z80:10cyc, R800:2cyc
+00cff0: cb 0c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cff2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cff3: 00
+
+[	RRC L] Z80:10cyc, R800:2cyc
+00cff4: cb 0d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cff6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cff7: 00
+
+[	RRC [ HL ]] Z80:17cyc, R800:8cyc
+00cff8: cb 0e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cffa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cffb: 00
+
+[	RRC A] Z80:10cyc, R800:2cyc
+00cffc: cb 0f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cffe: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00cfff: 00
+
+[	RL B] Z80:10cyc, R800:2cyc
+00d000: cb 10
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d002: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d003: 00
+
+[	RL C] Z80:10cyc, R800:2cyc
+00d004: cb 11
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d006: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d007: 00
+
+[	RL D] Z80:10cyc, R800:2cyc
+00d008: cb 12
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d00a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d00b: 00
+
+[	RL E] Z80:10cyc, R800:2cyc
+00d00c: cb 13
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d00e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d00f: 00
+
+[	RL H] Z80:10cyc, R800:2cyc
+00d010: cb 14
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d012: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d013: 00
+
+[	RL L] Z80:10cyc, R800:2cyc
+00d014: cb 15
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d016: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d017: 00
+
+[	RL [ HL ]] Z80:17cyc, R800:8cyc
+00d018: cb 16
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d01a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d01b: 00
+
+[	RL A] Z80:10cyc, R800:2cyc
+00d01c: cb 17
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d01e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d01f: 00
+
+[	RR B] Z80:10cyc, R800:2cyc
+00d020: cb 18
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d022: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d023: 00
+
+[	RR C] Z80:10cyc, R800:2cyc
+00d024: cb 19
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d026: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d027: 00
+
+[	RR D] Z80:10cyc, R800:2cyc
+00d028: cb 1a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d02a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d02b: 00
+
+[	RR E] Z80:10cyc, R800:2cyc
+00d02c: cb 1b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d02e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d02f: 00
+
+[	RR H] Z80:10cyc, R800:2cyc
+00d030: cb 1c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d032: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d033: 00
+
+[	RR L] Z80:10cyc, R800:2cyc
+00d034: cb 1d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d036: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d037: 00
+
+[	RR [ HL ]] Z80:17cyc, R800:8cyc
+00d038: cb 1e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d03a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d03b: 00
+
+[	RR A] Z80:10cyc, R800:2cyc
+00d03c: cb 1f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d03e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d03f: 00
+
+[	SLA B] Z80:10cyc, R800:2cyc
+00d040: cb 20
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d042: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d043: 00
+
+[	SLA C] Z80:10cyc, R800:2cyc
+00d044: cb 21
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d046: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d047: 00
+
+[	SLA D] Z80:10cyc, R800:2cyc
+00d048: cb 22
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d04a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d04b: 00
+
+[	SLA E] Z80:10cyc, R800:2cyc
+00d04c: cb 23
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d04e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d04f: 00
+
+[	SLA H] Z80:10cyc, R800:2cyc
+00d050: cb 24
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d052: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d053: 00
+
+[	SLA L] Z80:10cyc, R800:2cyc
+00d054: cb 25
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d056: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d057: 00
+
+[	SLA [ HL ]] Z80:17cyc, R800:8cyc
+00d058: cb 26
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d05a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d05b: 00
+
+[	SLA A] Z80:10cyc, R800:2cyc
+00d05c: cb 27
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d05e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d05f: 00
+
+[	SRA B] Z80:10cyc, R800:2cyc
+00d060: cb 28
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d062: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d063: 00
+
+[	SRA C] Z80:10cyc, R800:2cyc
+00d064: cb 29
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d066: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d067: 00
+
+[	SRA D] Z80:10cyc, R800:2cyc
+00d068: cb 2a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d06a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d06b: 00
+
+[	SRA E] Z80:10cyc, R800:2cyc
+00d06c: cb 2b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d06e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d06f: 00
+
+[	SRA H] Z80:10cyc, R800:2cyc
+00d070: cb 2c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d072: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d073: 00
+
+[	SRA L] Z80:10cyc, R800:2cyc
+00d074: cb 2d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d076: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d077: 00
+
+[	SRA [ HL ]] Z80:17cyc, R800:8cyc
+00d078: cb 2e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d07a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d07b: 00
+
+[	SRA A] Z80:10cyc, R800:2cyc
+00d07c: cb 2f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d07e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d07f: 00
+
+[	DEFB 0XCB , 0X30 , 0 , 0]
+00d080: cb 30 00 00
+
+[	DEFB 0XCB , 0X31 , 0 , 0]
+00d084: cb 31 00 00
+
+[	DEFB 0XCB , 0X32 , 0 , 0]
+00d088: cb 32 00 00
+
+[	DEFB 0XCB , 0X33 , 0 , 0]
+00d08c: cb 33 00 00
+
+[	DEFB 0XCB , 0X34 , 0 , 0]
+00d090: cb 34 00 00
+
+[	DEFB 0XCB , 0X35 , 0 , 0]
+00d094: cb 35 00 00
+
+[	DEFB 0XCB , 0X36 , 0 , 0]
+00d098: cb 36 00 00
+
+[	DEFB 0XCB , 0X37 , 0 , 0]
+00d09c: cb 37 00 00
+
+[	SRL B] Z80:10cyc, R800:2cyc
+00d0a0: cb 38
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0a2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0a3: 00
+
+[	SRL C] Z80:10cyc, R800:2cyc
+00d0a4: cb 39
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0a7: 00
+
+[	SRL D] Z80:10cyc, R800:2cyc
+00d0a8: cb 3a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0aa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0ab: 00
+
+[	SRL E] Z80:10cyc, R800:2cyc
+00d0ac: cb 3b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0af: 00
+
+[	SRL H] Z80:10cyc, R800:2cyc
+00d0b0: cb 3c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0b3: 00
+
+[	SRL L] Z80:10cyc, R800:2cyc
+00d0b4: cb 3d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0b7: 00
+
+[	SRL [ HL ]] Z80:17cyc, R800:8cyc
+00d0b8: cb 3e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0ba: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0bb: 00
+
+[	SRL A] Z80:10cyc, R800:2cyc
+00d0bc: cb 3f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0be: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0bf: 00
+
+[	BIT 0 , B] Z80:10cyc, R800:2cyc
+00d0c0: cb 40
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0c2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0c3: 00
+
+[	BIT 0 , C] Z80:10cyc, R800:2cyc
+00d0c4: cb 41
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0c6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0c7: 00
+
+[	BIT 0 , D] Z80:10cyc, R800:2cyc
+00d0c8: cb 42
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0ca: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0cb: 00
+
+[	BIT 0 , E] Z80:10cyc, R800:2cyc
+00d0cc: cb 43
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0ce: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0cf: 00
+
+[	BIT 0 , H] Z80:10cyc, R800:2cyc
+00d0d0: cb 44
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0d2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0d3: 00
+
+[	BIT 0 , L] Z80:10cyc, R800:2cyc
+00d0d4: cb 45
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0d6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0d7: 00
+
+[	BIT 0 , [ HL ]] Z80:14cyc, R800:5cyc
+00d0d8: cb 46
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0da: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0db: 00
+
+[	BIT 0 , A] Z80:10cyc, R800:2cyc
+00d0dc: cb 47
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0de: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0df: 00
+
+[	BIT 1 , B] Z80:10cyc, R800:2cyc
+00d0e0: cb 48
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0e2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0e3: 00
+
+[	BIT 1 , C] Z80:10cyc, R800:2cyc
+00d0e4: cb 49
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0e6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0e7: 00
+
+[	BIT 1 , D] Z80:10cyc, R800:2cyc
+00d0e8: cb 4a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0ea: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0eb: 00
+
+[	BIT 1 , E] Z80:10cyc, R800:2cyc
+00d0ec: cb 4b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0ee: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0ef: 00
+
+[	BIT 1 , H] Z80:10cyc, R800:2cyc
+00d0f0: cb 4c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0f2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0f3: 00
+
+[	BIT 1 , L] Z80:10cyc, R800:2cyc
+00d0f4: cb 4d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0f6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0f7: 00
+
+[	BIT 1 , [ HL ]] Z80:14cyc, R800:5cyc
+00d0f8: cb 4e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0fa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0fb: 00
+
+[	BIT 1 , A] Z80:10cyc, R800:2cyc
+00d0fc: cb 4f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0fe: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d0ff: 00
+
+[	BIT 2 , B] Z80:10cyc, R800:2cyc
+00d100: cb 50
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d102: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d103: 00
+
+[	BIT 2 , C] Z80:10cyc, R800:2cyc
+00d104: cb 51
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d106: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d107: 00
+
+[	BIT 2 , D] Z80:10cyc, R800:2cyc
+00d108: cb 52
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d10a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d10b: 00
+
+[	BIT 2 , E] Z80:10cyc, R800:2cyc
+00d10c: cb 53
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d10e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d10f: 00
+
+[	BIT 2 , H] Z80:10cyc, R800:2cyc
+00d110: cb 54
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d112: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d113: 00
+
+[	BIT 2 , L] Z80:10cyc, R800:2cyc
+00d114: cb 55
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d116: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d117: 00
+
+[	BIT 2 , [ HL ]] Z80:14cyc, R800:5cyc
+00d118: cb 56
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d11a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d11b: 00
+
+[	BIT 2 , A] Z80:10cyc, R800:2cyc
+00d11c: cb 57
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d11e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d11f: 00
+
+[	BIT 3 , B] Z80:10cyc, R800:2cyc
+00d120: cb 58
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d122: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d123: 00
+
+[	BIT 3 , C] Z80:10cyc, R800:2cyc
+00d124: cb 59
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d126: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d127: 00
+
+[	BIT 3 , D] Z80:10cyc, R800:2cyc
+00d128: cb 5a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d12a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d12b: 00
+
+[	BIT 3 , E] Z80:10cyc, R800:2cyc
+00d12c: cb 5b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d12e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d12f: 00
+
+[	BIT 3 , H] Z80:10cyc, R800:2cyc
+00d130: cb 5c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d132: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d133: 00
+
+[	BIT 3 , L] Z80:10cyc, R800:2cyc
+00d134: cb 5d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d136: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d137: 00
+
+[	BIT 3 , [ HL ]] Z80:14cyc, R800:5cyc
+00d138: cb 5e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d13a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d13b: 00
+
+[	BIT 3 , A] Z80:10cyc, R800:2cyc
+00d13c: cb 5f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d13e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d13f: 00
+
+[	BIT 4 , B] Z80:10cyc, R800:2cyc
+00d140: cb 60
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d142: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d143: 00
+
+[	BIT 4 , C] Z80:10cyc, R800:2cyc
+00d144: cb 61
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d146: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d147: 00
+
+[	BIT 4 , D] Z80:10cyc, R800:2cyc
+00d148: cb 62
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d14a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d14b: 00
+
+[	BIT 4 , E] Z80:10cyc, R800:2cyc
+00d14c: cb 63
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d14e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d14f: 00
+
+[	BIT 4 , H] Z80:10cyc, R800:2cyc
+00d150: cb 64
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d152: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d153: 00
+
+[	BIT 4 , L] Z80:10cyc, R800:2cyc
+00d154: cb 65
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d156: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d157: 00
+
+[	BIT 4 , [ HL ]] Z80:14cyc, R800:5cyc
+00d158: cb 66
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d15a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d15b: 00
+
+[	BIT 4 , A] Z80:10cyc, R800:2cyc
+00d15c: cb 67
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d15e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d15f: 00
+
+[	BIT 5 , B] Z80:10cyc, R800:2cyc
+00d160: cb 68
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d162: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d163: 00
+
+[	BIT 5 , C] Z80:10cyc, R800:2cyc
+00d164: cb 69
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d166: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d167: 00
+
+[	BIT 5 , D] Z80:10cyc, R800:2cyc
+00d168: cb 6a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d16a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d16b: 00
+
+[	BIT 5 , E] Z80:10cyc, R800:2cyc
+00d16c: cb 6b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d16e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d16f: 00
+
+[	BIT 5 , H] Z80:10cyc, R800:2cyc
+00d170: cb 6c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d172: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d173: 00
+
+[	BIT 5 , L] Z80:10cyc, R800:2cyc
+00d174: cb 6d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d176: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d177: 00
+
+[	BIT 5 , [ HL ]] Z80:14cyc, R800:5cyc
+00d178: cb 6e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d17a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d17b: 00
+
+[	BIT 5 , A] Z80:10cyc, R800:2cyc
+00d17c: cb 6f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d17e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d17f: 00
+
+[	BIT 6 , B] Z80:10cyc, R800:2cyc
+00d180: cb 70
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d182: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d183: 00
+
+[	BIT 6 , C] Z80:10cyc, R800:2cyc
+00d184: cb 71
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d186: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d187: 00
+
+[	BIT 6 , D] Z80:10cyc, R800:2cyc
+00d188: cb 72
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d18a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d18b: 00
+
+[	BIT 6 , E] Z80:10cyc, R800:2cyc
+00d18c: cb 73
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d18e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d18f: 00
+
+[	BIT 6 , H] Z80:10cyc, R800:2cyc
+00d190: cb 74
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d192: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d193: 00
+
+[	BIT 6 , L] Z80:10cyc, R800:2cyc
+00d194: cb 75
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d196: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d197: 00
+
+[	BIT 6 , [ HL ]] Z80:14cyc, R800:5cyc
+00d198: cb 76
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d19a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d19b: 00
+
+[	BIT 6 , A] Z80:10cyc, R800:2cyc
+00d19c: cb 77
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d19e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d19f: 00
+
+[	BIT 7 , B] Z80:10cyc, R800:2cyc
+00d1a0: cb 78
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1a2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1a3: 00
+
+[	BIT 7 , C] Z80:10cyc, R800:2cyc
+00d1a4: cb 79
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1a7: 00
+
+[	BIT 7 , D] Z80:10cyc, R800:2cyc
+00d1a8: cb 7a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1aa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1ab: 00
+
+[	BIT 7 , E] Z80:10cyc, R800:2cyc
+00d1ac: cb 7b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1af: 00
+
+[	BIT 7 , H] Z80:10cyc, R800:2cyc
+00d1b0: cb 7c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1b3: 00
+
+[	BIT 7 , L] Z80:10cyc, R800:2cyc
+00d1b4: cb 7d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1b7: 00
+
+[	BIT 7 , [ HL ]] Z80:14cyc, R800:5cyc
+00d1b8: cb 7e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1ba: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1bb: 00
+
+[	BIT 7 , A] Z80:10cyc, R800:2cyc
+00d1bc: cb 7f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1be: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1bf: 00
+
+[	RES 0 , B] Z80:10cyc, R800:2cyc
+00d1c0: cb 80
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1c2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1c3: 00
+
+[	RES 0 , C] Z80:10cyc, R800:2cyc
+00d1c4: cb 81
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1c6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1c7: 00
+
+[	RES 0 , D] Z80:10cyc, R800:2cyc
+00d1c8: cb 82
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1ca: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1cb: 00
+
+[	RES 0 , E] Z80:10cyc, R800:2cyc
+00d1cc: cb 83
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1ce: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1cf: 00
+
+[	RES 0 , H] Z80:10cyc, R800:2cyc
+00d1d0: cb 84
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1d2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1d3: 00
+
+[	RES 0 , L] Z80:10cyc, R800:2cyc
+00d1d4: cb 85
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1d6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1d7: 00
+
+[	RES 0 , [ HL ]] Z80:17cyc, R800:8cyc
+00d1d8: cb 86
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1da: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1db: 00
+
+[	RES 0 , A] Z80:10cyc, R800:2cyc
+00d1dc: cb 87
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1de: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1df: 00
+
+[	RES 1 , B] Z80:10cyc, R800:2cyc
+00d1e0: cb 88
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1e2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1e3: 00
+
+[	RES 1 , C] Z80:10cyc, R800:2cyc
+00d1e4: cb 89
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1e6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1e7: 00
+
+[	RES 1 , D] Z80:10cyc, R800:2cyc
+00d1e8: cb 8a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1ea: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1eb: 00
+
+[	RES 1 , E] Z80:10cyc, R800:2cyc
+00d1ec: cb 8b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1ee: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1ef: 00
+
+[	RES 1 , H] Z80:10cyc, R800:2cyc
+00d1f0: cb 8c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1f2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1f3: 00
+
+[	RES 1 , L] Z80:10cyc, R800:2cyc
+00d1f4: cb 8d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1f6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1f7: 00
+
+[	RES 1 , [ HL ]] Z80:17cyc, R800:8cyc
+00d1f8: cb 8e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1fa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1fb: 00
+
+[	RES 1 , A] Z80:10cyc, R800:2cyc
+00d1fc: cb 8f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1fe: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d1ff: 00
+
+[	RES 2 , B] Z80:10cyc, R800:2cyc
+00d200: cb 90
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d202: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d203: 00
+
+[	RES 2 , C] Z80:10cyc, R800:2cyc
+00d204: cb 91
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d206: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d207: 00
+
+[	RES 2 , D] Z80:10cyc, R800:2cyc
+00d208: cb 92
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d20a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d20b: 00
+
+[	RES 2 , E] Z80:10cyc, R800:2cyc
+00d20c: cb 93
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d20e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d20f: 00
+
+[	RES 2 , H] Z80:10cyc, R800:2cyc
+00d210: cb 94
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d212: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d213: 00
+
+[	RES 2 , L] Z80:10cyc, R800:2cyc
+00d214: cb 95
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d216: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d217: 00
+
+[	RES 2 , [ HL ]] Z80:17cyc, R800:8cyc
+00d218: cb 96
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d21a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d21b: 00
+
+[	RES 2 , A] Z80:10cyc, R800:2cyc
+00d21c: cb 97
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d21e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d21f: 00
+
+[	RES 3 , B] Z80:10cyc, R800:2cyc
+00d220: cb 98
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d222: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d223: 00
+
+[	RES 3 , C] Z80:10cyc, R800:2cyc
+00d224: cb 99
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d226: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d227: 00
+
+[	RES 3 , D] Z80:10cyc, R800:2cyc
+00d228: cb 9a
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d22a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d22b: 00
+
+[	RES 3 , E] Z80:10cyc, R800:2cyc
+00d22c: cb 9b
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d22e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d22f: 00
+
+[	RES 3 , H] Z80:10cyc, R800:2cyc
+00d230: cb 9c
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d232: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d233: 00
+
+[	RES 3 , L] Z80:10cyc, R800:2cyc
+00d234: cb 9d
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d236: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d237: 00
+
+[	RES 3 , [ HL ]] Z80:17cyc, R800:8cyc
+00d238: cb 9e
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d23a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d23b: 00
+
+[	RES 3 , A] Z80:10cyc, R800:2cyc
+00d23c: cb 9f
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d23e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d23f: 00
+
+[	RES 4 , B] Z80:10cyc, R800:2cyc
+00d240: cb a0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d242: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d243: 00
+
+[	RES 4 , C] Z80:10cyc, R800:2cyc
+00d244: cb a1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d246: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d247: 00
+
+[	RES 4 , D] Z80:10cyc, R800:2cyc
+00d248: cb a2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d24a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d24b: 00
+
+[	RES 4 , E] Z80:10cyc, R800:2cyc
+00d24c: cb a3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d24e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d24f: 00
+
+[	RES 4 , H] Z80:10cyc, R800:2cyc
+00d250: cb a4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d252: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d253: 00
+
+[	RES 4 , L] Z80:10cyc, R800:2cyc
+00d254: cb a5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d256: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d257: 00
+
+[	RES 4 , [ HL ]] Z80:17cyc, R800:8cyc
+00d258: cb a6
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d25a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d25b: 00
+
+[	RES 4 , A] Z80:10cyc, R800:2cyc
+00d25c: cb a7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d25e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d25f: 00
+
+[	RES 5 , B] Z80:10cyc, R800:2cyc
+00d260: cb a8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d262: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d263: 00
+
+[	RES 5 , C] Z80:10cyc, R800:2cyc
+00d264: cb a9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d266: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d267: 00
+
+[	RES 5 , D] Z80:10cyc, R800:2cyc
+00d268: cb aa
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d26a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d26b: 00
+
+[	RES 5 , E] Z80:10cyc, R800:2cyc
+00d26c: cb ab
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d26e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d26f: 00
+
+[	RES 5 , H] Z80:10cyc, R800:2cyc
+00d270: cb ac
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d272: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d273: 00
+
+[	RES 5 , L] Z80:10cyc, R800:2cyc
+00d274: cb ad
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d276: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d277: 00
+
+[	RES 5 , [ HL ]] Z80:17cyc, R800:8cyc
+00d278: cb ae
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d27a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d27b: 00
+
+[	RES 5 , A] Z80:10cyc, R800:2cyc
+00d27c: cb af
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d27e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d27f: 00
+
+[	RES 6 , B] Z80:10cyc, R800:2cyc
+00d280: cb b0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d282: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d283: 00
+
+[	RES 6 , C] Z80:10cyc, R800:2cyc
+00d284: cb b1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d286: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d287: 00
+
+[	RES 6 , D] Z80:10cyc, R800:2cyc
+00d288: cb b2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d28a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d28b: 00
+
+[	RES 6 , E] Z80:10cyc, R800:2cyc
+00d28c: cb b3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d28e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d28f: 00
+
+[	RES 6 , H] Z80:10cyc, R800:2cyc
+00d290: cb b4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d292: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d293: 00
+
+[	RES 6 , L] Z80:10cyc, R800:2cyc
+00d294: cb b5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d296: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d297: 00
+
+[	RES 6 , [ HL ]] Z80:17cyc, R800:8cyc
+00d298: cb b6
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d29a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d29b: 00
+
+[	RES 6 , A] Z80:10cyc, R800:2cyc
+00d29c: cb b7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d29e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d29f: 00
+
+[	RES 7 , B] Z80:10cyc, R800:2cyc
+00d2a0: cb b8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2a2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2a3: 00
+
+[	RES 7 , C] Z80:10cyc, R800:2cyc
+00d2a4: cb b9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2a7: 00
+
+[	RES 7 , D] Z80:10cyc, R800:2cyc
+00d2a8: cb ba
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2aa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2ab: 00
+
+[	RES 7 , E] Z80:10cyc, R800:2cyc
+00d2ac: cb bb
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2af: 00
+
+[	RES 7 , H] Z80:10cyc, R800:2cyc
+00d2b0: cb bc
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2b3: 00
+
+[	RES 7 , L] Z80:10cyc, R800:2cyc
+00d2b4: cb bd
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2b7: 00
+
+[	RES 7 , [ HL ]] Z80:17cyc, R800:8cyc
+00d2b8: cb be
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2ba: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2bb: 00
+
+[	RES 7 , A] Z80:10cyc, R800:2cyc
+00d2bc: cb bf
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2be: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2bf: 00
+
+[	SET 0 , B] Z80:10cyc, R800:2cyc
+00d2c0: cb c0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2c2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2c3: 00
+
+[	SET 0 , C] Z80:10cyc, R800:2cyc
+00d2c4: cb c1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2c6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2c7: 00
+
+[	SET 0 , D] Z80:10cyc, R800:2cyc
+00d2c8: cb c2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2ca: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2cb: 00
+
+[	SET 0 , E] Z80:10cyc, R800:2cyc
+00d2cc: cb c3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2ce: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2cf: 00
+
+[	SET 0 , H] Z80:10cyc, R800:2cyc
+00d2d0: cb c4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2d2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2d3: 00
+
+[	SET 0 , L] Z80:10cyc, R800:2cyc
+00d2d4: cb c5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2d6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2d7: 00
+
+[	SET 0 , [ HL ]] Z80:17cyc, R800:8cyc
+00d2d8: cb c6
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2da: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2db: 00
+
+[	SET 0 , A] Z80:10cyc, R800:2cyc
+00d2dc: cb c7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2de: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2df: 00
+
+[	SET 1 , B] Z80:10cyc, R800:2cyc
+00d2e0: cb c8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2e2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2e3: 00
+
+[	SET 1 , C] Z80:10cyc, R800:2cyc
+00d2e4: cb c9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2e6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2e7: 00
+
+[	SET 1 , D] Z80:10cyc, R800:2cyc
+00d2e8: cb ca
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2ea: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2eb: 00
+
+[	SET 1 , E] Z80:10cyc, R800:2cyc
+00d2ec: cb cb
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2ee: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2ef: 00
+
+[	SET 1 , H] Z80:10cyc, R800:2cyc
+00d2f0: cb cc
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2f2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2f3: 00
+
+[	SET 1 , L] Z80:10cyc, R800:2cyc
+00d2f4: cb cd
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2f6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2f7: 00
+
+[	SET 1 , [ HL ]] Z80:17cyc, R800:8cyc
+00d2f8: cb ce
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2fa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2fb: 00
+
+[	SET 1 , A] Z80:10cyc, R800:2cyc
+00d2fc: cb cf
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2fe: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d2ff: 00
+
+[	SET 2 , B] Z80:10cyc, R800:2cyc
+00d300: cb d0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d302: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d303: 00
+
+[	SET 2 , C] Z80:10cyc, R800:2cyc
+00d304: cb d1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d306: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d307: 00
+
+[	SET 2 , D] Z80:10cyc, R800:2cyc
+00d308: cb d2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d30a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d30b: 00
+
+[	SET 2 , E] Z80:10cyc, R800:2cyc
+00d30c: cb d3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d30e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d30f: 00
+
+[	SET 2 , H] Z80:10cyc, R800:2cyc
+00d310: cb d4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d312: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d313: 00
+
+[	SET 2 , L] Z80:10cyc, R800:2cyc
+00d314: cb d5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d316: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d317: 00
+
+[	SET 2 , [ HL ]] Z80:17cyc, R800:8cyc
+00d318: cb d6
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d31a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d31b: 00
+
+[	SET 2 , A] Z80:10cyc, R800:2cyc
+00d31c: cb d7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d31e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d31f: 00
+
+[	SET 3 , B] Z80:10cyc, R800:2cyc
+00d320: cb d8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d322: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d323: 00
+
+[	SET 3 , C] Z80:10cyc, R800:2cyc
+00d324: cb d9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d326: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d327: 00
+
+[	SET 3 , D] Z80:10cyc, R800:2cyc
+00d328: cb da
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d32a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d32b: 00
+
+[	SET 3 , E] Z80:10cyc, R800:2cyc
+00d32c: cb db
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d32e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d32f: 00
+
+[	SET 3 , H] Z80:10cyc, R800:2cyc
+00d330: cb dc
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d332: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d333: 00
+
+[	SET 3 , L] Z80:10cyc, R800:2cyc
+00d334: cb dd
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d336: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d337: 00
+
+[	SET 3 , [ HL ]] Z80:17cyc, R800:8cyc
+00d338: cb de
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d33a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d33b: 00
+
+[	SET 3 , A] Z80:10cyc, R800:2cyc
+00d33c: cb df
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d33e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d33f: 00
+
+[	SET 4 , B] Z80:10cyc, R800:2cyc
+00d340: cb e0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d342: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d343: 00
+
+[	SET 4 , C] Z80:10cyc, R800:2cyc
+00d344: cb e1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d346: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d347: 00
+
+[	SET 4 , D] Z80:10cyc, R800:2cyc
+00d348: cb e2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d34a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d34b: 00
+
+[	SET 4 , E] Z80:10cyc, R800:2cyc
+00d34c: cb e3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d34e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d34f: 00
+
+[	SET 4 , H] Z80:10cyc, R800:2cyc
+00d350: cb e4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d352: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d353: 00
+
+[	SET 4 , L] Z80:10cyc, R800:2cyc
+00d354: cb e5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d356: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d357: 00
+
+[	SET 4 , [ HL ]] Z80:17cyc, R800:8cyc
+00d358: cb e6
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d35a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d35b: 00
+
+[	SET 4 , A] Z80:10cyc, R800:2cyc
+00d35c: cb e7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d35e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d35f: 00
+
+[	SET 5 , B] Z80:10cyc, R800:2cyc
+00d360: cb e8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d362: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d363: 00
+
+[	SET 5 , C] Z80:10cyc, R800:2cyc
+00d364: cb e9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d366: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d367: 00
+
+[	SET 5 , D] Z80:10cyc, R800:2cyc
+00d368: cb ea
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d36a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d36b: 00
+
+[	SET 5 , E] Z80:10cyc, R800:2cyc
+00d36c: cb eb
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d36e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d36f: 00
+
+[	SET 5 , H] Z80:10cyc, R800:2cyc
+00d370: cb ec
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d372: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d373: 00
+
+[	SET 5 , L] Z80:10cyc, R800:2cyc
+00d374: cb ed
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d376: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d377: 00
+
+[	SET 5 , [ HL ]] Z80:17cyc, R800:8cyc
+00d378: cb ee
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d37a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d37b: 00
+
+[	SET 5 , A] Z80:10cyc, R800:2cyc
+00d37c: cb ef
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d37e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d37f: 00
+
+[	SET 6 , B] Z80:10cyc, R800:2cyc
+00d380: cb f0
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d382: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d383: 00
+
+[	SET 6 , C] Z80:10cyc, R800:2cyc
+00d384: cb f1
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d386: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d387: 00
+
+[	SET 6 , D] Z80:10cyc, R800:2cyc
+00d388: cb f2
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d38a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d38b: 00
+
+[	SET 6 , E] Z80:10cyc, R800:2cyc
+00d38c: cb f3
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d38e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d38f: 00
+
+[	SET 6 , H] Z80:10cyc, R800:2cyc
+00d390: cb f4
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d392: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d393: 00
+
+[	SET 6 , L] Z80:10cyc, R800:2cyc
+00d394: cb f5
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d396: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d397: 00
+
+[	SET 6 , [ HL ]] Z80:17cyc, R800:8cyc
+00d398: cb f6
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d39a: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d39b: 00
+
+[	SET 6 , A] Z80:10cyc, R800:2cyc
+00d39c: cb f7
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d39e: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d39f: 00
+
+[	SET 7 , B] Z80:10cyc, R800:2cyc
+00d3a0: cb f8
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3a2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3a3: 00
+
+[	SET 7 , C] Z80:10cyc, R800:2cyc
+00d3a4: cb f9
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3a6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3a7: 00
+
+[	SET 7 , D] Z80:10cyc, R800:2cyc
+00d3a8: cb fa
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3aa: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3ab: 00
+
+[	SET 7 , E] Z80:10cyc, R800:2cyc
+00d3ac: cb fb
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3ae: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3af: 00
+
+[	SET 7 , H] Z80:10cyc, R800:2cyc
+00d3b0: cb fc
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3b2: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3b3: 00
+
+[	SET 7 , L] Z80:10cyc, R800:2cyc
+00d3b4: cb fd
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3b6: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3b7: 00
+
+[	SET 7 , [ HL ]] Z80:17cyc, R800:8cyc
+00d3b8: cb fe
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3ba: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3bb: 00
+
+[	SET 7 , A] Z80:10cyc, R800:2cyc
+00d3bc: cb ff
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3be: 00
+
+[	NOP] Z80:5cyc, R800:1cyc
+00d3bf: 00
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X00]
+00d3c0: dd cb 00 00
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X01]
+00d3c4: dd cb 00 01
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X02]
+00d3c8: dd cb 00 02
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X03]
+00d3cc: dd cb 00 03
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X04]
+00d3d0: dd cb 00 04
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X05]
+00d3d4: dd cb 00 05
+
+[	RLC [ IX + 0X00 ]] Z80:25cyc, R800:10cyc
+00d3d8: dd cb 00 06
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X07]
+00d3dc: dd cb 00 07
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X08]
+00d3e0: dd cb 00 08
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X09]
+00d3e4: dd cb 00 09
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X0A]
+00d3e8: dd cb 00 0a
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X0B]
+00d3ec: dd cb 00 0b
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X0C]
+00d3f0: dd cb 00 0c
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X0D]
+00d3f4: dd cb 00 0d
+
+[	RRC [ IX + 0X00 ]] Z80:25cyc, R800:10cyc
+00d3f8: dd cb 00 0e
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X0F]
+00d3fc: dd cb 00 0f
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X10]
+00d400: dd cb 00 10
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X11]
+00d404: dd cb 00 11
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X12]
+00d408: dd cb 00 12
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X13]
+00d40c: dd cb 00 13
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X14]
+00d410: dd cb 00 14
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X15]
+00d414: dd cb 00 15
+
+[	RL [ IX + 0X00 ]] Z80:25cyc, R800:10cyc
+00d418: dd cb 00 16
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X17]
+00d41c: dd cb 00 17
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X18]
+00d420: dd cb 00 18
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X19]
+00d424: dd cb 00 19
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X1A]
+00d428: dd cb 00 1a
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X1B]
+00d42c: dd cb 00 1b
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X1C]
+00d430: dd cb 00 1c
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X1D]
+00d434: dd cb 00 1d
+
+[	RR [ IX + 0X00 ]] Z80:25cyc, R800:10cyc
+00d438: dd cb 00 1e
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X1F]
+00d43c: dd cb 00 1f
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X20]
+00d440: dd cb 00 20
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X21]
+00d444: dd cb 00 21
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X22]
+00d448: dd cb 00 22
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X23]
+00d44c: dd cb 00 23
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X24]
+00d450: dd cb 00 24
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X25]
+00d454: dd cb 00 25
+
+[	SLA [ IX + 0X00 ]] Z80:25cyc, R800:10cyc
+00d458: dd cb 00 26
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X27]
+00d45c: dd cb 00 27
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X28]
+00d460: dd cb 00 28
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X29]
+00d464: dd cb 00 29
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X2A]
+00d468: dd cb 00 2a
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X2B]
+00d46c: dd cb 00 2b
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X2C]
+00d470: dd cb 00 2c
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X2D]
+00d474: dd cb 00 2d
+
+[	SRA [ IX + 0X00 ]] Z80:25cyc, R800:10cyc
+00d478: dd cb 00 2e
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X2F]
+00d47c: dd cb 00 2f
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X30]
+00d480: dd cb 00 30
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X31]
+00d484: dd cb 00 31
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X32]
+00d488: dd cb 00 32
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X33]
+00d48c: dd cb 00 33
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X34]
+00d490: dd cb 00 34
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X35]
+00d494: dd cb 00 35
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X36]
+00d498: dd cb 00 36
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X37]
+00d49c: dd cb 00 37
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X38]
+00d4a0: dd cb 00 38
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X39]
+00d4a4: dd cb 00 39
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X3A]
+00d4a8: dd cb 00 3a
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X3B]
+00d4ac: dd cb 00 3b
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X3C]
+00d4b0: dd cb 00 3c
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X3D]
+00d4b4: dd cb 00 3d
+
+[	SRL [ IX + 0X00 ]] Z80:25cyc, R800:10cyc
+00d4b8: dd cb 00 3e
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X3F]
+00d4bc: dd cb 00 3f
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X40]
+00d4c0: dd cb 00 40
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X41]
+00d4c4: dd cb 00 41
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X42]
+00d4c8: dd cb 00 42
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X43]
+00d4cc: dd cb 00 43
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X44]
+00d4d0: dd cb 00 44
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X45]
+00d4d4: dd cb 00 45
+
+[	BIT 0 , [ IX + 0 ]] Z80:22cyc, R800:7cyc
+00d4d8: dd cb 00 46
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X47]
+00d4dc: dd cb 00 47
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X48]
+00d4e0: dd cb 00 48
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X49]
+00d4e4: dd cb 00 49
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X4A]
+00d4e8: dd cb 00 4a
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X4B]
+00d4ec: dd cb 00 4b
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X4C]
+00d4f0: dd cb 00 4c
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X4D]
+00d4f4: dd cb 00 4d
+
+[	BIT 1 , [ IX + 0 ]] Z80:22cyc, R800:7cyc
+00d4f8: dd cb 00 4e
+
+[	DEFB 0XDD , 0XCB , 0X4F , 0X00]
+00d4fc: dd cb 4f 00
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X50]
+00d500: dd cb 00 50
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X51]
+00d504: dd cb 00 51
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X52]
+00d508: dd cb 00 52
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X53]
+00d50c: dd cb 00 53
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X54]
+00d510: dd cb 00 54
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X55]
+00d514: dd cb 00 55
+
+[	BIT 2 , [ IX + 0 ]] Z80:22cyc, R800:7cyc
+00d518: dd cb 00 56
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X57]
+00d51c: dd cb 00 57
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X58]
+00d520: dd cb 00 58
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X59]
+00d524: dd cb 00 59
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X5A]
+00d528: dd cb 00 5a
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X5B]
+00d52c: dd cb 00 5b
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X5C]
+00d530: dd cb 00 5c
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X5D]
+00d534: dd cb 00 5d
+
+[	BIT 3 , [ IX + 0 ]] Z80:22cyc, R800:7cyc
+00d538: dd cb 00 5e
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X5F]
+00d53c: dd cb 00 5f
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X60]
+00d540: dd cb 00 60
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X61]
+00d544: dd cb 00 61
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X62]
+00d548: dd cb 00 62
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X63]
+00d54c: dd cb 00 63
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X64]
+00d550: dd cb 00 64
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X65]
+00d554: dd cb 00 65
+
+[	BIT 4 , [ IX + 0 ]] Z80:22cyc, R800:7cyc
+00d558: dd cb 00 66
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X67]
+00d55c: dd cb 00 67
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X68]
+00d560: dd cb 00 68
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X69]
+00d564: dd cb 00 69
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X6A]
+00d568: dd cb 00 6a
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X6B]
+00d56c: dd cb 00 6b
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X6C]
+00d570: dd cb 00 6c
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X6D]
+00d574: dd cb 00 6d
+
+[	BIT 5 , [ IX + 0 ]] Z80:22cyc, R800:7cyc
+00d578: dd cb 00 6e
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X6F]
+00d57c: dd cb 00 6f
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X70]
+00d580: dd cb 00 70
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X71]
+00d584: dd cb 00 71
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X72]
+00d588: dd cb 00 72
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X73]
+00d58c: dd cb 00 73
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X74]
+00d590: dd cb 00 74
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X75]
+00d594: dd cb 00 75
+
+[	BIT 6 , [ IX + 0 ]] Z80:22cyc, R800:7cyc
+00d598: dd cb 00 76
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X77]
+00d59c: dd cb 00 77
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X78]
+00d5a0: dd cb 00 78
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X79]
+00d5a4: dd cb 00 79
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X7A]
+00d5a8: dd cb 00 7a
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X7B]
+00d5ac: dd cb 00 7b
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X7C]
+00d5b0: dd cb 00 7c
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X7D]
+00d5b4: dd cb 00 7d
+
+[	BIT 7 , [ IX + 0 ]] Z80:22cyc, R800:7cyc
+00d5b8: dd cb 00 7e
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X7F]
+00d5bc: dd cb 00 7f
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X80]
+00d5c0: dd cb 00 80
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X81]
+00d5c4: dd cb 00 81
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X82]
+00d5c8: dd cb 00 82
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X83]
+00d5cc: dd cb 00 83
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X84]
+00d5d0: dd cb 00 84
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X85]
+00d5d4: dd cb 00 85
+
+[	RES 0 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d5d8: dd cb 00 86
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X87]
+00d5dc: dd cb 00 87
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X88]
+00d5e0: dd cb 00 88
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X89]
+00d5e4: dd cb 00 89
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X8A]
+00d5e8: dd cb 00 8a
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X8B]
+00d5ec: dd cb 00 8b
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X8C]
+00d5f0: dd cb 00 8c
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X8D]
+00d5f4: dd cb 00 8d
+
+[	RES 1 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d5f8: dd cb 00 8e
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X8F]
+00d5fc: dd cb 00 8f
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X90]
+00d600: dd cb 00 90
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X91]
+00d604: dd cb 00 91
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X92]
+00d608: dd cb 00 92
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X93]
+00d60c: dd cb 00 93
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X94]
+00d610: dd cb 00 94
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X95]
+00d614: dd cb 00 95
+
+[	RES 2 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d618: dd cb 00 96
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X97]
+00d61c: dd cb 00 97
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X98]
+00d620: dd cb 00 98
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X99]
+00d624: dd cb 00 99
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X9A]
+00d628: dd cb 00 9a
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X9B]
+00d62c: dd cb 00 9b
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X9C]
+00d630: dd cb 00 9c
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X9D]
+00d634: dd cb 00 9d
+
+[	RES 3 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d638: dd cb 00 9e
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0X9F]
+00d63c: dd cb 00 9f
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XA0]
+00d640: dd cb 00 a0
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XA1]
+00d644: dd cb 00 a1
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XA2]
+00d648: dd cb 00 a2
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XA3]
+00d64c: dd cb 00 a3
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XA4]
+00d650: dd cb 00 a4
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XA5]
+00d654: dd cb 00 a5
+
+[	RES 4 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d658: dd cb 00 a6
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XA7]
+00d65c: dd cb 00 a7
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XA8]
+00d660: dd cb 00 a8
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XA9]
+00d664: dd cb 00 a9
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XAA]
+00d668: dd cb 00 aa
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XAB]
+00d66c: dd cb 00 ab
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XAC]
+00d670: dd cb 00 ac
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XAD]
+00d674: dd cb 00 ad
+
+[	RES 5 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d678: dd cb 00 ae
+
+[	DEFB 0XDD , 0XCB , 0XAF , 0X00]
+00d67c: dd cb af 00
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XB0]
+00d680: dd cb 00 b0
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XB1]
+00d684: dd cb 00 b1
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XB2]
+00d688: dd cb 00 b2
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XB3]
+00d68c: dd cb 00 b3
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XB4]
+00d690: dd cb 00 b4
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XB5]
+00d694: dd cb 00 b5
+
+[	RES 6 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d698: dd cb 00 b6
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XB7]
+00d69c: dd cb 00 b7
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XB8]
+00d6a0: dd cb 00 b8
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XB9]
+00d6a4: dd cb 00 b9
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XBA]
+00d6a8: dd cb 00 ba
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XBB]
+00d6ac: dd cb 00 bb
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XBC]
+00d6b0: dd cb 00 bc
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XBD]
+00d6b4: dd cb 00 bd
+
+[	RES 7 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d6b8: dd cb 00 be
+
+[	DEFB 0XDD , 0XCB , 0XBF , 0X00]
+00d6bc: dd cb bf 00
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XC0]
+00d6c0: dd cb 00 c0
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XC1]
+00d6c4: dd cb 00 c1
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XC2]
+00d6c8: dd cb 00 c2
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XC3]
+00d6cc: dd cb 00 c3
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XC4]
+00d6d0: dd cb 00 c4
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XC5]
+00d6d4: dd cb 00 c5
+
+[	SET 0 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d6d8: dd cb 00 c6
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XC7]
+00d6dc: dd cb 00 c7
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XC8]
+00d6e0: dd cb 00 c8
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XC9]
+00d6e4: dd cb 00 c9
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XCA]
+00d6e8: dd cb 00 ca
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XCB]
+00d6ec: dd cb 00 cb
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XCC]
+00d6f0: dd cb 00 cc
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XCD]
+00d6f4: dd cb 00 cd
+
+[	SET 1 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d6f8: dd cb 00 ce
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XCF]
+00d6fc: dd cb 00 cf
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XD0]
+00d700: dd cb 00 d0
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XD1]
+00d704: dd cb 00 d1
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XD2]
+00d708: dd cb 00 d2
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XD3]
+00d70c: dd cb 00 d3
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XD4]
+00d710: dd cb 00 d4
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XD5]
+00d714: dd cb 00 d5
+
+[	SET 2 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d718: dd cb 00 d6
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XD7]
+00d71c: dd cb 00 d7
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XD8]
+00d720: dd cb 00 d8
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XD9]
+00d724: dd cb 00 d9
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XDA]
+00d728: dd cb 00 da
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XDB]
+00d72c: dd cb 00 db
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XDC]
+00d730: dd cb 00 dc
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XDD]
+00d734: dd cb 00 dd
+
+[	SET 3 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d738: dd cb 00 de
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XDF]
+00d73c: dd cb 00 df
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XE0]
+00d740: dd cb 00 e0
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XE1]
+00d744: dd cb 00 e1
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XE2]
+00d748: dd cb 00 e2
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XE3]
+00d74c: dd cb 00 e3
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XE4]
+00d750: dd cb 00 e4
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XE5]
+00d754: dd cb 00 e5
+
+[	SET 4 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d758: dd cb 00 e6
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XE7]
+00d75c: dd cb 00 e7
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XE8]
+00d760: dd cb 00 e8
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XE9]
+00d764: dd cb 00 e9
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XEA]
+00d768: dd cb 00 ea
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XEB]
+00d76c: dd cb 00 eb
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XEC]
+00d770: dd cb 00 ec
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XED]
+00d774: dd cb 00 ed
+
+[	SET 5 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d778: dd cb 00 ee
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XEF]
+00d77c: dd cb 00 ef
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XF0]
+00d780: dd cb 00 f0
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XF1]
+00d784: dd cb 00 f1
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XF2]
+00d788: dd cb 00 f2
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XF3]
+00d78c: dd cb 00 f3
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XF4]
+00d790: dd cb 00 f4
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XF5]
+00d794: dd cb 00 f5
+
+[	SET 6 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d798: dd cb 00 f6
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XF7]
+00d79c: dd cb 00 f7
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XF8]
+00d7a0: dd cb 00 f8
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XF9]
+00d7a4: dd cb 00 f9
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XFA]
+00d7a8: dd cb 00 fa
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XFB]
+00d7ac: dd cb 00 fb
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XFC]
+00d7b0: dd cb 00 fc
+
+[	DEFB 0XDD , 0XCB , 0X00 , 0XFD]
+00d7b4: dd cb 00 fd
+
+[	SET 7 , [ IX + 0 ]] Z80:25cyc, R800:10cyc
+00d7b8: dd cb 00 fe
+
+[	DEFB 0XDD , 0XCB , 0XFF , 0X00]
+00d7bc: dd cb ff 00
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X00]
+00d7c0: fd cb 00 00
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X01]
+00d7c4: fd cb 00 01
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X02]
+00d7c8: fd cb 00 02
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X03]
+00d7cc: fd cb 00 03
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X04]
+00d7d0: fd cb 00 04
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X05]
+00d7d4: fd cb 00 05
+
+[	RLC [ IY + 0X00 ]] Z80:25cyc, R800:10cyc
+00d7d8: fd cb 00 06
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X07]
+00d7dc: fd cb 00 07
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X08]
+00d7e0: fd cb 00 08
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X09]
+00d7e4: fd cb 00 09
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X0A]
+00d7e8: fd cb 00 0a
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X0B]
+00d7ec: fd cb 00 0b
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X0C]
+00d7f0: fd cb 00 0c
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X0D]
+00d7f4: fd cb 00 0d
+
+[	RRC [ IY + 0X00 ]] Z80:25cyc, R800:10cyc
+00d7f8: fd cb 00 0e
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X0F]
+00d7fc: fd cb 00 0f
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X10]
+00d800: fd cb 00 10
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X11]
+00d804: fd cb 00 11
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X12]
+00d808: fd cb 00 12
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X13]
+00d80c: fd cb 00 13
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X14]
+00d810: fd cb 00 14
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X15]
+00d814: fd cb 00 15
+
+[	RL [ IY + 0X00 ]] Z80:25cyc, R800:10cyc
+00d818: fd cb 00 16
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X17]
+00d81c: fd cb 00 17
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X18]
+00d820: fd cb 00 18
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X19]
+00d824: fd cb 00 19
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X1A]
+00d828: fd cb 00 1a
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X1B]
+00d82c: fd cb 00 1b
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X1C]
+00d830: fd cb 00 1c
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X1D]
+00d834: fd cb 00 1d
+
+[	RR [ IY + 0X00 ]] Z80:25cyc, R800:10cyc
+00d838: fd cb 00 1e
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X1F]
+00d83c: fd cb 00 1f
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X20]
+00d840: fd cb 00 20
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X21]
+00d844: fd cb 00 21
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X22]
+00d848: fd cb 00 22
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X23]
+00d84c: fd cb 00 23
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X24]
+00d850: fd cb 00 24
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X25]
+00d854: fd cb 00 25
+
+[	SLA [ IY + 0X00 ]] Z80:25cyc, R800:10cyc
+00d858: fd cb 00 26
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X27]
+00d85c: fd cb 00 27
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X28]
+00d860: fd cb 00 28
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X29]
+00d864: fd cb 00 29
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X2A]
+00d868: fd cb 00 2a
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X2B]
+00d86c: fd cb 00 2b
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X2C]
+00d870: fd cb 00 2c
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X2D]
+00d874: fd cb 00 2d
+
+[	SRA [ IY + 0X00 ]] Z80:25cyc, R800:10cyc
+00d878: fd cb 00 2e
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X2F]
+00d87c: fd cb 00 2f
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X30]
+00d880: fd cb 00 30
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X31]
+00d884: fd cb 00 31
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X32]
+00d888: fd cb 00 32
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X33]
+00d88c: fd cb 00 33
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X34]
+00d890: fd cb 00 34
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X35]
+00d894: fd cb 00 35
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X36]
+00d898: fd cb 00 36
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X37]
+00d89c: fd cb 00 37
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X38]
+00d8a0: fd cb 00 38
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X39]
+00d8a4: fd cb 00 39
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X3A]
+00d8a8: fd cb 00 3a
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X3B]
+00d8ac: fd cb 00 3b
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X3C]
+00d8b0: fd cb 00 3c
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X3D]
+00d8b4: fd cb 00 3d
+
+[	SRL [ IY + 0X00 ]] Z80:25cyc, R800:10cyc
+00d8b8: fd cb 00 3e
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X3F]
+00d8bc: fd cb 00 3f
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X40]
+00d8c0: fd cb 00 40
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X41]
+00d8c4: fd cb 00 41
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X42]
+00d8c8: fd cb 00 42
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X43]
+00d8cc: fd cb 00 43
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X44]
+00d8d0: fd cb 00 44
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X45]
+00d8d4: fd cb 00 45
+
+[	BIT 0 , [ IY + 0 ]] Z80:22cyc, R800:7cyc
+00d8d8: fd cb 00 46
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X47]
+00d8dc: fd cb 00 47
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X48]
+00d8e0: fd cb 00 48
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X49]
+00d8e4: fd cb 00 49
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X4A]
+00d8e8: fd cb 00 4a
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X4B]
+00d8ec: fd cb 00 4b
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X4C]
+00d8f0: fd cb 00 4c
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X4D]
+00d8f4: fd cb 00 4d
+
+[	BIT 1 , [ IY + 0 ]] Z80:22cyc, R800:7cyc
+00d8f8: fd cb 00 4e
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X4F]
+00d8fc: fd cb 00 4f
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X50]
+00d900: fd cb 00 50
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X51]
+00d904: fd cb 00 51
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X52]
+00d908: fd cb 00 52
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X53]
+00d90c: fd cb 00 53
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X54]
+00d910: fd cb 00 54
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X55]
+00d914: fd cb 00 55
+
+[	BIT 2 , [ IY + 0 ]] Z80:22cyc, R800:7cyc
+00d918: fd cb 00 56
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X57]
+00d91c: fd cb 00 57
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X58]
+00d920: fd cb 00 58
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X59]
+00d924: fd cb 00 59
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X5A]
+00d928: fd cb 00 5a
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X5B]
+00d92c: fd cb 00 5b
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X5C]
+00d930: fd cb 00 5c
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X5D]
+00d934: fd cb 00 5d
+
+[	BIT 3 , [ IY + 0 ]] Z80:22cyc, R800:7cyc
+00d938: fd cb 00 5e
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X5F]
+00d93c: fd cb 00 5f
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X60]
+00d940: fd cb 00 60
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X61]
+00d944: fd cb 00 61
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X62]
+00d948: fd cb 00 62
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X63]
+00d94c: fd cb 00 63
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X64]
+00d950: fd cb 00 64
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X65]
+00d954: fd cb 00 65
+
+[	BIT 4 , [ IY + 0 ]] Z80:22cyc, R800:7cyc
+00d958: fd cb 00 66
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X67]
+00d95c: fd cb 00 67
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X68]
+00d960: fd cb 00 68
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X69]
+00d964: fd cb 00 69
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X6A]
+00d968: fd cb 00 6a
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X6B]
+00d96c: fd cb 00 6b
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X6C]
+00d970: fd cb 00 6c
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X6D]
+00d974: fd cb 00 6d
+
+[	BIT 5 , [ IY + 0 ]] Z80:22cyc, R800:7cyc
+00d978: fd cb 00 6e
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X6F]
+00d97c: fd cb 00 6f
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X70]
+00d980: fd cb 00 70
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X71]
+00d984: fd cb 00 71
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X72]
+00d988: fd cb 00 72
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X73]
+00d98c: fd cb 00 73
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X74]
+00d990: fd cb 00 74
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X75]
+00d994: fd cb 00 75
+
+[	BIT 6 , [ IY + 0 ]] Z80:22cyc, R800:7cyc
+00d998: fd cb 00 76
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X77]
+00d99c: fd cb 00 77
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X78]
+00d9a0: fd cb 00 78
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X79]
+00d9a4: fd cb 00 79
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X7A]
+00d9a8: fd cb 00 7a
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X7B]
+00d9ac: fd cb 00 7b
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X7C]
+00d9b0: fd cb 00 7c
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X7D]
+00d9b4: fd cb 00 7d
+
+[	BIT 7 , [ IY + 0 ]] Z80:22cyc, R800:7cyc
+00d9b8: fd cb 00 7e
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X7F]
+00d9bc: fd cb 00 7f
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X80]
+00d9c0: fd cb 00 80
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X81]
+00d9c4: fd cb 00 81
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X82]
+00d9c8: fd cb 00 82
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X83]
+00d9cc: fd cb 00 83
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X84]
+00d9d0: fd cb 00 84
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X85]
+00d9d4: fd cb 00 85
+
+[	RES 0 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00d9d8: fd cb 00 86
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X87]
+00d9dc: fd cb 00 87
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X88]
+00d9e0: fd cb 00 88
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X89]
+00d9e4: fd cb 00 89
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X8A]
+00d9e8: fd cb 00 8a
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X8B]
+00d9ec: fd cb 00 8b
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X8C]
+00d9f0: fd cb 00 8c
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X8D]
+00d9f4: fd cb 00 8d
+
+[	RES 1 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00d9f8: fd cb 00 8e
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X8F]
+00d9fc: fd cb 00 8f
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X90]
+00da00: fd cb 00 90
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X91]
+00da04: fd cb 00 91
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X92]
+00da08: fd cb 00 92
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X93]
+00da0c: fd cb 00 93
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X94]
+00da10: fd cb 00 94
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X95]
+00da14: fd cb 00 95
+
+[	RES 2 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00da18: fd cb 00 96
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X97]
+00da1c: fd cb 00 97
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X98]
+00da20: fd cb 00 98
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X99]
+00da24: fd cb 00 99
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X9A]
+00da28: fd cb 00 9a
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X9B]
+00da2c: fd cb 00 9b
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X9C]
+00da30: fd cb 00 9c
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X9D]
+00da34: fd cb 00 9d
+
+[	RES 3 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00da38: fd cb 00 9e
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0X9F]
+00da3c: fd cb 00 9f
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XA0]
+00da40: fd cb 00 a0
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XA1]
+00da44: fd cb 00 a1
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XA2]
+00da48: fd cb 00 a2
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XA3]
+00da4c: fd cb 00 a3
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XA4]
+00da50: fd cb 00 a4
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XA5]
+00da54: fd cb 00 a5
+
+[	RES 4 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00da58: fd cb 00 a6
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XA7]
+00da5c: fd cb 00 a7
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XA8]
+00da60: fd cb 00 a8
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XA9]
+00da64: fd cb 00 a9
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XAA]
+00da68: fd cb 00 aa
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XAB]
+00da6c: fd cb 00 ab
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XAC]
+00da70: fd cb 00 ac
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XAD]
+00da74: fd cb 00 ad
+
+[	RES 5 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00da78: fd cb 00 ae
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XAF]
+00da7c: fd cb 00 af
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XB0]
+00da80: fd cb 00 b0
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XB1]
+00da84: fd cb 00 b1
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XB2]
+00da88: fd cb 00 b2
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XB3]
+00da8c: fd cb 00 b3
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XB4]
+00da90: fd cb 00 b4
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XB5]
+00da94: fd cb 00 b5
+
+[	RES 6 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00da98: fd cb 00 b6
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XB7]
+00da9c: fd cb 00 b7
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XB8]
+00daa0: fd cb 00 b8
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XB9]
+00daa4: fd cb 00 b9
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XBA]
+00daa8: fd cb 00 ba
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XBB]
+00daac: fd cb 00 bb
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XBC]
+00dab0: fd cb 00 bc
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XBD]
+00dab4: fd cb 00 bd
+
+[	RES 7 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00dab8: fd cb 00 be
+
+[	DEFB 0XFD , 0XCB , 0XBF , 0X00]
+00dabc: fd cb bf 00
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XC0]
+00dac0: fd cb 00 c0
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XC1]
+00dac4: fd cb 00 c1
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XC2]
+00dac8: fd cb 00 c2
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XC3]
+00dacc: fd cb 00 c3
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XC4]
+00dad0: fd cb 00 c4
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XC5]
+00dad4: fd cb 00 c5
+
+[	SET 0 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00dad8: fd cb 00 c6
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XC7]
+00dadc: fd cb 00 c7
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XC8]
+00dae0: fd cb 00 c8
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XC9]
+00dae4: fd cb 00 c9
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XCA]
+00dae8: fd cb 00 ca
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XCB]
+00daec: fd cb 00 cb
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XCC]
+00daf0: fd cb 00 cc
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XCD]
+00daf4: fd cb 00 cd
+
+[	SET 1 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00daf8: fd cb 00 ce
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XCF]
+00dafc: fd cb 00 cf
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XD0]
+00db00: fd cb 00 d0
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XD1]
+00db04: fd cb 00 d1
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XD2]
+00db08: fd cb 00 d2
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XD3]
+00db0c: fd cb 00 d3
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XD4]
+00db10: fd cb 00 d4
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XD5]
+00db14: fd cb 00 d5
+
+[	SET 2 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00db18: fd cb 00 d6
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XD7]
+00db1c: fd cb 00 d7
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XD8]
+00db20: fd cb 00 d8
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XD9]
+00db24: fd cb 00 d9
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XDA]
+00db28: fd cb 00 da
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XDB]
+00db2c: fd cb 00 db
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XDC]
+00db30: fd cb 00 dc
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XFD]
+00db34: fd cb 00 fd
+
+[	SET 3 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00db38: fd cb 00 de
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XDF]
+00db3c: fd cb 00 df
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XE0]
+00db40: fd cb 00 e0
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XE1]
+00db44: fd cb 00 e1
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XE2]
+00db48: fd cb 00 e2
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XE3]
+00db4c: fd cb 00 e3
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XE4]
+00db50: fd cb 00 e4
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XE5]
+00db54: fd cb 00 e5
+
+[	SET 4 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00db58: fd cb 00 e6
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XE7]
+00db5c: fd cb 00 e7
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XE8]
+00db60: fd cb 00 e8
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XE9]
+00db64: fd cb 00 e9
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XEA]
+00db68: fd cb 00 ea
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XEB]
+00db6c: fd cb 00 eb
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XEC]
+00db70: fd cb 00 ec
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XED]
+00db74: fd cb 00 ed
+
+[	SET 5 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00db78: fd cb 00 ee
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XEF]
+00db7c: fd cb 00 ef
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XF0]
+00db80: fd cb 00 f0
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XF1]
+00db84: fd cb 00 f1
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XF2]
+00db88: fd cb 00 f2
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XF3]
+00db8c: fd cb 00 f3
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XF4]
+00db90: fd cb 00 f4
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XF5]
+00db94: fd cb 00 f5
+
+[	SET 6 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00db98: fd cb 00 f6
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XF7]
+00db9c: fd cb 00 f7
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XF8]
+00dba0: fd cb 00 f8
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XF9]
+00dba4: fd cb 00 f9
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XFA]
+00dba8: fd cb 00 fa
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XFB]
+00dbac: fd cb 00 fb
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XFC]
+00dbb0: fd cb 00 fc
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XFD]
+00dbb4: fd cb 00 fd
+
+[	SET 7 , [ IY + 0 ]] Z80:25cyc, R800:10cyc
+00dbb8: fd cb 00 fe
+
+[	DEFB 0XFD , 0XCB , 0X00 , 0XFF]
+00dbbc: fd cb 00 ff
+
+<< label >>
+LABEL_DJNZ 49218 ( 0xc042 )
+LABEL_JR 49250 ( 0xc062 )
+LABEL_JR_C 49378 ( 0xc0e2 )
+LABEL_JR_NC 49346 ( 0xc0c2 )
+LABEL_JR_NZ 49282 ( 0xc082 )
+LABEL_JR_Z 49314 ( 0xc0a2 )

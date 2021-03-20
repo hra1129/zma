@@ -1,0 +1,75 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+ERROR: There is an ELSEIF description at an incorrect position.: test1.asm(6)
+[	DEFB 1]
+ffffffff: 01
+
+ERROR: There is an ELSE description at an incorrect position.: test1.asm(11)
+[	DEFB 2]
+ffffffff: 02
+
+[IF 1]
+
+ERROR: ENDIF is not need parameters.: test1.asm(18)
+
+[IF 0]
+
+[ELSEIF 0]
+
+ERROR: ELSE is not need parameters.: test1.asm(24)
+[	DEFB 6]
+ffffffff: 06
+
+
+[IF 0]
+
+[ELSEIF 0 HOGEHOGE]
+
+ERROR: Illegal expression.: test1.asm(30)
+[ELSE]
+
+
+[IF 0]
+
+[ELSEIF 1 HOGEHOGE]
+
+ERROR: Illegal expression.: test1.asm(38)
+[ELSE]
+
+
+[IF 1 HOGEHOGE]
+
+ERROR: Illegal expression.: test1.asm(44)
+[ELSEIF 0]
+
+[ELSE]
+
+
+[IF 0 HOGEHOGE]
+
+ERROR: Illegal expression.: test1.asm(52)
+[ELSEIF 0]
+
+[ELSE]
+
+
+[IF LABEL1 == 100]
+
+[ELSE]
+
+ERROR: Illegal condition.: test1.asm(65)
+
+[LABEL1 :]
+	label address: 0xffffffff
+
+ERROR: Label 'LABEL1' is indeterminate.: test1.asm(66)
+[IF 1]
+
+[ELSE]
+
+ERROR: Illegal expression.: test1.asm(70)
+
+<< label >>

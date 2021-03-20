@@ -1,0 +1,69 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[IF 0]
+
+[ELSE]
+
+[	DEFB 2]
+000000: 02
+
+[ENDIF]
+	Selected {ELSE} block.
+
+
+[IF 1]
+
+[	DEFB 3]
+000000: 03
+
+[ENDIF]
+	Selected {IF 1} block.
+
+
+[IF 0]
+
+[ELSEIF 1]
+
+[	DEFB 5]
+000002: 05
+
+
+[IF 0]
+
+[ELSEIF 0]
+
+[ELSE]
+
+[	DEFB 8]
+ffffffff: 08
+
+
+[IF 1]
+
+[IF 1]
+
+[	DEFB 9]
+ffffffff: 09
+
+
+
+[IF 0]
+
+[ELSEIF 0]
+
+[ELSE]
+
+[	DEFB 11 , 12 , 13]
+ffffffff: 0b 0c 0d
+
+
+[IF 0]
+
+[ENDIF]
+	All condition is not selected.
+
+
+<< label >>

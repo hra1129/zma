@@ -1,0 +1,90 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	ORG 0X100]
+	code address: 0x000100
+
+[LABEL_0X100 :]
+	label address: 0x000100
+
+[IF LABEL_0X100 == 0X100]
+
+[ELSE]
+
+MESSAGE: LABEL_0x100 is OK.: test1.asm(8)
+[ENDIF]
+	Selected {IF LABEL_0X100 == 0X100} block.
+
+
+[IF LABEL_0X200 == 0X200]
+
+[ELSE]
+
+MESSAGE: LABEL_0x200 is OK.: test1.asm(15)
+[ENDIF]
+	Selected {IF LABEL_0X200 == 0X200} block.
+
+
+[	ORG 0X300]
+	code address: 0x000300
+
+[LABEL_0X300 ::]
+	global label address: 0x000300
+
+[IF LABEL_0X300 == 0X300]
+
+[ELSE]
+
+MESSAGE: LABEL_0x300 is OK.: test1.asm(23)
+[ENDIF]
+	Selected {IF LABEL_0X300 == 0X300} block.
+
+
+[IF LABEL_0X400 == 0X400]
+
+[ELSE]
+
+MESSAGE: LABEL_0x400 is OK.: test1.asm(30)
+[ENDIF]
+	Selected {IF LABEL_0X400 == 0X400} block.
+
+
+[	SCOPE SUB1]
+	Scope path: SUB1:
+
+[	LD A , D] Z80:5cyc, R800:2cyc
+000300: 7a
+
+[IF LABEL_0X300 == 300]
+
+[ELSE]
+
+MESSAGE: sub1:LABEL_0x300 is OK.: test1.asm(40)
+[	LD A , B] Z80:5cyc, R800:2cyc
+000301: 78
+
+[ENDIF]
+	Selected {IF LABEL_0X300 == 300} block.
+
+
+[IF LABEL_0X400 == 400]
+
+[ELSE]
+
+MESSAGE: sub1:LABEL_0x400 is OK.: test1.asm(49)
+[ENDIF]
+	Selected {IF LABEL_0X400 == 400} block.
+
+
+[	ENDSCOPE]
+	Scope path: 
+
+<< label >>
+LABEL_0X100 256 ( 0x100 )
+LABEL_0X200 512 ( 0x200 )
+LABEL_0X300 768 ( 0x300 )
+LABEL_0X400 1024 ( 0x400 )
+SUB1:LABEL_0X300 300 ( 0x12c )
+SUB1:LABEL_0X400 400 ( 0x190 )

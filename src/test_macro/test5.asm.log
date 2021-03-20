@@ -1,0 +1,40 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+Define macro {PALETTE MACRO PALETTE_NO , RED , GREEN , BLUE}
+
+((PALETTE 0 , 0 , 0 , 0))
+	Scope path: @MACRO0:
+[	LD B , 0] Z80:8cyc, R800:2cyc
+000000: 06 00
+
+[	LD DE , ( ( 0 ) << 8 ) | ( ( 0 ) << 4 ) | ( 0 )] Z80:11cyc, R800:3cyc
+000002: 11 00 00
+
+((PALETTE 1 , 1 , 0 , 0))
+	Scope path: @MACRO1:
+[	LD B , 1] Z80:8cyc, R800:2cyc
+000005: 06 01
+
+[	LD DE , ( ( 0 ) << 8 ) | ( ( 1 ) << 4 ) | ( 0 )] Z80:11cyc, R800:3cyc
+000007: 11 10 00
+
+((PALETTE 2 , 2 , 0 , 0))
+	Scope path: @MACRO2:
+[	LD B , 2] Z80:8cyc, R800:2cyc
+00000a: 06 02
+
+[	LD DE , ( ( 0 ) << 8 ) | ( ( 2 ) << 4 ) | ( 0 )] Z80:11cyc, R800:3cyc
+00000c: 11 20 00
+
+((PALETTE 3 , 3 , 0 , 0))
+	Scope path: @MACRO3:
+[	LD B , 3] Z80:8cyc, R800:2cyc
+00000f: 06 03
+
+[	LD DE , ( ( 0 ) << 8 ) | ( ( 3 ) << 4 ) | ( 0 )] Z80:11cyc, R800:3cyc
+000011: 11 30 00
+
+<< label >>

@@ -1,0 +1,24 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	LD A , [ IX ]] Z80:21cyc, R800:7cyc
+000000: dd 7e 00
+
+[	LD [ IX ] , A] Z80:8cyc, R800:4cyc
+000003: dd 77 00
+
+[	INC [ IX ]] Z80:25cyc, R800:10cyc
+000006: dd 34 00
+
+[	LD A , [ IY ]] Z80:21cyc, R800:7cyc
+000009: fd 7e 00
+
+[	LD [ IY ] , A] Z80:8cyc, R800:4cyc
+00000c: fd 77 00
+
+[	INC [ IY ]] Z80:25cyc, R800:10cyc
+00000f: fd 34 00
+
+<< label >>

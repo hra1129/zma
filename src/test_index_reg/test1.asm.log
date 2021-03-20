@@ -1,0 +1,60 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	ADD IX , BC] Z80:17cyc, R800:2cyc
+000000: dd 09
+
+[	ADD IX , DE] Z80:17cyc, R800:2cyc
+000002: dd 19
+
+[	ADD IX , IX] Z80:17cyc, R800:2cyc
+000004: dd 29
+
+[	ADD IX , SP] Z80:17cyc, R800:2cyc
+000006: dd 39
+
+[	ADD IY , BC] Z80:17cyc, R800:2cyc
+000008: fd 09
+
+[	ADD IY , DE] Z80:17cyc, R800:2cyc
+00000a: fd 19
+
+[	ADD IY , IY] Z80:17cyc, R800:2cyc
+00000c: fd 29
+
+[	ADD IY , SP] Z80:17cyc, R800:2cyc
+00000e: fd 39
+
+[	OUT [ C ] , 0] Z80:14cyc, R800:10 or 9cyc
+000010: ed 71
+
+[	IN F , [ C ]] Z80:14cyc, R800:10 or 9cyc
+000012: ed 70
+
+[	SET 0 , [ IX + 0 ] , A] Z80:25cyc, R800:10cyc
+000014: dd cb 00 c7
+
+[	RES 0 , [ IX + 0 ] , A] Z80:25cyc, R800:10cyc
+000018: dd cb 00 87
+
+[	BIT 0 , [ IX + 0 ] , A] Z80:22cyc, R800:7cyc
+00001c: dd cb 00 46
+
+[	RR [ IX + 1 ] , A] Z80:25cyc, R800:10cyc
+000020: dd cb 01 1f
+
+[	RL [ IX + 1 ] , A] Z80:25cyc, R800:10cyc
+000024: dd cb 01 17
+
+[	SRA [ IX + 1 ] , A] Z80:25cyc, R800:10cyc
+000028: dd cb 01 2f
+
+[	SRL [ IX + 1 ] , A] Z80:25cyc, R800:10cyc
+00002c: dd cb 01 3f
+
+[	SLL [ IX + 1 ] , A] Z80:25cyc, R800:10cyc
+000030: dd cb 01 37
+
+<< label >>

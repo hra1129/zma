@@ -1,0 +1,178 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	ORG 0]
+	code address: 0x000000
+
+[	LD BC , LABEL_0000] Z80:11cyc, R800:3cyc
+000000: 01 03 00
+
+[LABEL_0000 :]
+	label address: 0x000003
+
+[	LD BC , LABEL_0000] Z80:11cyc, R800:3cyc
+000003: 01 03 00
+
+[	SCOPE SCOPE1]
+	Scope path: SCOPE1:
+
+[	LD BC , LABEL_0000] Z80:11cyc, R800:3cyc
+000006: 01 03 00
+
+[LABEL_0000 :]
+	label address: 0x000009
+
+[	LD BC , LABEL_0000] Z80:11cyc, R800:3cyc
+000009: 01 09 00
+
+[	ENDSCOPE]
+	Scope path: 
+
+[	SCOPE SCOPE2]
+	Scope path: SCOPE2:
+
+[	SCOPE SCOPE3]
+	Scope path: SCOPE2:SCOPE3:
+
+[	LD BC , LABEL_0000] Z80:11cyc, R800:3cyc
+00000c: 01 03 00
+
+[LABEL_0000 :]
+	label address: 0x00000f
+
+[	LD BC , LABEL_0000] Z80:11cyc, R800:3cyc
+00000f: 01 0f 00
+
+[	ENDSCOPE]
+	Scope path: SCOPE2:
+
+[	ENDSCOPE]
+	Scope path: 
+
+[	LD BC , LABEL_0000] Z80:11cyc, R800:3cyc
+000012: 01 03 00
+
+[	SCOPE SCOPE1]
+	Scope path: SCOPE1:
+
+[	LD BC , LABEL_0000] Z80:11cyc, R800:3cyc
+000015: 01 09 00
+
+[	ENDSCOPE]
+	Scope path: 
+
+[	SCOPE SCOPE2]
+	Scope path: SCOPE2:
+
+[	SCOPE SCOPE3]
+	Scope path: SCOPE2:SCOPE3:
+
+[	LD BC , LABEL_0000] Z80:11cyc, R800:3cyc
+000018: 01 0f 00
+
+[	ENDSCOPE]
+	Scope path: SCOPE2:
+
+[	ENDSCOPE]
+	Scope path: 
+
+[	LD BC , LABEL_1234] Z80:11cyc, R800:3cyc
+00001b: 01 34 12
+
+[	LD BC , GLOBAL_2345] Z80:11cyc, R800:3cyc
+00001e: 01 45 23
+
+[	SCOPE SCOPE1]
+	Scope path: SCOPE1:
+
+[	LD BC , LABEL_1234] Z80:11cyc, R800:3cyc
+000021: 01 34 12
+
+[	LD BC , LABEL_1234] Z80:11cyc, R800:3cyc
+000024: 01 56 34
+
+[	LD BC , GLOBAL_2345] Z80:11cyc, R800:3cyc
+000027: 01 45 23
+
+[	ENDSCOPE]
+	Scope path: 
+
+[	DEFB 0 , 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8]
+00002a: 00 01 02 03 04 05 06 07
+000032: 08
+
+[	DEFW 0 , 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8]
+000033: 00 00 01 00 02 00 03 00
+00003b: 04 00 05 00 06 00 07 00
+000043: 08 00
+
+[	DEFD 0 , 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8]
+000045: 00 00 00 00 01 00 00 00
+00004d: 02 00 00 00 03 00 00 00
+000055: 04 00 00 00 05 00 00 00
+00005d: 06 00 00 00 07 00 00 00
+000065: 08 00 00 00
+
+[	DEFS "012345678"]
+000069: 30 31 32 33 34 35 36 37
+000071: 38
+
+[	DEFS TITLE]
+000072: 67 61 6d 65 20 74 69 74
+00007a: 6c 65
+
+[	DEFS "01234" * 3 + "5678"]
+00007c: 30 31 32 33 34 30 31 32
+000084: 33 34 30 31 32 33 34 35
+00008c: 36 37 38
+
+[	DEFS "abcd" + 4 * "432"]
+00008f: 61 62 63 64 34 33 32 34
+000097: 33 32 34 33 32 34 33 32
+
+Define macro {LD_DE_BC MACRO}
+
+Define macro {LD_A MACRO EXP}
+
+[	DEFB 0XAA]
+00009f: aa
+
+((LD_DE_BC))
+	Scope path: @MACRO0:
+[	LD D , B] Z80:5cyc, R800:2cyc
+0000a0: 50
+
+[	LD E , C] Z80:5cyc, R800:2cyc
+0000a1: 59
+
+[	DEFB 0X55]
+0000a2: 55
+
+((LD_DE_BC))
+	Scope path: @MACRO1:
+[	LD D , B] Z80:5cyc, R800:2cyc
+0000a3: 50
+
+[	LD E , C] Z80:5cyc, R800:2cyc
+0000a4: 59
+
+((LD_A 10 + 6))
+	Scope path: @MACRO2:
+[	LD A , 10 + 6] Z80:8cyc, R800:2cyc
+0000a5: 3e 10
+
+((LD_A [ HL ]))
+	Scope path: @MACRO3:
+[	LD A , [ HL ]] Z80:8cyc, R800:4cyc
+0000a7: 7e
+
+<< label >>
+GLOBAL_2345 9029 ( 0x2345 )
+LABEL_0000 3 ( 0x3 )
+LABEL_1234 4660 ( 0x1234 )
+SCOPE1:LABEL_0000 9 ( 0x9 )
+SCOPE1:LABEL_1234 13398 ( 0x3456 )
+SCOPE2:SCOPE3:LABEL_0000 15 ( 0xf )
+TITLE "game title"

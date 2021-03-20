@@ -1,0 +1,2 @@
+@REPEAT0:I equ 01fh
+SHOT_TABLE equ 00h

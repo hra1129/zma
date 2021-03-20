@@ -1,0 +1,103 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+Define macro {DEF_SPACE MACRO NUM}
+
+MESSAGE: Current Address = 0: test2.asm(12)
+MESSAGE: Current Address = 0: test2.asm(13)
+MESSAGE: File Address    = 0: test2.asm(14)
+[	DEFB 0XFF]
+000000: ff
+
+((DEF_SPACE 2))
+	Scope path: @MACRO0:
+MESSAGE: 2バイトの領域を確保するバイトの領域を確保する: test2.asm(17)
+[REPEAT I , 2]
+	Scope path: @MACRO0:@REPEAT1:
+
+	repeat begin
+[	DEFB 0]
+000001: 00
+
+[	DEFB 0]
+000002: 00
+
+	repeat end
+	Scope path: @MACRO0:
+
+
+
+MESSAGE: Current Address = 3: test2.asm(19)
+MESSAGE: Current Address = 3: test2.asm(20)
+MESSAGE: File Address    = 3: test2.asm(21)
+[	DEFB 0XFF]
+000003: ff
+
+((DEF_SPACE 5))
+	Scope path: @MACRO1:
+MESSAGE: 5バイトの領域を確保するバイトの領域を確保する: test2.asm(24)
+[REPEAT I , 5]
+	Scope path: @MACRO1:@REPEAT3:
+
+	repeat begin
+[	DEFB 0]
+000004: 00
+
+[	DEFB 0]
+000005: 00
+
+[	DEFB 0]
+000006: 00
+
+[	DEFB 0]
+000007: 00
+
+[	DEFB 0]
+000008: 00
+
+	repeat end
+	Scope path: @MACRO1:
+
+
+
+[	ORG 0]
+	code address: 0x000000
+
+MESSAGE: Current Address = 0: test2.asm(27)
+MESSAGE: Current Address = 0: test2.asm(28)
+MESSAGE: File Address    = 9: test2.asm(29)
+[	DEFB 0XFF]
+000000: ff
+
+((DEF_SPACE 4))
+	Scope path: @MACRO2:
+MESSAGE: 4バイトの領域を確保するバイトの領域を確保する: test2.asm(32)
+[REPEAT I , 4]
+	Scope path: @MACRO2:@REPEAT5:
+
+	repeat begin
+[	DEFB 0]
+000001: 00
+
+[	DEFB 0]
+000002: 00
+
+[	DEFB 0]
+000003: 00
+
+[	DEFB 0]
+000004: 00
+
+	repeat end
+	Scope path: @MACRO2:
+
+
+
+<< label >>
+@MACRO0:@REPEAT1:I 1 ( 0x1 )
+@MACRO1:@REPEAT3:I ????
+@MACRO2:@REPEAT3:I 4 ( 0x4 )
+@MACRO2:@REPEAT5:I ????
+@MACRO4:@REPEAT5:I 3 ( 0x3 )

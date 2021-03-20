@@ -1,0 +1,23 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+ERROR: Illegal expression.: test1.asm(6)
+ERROR: Illegal expression.: test1.asm(7)
+ERROR: Illegal expression.: test1.asm(8)
+ERROR: Illegal expression.: test1.asm(11)
+ERROR: Illegal expression.: test1.asm(12)
+ERROR: Illegal expression.: test1.asm(13)
+ERROR: Illegal parameter.: test1.asm(14)
+ERROR: Cannot evaluate the expression(1): test1.asm(17)
+ERROR: Cannot evaluate the expression(1): test1.asm(18)
+ERROR: Cannot evaluate the expression(1): test1.asm(19)
+ERROR: Illegal expression.: test1.asm(20)
+ERROR: Cannot evaluate the expression(2): test1.asm(23)
+ERROR: Cannot evaluate the expression(2): test1.asm(24)
+ERROR: Cannot evaluate the expression(2): test1.asm(25)
+ERROR: Cannot evaluate the expression(2): test1.asm(28)
+ERROR: Cannot evaluate the expression(2): test1.asm(29)
+ERROR: Cannot evaluate the expression(2): test1.asm(30)
+<< label >>

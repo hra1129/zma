@@ -1,0 +1,36 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[REPEAT I , 5]
+	Scope path: @REPEAT0:
+
+	repeat begin
+[	DEFB 1]
+000000: 01
+
+[	DEFB 1]
+000001: 01
+
+[	DEFB 1]
+000002: 01
+
+[	DEFB 1]
+000003: 01
+
+[	DEFB 1]
+000004: 01
+
+	repeat end
+ERROR: ENDR is not need parameters.: test5.asm(9)
+
+ERROR: Illegal expression.: test5.asm(11)
+	repeat begin
+	repeat end
+ERROR: Block processing is not close.: test5.asm(13)
+
+ERROR: REPEAT counter is not fixed.: test5.asm(13)
+
+<< label >>
+@REPEAT0:I 4 ( 0x4 )

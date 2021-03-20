@@ -1,0 +1,8 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+ERROR: Multiple arguments of the same name 'A' exist.: test9.asm(6)
+ERROR: Cannot evaluate the expression(1): test9.asm(7)
+<< label >>

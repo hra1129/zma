@@ -1,0 +1,38 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+Define macro {HOGE MACRO NUM}
+
+((HOGE 10))
+	Scope path: @MACRO0:
+[	LD B , 10] Z80:8cyc, R800:2cyc
+000000: 06 0a
+
+[LOOP :]
+	label address: 0x000002
+
+[	ADD A , C] Z80:5cyc, R800:1cyc
+000002: 81
+
+[	DJNZ LOOP] Z80:14cyc(cond=true), 9cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)
+000003: 10 fd
+
+((HOGE 20))
+	Scope path: @MACRO1:
+[	LD B , 20] Z80:8cyc, R800:2cyc
+000005: 06 14
+
+[LOOP :]
+	label address: 0x000007
+
+[	ADD A , C] Z80:5cyc, R800:1cyc
+000007: 81
+
+[	DJNZ LOOP] Z80:14cyc(cond=true), 9cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)
+000008: 10 fd
+
+<< label >>
+@MACRO0:LOOP 2 ( 0x2 )
+@MACRO1:LOOP 7 ( 0x7 )

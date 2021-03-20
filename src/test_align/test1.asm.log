@@ -1,0 +1,44 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	ORG 0X4000]
+	code address: 0x004000
+
+[	DS "AB"]
+004000: 41 42
+
+[SPACE 10 , 0X55]
+	Allocate space: 10byte(s)
+		Fill value: 85
+
+[	LD HL , [ $ ]] Z80:17cyc, R800:7cyc
+00400c: 2a 0c 40
+
+[	RET] Z80:11cyc, R800:5cyc
+00400f: c9
+
+[ALIGN 16384]
+	Padding: 16368byte(s)
+
+[	ORG 0X4000]
+	code address: 0x004000
+
+[	DS "EF"]
+004000: 45 46
+
+[SPACE 10]
+	Allocate space: 10byte(s)
+		Fill value: 0
+
+[	LD HL , [ $ ]] Z80:17cyc, R800:7cyc
+00400c: 2a 0c 40
+
+[	RET] Z80:11cyc, R800:5cyc
+00400f: c9
+
+[ALIGN 16384]
+	Padding: 16368byte(s)
+
+<< label >>

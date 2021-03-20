@@ -1,0 +1,21 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+ERROR: Must be set include file name.: test1.asm(6) begin
+ERROR: Must be set include file name.: test1.asm(6) end
+
+ERROR: Invalid parameter.: test1.asm(9) begin
+ERROR: Invalid parameter.: test1.asm(9) end
+
+ERROR: INCLUDE command has only one parameter.: test1.asm(12) begin
+ERROR: INCLUDE command has only one parameter.: test1.asm(12) end
+
+ERROR: Invalid expression.: test1.asm(15) begin
+ERROR: Invalid expression.: test1.asm(15) end
+
+ERROR: Cannot open include file 'invalid_file'.: test1.asm(18) begin
+ERROR: Cannot open include file 'invalid_file'.: test1.asm(18) end
+
+<< label >>

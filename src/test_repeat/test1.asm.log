@@ -1,0 +1,103 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[REPEAT I , 5]
+	Scope path: @REPEAT0:
+
+	repeat begin
+[REPEAT I , I]
+	Scope path: @REPEAT0:@REPEAT1:
+
+	repeat begin
+	repeat end
+	Scope path: @REPEAT0:
+
+
+
+[REPEAT I , I]
+	Scope path: @REPEAT0:@REPEAT2:
+
+	repeat begin
+[	DEFB I + LABEL]
+000000: 0b
+
+	repeat end
+	Scope path: @REPEAT0:
+
+
+
+[REPEAT I , I]
+	Scope path: @REPEAT0:@REPEAT3:
+
+	repeat begin
+[	DEFB I + LABEL]
+000001: 0b
+
+[	DEFB I + LABEL]
+000002: 0c
+
+	repeat end
+	Scope path: @REPEAT0:
+
+
+
+[REPEAT I , I]
+	Scope path: @REPEAT0:@REPEAT4:
+
+	repeat begin
+[	DEFB I + LABEL]
+000003: 0b
+
+[	DEFB I + LABEL]
+000004: 0c
+
+[	DEFB I + LABEL]
+000005: 0d
+
+	repeat end
+	Scope path: @REPEAT0:
+
+
+
+[REPEAT I , I]
+	Scope path: @REPEAT0:@REPEAT5:
+
+	repeat begin
+[	DEFB I + LABEL]
+000006: 0b
+
+[	DEFB I + LABEL]
+000007: 0c
+
+[	DEFB I + LABEL]
+000008: 0d
+
+[	DEFB I + LABEL]
+000009: 0e
+
+	repeat end
+	Scope path: @REPEAT0:
+
+
+
+	repeat end
+	Scope path: 
+
+
+
+[	DEFB 0]
+00000a: 00
+
+[LABEL :]
+	label address: 0x00000b
+
+<< label >>
+@REPEAT0:@REPEAT1:I 0 ( 0x0 )
+@REPEAT0:@REPEAT2:I 0 ( 0x0 )
+@REPEAT0:@REPEAT3:I 1 ( 0x1 )
+@REPEAT0:@REPEAT4:I 2 ( 0x2 )
+@REPEAT0:@REPEAT5:I 3 ( 0x3 )
+@REPEAT0:I 4 ( 0x4 )
+LABEL 11 ( 0xb )

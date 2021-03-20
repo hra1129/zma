@@ -1,0 +1,46 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[REPEAT I , 5]
+	Scope path: @REPEAT0:
+
+	repeat begin
+[	SCOPE SUB]
+	Scope path: @REPEAT0:SUB:
+
+[	DEFB 2]
+000000: 02
+
+[	SCOPE SUB]
+	Scope path: @REPEAT0:SUB:SUB:
+
+[	DEFB 2]
+000001: 02
+
+[	SCOPE SUB]
+	Scope path: @REPEAT0:SUB:SUB:SUB:
+
+[	DEFB 2]
+000002: 02
+
+[	SCOPE SUB]
+	Scope path: @REPEAT0:SUB:SUB:SUB:SUB:
+
+[	DEFB 2]
+000003: 02
+
+[	SCOPE SUB]
+	Scope path: @REPEAT0:SUB:SUB:SUB:SUB:SUB:
+
+[	DEFB 2]
+000004: 02
+
+	repeat end
+ERROR: Scope of ENDR does not exist.: test6.asm(9)
+
+ERROR: Scope is not closed.: test6.asm(9)
+
+<< label >>
+@REPEAT0:I 4 ( 0x4 )

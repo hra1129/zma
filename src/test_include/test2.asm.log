@@ -1,0 +1,34 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+Define macro {HOGE MACRO}
+
+((HOGE))
+	Scope path: @MACRO0:
+[	INCLUDE ".//sub.asm"] begin
+[	LD DE , 100] Z80:11cyc, R800:3cyc
+000000: 11 64 00
+
+[	INCLUDE ".//sub.asm"] end
+
+((HOGE))
+	Scope path: @MACRO1:
+[	INCLUDE ".//sub.asm"] begin
+[	LD DE , 100] Z80:11cyc, R800:3cyc
+000003: 11 64 00
+
+[	INCLUDE ".//sub.asm"] end
+
+[	INCLUDE ".//sub_macro1.asm"] begin
+Define macro {MOGE MACRO}
+
+[	INCLUDE ".//sub_macro1.asm"] end
+
+((MOGE))
+	Scope path: @MACRO2:
+[	DEFB 0 , 1]
+000006: 00 01
+
+<< label >>

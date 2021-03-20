@@ -1,0 +1,85 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	ORG 0X100]
+	code address: 0x000100
+
+[LABEL_0X100 :]
+	label address: 0x000100
+
+[LABEL_0X100 :]
+	label address: 0x000100
+
+ERROR: There are declarations of the same label 'LABEL_0X100' in multiple places.: test1.asm(9)
+[LABEL_0X200 :]
+	label address: 0x000100
+
+[LABEL_0X200 ::]
+	global label address: 0x000100
+
+ERROR: There are declarations of the same label 'LABEL_0X200' in multiple places.: test1.asm(12)
+[LABEL_0X300 :]
+	label address: 0x000100
+
+ERROR: There are declarations of the same label 'LABEL_0X300' in multiple places.: test1.asm(15)
+[LABEL_0X400 :]
+	label address: 0x000100
+
+ERROR: There are declarations of the same label 'LABEL_0X400' in multiple places.: test1.asm(18)
+[LABEL_0X500 ::]
+	global label address: 0x000100
+
+ERROR: There are declarations of the same label 'LABEL_0X500' in multiple places.: test1.asm(21)
+[LABEL_0X600 ::]
+	global label address: 0x000100
+
+ERROR: There are declarations of the same label 'LABEL_0X600' in multiple places.: test1.asm(24)
+ERROR: Illegal expression.: test1.asm(27)
+[LL :]
+	label address: 0xffffffff
+
+ERROR: Label 'LL' is indeterminate.: test1.asm(28)
+[LABEL_1 :]
+	label address: 0xffffffff
+
+ERROR: Label 'LABEL_1' is indeterminate.: test1.asm(30)
+[LABEL_2 ::]
+	global label address: 0xffffffff
+
+ERROR: Label 'LABEL_2' is indeterminate.: test1.asm(31)
+ERROR: Illegal expression.: test1.asm(32)
+ERROR: Illegal expression.: test1.asm(33)
+[	ORG 0X200]
+	code address: 0x000200
+
+["Š¿Žš1" :]
+	label address: 0x000200
+
+ERROR: Label name cannot be string.: test1.asm(37)
+["Š¿Žš2" ::]
+	global label address: 0x000200
+
+ERROR: Label name cannot be string.: test1.asm(38)
+ERROR: Label name cannot be string.: test1.asm(39)
+ERROR: Label name cannot be string.: test1.asm(40)
+[	ORG 0X300]
+	code address: 0x000300
+
+ERROR: Illegal command: test1.asm(44)
+ERROR: Illegal command: test1.asm(45)
+ERROR: Illegal expression.: test1.asm(46)
+ERROR: Illegal expression.: test1.asm(47)
+[	ORG 0X500]
+	code address: 0x000500
+
+ERROR: Label 'LABEL2_3' is indeterminate.: test1.asm(51)
+ERROR: Label 'LABEL2_4' is indeterminate.: test1.asm(52)
+<< label >>
+LABEL_0X100 256 ( 0x100 )
+LABEL_0X200 256 ( 0x100 )
+LABEL_0X300 256 ( 0x100 )
+LABEL_0X400 256 ( 0x100 )
+LABEL_0X500 256 ( 0x100 )
+LABEL_0X600 256 ( 0x100 )

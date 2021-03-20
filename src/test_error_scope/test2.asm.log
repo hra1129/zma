@@ -1,0 +1,18 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+Define macro {BBB MACRO}
+
+[	SCOPE AAA]
+	Scope path: AAA:
+
+[	DEFB 1]
+000000: 01
+
+((BBB))
+	Scope path: AAA:@MACRO0:
+ERROR: Scope is not closed.: test2.asm(12)
+ERROR: ENDSCOPE in wrong position.: test2.asm(12)
+<< label >>

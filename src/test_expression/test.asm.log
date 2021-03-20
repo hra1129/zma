@@ -1,0 +1,194 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	LD BC , FILE_ADDRESS] Z80:11cyc, R800:3cyc
+000000: 01 00 00
+
+[	LD BC , 1234] Z80:11cyc, R800:3cyc
+000003: 01 d2 04
+
+[	LD BC , 12_34] Z80:11cyc, R800:3cyc
+000006: 01 d2 04
+
+[	LD BC , 0X1234] Z80:11cyc, R800:3cyc
+000009: 01 34 12
+
+[	LD BC , 0X12_34] Z80:11cyc, R800:3cyc
+00000c: 01 34 12
+
+[	LD BC , 0B1100101011100110] Z80:11cyc, R800:3cyc
+00000f: 01 e6 ca
+
+[	LD BC , 0B1100_1010_1110_0110] Z80:11cyc, R800:3cyc
+000012: 01 e6 ca
+
+[	LD BC , 01234] Z80:11cyc, R800:3cyc
+000015: 01 9c 02
+
+[	LD BC , 012_34] Z80:11cyc, R800:3cyc
+000018: 01 9c 02
+
+[	ORG 0X1234]
+	code address: 0x001234
+
+[	LD BC , $] Z80:11cyc, R800:3cyc
+001234: 01 34 12
+
+[	ORG 0X1234]
+	code address: 0x001234
+
+[	LD BC , CODE_ADDRESS] Z80:11cyc, R800:3cyc
+001234: 01 34 12
+
+[	LD BC , + 1234] Z80:11cyc, R800:3cyc
+001237: 01 d2 04
+
+[	LD BC , - 1234] Z80:11cyc, R800:3cyc
+00123a: 01 2e fb
+
+[	LD BC , ( 1 + 2 ) * 3] Z80:11cyc, R800:3cyc
+00123d: 01 09 00
+
+[	LD BC , ! 1234] Z80:11cyc, R800:3cyc
+001240: 01 00 00
+
+[	LD BC , ! 0] Z80:11cyc, R800:3cyc
+001243: 01 01 00
+
+[	LD BC , ~ 0X1234] Z80:11cyc, R800:3cyc
+001246: 01 cb ed
+
+[	LD BC , 21 * 3] Z80:11cyc, R800:3cyc
+001249: 01 3f 00
+
+MESSAGE: mojimojimoji: test.asm(50)
+MESSAGE: mojimojimoji: test.asm(51)
+[	LD BC , 21 / 3] Z80:11cyc, R800:3cyc
+00124c: 01 07 00
+
+[	LD BC , 22 % 5] Z80:11cyc, R800:3cyc
+00124f: 01 02 00
+
+[	LD BC , 23 + 5] Z80:11cyc, R800:3cyc
+001252: 01 1c 00
+
+MESSAGE: moji = moji: test.asm(61)
+MESSAGE: moji = 123: test.asm(62)
+MESSAGE: 123 = moji = moji: test.asm(63)
+[	LD BC , 24 - 9] Z80:11cyc, R800:3cyc
+001255: 01 0f 00
+
+[	LD BC , 5 << 1] Z80:11cyc, R800:3cyc
+001258: 01 0a 00
+
+[	LD BC , 10 >> 1] Z80:11cyc, R800:3cyc
+00125b: 01 05 00
+
+[	LD BC , 5 < 1] Z80:11cyc, R800:3cyc
+00125e: 01 00 00
+
+[	LD BC , 1 < 5] Z80:11cyc, R800:3cyc
+001261: 01 01 00
+
+[	LD BC , 5 > 1] Z80:11cyc, R800:3cyc
+001264: 01 01 00
+
+[	LD BC , 1 > 5] Z80:11cyc, R800:3cyc
+001267: 01 00 00
+
+[	LD BC , 5 <= 1] Z80:11cyc, R800:3cyc
+00126a: 01 00 00
+
+[	LD BC , 1 <= 5] Z80:11cyc, R800:3cyc
+00126d: 01 01 00
+
+[	LD BC , 3 <= 3] Z80:11cyc, R800:3cyc
+001270: 01 01 00
+
+[	LD BC , 5 >= 1] Z80:11cyc, R800:3cyc
+001273: 01 01 00
+
+[	LD BC , 1 >= 5] Z80:11cyc, R800:3cyc
+001276: 01 00 00
+
+[	LD BC , 3 >= 3] Z80:11cyc, R800:3cyc
+001279: 01 01 00
+
+[	LD BC , 5 == 1] Z80:11cyc, R800:3cyc
+00127c: 01 00 00
+
+[	LD BC , 3 == 3] Z80:11cyc, R800:3cyc
+00127f: 01 01 00
+
+[	LD BC , "a" == "a"] Z80:11cyc, R800:3cyc
+001282: 01 01 00
+
+[	LD BC , "b" == "a"] Z80:11cyc, R800:3cyc
+001285: 01 00 00
+
+[	LD BC , "b" == 3] Z80:11cyc, R800:3cyc
+001288: 01 00 00
+
+[	LD BC , 5 != 1] Z80:11cyc, R800:3cyc
+00128b: 01 01 00
+
+[	LD BC , 3 != 3] Z80:11cyc, R800:3cyc
+00128e: 01 00 00
+
+[	LD BC , "a" != "a"] Z80:11cyc, R800:3cyc
+001291: 01 00 00
+
+[	LD BC , "b" != "a"] Z80:11cyc, R800:3cyc
+001294: 01 01 00
+
+[	LD BC , "b" != 3] Z80:11cyc, R800:3cyc
+001297: 01 01 00
+
+[	LD BC , 5 & 1] Z80:11cyc, R800:3cyc
+00129a: 01 01 00
+
+[	LD BC , 9 & 1] Z80:11cyc, R800:3cyc
+00129d: 01 01 00
+
+[	LD BC , 2 | 1] Z80:11cyc, R800:3cyc
+0012a0: 01 03 00
+
+[	LD BC , 4 | 1] Z80:11cyc, R800:3cyc
+0012a3: 01 05 00
+
+[	LD BC , 2 ^ 1] Z80:11cyc, R800:3cyc
+0012a6: 01 03 00
+
+[	LD BC , 1 ^ 1] Z80:11cyc, R800:3cyc
+0012a9: 01 00 00
+
+[	LD BC , 1 && 1] Z80:11cyc, R800:3cyc
+0012ac: 01 01 00
+
+[	LD BC , 0 && 1] Z80:11cyc, R800:3cyc
+0012af: 01 00 00
+
+[	LD BC , 1 && 0] Z80:11cyc, R800:3cyc
+0012b2: 01 00 00
+
+[	LD BC , 0 && 0] Z80:11cyc, R800:3cyc
+0012b5: 01 00 00
+
+[	LD BC , 1 || 1] Z80:11cyc, R800:3cyc
+0012b8: 01 01 00
+
+[	LD BC , 0 || 1] Z80:11cyc, R800:3cyc
+0012bb: 01 01 00
+
+[	LD BC , 1 || 0] Z80:11cyc, R800:3cyc
+0012be: 01 01 00
+
+[	LD BC , 1 || 0] Z80:11cyc, R800:3cyc
+0012c1: 01 01 00
+
+MESSAGE: 
+	\'"?: test.asm(131)
+MESSAGE: Š¿Žš•\Ž¦ƒ¿ƒÀ‚P‚Q‚R: test.asm(134)
+<< label >>

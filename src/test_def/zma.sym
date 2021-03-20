@@ -1,0 +1,2 @@
+LABEL0 equ 00h
+LABEL1 equ 029h

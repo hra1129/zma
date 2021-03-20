@@ -1,0 +1,19 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+Define macro {USE_HOGE MACRO FLAG}
+
+((USE_HOGE 1))
+	Scope path: @MACRO0:
+[IF 1]
+
+[ELSE]
+
+MESSAGE: aaaaaaaa: test4.asm(14)
+[ENDIF]
+	Selected {IF 1} block.
+
+
+<< label >>

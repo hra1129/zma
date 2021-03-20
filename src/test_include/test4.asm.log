@@ -1,0 +1,22 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	INCLUDE ".//sub_repeat_macro.asm"] begin
+Define macro {PAGE_ALIGN MACRO}
+
+[	INCLUDE ".//sub_repeat_macro.asm"] end
+
+[	DEFB 1 , 2]
+000000: 01 02
+
+ERROR: Block processing is not close.: test4.asm(9)
+((PAGE_ALIGN))
+	Scope path: @MACRO0:
+[IF FILE_ADDRESS % 256]
+
+ERROR: Invalid operator '%': test4.asm(9)
+ERROR: Illegal condition.: test4.asm(9)
+
+<< label >>

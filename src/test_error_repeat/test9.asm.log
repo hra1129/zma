@@ -1,0 +1,13 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+ERROR: Illegal expression.: test9.asm(6)
+	repeat begin
+	repeat end
+ERROR: Block processing is not close.: test9.asm(8)
+
+ERROR: REPEAT counter is not fixed.: test9.asm(8)
+
+<< label >>

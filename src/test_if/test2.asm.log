@@ -1,0 +1,39 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	ORG 0]
+	code address: 0x000000
+
+[IF LABEL1]
+
+[ELSE]
+
+[	DEFB 1]
+000000: 01
+
+[ENDIF]
+	Selected {IF LABEL1} block.
+
+
+[LABEL1 :]
+	label address: 0x000000
+
+[IF ! LABEL2]
+
+[ELSE]
+
+[	DEFB 4]
+000000: 04
+
+[ENDIF]
+	Selected {ELSE} block.
+
+
+[LABEL2 :]
+	label address: 0x000000
+
+<< label >>
+LABEL1 1 ( 0x1 )
+LABEL2 2 ( 0x2 )

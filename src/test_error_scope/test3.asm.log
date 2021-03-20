@@ -1,0 +1,23 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[	SCOPE AAA]
+	Scope path: AAA:
+
+[	DEFB 1]
+000000: 01
+
+[IF 1]
+
+ERROR: ENDSCOPE in wrong position.: test3.asm(10)
+
+ERROR: Must be set scope name.: test3.asm(14)
+ERROR: SCOPE command has only one parameter.: test3.asm(17)
+[	SCOPE DDD]
+	Scope path: DDD:
+
+ERROR: ENDSCOPE command has not parameter.: test3.asm(20)
+ERROR: Scope is not closed.: test3.asm(20)
+<< label >>

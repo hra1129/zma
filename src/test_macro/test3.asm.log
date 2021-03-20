@@ -1,0 +1,28 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+Define macro {HOGE MACRO A}
+
+((HOGE 10))
+	Scope path: @MACRO0:
+[	DEFB 10]
+000000: 0a
+
+((HOGE 20))
+	Scope path: @MACRO1:
+[	DEFB 20]
+000001: 14
+
+Define macro {MOGE MACRO @ P1 , @ P2}
+
+((MOGE A , B))
+	Scope path: @MACRO2:
+[	DEFS "A"]
+000002: 41
+
+[	DEFS "B"]
+000003: 42
+
+<< label >>

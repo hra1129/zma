@@ -1,0 +1,10 @@
+Z80 Macro Assembler ZMA v1.0.15
+=====================================================
+Programmed by t.hara
+
+<< code >>
+[REPEAT I , 5]
+	Scope path: @REPEAT0:
+
+<< label >>
+@REPEAT0:I 0 ( 0x0 )
