@@ -101,6 +101,18 @@
     <ClCompile Include="sub\zma_parse_process_ldir.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_ex.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_exx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_pop.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_push.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="zma_text.hpp" />
@@ -131,5 +143,9 @@
     <ClInclude Include="sub\zma_parse_process_lddr.hpp" />
     <ClInclude Include="sub\zma_parse_process_ldi.hpp" />
     <ClInclude Include="sub\zma_parse_process_ldir.hpp" />
+    <ClInclude Include="sub\zma_parse_process_ex.hpp" />
+    <ClInclude Include="sub\zma_parse_process_exx.hpp" />
+    <ClInclude Include="sub\zma_parse_process_pop.hpp" />
+    <ClInclude Include="sub\zma_parse_process_push.hpp" />
   </ItemGroup>
 </Project>

@@ -164,6 +164,8 @@
     <ClCompile Include="sub\zma_parse_process_defs.cpp" />
     <ClCompile Include="sub\zma_parse_process_defw.cpp" />
     <ClCompile Include="sub\zma_parse_process_endscope.cpp" />
+    <ClCompile Include="sub\zma_parse_process_ex.cpp" />
+    <ClCompile Include="sub\zma_parse_process_exx.cpp" />
     <ClCompile Include="sub\zma_parse_process_global_label.cpp" />
     <ClCompile Include="sub\zma_parse_process_global_symbol.cpp" />
     <ClCompile Include="sub\zma_parse_process_label.cpp" />
@@ -174,6 +176,8 @@
     <ClCompile Include="sub\zma_parse_process_ldir.cpp" />
     <ClCompile Include="sub\zma_parse_process_macro.cpp" />
     <ClCompile Include="sub\zma_parse_process_org.cpp" />
+    <ClCompile Include="sub\zma_parse_process_pop.cpp" />
+    <ClCompile Include="sub\zma_parse_process_push.cpp" />
     <ClCompile Include="sub\zma_parse_process_scope.cpp" />
     <ClCompile Include="sub\zma_parse_process_space.cpp" />
     <ClCompile Include="sub\zma_parse_process_symbol.cpp" />
@@ -196,6 +200,8 @@
     <ClInclude Include="sub\zma_parse_process_defs.hpp" />
     <ClInclude Include="sub\zma_parse_process_defw.hpp" />
     <ClInclude Include="sub\zma_parse_process_endscope.hpp" />
+    <ClInclude Include="sub\zma_parse_process_ex.hpp" />
+    <ClInclude Include="sub\zma_parse_process_exx.hpp" />
     <ClInclude Include="sub\zma_parse_process_global_label.hpp" />
     <ClInclude Include="sub\zma_parse_process_global_symbol.hpp" />
     <ClInclude Include="sub\zma_parse_process_label.hpp" />
@@ -206,6 +212,8 @@
     <ClInclude Include="sub\zma_parse_process_ldir.hpp" />
     <ClInclude Include="sub\zma_parse_process_macro.hpp" />
     <ClInclude Include="sub\zma_parse_process_org.hpp" />
+    <ClInclude Include="sub\zma_parse_process_pop.hpp" />
+    <ClInclude Include="sub\zma_parse_process_push.hpp" />
     <ClInclude Include="sub\zma_parse_process_scope.hpp" />
     <ClInclude Include="sub\zma_parse_process_space.hpp" />
     <ClInclude Include="sub\zma_parse_process_symbol.hpp" />

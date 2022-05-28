@@ -52,3 +52,7 @@ enum class CZMA_COMMAND_TYPE {
 #include "zma_parse_process_ldir.hpp"
 #include "zma_parse_process_ldd.hpp"
 #include "zma_parse_process_lddr.hpp"
+#include "zma_parse_process_ex.hpp"
+#include "zma_parse_process_exx.hpp"
+#include "zma_parse_process_push.hpp"
+#include "zma_parse_process_pop.hpp"

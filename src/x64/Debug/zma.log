@@ -7,11 +7,22 @@
   zma_parse_process_defs.cpp
   zma_parse_process_defw.cpp
   zma_parse_process_endscope.cpp
+  zma_parse_process_ex.cpp
+  zma_parse_process_exx.cpp
   zma_parse_process_global_label.cpp
   zma_parse_process_global_symbol.cpp
   zma_parse_process_label.cpp
+  zma_parse_process_ld.cpp
+  zma_parse_process_ldd.cpp
+  zma_parse_process_lddr.cpp
+  zma_parse_process_ldi.cpp
+  zma_parse_process_ldir.cpp
   zma_parse_process_macro.cpp
+  コードを生成中...
+  コンパイル中...
   zma_parse_process_org.cpp
+  zma_parse_process_pop.cpp
+  zma_parse_process_push.cpp
   zma_parse_process_scope.cpp
   zma_parse_process_space.cpp
   zma_parse_process_symbol.cpp
