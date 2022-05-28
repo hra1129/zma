@@ -113,6 +113,198 @@
     <ClCompile Include="sub\zma_parse_process_push.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_adc.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_add.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_and.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_bit.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_call.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_ccf.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_cp.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_cpd.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_cpdr.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_cpi.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_cpir.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_cpl.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_daa.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_dec.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_di.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_djnz.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_ei.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_halt.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_if.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_im0.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_im1.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_im2.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_in.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_inc.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_ind.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_indr.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_ini.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_inir.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_jp.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_jr.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_mulub.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_muluw.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_neg.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_nop.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_or.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_otdr.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_otir.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_out.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_outd.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_outi.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_res.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_ret.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_reti.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_retn.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_rla.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_rlc.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_rlca.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_rld.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_rr.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_rra.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_rrc.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_rrca.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_rrd.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_rst.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_sbc.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_scf.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_set.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_sla.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_sll.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_sra.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_srl.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_sub.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_xor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_rl.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="zma_text.hpp" />
@@ -147,5 +339,69 @@
     <ClInclude Include="sub\zma_parse_process_exx.hpp" />
     <ClInclude Include="sub\zma_parse_process_pop.hpp" />
     <ClInclude Include="sub\zma_parse_process_push.hpp" />
+    <ClInclude Include="sub\zma_parse_process_adc.hpp" />
+    <ClInclude Include="sub\zma_parse_process_add.hpp" />
+    <ClInclude Include="sub\zma_parse_process_and.hpp" />
+    <ClInclude Include="sub\zma_parse_process_bit.hpp" />
+    <ClInclude Include="sub\zma_parse_process_call.hpp" />
+    <ClInclude Include="sub\zma_parse_process_ccf.hpp" />
+    <ClInclude Include="sub\zma_parse_process_cp.hpp" />
+    <ClInclude Include="sub\zma_parse_process_cpd.hpp" />
+    <ClInclude Include="sub\zma_parse_process_cpdr.hpp" />
+    <ClInclude Include="sub\zma_parse_process_cpi.hpp" />
+    <ClInclude Include="sub\zma_parse_process_cpir.hpp" />
+    <ClInclude Include="sub\zma_parse_process_cpl.hpp" />
+    <ClInclude Include="sub\zma_parse_process_daa.hpp" />
+    <ClInclude Include="sub\zma_parse_process_dec.hpp" />
+    <ClInclude Include="sub\zma_parse_process_di.hpp" />
+    <ClInclude Include="sub\zma_parse_process_djnz.hpp" />
+    <ClInclude Include="sub\zma_parse_process_ei.hpp" />
+    <ClInclude Include="sub\zma_parse_process_halt.hpp" />
+    <ClInclude Include="sub\zma_parse_process_if.hpp" />
+    <ClInclude Include="sub\zma_parse_process_im0.hpp" />
+    <ClInclude Include="sub\zma_parse_process_im1.hpp" />
+    <ClInclude Include="sub\zma_parse_process_im2.hpp" />
+    <ClInclude Include="sub\zma_parse_process_in.hpp" />
+    <ClInclude Include="sub\zma_parse_process_inc.hpp" />
+    <ClInclude Include="sub\zma_parse_process_ind.hpp" />
+    <ClInclude Include="sub\zma_parse_process_indr.hpp" />
+    <ClInclude Include="sub\zma_parse_process_ini.hpp" />
+    <ClInclude Include="sub\zma_parse_process_inir.hpp" />
+    <ClInclude Include="sub\zma_parse_process_jp.hpp" />
+    <ClInclude Include="sub\zma_parse_process_jr.hpp" />
+    <ClInclude Include="sub\zma_parse_process_mulub.hpp" />
+    <ClInclude Include="sub\zma_parse_process_muluw.hpp" />
+    <ClInclude Include="sub\zma_parse_process_neg.hpp" />
+    <ClInclude Include="sub\zma_parse_process_nop.hpp" />
+    <ClInclude Include="sub\zma_parse_process_or.hpp" />
+    <ClInclude Include="sub\zma_parse_process_otdr.hpp" />
+    <ClInclude Include="sub\zma_parse_process_otir.hpp" />
+    <ClInclude Include="sub\zma_parse_process_out.hpp" />
+    <ClInclude Include="sub\zma_parse_process_outd.hpp" />
+    <ClInclude Include="sub\zma_parse_process_outi.hpp" />
+    <ClInclude Include="sub\zma_parse_process_res.hpp" />
+    <ClInclude Include="sub\zma_parse_process_ret.hpp" />
+    <ClInclude Include="sub\zma_parse_process_reti.hpp" />
+    <ClInclude Include="sub\zma_parse_process_retn.hpp" />
+    <ClInclude Include="sub\zma_parse_process_rla.hpp" />
+    <ClInclude Include="sub\zma_parse_process_rlc.hpp" />
+    <ClInclude Include="sub\zma_parse_process_rlca.hpp" />
+    <ClInclude Include="sub\zma_parse_process_rld.hpp" />
+    <ClInclude Include="sub\zma_parse_process_rr.hpp" />
+    <ClInclude Include="sub\zma_parse_process_rra.hpp" />
+    <ClInclude Include="sub\zma_parse_process_rrc.hpp" />
+    <ClInclude Include="sub\zma_parse_process_rrca.hpp" />
+    <ClInclude Include="sub\zma_parse_process_rrd.hpp" />
+    <ClInclude Include="sub\zma_parse_process_rst.hpp" />
+    <ClInclude Include="sub\zma_parse_process_sbc.hpp" />
+    <ClInclude Include="sub\zma_parse_process_scf.hpp" />
+    <ClInclude Include="sub\zma_parse_process_set.hpp" />
+    <ClInclude Include="sub\zma_parse_process_sla.hpp" />
+    <ClInclude Include="sub\zma_parse_process_sll.hpp" />
+    <ClInclude Include="sub\zma_parse_process_sra.hpp" />
+    <ClInclude Include="sub\zma_parse_process_srl.hpp" />
+    <ClInclude Include="sub\zma_parse_process_sub.hpp" />
+    <ClInclude Include="sub\zma_parse_process_xor.hpp" />
+    <ClInclude Include="sub\zma_parse_process_rl.hpp" />
   </ItemGroup>
 </Project>
