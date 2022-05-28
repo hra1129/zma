@@ -6,6 +6,7 @@
 
 #include "zma_parse.hpp"
 #include "zma_text.hpp"
+#include "zma_parse_process.hpp"
 #include <string>
 #include <cctype>
 #include <iostream>
@@ -13,37 +14,6 @@
 #include <sstream>
 #include <algorithm>
 
-#define CLASS_CZMA_PARSE( name ) \
-	class CZMA_PARSE_##name: public CZMA_PARSE {													\
-	public:																							\
-		using CZMA_PARSE::CZMA_PARSE;																\
-		bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;			\
-	};
-
-CLASS_CZMA_PARSE( USER_ERROR );
-CLASS_CZMA_PARSE( USER_MESSAGE );
-CLASS_CZMA_PARSE( ADD_INCLUDE_PATH );
-CLASS_CZMA_PARSE( ALIGN );
-CLASS_CZMA_PARSE( SPACE );
-CLASS_CZMA_PARSE( BLANK );
-CLASS_CZMA_PARSE( MACRO );
-CLASS_CZMA_PARSE( LABEL );
-CLASS_CZMA_PARSE( GLOBAL_LABEL );
-CLASS_CZMA_PARSE( SYMBOL );
-CLASS_CZMA_PARSE( GLOBAL_SYMBOL );
-CLASS_CZMA_PARSE( SCOPE );
-CLASS_CZMA_PARSE( ENDSCOPE );
-CLASS_CZMA_PARSE( BINARY_LINK );
-CLASS_CZMA_PARSE( DEFB );
-CLASS_CZMA_PARSE( DEFW );
-CLASS_CZMA_PARSE( DEFD );
-CLASS_CZMA_PARSE( DEFS );
-CLASS_CZMA_PARSE( ORG );
-CLASS_CZMA_PARSE( LD );
-CLASS_CZMA_PARSE( LDI );
-CLASS_CZMA_PARSE( LDIR );
-CLASS_CZMA_PARSE( LDD );
-CLASS_CZMA_PARSE( LDDR );
 CLASS_CZMA_PARSE( EX );
 CLASS_CZMA_PARSE( EXX );
 CLASS_CZMA_PARSE( PUSH );
@@ -249,127 +219,112 @@ bool CZMA_PARSE_MACRO_INS::write( CZMA_INFORMATION& info, std::ofstream* f ) {
 }
 
 // --------------------------------------------------------------------
-typedef enum {
-	CZMA_ERROR, CZMA_BLANK, CZMA_INCLUDE, CZMA_ADD_INCLUDE_PATH, CZMA_USER_ERROR, CZMA_USER_MESSAGE, CZMA_LABEL, CZMA_GLOBAL_LABEL, 
-	CZMA_SCOPE, CZMA_ENDSCOPE, CZMA_IF, CZMA_ELSEIF, CZMA_ELSE, CZMA_ENDIF, CZMA_ENDM,
-	CZMA_ALIGN, CZMA_SPACE, CZMA_REPEAT, CZMA_ENDR, CZMA_ORG, CZMA_GLOBAL_SYMBOL, CZMA_BINARY_LINK, CZMA_DEFB, CZMA_DEFW, CZMA_DEFD, CZMA_DEFS,
-	CZMA_LD, CZMA_LDI, CZMA_LDIR, CZMA_LDD, CZMA_LDDR, CZMA_EX, CZMA_EXX, CZMA_PUSH, CZMA_POP, 
-	CZMA_RLCA, CZMA_RLA, CZMA_RLC, CZMA_RL, CZMA_RRCA, CZMA_RRA, CZMA_RRC, CZMA_RR,
-	CZMA_SLA, CZMA_SRA, CZMA_SRL, CZMA_SLL, CZMA_ADD, CZMA_ADC, CZMA_INC, CZMA_SUB, CZMA_SBC,
-	CZMA_DEC, CZMA_AND, CZMA_OR, CZMA_XOR, CZMA_CPL, CZMA_NEG, CZMA_CCF, CZMA_SCF,
-	CZMA_BIT, CZMA_RES, CZMA_SET, CZMA_CPI, CZMA_CPIR, CZMA_CPD, CZMA_CPDR, CZMA_CP, 
-	CZMA_JP, CZMA_JR, CZMA_DJNZ, CZMA_CALL, CZMA_RET, CZMA_RETI, CZMA_RETN, CZMA_RST, 
-	CZMA_NOP, CZMA_HALT, CZMA_DI, CZMA_EI, CZMA_IM0, CZMA_IM1, CZMA_IM2, CZMA_IN, 
-	CZMA_INI, CZMA_INIR, CZMA_IND, CZMA_INDR, CZMA_OUT, CZMA_OUTI, CZMA_OTIR, 
-	CZMA_OUTD, CZMA_OTDR, CZMA_DAA, CZMA_RLD, CZMA_RRD, CZMA_MULUB, CZMA_MULUW,
-} CZMA_COMMAND_TYPE;
-
 int CZMA_PARSE::number_of_error = 0;
 
 // --------------------------------------------------------------------
 static std::map< std::string, CZMA_COMMAND_TYPE > command_list = {
-	{ "ALIGN", CZMA_ALIGN },
-	{ "SPACE", CZMA_SPACE },
-	{ "REPEAT", CZMA_REPEAT },
-	{ "ENDR", CZMA_ENDR },
-	{ "ENDM", CZMA_ENDM },
-	{ "IF", CZMA_IF },
-	{ "ELSEIF", CZMA_ELSEIF },
-	{ "ELSE", CZMA_ELSE },
-	{ "ENDIF", CZMA_ENDIF },
-	{ "ORG", CZMA_ORG },
-	{ "INCLUDE", CZMA_INCLUDE },
-	{ "ADD_INCLUDE_PATH", CZMA_ADD_INCLUDE_PATH },
-	{ "ERROR", CZMA_USER_ERROR },
-	{ "MESSAGE", CZMA_USER_MESSAGE },
-	{ "SCOPE", CZMA_SCOPE },
-	{ "ENDSCOPE", CZMA_ENDSCOPE },
-	{ "BINARY_LINK", CZMA_BINARY_LINK },
-	{ "DEFB", CZMA_DEFB },
-	{ "DEFW", CZMA_DEFW },
-	{ "DEFD", CZMA_DEFD },
-	{ "DEFS", CZMA_DEFS },
-	{ "DB", CZMA_DEFB },
-	{ "DW", CZMA_DEFW },
-	{ "DD", CZMA_DEFD },
-	{ "DS", CZMA_DEFS },
-	{ "LD", CZMA_LD },
-	{ "LDI", CZMA_LDI }, 
-	{ "LDIR", CZMA_LDIR },
-	{ "LDD", CZMA_LDD }, 
-	{ "LDDR", CZMA_LDDR },
-	{ "EX", CZMA_EX },
-	{ "EXX", CZMA_EXX },
-	{ "PUSH", CZMA_PUSH },
-	{ "POP", CZMA_POP },
-	{ "RLCA", CZMA_RLCA },
-	{ "RLA", CZMA_RLA },
-	{ "RLC", CZMA_RLC },
-	{ "RL", CZMA_RL },
-	{ "RRCA", CZMA_RRCA },
-	{ "RRA", CZMA_RRA },
-	{ "RRC", CZMA_RRC },
-	{ "RR", CZMA_RR },
-	{ "SLA", CZMA_SLA },
-	{ "SRA", CZMA_SRA },
-	{ "SRL", CZMA_SRL },
-	{ "SLL", CZMA_SLL },
-	{ "ADD", CZMA_ADD },
-	{ "ADC", CZMA_ADC },
-	{ "INC", CZMA_INC },
-	{ "SUB", CZMA_SUB },
-	{ "SBC", CZMA_SBC },
-	{ "DEC", CZMA_DEC },
-	{ "AND", CZMA_AND },
-	{ "OR", CZMA_OR },
-	{ "XOR", CZMA_XOR },
-	{ "CPL", CZMA_CPL },
-	{ "NEG", CZMA_NEG },
-	{ "CCF", CZMA_CCF },
-	{ "SCF", CZMA_SCF },
-	{ "BIT", CZMA_BIT },
-	{ "RES", CZMA_RES },
-	{ "SET", CZMA_SET },
-	{ "CPI", CZMA_CPI },
-	{ "CPIR", CZMA_CPIR },
-	{ "CPD", CZMA_CPD },
-	{ "CPDR", CZMA_CPDR },
-	{ "CP", CZMA_CP },
-	{ "JP", CZMA_JP },
-	{ "JR", CZMA_JR },
-	{ "DJNZ", CZMA_DJNZ },
-	{ "CALL", CZMA_CALL },
-	{ "RET", CZMA_RET },
-	{ "RETI", CZMA_RETI },
-	{ "RETN", CZMA_RETN },
-	{ "RST", CZMA_RST },
-	{ "NOP", CZMA_NOP },
-	{ "HALT", CZMA_HALT },
-	{ "DI", CZMA_DI },
-	{ "EI", CZMA_EI },
-	{ "IM0", CZMA_IM0 },
-	{ "IM1", CZMA_IM1 },
-	{ "IM2", CZMA_IM2 },
-	{ "IN", CZMA_IN },
-	{ "INI", CZMA_INI },
-	{ "INIR", CZMA_INIR },
-	{ "IND", CZMA_IND },
-	{ "INDR", CZMA_INDR },
-	{ "OUT", CZMA_OUT },
-	{ "OUTI", CZMA_OUTI },
-	{ "OTIR", CZMA_OTIR },
-	{ "OUTD", CZMA_OUTD },
-	{ "OTDR", CZMA_OTDR },
-	{ "DAA", CZMA_DAA },
-	{ "RLD", CZMA_RLD },
-	{ "RRD", CZMA_RRD },
-	{ "MULUB", CZMA_MULUB },
-	{ "MULUW", CZMA_MULUW },
+	{ "ALIGN", CZMA_COMMAND_TYPE::CZMA_ALIGN },
+	{ "SPACE", CZMA_COMMAND_TYPE::CZMA_SPACE },
+	{ "REPEAT", CZMA_COMMAND_TYPE::CZMA_REPEAT },
+	{ "ENDR", CZMA_COMMAND_TYPE::CZMA_ENDR },
+	{ "ENDM", CZMA_COMMAND_TYPE::CZMA_ENDM },
+	{ "IF", CZMA_COMMAND_TYPE::CZMA_IF },
+	{ "ELSEIF", CZMA_COMMAND_TYPE::CZMA_ELSEIF },
+	{ "ELSE", CZMA_COMMAND_TYPE::CZMA_ELSE },
+	{ "ENDIF", CZMA_COMMAND_TYPE::CZMA_ENDIF },
+	{ "ORG", CZMA_COMMAND_TYPE::CZMA_ORG },
+	{ "INCLUDE", CZMA_COMMAND_TYPE::CZMA_INCLUDE },
+	{ "ADD_INCLUDE_PATH", CZMA_COMMAND_TYPE::CZMA_ADD_INCLUDE_PATH },
+	{ "ERROR", CZMA_COMMAND_TYPE::CZMA_USER_ERROR },
+	{ "MESSAGE", CZMA_COMMAND_TYPE::CZMA_USER_MESSAGE },
+	{ "SCOPE", CZMA_COMMAND_TYPE::CZMA_SCOPE },
+	{ "ENDSCOPE", CZMA_COMMAND_TYPE::CZMA_ENDSCOPE },
+	{ "BINARY_LINK", CZMA_COMMAND_TYPE::CZMA_BINARY_LINK },
+	{ "DEFB", CZMA_COMMAND_TYPE::CZMA_DEFB },
+	{ "DEFW", CZMA_COMMAND_TYPE::CZMA_DEFW },
+	{ "DEFD", CZMA_COMMAND_TYPE::CZMA_DEFD },
+	{ "DEFS", CZMA_COMMAND_TYPE::CZMA_DEFS },
+	{ "DB", CZMA_COMMAND_TYPE::CZMA_DEFB },
+	{ "DW", CZMA_COMMAND_TYPE::CZMA_DEFW },
+	{ "DD", CZMA_COMMAND_TYPE::CZMA_DEFD },
+	{ "DS", CZMA_COMMAND_TYPE::CZMA_DEFS },
+	{ "LD", CZMA_COMMAND_TYPE::CZMA_LD },
+	{ "LDI", CZMA_COMMAND_TYPE::CZMA_LDI },
+	{ "LDIR", CZMA_COMMAND_TYPE::CZMA_LDIR },
+	{ "LDD", CZMA_COMMAND_TYPE::CZMA_LDD },
+	{ "LDDR", CZMA_COMMAND_TYPE::CZMA_LDDR },
+	{ "EX", CZMA_COMMAND_TYPE::CZMA_EX },
+	{ "EXX", CZMA_COMMAND_TYPE::CZMA_EXX },
+	{ "PUSH", CZMA_COMMAND_TYPE::CZMA_PUSH },
+	{ "POP", CZMA_COMMAND_TYPE::CZMA_POP },
+	{ "RLCA", CZMA_COMMAND_TYPE::CZMA_RLCA },
+	{ "RLA", CZMA_COMMAND_TYPE::CZMA_RLA },
+	{ "RLC", CZMA_COMMAND_TYPE::CZMA_RLC },
+	{ "RL", CZMA_COMMAND_TYPE::CZMA_RL },
+	{ "RRCA", CZMA_COMMAND_TYPE::CZMA_RRCA },
+	{ "RRA", CZMA_COMMAND_TYPE::CZMA_RRA },
+	{ "RRC", CZMA_COMMAND_TYPE::CZMA_RRC },
+	{ "RR", CZMA_COMMAND_TYPE::CZMA_RR },
+	{ "SLA", CZMA_COMMAND_TYPE::CZMA_SLA },
+	{ "SRA", CZMA_COMMAND_TYPE::CZMA_SRA },
+	{ "SRL", CZMA_COMMAND_TYPE::CZMA_SRL },
+	{ "SLL", CZMA_COMMAND_TYPE::CZMA_SLL },
+	{ "ADD", CZMA_COMMAND_TYPE::CZMA_ADD },
+	{ "ADC", CZMA_COMMAND_TYPE::CZMA_ADC },
+	{ "INC", CZMA_COMMAND_TYPE::CZMA_INC },
+	{ "SUB", CZMA_COMMAND_TYPE::CZMA_SUB },
+	{ "SBC", CZMA_COMMAND_TYPE::CZMA_SBC },
+	{ "DEC", CZMA_COMMAND_TYPE::CZMA_DEC },
+	{ "AND", CZMA_COMMAND_TYPE::CZMA_AND },
+	{ "OR", CZMA_COMMAND_TYPE::CZMA_OR },
+	{ "XOR", CZMA_COMMAND_TYPE::CZMA_XOR },
+	{ "CPL", CZMA_COMMAND_TYPE::CZMA_CPL },
+	{ "NEG", CZMA_COMMAND_TYPE::CZMA_NEG },
+	{ "CCF", CZMA_COMMAND_TYPE::CZMA_CCF },
+	{ "SCF", CZMA_COMMAND_TYPE::CZMA_SCF },
+	{ "BIT", CZMA_COMMAND_TYPE::CZMA_BIT },
+	{ "RES", CZMA_COMMAND_TYPE::CZMA_RES },
+	{ "SET", CZMA_COMMAND_TYPE::CZMA_SET },
+	{ "CPI", CZMA_COMMAND_TYPE::CZMA_CPI },
+	{ "CPIR", CZMA_COMMAND_TYPE::CZMA_CPIR },
+	{ "CPD", CZMA_COMMAND_TYPE::CZMA_CPD },
+	{ "CPDR", CZMA_COMMAND_TYPE::CZMA_CPDR },
+	{ "CP", CZMA_COMMAND_TYPE::CZMA_CP },
+	{ "JP", CZMA_COMMAND_TYPE::CZMA_JP },
+	{ "JR", CZMA_COMMAND_TYPE::CZMA_JR },
+	{ "DJNZ", CZMA_COMMAND_TYPE::CZMA_DJNZ },
+	{ "CALL", CZMA_COMMAND_TYPE::CZMA_CALL },
+	{ "RET", CZMA_COMMAND_TYPE::CZMA_RET },
+	{ "RETI", CZMA_COMMAND_TYPE::CZMA_RETI },
+	{ "RETN", CZMA_COMMAND_TYPE::CZMA_RETN },
+	{ "RST", CZMA_COMMAND_TYPE::CZMA_RST },
+	{ "NOP", CZMA_COMMAND_TYPE::CZMA_NOP },
+	{ "HALT", CZMA_COMMAND_TYPE::CZMA_HALT },
+	{ "DI", CZMA_COMMAND_TYPE::CZMA_DI },
+	{ "EI", CZMA_COMMAND_TYPE::CZMA_EI },
+	{ "IM0", CZMA_COMMAND_TYPE::CZMA_IM0 },
+	{ "IM1", CZMA_COMMAND_TYPE::CZMA_IM1 },
+	{ "IM2", CZMA_COMMAND_TYPE::CZMA_IM2 },
+	{ "IN", CZMA_COMMAND_TYPE::CZMA_IN },
+	{ "INI", CZMA_COMMAND_TYPE::CZMA_INI },
+	{ "INIR", CZMA_COMMAND_TYPE::CZMA_INIR },
+	{ "IND", CZMA_COMMAND_TYPE::CZMA_IND },
+	{ "INDR", CZMA_COMMAND_TYPE::CZMA_INDR },
+	{ "OUT", CZMA_COMMAND_TYPE::CZMA_OUT },
+	{ "OUTI", CZMA_COMMAND_TYPE::CZMA_OUTI },
+	{ "OTIR", CZMA_COMMAND_TYPE::CZMA_OTIR },
+	{ "OUTD", CZMA_COMMAND_TYPE::CZMA_OUTD },
+	{ "OTDR", CZMA_COMMAND_TYPE::CZMA_OTDR },
+	{ "DAA", CZMA_COMMAND_TYPE::CZMA_DAA },
+	{ "RLD", CZMA_COMMAND_TYPE::CZMA_RLD },
+	{ "RRD", CZMA_COMMAND_TYPE::CZMA_RRD },
+	{ "MULUB", CZMA_COMMAND_TYPE::CZMA_MULUB },
+	{ "MULUW", CZMA_COMMAND_TYPE::CZMA_MULUW },
 };
 
 // --------------------------------------------------------------------
 #define OPE_CASE( operation )																			\
-	case CZMA_##operation:																			\
+	case CZMA_COMMAND_TYPE::CZMA_##operation:																			\
 		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_##operation( words, p_file_name, line_no ))
 
 // --------------------------------------------------------------------
@@ -568,192 +523,12 @@ CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::string s, const cha
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE_BLANK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-
-	this->is_data_fixed = true;
-	update_flags( &info, p_last_line );
-	this->set_code_size( &info, 0 );
-	return this->check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_MACRO::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	std::string label;
-	CZMA_MACRO* p_macro;
-	CZMA_MACRO_ARG arg;
-	int i;
-
-	bool result = update_flags( &info, p_last_line );
-	if( !this->is_data_fixed ) {
-		if( info.macro_list.count( words[0] ) && info.macro_list[words[0]] != nullptr ) {
-			//	同じ名前のマクロを宣言することはできない
-			put_error( std::string( "There are declarations of the same macro '" ) + words[0] + "' in multiple places." );
-			return false;
-		}
-		//	引数抽出処理
-		p_macro = new CZMA_MACRO;
-		for( i = 2; i < ( int) words.size(); ) {
-			if( words[i] == "@" ) {
-				arg.is_through = true;
-				i++;
-			}
-			else {
-				arg.is_through = false;
-			}
-			if( i >= (int)words.size() ) {
-				put_error( "Illegal argument." );
-				return false;
-			}
-			arg.name = words[i];
-			if( (i + 1) < (int)words.size() && words[ i + 1 ] != "," ) {
-				put_error( "Illegal argument." );
-				return false;
-			}
-			for( auto s : p_macro->parameter_name_list ) {
-				if( s.name == words[i] ) {
-					put_error( std::string( "Multiple arguments of the same name '" + words[i] + "' exist." ) );
-					return false;
-				}
-			}
-			i = i + 2;
-			p_macro->parameter_name_list.push_back( arg );
-		}
-		info.block_type = info.CZMA_INFO_MACRO_BLOCK;
-		info.is_block_processing = true;
-		info.p_macro = p_macro;
-		info.p_text = &(info.p_macro->m_text);
-		this->is_data_fixed = true;
-		this->set_code_size( &info, 0 );
-		info.macro_list[words[0]] = p_macro;
-	}
-	//	log
-	if( !is_analyze_phase ) {
-		log.push_back( "Define macro {" + get_line() + "}" );
-		log.push_back( "" );
-	}
-	return result;
-}
-
-// --------------------------------------------------------------------
 bool CZMA_PARSE_ENDM::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 
 	update_flags( &info, p_last_line );
 	info.is_block_processing = false;
 	this->is_data_fixed = true;
 	this->set_code_size( &info, 0 );
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_ALIGN::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ) {
-	int i, address, padding_size, block_size;
-	CVALUE v;
-
-	update_flags( &info, p_last_line );
-	if( !this->is_data_fixed ){
-		if( this->get_fixed_code_address() ){
-			i = this->expression( info, 1, v );
-			if( i == 0 ){
-				put_error( std::string( "Cannot evaluate the expression" ) );
-				data.clear();
-				return false;
-			}
-			if( v.type != CVALUE::CV_INTEGER ){
-				put_error( "Illegal expression." );
-				return false;
-			}
-			if( v.i < 1 ){
-				put_error( "Illegal parameter." );
-				return false;
-			}
-			//	パディングの量を計算する
-			block_size = v.i;
-			address = this->get_code_address();
-			padding_size = ( block_size - ( address % block_size ) ) % block_size;
-			//	パディングする
-			this->set_code_size( &info, padding_size );
-			for( i = 0; i < padding_size; i++ ){
-				this->data.push_back( 0 );
-			}
-			this->is_data_fixed = true;
-			info.is_updated = true;
-		}
-	}
-
-	if( !is_analyze_phase ){
-		log.push_back( "[" + get_line() + "]" );
-		log.push_back( "\tPadding: " + std::to_string( this->get_code_size() ) + "byte(s)" );
-		log.push_back( "" );
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
-	int i, space_size, value;
-	CVALUE v;
-
-	update_flags( &info, p_last_line );
-	if( !this->is_data_fixed ){
-		if( !this->get_fixed_code_size() ){
-			//	サイズ
-			i = this->expression( info, 1, v );
-			if( i == 0 ){
-				put_error( std::string( "Cannot evaluate the expression" ) );
-				data.clear();
-				return false;
-			}
-			if( v.type != CVALUE::CV_INTEGER ){
-				put_error( "Illegal expression." );
-				return false;
-			}
-			if( v.i < 0 || v.i > 65536 ){
-				put_error( "Invalid parameter." );
-				return false;
-			}
-			space_size = v.i;
-			//	, があるか？
-			if( i < (int)this->words.size() && this->words[ i ] == "," ){
-				i = this->expression( info, i + 1, v );
-				if( i == 0 ){
-					put_error( std::string( "Cannot evaluate the expression" ) );
-					data.clear();
-					return false;
-				}
-				if( v.type != CVALUE::CV_INTEGER ){
-					put_error( "Illegal expression." );
-					return false;
-				}
-				if( v.i < 0 || v.i > 65536 ){
-					put_error( "Invalid parameter." );
-					return false;
-				}
-				value = v.i;
-			}
-			else{
-				value = 0;
-			}
-			//	スペースを確保する
-			this->set_code_size( &info, space_size );
-			for( i = 0; i < space_size; i++ ){
-				this->data.push_back( value );
-			}
-			this->is_data_fixed = true;
-			info.is_updated = true;
-		}
-	}
-
-	if( !is_analyze_phase ){
-		log.push_back( "[" + get_line() + "]" );
-		if( this->get_code_size() ){
-			log.push_back( "\tAllocate space: " + std::to_string( this->get_code_size() ) + "byte(s)" );
-			log.push_back( "\t\tFill value: " + std::to_string( this->data[0] ) );
-		}
-		else{
-			log.push_back( "\tNo space was allocated." );
-		}
-		log.push_back( "" );
-	}
 	return check_all_fixed();
 }
 
@@ -793,7 +568,7 @@ bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 			put_error( "Illegal expression." );
 			return false;
 		}
-		if( v.type != CVALUE::CV_INTEGER ) {
+		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal parameter." );
 			return false;
 		}
@@ -802,7 +577,7 @@ bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 		p_repeat->scope_name = "@REPEAT" + std::to_string( info.get_auto_label_index() );
 		info.scope.push_back( p_repeat->scope_name );
 		p_repeat->counter_symbol = info.get_scope_path() + words[1];
-		v.type = CVALUE::CV_INTEGER;
+		v.value_type = CVALUE_TYPE::CV_INTEGER;
 		v.i = 0;
 		info.dict[p_repeat->counter_symbol] = v;
 
@@ -983,7 +758,7 @@ bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	for( auto i : p_if->m_sub ) {
 		if( i->p_if->words[0] == "ELSE" ) {
 			//	ELSE なら 常に条件は true
-			v.type = v.CV_INTEGER;
+			v.value_type = CVALUE_TYPE::CV_INTEGER;
 			v.i = 1;
 		}
 		else {
@@ -994,7 +769,7 @@ bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 				return false;
 			}
 		}
-		if( v.type != v.CV_INTEGER ) {
+		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal condition." );
 			return false;
 		}
@@ -1239,432 +1014,6 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	std::string label;
-	CVALUE v;
-
-	update_flags( &info, p_last_line );
-	//	log
-	if( !this->is_analyze_phase ) {
-		std::stringstream s;
-		s << "0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
-		log.push_back( "[" + get_line() + "]" );
-		log.push_back( "\tlabel address: " + s.str() );
-		log.push_back( "" );
-	}
-	if( this->is_data_fixed ) {
-		return check_all_fixed();
-	}
-	this->set_code_size( &info, 0 );
-	update_flags( &info, p_last_line );
-	if( words[0][0] == '\"' ) {
-		put_error( "Label name cannot be string." );
-		return false;
-	}
-	if( this->get_fixed_code_address() ) {
-		label = info.get_scope_path() + words[0];
-		if( info.dict.count( label ) ) {
-			put_error( std::string("There are declarations of the same label '") + label + "' in multiple places." );
-			return false;
-		}
-		else {
-			this->is_data_fixed = true;
-			v.type = CVALUE::CV_INTEGER;
-			v.i = this->get_code_address();
-			info.dict[label] = v;
-			info.is_updated = true;
-		}
-	}
-	else {
-		put_error( std::string( "Label '" ) + words[0] + "' is indeterminate." );
-		return false;
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_GLOBAL_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	std::string label;
-	CVALUE v;
-
-	update_flags( &info, p_last_line );
-	//	log
-	if( !this->is_analyze_phase ) {
-		std::stringstream s;
-		s << "0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
-		log.push_back( "[" + get_line() + "]" );
-		log.push_back( "\tglobal label address: " + s.str() );
-		log.push_back( "" );
-	}
-	if( this->is_data_fixed ) {
-		return check_all_fixed();
-	}
-	this->set_code_size( &info, 0 );
-	if( words[0][0] == '\"' ) {
-		put_error( "Label name cannot be string." );
-		return false;
-	}
-	if( this->get_fixed_code_address() ) {
-		label = words[0];
-		if( info.dict.count( label ) ) {
-			put_error( std::string( "There are declarations of the same label '" ) + label + "' in multiple places." );
-			return false;
-		}
-		else {
-			this->is_data_fixed = true;
-			v.type = CVALUE::CV_INTEGER;
-			v.i = this->get_code_address();
-			info.dict[label] = v;
-			info.is_updated = true;
-		}
-	}
-	else {
-		put_error( std::string( "Label '" ) + words[0] + "' is indeterminate." );
-		return false;
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	std::string label;
-	CVALUE v;
-
-	update_flags( &info, p_last_line );
-	if( this->is_data_fixed ) {
-		return check_all_fixed();
-	}
-	this->set_code_size( &info, 0 );
-	if( words[0][0] == '\"' ) {
-		put_error( "Label name cannot be string." );
-		return false;
-	}
-	if( this->expression( info, 2, v ) ) {
-		if( v.type == CVALUE::CV_UNKNOWN ) {
-			put_error( "Illegal expression." );
-			return false;
-		}
-		label = info.get_scope_path() + words[0];
-		if( info.dict.count( label ) ) {
-			put_error( std::string( "There are declarations of the same label '" ) + label + "' in multiple places." );
-			return false;
-		}
-		else {
-			this->is_data_fixed = true;
-			info.dict[label] = v;
-			info.is_updated = true;
-		}
-	}
-	else {
-		put_error( std::string( "Label '" ) + words[0] + "' is indeterminate." );
-		return false;
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_GLOBAL_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	std::string label;
-	CVALUE v;
-
-	update_flags( &info, p_last_line );
-	if( this->is_data_fixed ) {
-		return check_all_fixed();
-	}
-	this->set_code_size( &info, 0 );
-	if( words[0][0] == '\"' ) {
-		put_error( "Label name cannot be string." );
-		return false;
-	}
-	if( this->expression( info, 2, v ) ) {
-		if( v.type != CVALUE::CV_INTEGER ) {
-			put_error( "Illegal expression." );
-			return false;
-		}
-		label = words[0];
-		if( info.dict.count( label ) ) {
-			put_error( std::string( "There are declarations of the same label '" ) + label + "' in multiple places." );
-			return false;
-		}
-		else {
-			this->is_data_fixed = true;
-			info.dict[label] = v;
-			info.is_updated = true;
-		}
-	}
-	else {
-		put_error( std::string( "Label '" ) + words[0] + "' is indeterminate." );
-		return false;
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_ORG::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	CVALUE address;
-	int index;
-
-	update_flags( &info, p_last_line );
-	index = this->expression( info, 1, address );
-	this->code_size = 0;
-	if( index == 0 ) {
-		put_error( "Illegal expression." );
-		return false;
-	}
-	if( address.type != CVALUE::CV_INTEGER ) {
-		put_error( "Illegal parameter." );
-		return false;
-	}
-	if( index < (int)words.size() ) {
-		put_error( "Illegal parameter." );
-		return false;
-	}
-	this->is_data_fixed = true;
-	this->code_address = address.i;
-	this->next_code_address = address.i;
-	//	log
-	if( !this->is_analyze_phase ) {
-		std::stringstream s;
-		s << "0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
-		log.push_back( "[\t" + get_line() + "]" );
-		log.push_back( "\tcode address: " + s.str() );
-		log.push_back( "" );
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_BINARY_LINK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	int i, count;
-	unsigned char d;
-	CVALUE path;
-
-	update_flags( &info, p_last_line );
-	if( words.size() < 2 ){
-		put_error( "Must be set include file name." );
-		return false;
-	}
-	i = this->expression( info, 1, path );
-	if( i == 0 ){
-		put_error( "Invalid expression." );
-		return false;
-	}
-	if( path.type != CVALUE::CV_STRING ){
-		put_error( "Invalid parameter." );
-		return false;
-	}
-	if( i < (int)words.size() ){
-		put_error( "BINARY_LINK command has only one parameter." );
-		return false;
-	}
-	if( !this->get_fixed_code_size() ) {
-		std::ifstream file;
-		file.open( path.s, std::ios::binary );
-		if( !file ){
-			put_error( "BINARY_LINK command has only one parameter." );
-			return false;
-		}
-		file.seekg( 0, std::ifstream::end );
-		count = static_cast<int>( file.tellg() );
-		file.seekg( 0, std::ifstream::beg );
-		this->set_code_size( &info, count );
-
-		for( i = 0; i < count; i++ ){
-			file.read( (char*) &d, 1 );
-			data.push_back( d );
-		}
-		this->is_data_fixed = true;
-	}
-	//	log
-	if( !this->is_analyze_phase ) {
-		log.push_back( "[\t" + get_line() + "]" );
-		this->log_data_dump();
-		log.push_back( "" );
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_DEFB::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
-	int i, count;
-	CVALUE v;
-
-	update_flags( &info, p_last_line );
-	if( !this->get_fixed_code_size() ){
-		count = 1;
-		for( i = 1; i < (int)words.size(); i++ ){
-			if( words[ i ] == "," ){
-				count++;
-			}
-		}
-		this->set_code_size( &info, count );
-	}
-	if( !this->is_data_fixed ){
-		i = 1;
-		for( count = 0; count < this->get_code_size(); count++ ){
-			i = this->expression( info, i, v );
-			if( i == 0 ){
-				put_error( std::string( "Cannot evaluate the expression(" ) + std::to_string( count + 1 ) + ")" );
-				data.clear();
-				return false;
-			}
-			if( v.type != CVALUE::CV_INTEGER ){
-				put_error( "Illegal expression." );
-				return false;
-			}
-			if( i < (int)words.size() && words[ i ] != "," ){
-				put_error( std::string( "Illegal expression." ) );
-				data.clear();
-				return false;
-			}
-			i++;
-			data.push_back( v.i & 255 );
-		}
-		this->is_data_fixed = true;
-	}
-	//	log
-	if( !this->is_analyze_phase ){
-		log.push_back( "[\t" + get_line() + "]" );
-		this->log_data_dump();
-		log.push_back( "" );
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_DEFW::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	int i, count;
-	CVALUE v;
-
-	update_flags( &info, p_last_line );
-	if( !this->get_fixed_code_size() ) {
-		count = 1;
-		for( i = 1; i < ( int) words.size(); i++ ) {
-			if( words[i] == "," ) {
-				count++;
-			}
-		}
-		this->set_code_size( &info, count * 2 );
-	}
-	if( !this->is_data_fixed ) {
-		i = 1;
-		for( count = 0; (count * 2) < this->get_code_size(); count++ ) {
-			i = this->expression( info, i, v );
-			if( i == 0 ) {
-				put_error( std::string( "Cannot evaluate the expression(" ) + std::to_string( count + 1 ) + ")" );
-				data.clear();
-				return false;
-			}
-			if( v.type != CVALUE::CV_INTEGER ) {
-				put_error( "Illegal expression." );
-				return false;
-			}
-			if( i < ( int) words.size() && words[i] != "," ) {
-				put_error( std::string( "Illegal expression." ) );
-				data.clear();
-				return false;
-			}
-			i++;
-			data.push_back( v.i & 255 );
-			data.push_back( (v.i >> 8) & 255 );
-		}
-		this->is_data_fixed = true;
-	}
-	//	log
-	if( !this->is_analyze_phase ) {
-		log.push_back( "[\t" + get_line() + "]" );
-		this->log_data_dump();
-		log.push_back( "" );
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_DEFD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	int i, count;
-	CVALUE v;
-
-	update_flags( &info, p_last_line );
-	if( !this->get_fixed_code_size() ) {
-		count = 1;
-		for( i = 1; i < ( int) words.size(); i++ ) {
-			if( words[i] == "," ) {
-				count++;
-			}
-		}
-		this->set_code_size( &info, count * 4 );
-	}
-	if( !this->is_data_fixed ) {
-		i = 1;
-		for( count = 0; (count * 4) < this->get_code_size(); count++ ) {
-			i = this->expression( info, i, v );
-			if( i == 0 ) {
-				put_error( std::string( "Cannot evaluate the expression(" ) + std::to_string( count + 1 ) + ")" );
-				data.clear();
-				return false;
-			}
-			if( v.type != CVALUE::CV_INTEGER ) {
-				put_error( "Illegal expression." );
-				return false;
-			}
-			if( i < ( int) words.size() && words[i] != "," ) {
-				put_error( std::string( "Illegal expression." ) );
-				data.clear();
-				return false;
-			}
-			i++;
-			data.push_back( v.i & 255 );
-			data.push_back( (v.i >> 8) & 255 );
-			data.push_back( (v.i >> 16) & 255 );
-			data.push_back( (v.i >> 24) & 255 );
-		}
-		this->is_data_fixed = true;
-	}
-	//	log
-	if( !this->is_analyze_phase ) {
-		log.push_back( "[\t" + get_line() + "]" );
-		this->log_data_dump();
-		log.push_back( "" );
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_DEFS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	CVALUE v;
-	int index;
-
-	update_flags( &info, p_last_line );
-	index = this->expression( info, 1, v );
-	if( index == 0 ) {
-		put_error( "Illegal expression." );
-		return false;
-	}
-	if( index < ( int) words.size() ) {
-		put_error( "Illegal parameter." );
-		return false;
-	}
-	if( v.type == CVALUE::CV_INTEGER ) {
-		v.type = CVALUE::CV_STRING;
-		v.s = std::to_string( v.i );
-	}
-	this->set_code_size( &info, v.s.size() );
-	if( !this->is_data_fixed ) {
-		for( auto c : v.s ) {
-			data.push_back( c );
-		}
-		this->is_data_fixed = true;
-	}
-	//	log
-	if( !this->is_analyze_phase ) {
-		log.push_back( "[\t" + get_line() + "]" );
-		this->log_data_dump();
-		log.push_back( "" );
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
 bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 	std::string s;
 	int i;
@@ -1683,7 +1032,7 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 		put_error( "Invalid expression." );
 		return false;
 	}
-	if( path.type != CVALUE::CV_STRING ) {
+	if( path.value_type != CVALUE_TYPE::CV_STRING ) {
 		put_error( "Invalid parameter." );
 		return false;
 	}
@@ -1748,267 +1097,6 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 		return false;
 	}
 	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_SCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-
-	update_flags( &info, p_last_line );
-	if( words.size() < 2 ) {
-		put_error( "Must be set scope name." );
-		return false;
-	}
-	if( words.size() > 2 ) {
-		put_error( "SCOPE command has only one parameter." );
-		return false;
-	}
-	this->is_data_fixed = true;
-	this->set_code_size( &info, 0 );
-	info.scope.push_back( words[1] );
-
-	//	log
-	if( !is_analyze_phase ) {
-		log.push_back( "[\t" + get_line() + "]" );
-		log.push_back( "\tScope path: " + info.get_scope_path() );
-		log.push_back( "" );
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_ENDSCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	std::string s;
-
-	update_flags( &info, p_last_line );
-	if( words.size() > 1 ) {
-		put_error( "ENDSCOPE command has not parameter." );
-		return false;
-	}
-	this->is_data_fixed = true;
-	this->set_code_size( &info, 0 );
-	if( info.scope.size() < 1 ) {
-		put_error( "ENDSCOPE in wrong position." );
-		return false;
-	}
-	if( info.scope[ info.scope.size() - 1 ][0] == '@' ) {
-		put_error( "ENDSCOPE in wrong position." );
-		return false;
-	}
-	info.scope.pop_back();
-
-	//	log
-	if( !is_analyze_phase ) {
-		log.push_back( "[\t" + get_line() + "]" );
-		log.push_back( "\tScope path: " + info.get_scope_path() );
-		log.push_back( "" );
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-
-	update_flags( &info, p_last_line );
-	if( opecode_a_i_r( info ) ) {						//	ld {A|I|R}, {A|I|R} line
-		//	log
-		if( !is_analyze_phase ) {
-			log.push_back( "[\t" + get_line() + "] Z80:11cyc, R800:2cyc" );			//	ld	{A|I|R}, {A|I|R}
-		}
-	}
-	else if( opecode_ddd_sss( info, 0x40 ) ) {				//	ld <reg8>, <reg8> line
-		//	log
-		if( !is_analyze_phase ) {
-			if( this->code_size == 1 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:5cyc, R800:2cyc" );		//	ld <reg8>, reg8>
-			}
-			else {
-				log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:2cyc" );		//	ld <reg8>, ixh
-			}
-		}
-	}
-	else if( opecode_ddd_ref_hl( info, 0x46 ) ) {			//	ld <reg8>, [HL] line
-		//	log
-		if( !is_analyze_phase ) {
-			if( this->code_size == 1 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:8cyc, R800:4cyc" );		//	ld	<reg8>, [hl]
-			}
-			else {
-				log.push_back( "[\t" + get_line() + "] Z80:21cyc, R800:7cyc" );		//	ld	<reg8>, [ix+d]
-			}
-		}
-	}
-	else if( opecode_a_ref_bc( info, 0x0A ) ) {				//	ld a, [bc/de/nn] line
-		//	log
-		if( !is_analyze_phase ) {
-			if( this->code_size == 1 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:8cyc, R800:4cyc" );		//	ld	a, [bc/de]
-			}
-			else {
-				log.push_back( "[\t" + get_line() + "] Z80:14cyc, R800:6cyc" );		//	ld	a, [nn]
-			}
-		}
-	}
-	else if( opecode_ddd_n( info, 0x06 ) ) {					//	ld <reg8>, imm8 line
-		//	log
-		if( !is_analyze_phase ) {
-			if( this->code_size == 2 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:8cyc, R800:2cyc" );		//	ld	<reg8>, imm8
-			}
-			else {
-				log.push_back( "[\t" + get_line() + "] Z80:13cyc, R800:3cyc" );		//	ld	ixh, imm8
-			}
-		}
-	}
-	else if( opecode_sp_hl( info, 0xF9 ) ) {					//	ld sp, hl/ix/iy line
-		//	log
-		if( !is_analyze_phase ) {
-			if( this->code_size == 1 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:7cyc, R800:1cyc" );		//	ld	sp, hl
-			}
-			else {
-				log.push_back( "[\t" + get_line() + "] Z80:12cyc, R800:2cyc" );		//	ld	sp, ix
-			}
-		}
-	}
-	else if( opecode_rp_nn( info, 0x01 ) ) {					//	ld <reg16>, imm16 line
-		//	log
-		if( !is_analyze_phase ) {
-			if( this->code_size == 3 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:11cyc, R800:3cyc" );		//	ld	<reg16>, imm16
-			}
-			else {
-				log.push_back( "[\t" + get_line() + "] Z80:16cyc, R800:4cyc" );		//	ld	ix, imm16
-			}
-		}
-	}
-	else if( opecode_rp_ref_nn( info, 0x2A, 0x4B ) ) {		//	ld <reg16>, [nn] line
-		//	log
-		if( !is_analyze_phase ) {
-			if( this->code_size == 3 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:17cyc, R800:7cyc" );		//	ld	hl, [nn]
-			}
-			else {
-				log.push_back( "[\t" + get_line() + "] Z80:22cyc, R800:8cyc" );		//	ld	de/bc/sp/ix/iy, [nn]
-			}
-		}
-	}
-	else if( opecode_ref_hl_sss( info, 0x70 ) ) {			//	ld [HL], <reg8> line
-		//	log
-		if( !is_analyze_phase ) {
-			log.push_back( "[\t" + get_line() + "] Z80:8cyc, R800:4cyc" );			//	ld [HL], <reg8>
-		}
-	}
-	else if( opecode_ref_hl_n( info, 0x36 ) ) {				//	ld [HL], imm8 line
-		//	log
-		if( !is_analyze_phase ) {
-			if( this->code_size == 2 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:11cyc, R800:5cyc" );		//	ld [HL], imm8
-			}
-			else {
-				log.push_back( "[\t" + get_line() + "] Z80:21cyc, R800:7cyc" );		//	ld [IX+d], imm8
-			}
-		}
-	}
-	else if( opecode_ref_bc_a( info, 0x02 ) ) {				//	ld [bc/de/nn], a line
-		//	log
-		if( !is_analyze_phase ) {
-			if( this->code_size == 1 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:8cyc, R800:4cyc" );		//	ld [bc/de], a
-			}
-			else {
-				log.push_back( "[\t" + get_line() + "] Z80:14cyc, R800:6cyc" );		//	ld [nn], a
-			}
-		}
-	}
-	else if( opecode_ref_nn_rp( info, 0xED, 0x22, 0x43 ) ) {	//	ld [nn], <reg16> line
-		//	log
-		if( !is_analyze_phase ) {
-			if( this->code_size == 3 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:17cyc, R800:7cyc" );		//	ld [nn],hl
-			}
-			else {
-				log.push_back( "[\t" + get_line() + "] Z80:22cyc, R800:8cyc" );		//	ld [nn],bc/de/sp/ix/iy
-			}
-		}
-	}
-	else {
-		put_error( "Illegal operand." );
-		return false;
-	}
-	//	log
-	if( !is_analyze_phase ) {
-		log_data_dump();
-		log.push_back( "" );
-	}
-	return check_all_fixed();
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_LDI::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-
-	update_flags( &info, p_last_line );
-	if( this->opecode( info, 0xED, 0xA0 ) ) {
-		//	log
-		if( !this->is_analyze_phase ) {
-			log.push_back( "[\t" + get_line() + "] Z80:18cyc, R800:7cyc" );
-			this->log_data_dump();
-			log.push_back( "" );
-		}
-		return check_all_fixed();
-	}
-	put_error( "Illegal operand" );
-	return false;
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_LDIR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-
-	update_flags( &info, p_last_line );
-	if( this->opecode( info, 0xED, 0xB0 ) ) {
-		//	log
-		if( !this->is_analyze_phase ) {
-			log.push_back( "[\t" + get_line() + "] Z80:23cyc(BC!=0), 18cyc(BC=0), R800:?cyc(BC!=0), 7cyc(BC=0)" );
-			this->log_data_dump();
-			log.push_back( "" );
-		}
-		return check_all_fixed();
-	}
-	put_error( "Illegal operand" );
-	return false;
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_LDD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-
-	update_flags( &info, p_last_line );
-	if( this->opecode( info, 0xED, 0xA8 ) ) {
-		//	log
-		if( !this->is_analyze_phase ) {
-			log.push_back( "[\t" + get_line() + "] Z80:18cyc, R800:7cyc" );
-			this->log_data_dump();
-			log.push_back( "" );
-		}
-		return check_all_fixed();
-	}
-	put_error( "Illegal operand" );
-	return false;
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_LDDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-
-	update_flags( &info, p_last_line );
-	if( this->opecode( info, 0xED, 0xB8 ) ) {
-		//	log
-		if( !this->is_analyze_phase ) {
-			log.push_back( "[\t" + get_line() + "] Z80:23cyc(BC!=0), 18cyc(BC=0), R800:?cyc(BC!=0), 7cyc(BC=0)" );
-			this->log_data_dump();
-			log.push_back( "" );
-		}
-		return check_all_fixed();
-	}
-	put_error( "Illegal operand" );
-	return false;
 }
 
 // --------------------------------------------------------------------
@@ -3326,7 +2414,7 @@ bool CZMA_PARSE_RST::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 			put_error( "Illegal expression." );
 			return false;
 		}
-		if( p.type != CVALUE::CV_INTEGER ) {
+		if( p.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal expression." );
 			return false;
 		}
@@ -3744,87 +2832,4 @@ bool CZMA_PARSE_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 
 	put_error( "Illegal command" );
 	return false;
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	CVALUE v;
-
-	set_code_size( &info, 0 );
-	update_flags( &info, p_last_line );
-	if( words.size() == 1 ) {
-		put_error( "User error" );
-		return false;
-	}
-	if( this->expression( info, 1, v ) == 0 ) {
-		put_error( "Illegal parameter in ERROR." );
-	}
-	if( v.type == CVALUE::CV_STRING ) {
-		put_error( v.s );
-	}
-	else if( v.type == CVALUE::CV_INTEGER ) {
-		put_error( std::to_string( v.i ) );
-	}
-	else {
-		put_error( "Illegal parameter in ERROR." );
-	}
-	return false;
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	CVALUE v;
-
-	set_code_size( &info, 0 );
-	update_flags( &info, p_last_line );
-	if( words.size() == 1 ) {
-		put_error( "Message not found in MESSAGE." );
-		return false;
-	}
-	if( this->expression( info, 1, v ) == 0 ) {
-		put_error( "Illegal parameter in MESSAGE." );
-		return false;
-	}
-	if( v.type == CVALUE::CV_INTEGER ) {
-		v.s = std::to_string( v.i );
-	}
-	//	log
-	if( !this->is_analyze_phase ) {
-		put_message( v.s );
-	}
-	return true;
-}
-
-// --------------------------------------------------------------------
-bool CZMA_PARSE_ADD_INCLUDE_PATH::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	CVALUE v;
-	bool is_loaded = false;
-
-	set_code_size( &info, 0 );
-	update_flags( &info, p_last_line );
-	if( words.size() == 1 ) {
-		put_error( "Path not found in ADD_INCLUDE_PATH." );
-		return false;
-	}
-	if( this->expression( info, 1, v ) == 0 ) {
-		put_error( "Illegal parameter in ADD_INCLUDE_PATH." );
-		return false;
-	}
-	if( v.type == CVALUE::CV_INTEGER ) {
-		v.s = std::to_string( v.i );
-	}
-	for( auto s : info.include_path ) {
-		if( s == v.s ) {
-			is_loaded = true;
-		}
-	}
-	if( !is_loaded ) {
-		info.include_path.push_back( v.s );
-	}
-	//	log
-	if( !this->is_analyze_phase ) {
-		log.push_back( "[\t" + get_line() + "]" );
-		log.push_back( "\tAdd include path: " + v.s );
-	}
-	return true;
 }

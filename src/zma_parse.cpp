@@ -139,7 +139,7 @@ std::vector<std::string> CZMA_PARSE::get_word_split( std::string s ) {
 			i = 1;
 			for( std::string &op : operator_list ) {
 				if( op == s.substr( 0, op.length() ) ) {
-					i = op.length();
+					i = (int)op.length();
 					break;
 				}
 			}
@@ -257,7 +257,7 @@ int CZMA_PARSE::relative_address( CZMA_INFORMATION &info, int index ) {
 		put_error( "Illegal expression." );
 		return -9999;
 	}
-	if( imm.type != CVALUE::CV_INTEGER ) {
+	if( imm.value_type != CVALUE_TYPE::CV_INTEGER ) {
 		put_error( "Illegal operand." );
 		return -9999;
 	}
@@ -521,7 +521,7 @@ bool CZMA_PARSE::opecode_ddd_c( CZMA_INFORMATION& info, unsigned char op1, unsig
 		if( !this->expression( info, 4, nn ) ) {
 			return false;
 		}
-		if( nn.type != CVALUE::CV_INTEGER ) {
+		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -573,7 +573,7 @@ bool CZMA_PARSE::opecode_c_sss( CZMA_INFORMATION& info, unsigned char op1, unsig
 		if( !this->expression( info, 2, nn ) ) {
 			return false;
 		}
-		if( nn.type != CVALUE::CV_INTEGER ) {
+		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -601,7 +601,7 @@ bool CZMA_PARSE::opecode_n_sss( CZMA_INFORMATION& info, unsigned char op1, bool 
 	if( !this->expression( info, 1, b ) ) {
 		return false;
 	}
-	if( b.type != CVALUE::CV_INTEGER ) {
+	if( b.value_type != CVALUE_TYPE::CV_INTEGER ) {
 		put_error( "Illegal operand." );
 		return false;
 	}
@@ -642,7 +642,7 @@ bool CZMA_PARSE::opecode_n_sss( CZMA_INFORMATION& info, unsigned char op1, bool 
 				put_error( "Illegal operand." );
 				return false;
 			}
-			if( d.type != CVALUE::CV_INTEGER ) {
+			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -678,7 +678,7 @@ bool CZMA_PARSE::opecode_n_sss( CZMA_INFORMATION& info, unsigned char op1, bool 
 			if( n == 0 ){
 				return false;
 			}
-			if( d.type != CVALUE::CV_INTEGER ) {
+			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -783,7 +783,7 @@ bool CZMA_PARSE::opecode_ddd_ref_hl( CZMA_INFORMATION& info, unsigned char op1 )
 			if( index == 0 ) {
 				return false;
 			}
-			if( d.type != CVALUE::CV_INTEGER ) {
+			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -819,7 +819,7 @@ bool CZMA_PARSE::opecode_ddd_ref_hl( CZMA_INFORMATION& info, unsigned char op1 )
 			if( index == 0 ) {
 				return false;
 			}
-			if( d.type != CVALUE::CV_INTEGER ) {
+			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -873,7 +873,7 @@ bool CZMA_PARSE::opecode_a_ref_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
 			if( !this->expression( info, 5, d ) ) {
 				return false;
 			}
-			if( d.type != CVALUE::CV_INTEGER ) {
+			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -900,7 +900,7 @@ bool CZMA_PARSE::opecode_a_ref_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
 			if( !this->expression( info, 5, d ) ) {
 				return false;
 			}
-			if( d.type != CVALUE::CV_INTEGER ) {
+			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -949,7 +949,7 @@ bool CZMA_PARSE::opecode_ref_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
-			if( d.type != CVALUE::CV_INTEGER ) {
+			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -981,7 +981,7 @@ bool CZMA_PARSE::opecode_ref_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
-			if( d.type != CVALUE::CV_INTEGER ) {
+			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -1036,7 +1036,7 @@ bool CZMA_PARSE::opecode_ddd_n( CZMA_INFORMATION& info, unsigned char op1 ) {
 	if( !this->expression( info, 3, imm8 ) ) {
 		return false;
 	}
-	if( imm8.type != CVALUE::CV_INTEGER ) {
+	if( imm8.value_type != CVALUE_TYPE::CV_INTEGER ) {
 		put_error( "Illegal operand." );
 		return false;
 	}
@@ -1075,7 +1075,7 @@ bool CZMA_PARSE::opecode_a_n( CZMA_INFORMATION& info, unsigned char op1 ) {
 	if( !this->expression( info, 3, imm8 ) ) {
 		return false;
 	}
-	if( imm8.type != CVALUE::CV_INTEGER ) {
+	if( imm8.value_type != CVALUE_TYPE::CV_INTEGER ) {
 		put_error( "Illegal operand." );
 		return false;
 	}
@@ -1135,7 +1135,7 @@ bool CZMA_PARSE::opecode_rp_nn( CZMA_INFORMATION& info, unsigned char op1 ) {
 		put_error( "Illegal operand." );
 		return false;
 	}
-	if( nn.type != CVALUE::CV_INTEGER ) {
+	if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 		put_error( "Illegal operand." );
 		return false;
 	}
@@ -1182,7 +1182,7 @@ bool CZMA_PARSE::opecode_rp_ref_nn( CZMA_INFORMATION& info, unsigned char op1, u
 		put_error( "Illegal operand." );
 		return false;
 	}
-	if( nn.type != CVALUE::CV_INTEGER ) {
+	if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 		put_error( "Illegal operand." );
 		return false;
 	}
@@ -1248,7 +1248,7 @@ bool CZMA_PARSE::opecode_ref_hl_sss( CZMA_INFORMATION& info, unsigned char op1 )
 				put_error( "Illegal operand." );
 				return false;
 			}
-			if( nn.type != CVALUE::CV_INTEGER ) {
+			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -1276,7 +1276,7 @@ bool CZMA_PARSE::opecode_ref_hl_sss( CZMA_INFORMATION& info, unsigned char op1 )
 				put_error( "Illegal operand." );
 				return false;
 			}
-			if( nn.type != CVALUE::CV_INTEGER ) {
+			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -1321,7 +1321,7 @@ bool CZMA_PARSE::opecode_ref_hl_n( CZMA_INFORMATION& info, unsigned char op1 ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
-		if( n.type != CVALUE::CV_INTEGER ) {
+		if( n.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -1344,7 +1344,7 @@ bool CZMA_PARSE::opecode_ref_hl_n( CZMA_INFORMATION& info, unsigned char op1 ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
-			if( d.type != CVALUE::CV_INTEGER ) {
+			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -1360,7 +1360,7 @@ bool CZMA_PARSE::opecode_ref_hl_n( CZMA_INFORMATION& info, unsigned char op1 ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
-		if( n.type != CVALUE::CV_INTEGER ) {
+		if( n.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -1385,7 +1385,7 @@ bool CZMA_PARSE::opecode_ref_hl_n( CZMA_INFORMATION& info, unsigned char op1 ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
-			if( d.type != CVALUE::CV_INTEGER ) {
+			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -1401,7 +1401,7 @@ bool CZMA_PARSE::opecode_ref_hl_n( CZMA_INFORMATION& info, unsigned char op1 ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
-		if( n.type != CVALUE::CV_INTEGER ) {
+		if( n.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -1461,7 +1461,7 @@ bool CZMA_PARSE::opecode_a_ref_bc( CZMA_INFORMATION& info, unsigned char op1 ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
-		if( nn.type != CVALUE::CV_INTEGER ) {
+		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -1515,7 +1515,7 @@ bool CZMA_PARSE::opecode_ref_bc_a( CZMA_INFORMATION& info, unsigned char op1 ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
-		if( nn.type != CVALUE::CV_INTEGER ) {
+		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -1554,7 +1554,7 @@ bool CZMA_PARSE::opecode_ref_nn_rp( CZMA_INFORMATION& info, unsigned char op1, u
 			put_error( "Illegal operand." );
 			return false;
 		}
-		if( nn.type != CVALUE::CV_INTEGER ) {
+		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -1577,7 +1577,7 @@ bool CZMA_PARSE::opecode_ref_nn_rp( CZMA_INFORMATION& info, unsigned char op1, u
 			put_error( "Illegal operand." );
 			return false;
 		}
-		if( nn.type != CVALUE::CV_INTEGER ) {
+		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -1602,7 +1602,7 @@ bool CZMA_PARSE::opecode_ref_nn_rp( CZMA_INFORMATION& info, unsigned char op1, u
 			put_error( "Illegal operand." );
 			return false;
 		}
-		if( nn.type != CVALUE::CV_INTEGER ) {
+		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -1626,7 +1626,7 @@ bool CZMA_PARSE::opecode_ref_nn_rp( CZMA_INFORMATION& info, unsigned char op1, u
 			put_error( "Illegal operand." );
 			return false;
 		}
-		if( nn.type != CVALUE::CV_INTEGER ) {
+		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -1769,7 +1769,7 @@ bool CZMA_PARSE::opecode_sss( CZMA_INFORMATION& info, unsigned char op1, int op2
 				put_error( "Illegal operand." );
 				return false;
 			}
-			if( nn.type != CVALUE::CV_INTEGER ) {
+			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -1821,7 +1821,7 @@ bool CZMA_PARSE::opecode_sss( CZMA_INFORMATION& info, unsigned char op1, int op2
 				put_error( "Illegal operand." );
 				return false;
 			}
-			if( nn.type != CVALUE::CV_INTEGER ) {
+			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
 				put_error( "Illegal operand." );
 				return false;
 			}
@@ -1874,7 +1874,7 @@ bool CZMA_PARSE::opecode_ccc_nnn( CZMA_INFORMATION& info, unsigned char op1, uns
 			put_error( "Illegal operand." );
 			return false;
 		}
-		if( address.type != CVALUE::CV_INTEGER ) {
+		if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}
@@ -1898,7 +1898,7 @@ bool CZMA_PARSE::opecode_ccc_nnn( CZMA_INFORMATION& info, unsigned char op1, uns
 			put_error( "Illegal operand." );
 			return false;
 		}
-		if( address.type != CVALUE::CV_INTEGER ) {
+		if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
 			put_error( "Illegal operand." );
 			return false;
 		}

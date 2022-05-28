@@ -12,18 +12,20 @@
 #include <fstream>
 #include <iomanip>
 
+enum class CVALUE_TYPE {
+	CV_UNKNOWN,
+	CV_INTEGER,
+	CV_STRING,
+};
+
 class CVALUE {
 public:
-	enum {
-		CV_UNKNOWN,
-		CV_INTEGER,
-		CV_STRING,
-	} type;
+	CVALUE_TYPE value_type;
 
 	int			i;
 	std::string	s;
 
-	CVALUE(): type( CV_UNKNOWN ), i( 0 ), s( "" ) {
+	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
 	}
 };
 
@@ -127,7 +129,7 @@ public:
 		int i, l;
 		std::string s;
 
-		for( l = scope.size(); l >= 0; l-- ) {
+		for( l = (int)scope.size(); l >= 0; l-- ) {
 			s = "";
 			for( i = 0; i < l; i++ ) {
 				s = s + scope[i] + ":";
@@ -138,53 +140,53 @@ public:
 				return true;
 			}
 		}
-		result.type = CVALUE::CV_UNKNOWN;
+		result.value_type = CVALUE_TYPE::CV_UNKNOWN;
 		return false;
 	}
 
 	bool is_sss_or_ddd( std::string word ) const {
-		int d = sss_or_ddd_id.count( word );
+		int d = (int)sss_or_ddd_id.count( word );
 		return d;
 	}
 
 	bool is_ix_hl( std::string word ) const {
-		int d = ix_hl.count( word );
+		int d = (int)ix_hl.count( word );
 		return d;
 	}
 
 	bool is_iy_hl( std::string word ) const {
-		int d = iy_hl.count( word );
+		int d = (int)iy_hl.count( word );
 		return d;
 	}
 
 	bool is_rp( std::string word ) const {
-		return rp_id.count( word );
+		return (int)rp_id.count( word );
 	}
 
 	bool is_ix_rp( std::string word ) const{
-		return ix_rp_id.count( word );
+		return (int)ix_rp_id.count( word );
 	}
 
 	bool is_iy_rp( std::string word ) const{
-		return iy_rp_id.count( word );
+		return (int)iy_rp_id.count( word );
 	}
 
 	bool is_rp_with_af( std::string word ) const {
-		return rp_with_af_id.count( word );
+		return (int)rp_with_af_id.count( word );
 	}
 
 	bool is_ccc( std::string word ) const {
-		return ccc_id.count( word );
+		return (int)ccc_id.count( word );
 	}
 
 	bool is_cc2( std::string word ) const {
-		return cc2_id.count( word );
+		return (int)cc2_id.count( word );
 	}
 
 	void add_include_path( const char* p_path, const char *p_sub_path = "" ) {
 		std::string s = p_path;
 
-		for( int i = s.size() - 1; i >= 0; i-- ) {
+		for( int i = (int)s.size() - 1; i >= 0; i-- ) {
 			if( s[i] == '/' || s[i] == '\\' ) {
 				s = s.substr( 0, i );
 				break;
@@ -195,10 +197,10 @@ public:
 	void write( void ) {
 		log << "<< label >>" << std::endl;
 		for( auto item : dict ) { 
-			if( item.second.type == item.second.CV_INTEGER ) {
+			if( item.second.value_type == CVALUE_TYPE::CV_INTEGER ) {
 				log << item.first << " " << std::dec << item.second.i << " ( 0x" << std::hex << item.second.i << " )" << std::endl;
 			}
-			else if( item.second.type == item.second.CV_STRING ) {
+			else if( item.second.value_type == CVALUE_TYPE::CV_STRING ) {
 				log << item.first << " \"" << item.second.s << "\"" << std::endl;
 			}
 			else {
@@ -212,7 +214,7 @@ public:
 			return;
 		}
 		for( auto item : dict ){
-			if( item.second.type != item.second.CV_INTEGER ){
+			if( item.second.value_type != CVALUE_TYPE::CV_INTEGER ){
 				continue;
 			}
 			sym_file << item.first << " equ 0" << std::hex << item.second.i << "h" << std::endl;

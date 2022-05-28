@@ -1,0 +1,10 @@
+﻿  zma_parse_process_ld.cpp
+  zma_parse_process_ldd.cpp
+  zma_parse_process_lddr.cpp
+  zma_parse_process_ldi.cpp
+  zma_parse_process_ldir.cpp
+  コード生成しています。
+  Previous IPDB not found, fall back to full compilation.
+  All 1692 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  コード生成が終了しました。
+  zma.vcxproj -> C:\Users\hra\Documents\github\zma\src\Release\zma.exe

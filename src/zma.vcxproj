@@ -91,6 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.;./sub</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,6 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.;./sub</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,6 +125,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.;./sub</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,6 +145,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.;./sub</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,6 +155,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="sub\zma_parse_process_add_include_path.cpp" />
+    <ClCompile Include="sub\zma_parse_process_align.cpp" />
+    <ClCompile Include="sub\zma_parse_process_binary_link.cpp" />
+    <ClCompile Include="sub\zma_parse_process_blank.cpp" />
+    <ClCompile Include="sub\zma_parse_process_defb.cpp" />
+    <ClCompile Include="sub\zma_parse_process_defd.cpp" />
+    <ClCompile Include="sub\zma_parse_process_defs.cpp" />
+    <ClCompile Include="sub\zma_parse_process_defw.cpp" />
+    <ClCompile Include="sub\zma_parse_process_endscope.cpp" />
+    <ClCompile Include="sub\zma_parse_process_global_label.cpp" />
+    <ClCompile Include="sub\zma_parse_process_global_symbol.cpp" />
+    <ClCompile Include="sub\zma_parse_process_label.cpp" />
+    <ClCompile Include="sub\zma_parse_process_ld.cpp" />
+    <ClCompile Include="sub\zma_parse_process_ldd.cpp" />
+    <ClCompile Include="sub\zma_parse_process_lddr.cpp" />
+    <ClCompile Include="sub\zma_parse_process_ldi.cpp" />
+    <ClCompile Include="sub\zma_parse_process_ldir.cpp" />
+    <ClCompile Include="sub\zma_parse_process_macro.cpp" />
+    <ClCompile Include="sub\zma_parse_process_org.cpp" />
+    <ClCompile Include="sub\zma_parse_process_scope.cpp" />
+    <ClCompile Include="sub\zma_parse_process_space.cpp" />
+    <ClCompile Include="sub\zma_parse_process_symbol.cpp" />
+    <ClCompile Include="sub\zma_parse_process_user_error.cpp" />
+    <ClCompile Include="sub\zma_parse_process_user_message.cpp" />
     <ClCompile Include="zma.cpp" />
     <ClCompile Include="zma_information.cpp" />
     <ClCompile Include="zma_parse.cpp" />
@@ -159,8 +187,33 @@
     <ClCompile Include="zma_text.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="sub\zma_parse_process_add_include_path.hpp" />
+    <ClInclude Include="sub\zma_parse_process_align.hpp" />
+    <ClInclude Include="sub\zma_parse_process_binary_link.hpp" />
+    <ClInclude Include="sub\zma_parse_process_blank.hpp" />
+    <ClInclude Include="sub\zma_parse_process_defb.hpp" />
+    <ClInclude Include="sub\zma_parse_process_defd.hpp" />
+    <ClInclude Include="sub\zma_parse_process_defs.hpp" />
+    <ClInclude Include="sub\zma_parse_process_defw.hpp" />
+    <ClInclude Include="sub\zma_parse_process_endscope.hpp" />
+    <ClInclude Include="sub\zma_parse_process_global_label.hpp" />
+    <ClInclude Include="sub\zma_parse_process_global_symbol.hpp" />
+    <ClInclude Include="sub\zma_parse_process_label.hpp" />
+    <ClInclude Include="sub\zma_parse_process_ld.hpp" />
+    <ClInclude Include="sub\zma_parse_process_ldd.hpp" />
+    <ClInclude Include="sub\zma_parse_process_lddr.hpp" />
+    <ClInclude Include="sub\zma_parse_process_ldi.hpp" />
+    <ClInclude Include="sub\zma_parse_process_ldir.hpp" />
+    <ClInclude Include="sub\zma_parse_process_macro.hpp" />
+    <ClInclude Include="sub\zma_parse_process_org.hpp" />
+    <ClInclude Include="sub\zma_parse_process_scope.hpp" />
+    <ClInclude Include="sub\zma_parse_process_space.hpp" />
+    <ClInclude Include="sub\zma_parse_process_symbol.hpp" />
+    <ClInclude Include="sub\zma_parse_process_user_error.hpp" />
+    <ClInclude Include="sub\zma_parse_process_user_message.hpp" />
     <ClInclude Include="zma_information.hpp" />
     <ClInclude Include="zma_parse.hpp" />
+    <ClInclude Include="zma_parse_process.hpp" />
     <ClInclude Include="zma_text.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
