@@ -25,6 +25,7 @@
   zma_parse_process_djnz.cpp
   zma_parse_process_ei.cpp
   zma_parse_process_endscope.cpp
+  zma_parse_process_error.cpp
   zma_parse_process_ex.cpp
   zma_parse_process_exx.cpp
   zma_parse_process_global_label.cpp
@@ -36,10 +37,11 @@
   zma_parse_process_im2.cpp
   zma_parse_process_in.cpp
   zma_parse_process_inc.cpp
+  zma_parse_process_include.cpp
   zma_parse_process_ind.cpp
+  コンパイル中...
   zma_parse_process_indr.cpp
   zma_parse_process_ini.cpp
-  コンパイル中...
   zma_parse_process_inir.cpp
   zma_parse_process_jp.cpp
   zma_parse_process_jr.cpp
@@ -58,12 +60,13 @@
   zma_parse_process_org.cpp
   zma_parse_process_otdr.cpp
   zma_parse_process_otir.cpp
+  コンパイル中...
   zma_parse_process_out.cpp
   zma_parse_process_outd.cpp
-  コンパイル中...
   zma_parse_process_outi.cpp
   zma_parse_process_pop.cpp
   zma_parse_process_push.cpp
+  zma_parse_process_repeat.cpp
   zma_parse_process_res.cpp
   zma_parse_process_ret.cpp
   zma_parse_process_reti.cpp
@@ -78,10 +81,10 @@
   zma_parse_process_rrc.cpp
   zma_parse_process_rrca.cpp
   zma_parse_process_rrd.cpp
+  コンパイル中...
   zma_parse_process_rst.cpp
   zma_parse_process_sbc.cpp
   zma_parse_process_scf.cpp
-  コンパイル中...
   zma_parse_process_scope.cpp
   zma_parse_process_set.cpp
   zma_parse_process_sla.cpp
@@ -96,8 +99,8 @@
   zma_parse_process_xor.cpp
   zma_parse_process.cpp
   コード生成しています。
-  516 of 1692 functions (30.5%) were compiled, the rest were copied from previous compilation.
+  256 of 1692 functions (15.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    289 functions had inline decision re-evaluated but remain unchanged
+    230 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   zma.vcxproj -> C:\Users\hra\Documents\github\zma\src\Release\zma.exe

@@ -120,3 +120,7 @@ enum class CZMA_COMMAND_TYPE {
 #include "zma_parse_process_mulub.hpp"
 #include "zma_parse_process_muluw.hpp"
 #include "zma_parse_process_if.hpp"
+#include "zma_parse_process_error.hpp"
+#include "zma_parse_process_repeat.hpp"
+#include "zma_parse_process_macro.hpp"
+#include "zma_parse_process_include.hpp"

@@ -1,9 +1,22 @@
 ﻿  zma_parse_process_adc.cpp
+  zma_parse_process_add.cpp
+  zma_parse_process_add_include_path.cpp
+  zma_parse_process_align.cpp
+  zma_parse_process_and.cpp
+  zma_parse_process_binary_link.cpp
+  zma_parse_process_bit.cpp
+  zma_parse_process_blank.cpp
+  zma_parse_process_call.cpp
+  zma_parse_process_ccf.cpp
+  zma_parse_process_cp.cpp
+  zma_parse_process_cpdr.cpp
+  zma_parse_process_cpi.cpp
+  zma_parse_process_cpir.cpp
+  zma_parse_process_cpl.cpp
+  zma_parse_process_daa.cpp
+  zma_parse_process_dec.cpp
+  zma_parse_process_defb.cpp
   zma_parse_process_defd.cpp
   zma_parse_process_defs.cpp
-  zma_parse_process_ini.cpp
-  zma_parse_process_inir.cpp
-  zma_parse_process_outd.cpp
-  zma_parse_process.cpp
   コードを生成中...
-  zma.vcxproj -> C:\Users\hra\Documents\github\zma\src\x64\Debug\zma.exe
+C:\Users\hra\Documents\github\zma\src\sub\zma_parse_process_defs.cpp : fatal error C1090: PDB API の呼び出しに失敗しました。エラー コード '3': C:\Users\hra\Documents\github\zma\src\x64\Debug\vc142.pdb

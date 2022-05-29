@@ -181,6 +181,7 @@
     <ClCompile Include="sub\zma_parse_process_djnz.cpp" />
     <ClCompile Include="sub\zma_parse_process_ei.cpp" />
     <ClCompile Include="sub\zma_parse_process_endscope.cpp" />
+    <ClCompile Include="sub\zma_parse_process_error.cpp" />
     <ClCompile Include="sub\zma_parse_process_ex.cpp" />
     <ClCompile Include="sub\zma_parse_process_exx.cpp" />
     <ClCompile Include="sub\zma_parse_process_global_label.cpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="sub\zma_parse_process_im2.cpp" />
     <ClCompile Include="sub\zma_parse_process_in.cpp" />
     <ClCompile Include="sub\zma_parse_process_inc.cpp" />
+    <ClCompile Include="sub\zma_parse_process_include.cpp" />
     <ClCompile Include="sub\zma_parse_process_ind.cpp" />
     <ClCompile Include="sub\zma_parse_process_indr.cpp" />
     <ClCompile Include="sub\zma_parse_process_ini.cpp" />
@@ -218,6 +220,7 @@
     <ClCompile Include="sub\zma_parse_process_outi.cpp" />
     <ClCompile Include="sub\zma_parse_process_pop.cpp" />
     <ClCompile Include="sub\zma_parse_process_push.cpp" />
+    <ClCompile Include="sub\zma_parse_process_repeat.cpp" />
     <ClCompile Include="sub\zma_parse_process_res.cpp" />
     <ClCompile Include="sub\zma_parse_process_ret.cpp" />
     <ClCompile Include="sub\zma_parse_process_reti.cpp" />
@@ -281,6 +284,7 @@
     <ClInclude Include="sub\zma_parse_process_djnz.hpp" />
     <ClInclude Include="sub\zma_parse_process_ei.hpp" />
     <ClInclude Include="sub\zma_parse_process_endscope.hpp" />
+    <ClInclude Include="sub\zma_parse_process_error.hpp" />
     <ClInclude Include="sub\zma_parse_process_ex.hpp" />
     <ClInclude Include="sub\zma_parse_process_exx.hpp" />
     <ClInclude Include="sub\zma_parse_process_global_label.hpp" />
@@ -292,6 +296,7 @@
     <ClInclude Include="sub\zma_parse_process_im2.hpp" />
     <ClInclude Include="sub\zma_parse_process_in.hpp" />
     <ClInclude Include="sub\zma_parse_process_inc.hpp" />
+    <ClInclude Include="sub\zma_parse_process_include.hpp" />
     <ClInclude Include="sub\zma_parse_process_ind.hpp" />
     <ClInclude Include="sub\zma_parse_process_indr.hpp" />
     <ClInclude Include="sub\zma_parse_process_ini.hpp" />
@@ -318,6 +323,7 @@
     <ClInclude Include="sub\zma_parse_process_outi.hpp" />
     <ClInclude Include="sub\zma_parse_process_pop.hpp" />
     <ClInclude Include="sub\zma_parse_process_push.hpp" />
+    <ClInclude Include="sub\zma_parse_process_repeat.hpp" />
     <ClInclude Include="sub\zma_parse_process_res.hpp" />
     <ClInclude Include="sub\zma_parse_process_ret.hpp" />
     <ClInclude Include="sub\zma_parse_process_reti.hpp" />
