@@ -1,2 +1,4 @@
 ﻿  zma_logger.cpp
-  zma.vcxproj -> C:\Users\hra\Documents\github\zma\src\Debug\zma.exe
+  zma_parse_process.cpp
+  コードを生成中...
+C:\Users\hra\Documents\github\zma\src\zma_logger.cpp : fatal error C1090: PDB API の呼び出しに失敗しました。エラー コード '3': C:\Users\hra\Documents\github\zma\src\Debug\vc142.pdb

@@ -303,6 +303,17 @@ std::string CZMA_PARSE::get_line( void ) {
 		if( r == "" ) {
 			r = ss;
 		}
+		else if( ss == "," ){
+			r = r + ss;
+		}
+		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'X' ){
+			ss[ 1 ] = 'x';
+			r = r + " " + ss;
+		}
+		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'B' ){
+			ss[ 1 ] = 'b';
+			r = r + " " + ss;
+		}
 		else {
 			r = r + " " + ss;
 		}

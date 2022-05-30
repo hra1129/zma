@@ -20,9 +20,7 @@ void CZMA_LOG::write_separator( void ) {
 void CZMA_LOG::write_line_infomation( int line_no, int address, int offset, const std::string &s_line_image ){
 	std::stringstream s;
 
-	s << std::left << std::setw( 6 ) << std::dec << line_no << '|' <<
-		std::right << std::setw( 4 ) << std::hex << std::uppercase << std::setfill( '0' ) << address << '|' <<
-		std::right << std::setw( 6 ) << std::hex << std::uppercase << std::setfill( '0' ) << offset << '|' << s_line_image;
+	s << "      |    |      |" << s_line_image;
 
 	this->push_back( s.str() );
 }
