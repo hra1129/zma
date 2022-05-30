@@ -34,6 +34,8 @@ int main( int argc, char *argv[] ) {
 	info.log << "=====================================================\n";
 	info.log << "Programmed by t.hara\n\n";
 	info.log << "<< code >>\n";
+	info.log << "LINE# |ADRS|OFFSET|MNEMONIC\n";
+	info.log << "======+====+======+==================================\n";
 	info.add_include_path( "./" );
 	info.add_include_path( argv[0], "include/" );
 	src.load( info, argv[1] );

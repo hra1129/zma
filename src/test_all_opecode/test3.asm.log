@@ -1,8 +1,10 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
+LINE# |ADRS|OFFSET|MNEMONIC
+======+====+======+==================================
 ERROR: Operand is out of range.: test3.asm(6)
 ERROR: Illegal operand.: test3.asm(6)
 ERROR: Operand is out of range.: test3.asm(7)

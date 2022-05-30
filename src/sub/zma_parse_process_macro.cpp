@@ -66,7 +66,7 @@ bool CZMA_PARSE_MACRO::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	}
 	//	log
 	if( !is_analyze_phase ) {
-		log.push_back( "Define macro {" + get_line() + "}" );
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		log.push_back( "" );
 	}
 	return result;

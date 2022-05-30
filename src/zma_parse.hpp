@@ -10,6 +10,7 @@
 #include <vector>
 #include <map>
 #include "zma_information.hpp"
+#include "zma_logger.hpp"
 
 class CZMA_PARSE {
 protected:
@@ -24,7 +25,7 @@ protected:
 	int line_no;
 	bool is_analyze_phase;
 	static int number_of_error;
-	std::vector< std::string > log;
+	CZMA_LOG log;
 
 	bool is_structure_error;
 	std::string structure_error;

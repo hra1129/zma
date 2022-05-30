@@ -21,7 +21,8 @@ bool CZMA_PARSE_NEG::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 	if( this->opecode( info, 0xED, 0x44 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
-			log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:2cyc" );	//	NEG
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+			log.write_cycle_information( 10, 2 );			//	NEG
 			this->log_data_dump();
 			log.push_back( "" );
 		}

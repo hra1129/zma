@@ -21,7 +21,8 @@ bool CZMA_PARSE_MULUW::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	if( opecode_muluw( info ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
-			log.push_back( "[\t" + get_line() + "] Z80:--, R800:36cyc" );
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+			log.write_cycle_information( -1, 36 );
 			this->log_data_dump();
 			log.push_back( "" );
 		}
