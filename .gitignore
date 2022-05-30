@@ -1,0 +1,7 @@
+Debug
+*.obj
+*.pch
+*.pdb
+*.lib
+*.a
+*.o

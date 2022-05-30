@@ -1,2 +1,18 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+*			text=auto whitespace=trailing-space,space-before-tab,-indent-with-non-tab,tab-in-indent,tabwidth=4
+
+*.c			text
+*.cpp		text
+*.h			text
+*.hpp		text
+*.py		text
+*.txt		text
+*.html		text
+Makefile	text
+
+*.exe		binary
+*.gif		binary
+*.jpeg		binary
+*.jpg		binary
+*.vsdx		binary
+*.xlsx		binary
+*.png		binary
