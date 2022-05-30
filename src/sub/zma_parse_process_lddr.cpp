@@ -21,9 +21,10 @@ bool CZMA_PARSE_LDDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	if( this->opecode( info, 0xED, 0xB8 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			log.push_back( "[\t" + get_line() + "] Z80:23cyc(BC!=0), 18cyc(BC=0), R800:?cyc(BC!=0), 7cyc(BC=0)" );
-			this->log_data_dump();
-			log.push_back( "" );
+			log.write_dump( this->code_address, this->file_address, this->data );
+			log.write_separator();
 		}
 		return check_all_fixed();
 	}

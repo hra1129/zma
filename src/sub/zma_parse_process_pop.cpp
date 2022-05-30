@@ -21,14 +21,15 @@ bool CZMA_PARSE_POP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 	if( this->opecode_rp_with_af( info, 0xC1 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( words[1] == "IX" || words[1] == "IY" ) {
 				log.push_back( "[\t" + get_line() + "] Z80:16cyc, R800:6cyc" );
 			}
 			else {
 				log.push_back( "[\t" + get_line() + "] Z80:11cyc, R800:5cyc" );
 			}
-			this->log_data_dump();
-			log.push_back( "" );
+			log.write_dump( this->code_address, this->file_address, this->data );
+			log.write_separator();
 		}
 		return check_all_fixed();
 	}

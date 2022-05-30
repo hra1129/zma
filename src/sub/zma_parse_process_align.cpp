@@ -51,9 +51,9 @@ bool CZMA_PARSE_ALIGN::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 	}
 
 	if( !is_analyze_phase ){
-		log.push_back( "[" + get_line() + "]" );
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		log.push_back( "\tPadding: " + std::to_string( this->get_code_size() ) + "byte(s)" );
-		log.push_back( "" );
+		log.write_separator();
 	}
 	return check_all_fixed();
 }

@@ -21,19 +21,20 @@ bool CZMA_PARSE_SLL::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
 	if( this->opecode_sss( info, 0xCB, 0x30 ) ){
 		//	log
 		if( !this->is_analyze_phase ){
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( data.size() == 2 ){
 				if( this->data[ 1 ] == 0x36 ){
-					log.push_back( "[\t" + get_line() + "] Z80:17cyc, R800:8cyc" );		//	SLL [HL]
+					log.push_back( "[\t" + get_line() + "] Z80:17cyc, R800:8cyc [SLA operation in R800]" );		//	SLL [HL]
 				}
 				else{
-					log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:2cyc" );		//	SLL	r
+					log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:2cyc [SLA operation in R800]" );		//	SLL	r
 				}
 			}
 			else{
 				log.push_back( "[\t" + get_line() + "] Z80:25cyc, R800:10cyc" );		//	SLL	[IX+d]
 			}
-			this->log_data_dump();
-			log.push_back( "" );
+			log.write_dump( this->code_address, this->file_address, this->data );
+			log.write_separator();
 		}
 		return check_all_fixed();
 	}

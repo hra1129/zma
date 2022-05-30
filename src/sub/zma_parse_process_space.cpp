@@ -70,7 +70,7 @@ bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 	}
 
 	if( !is_analyze_phase ){
-		log.push_back( "[" + get_line() + "]" );
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		if( this->get_code_size() ){
 			log.push_back( "\tAllocate space: " + std::to_string( this->get_code_size() ) + "byte(s)" );
 			log.push_back( "\t\tFill value: " + std::to_string( this->data[0] ) );
@@ -78,7 +78,7 @@ bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 		else{
 			log.push_back( "\tNo space was allocated." );
 		}
-		log.push_back( "" );
+		log.write_separator();
 	}
 	return check_all_fixed();
 }

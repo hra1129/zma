@@ -57,6 +57,7 @@ bool CZMA_PARSE_EX::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 	}
 	//	log
 	if( !this->is_analyze_phase ) {
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		if( words.size() == 6 ) {
 			if( words[5] == "HL" ) {
 				log.push_back( "[\t" + get_line() + "] Z80:20cyc, R800:7cyc" );
@@ -68,8 +69,8 @@ bool CZMA_PARSE_EX::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		else {
 			log.push_back( "[\t" + get_line() + "] Z80:5cyc, R800:1cyc" );
 		}
-		this->log_data_dump();
-		log.push_back( "" );
+		log.write_dump( this->code_address, this->file_address, this->data );
+		log.write_separator();
 	}
 	return check_all_fixed();
 }

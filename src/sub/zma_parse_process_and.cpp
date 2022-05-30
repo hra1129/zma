@@ -21,23 +21,25 @@ bool CZMA_PARSE_AND::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 	if( this->opecode_a_sss( info, 0xA0 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( data.size() == 2 ) {
 				log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:2cyc" );	//	AND A, IXh
 			}
 			else {
 				log.push_back( "[\t" + get_line() + "] Z80:5cyc, R800:1cyc" );	//	AND A, r
 			}
-			this->log_data_dump();
-			log.push_back( "" );
+			log.write_dump( this->code_address, this->file_address, this->data );
+			log.write_separator();
 		}
 		return check_all_fixed();
 	}
 	if( this->opecode_a_n( info, 0xE6 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			log.push_back( "[\t" + get_line() + "] Z80:8cyc, R800:2cyc" );	//	AND A, n
-			this->log_data_dump();
-			log.push_back( "" );
+			log.write_dump( this->code_address, this->file_address, this->data );
+			log.write_separator();
 		}
 		return check_all_fixed();
 	}
@@ -50,8 +52,8 @@ bool CZMA_PARSE_AND::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 			else {
 				log.push_back( "[\t" + get_line() + "] Z80:21cyc, R800:7cyc" );	//	AND A, [IX+o]
 			}
-			this->log_data_dump();
-			log.push_back( "" );
+			log.write_dump( this->code_address, this->file_address, this->data );
+			log.write_separator();
 		}
 		return check_all_fixed();
 	}

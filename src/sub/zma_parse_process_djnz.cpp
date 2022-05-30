@@ -36,9 +36,10 @@ bool CZMA_PARSE_DJNZ::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	}
 	//	log
 	if( !this->is_analyze_phase ) {
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		log.push_back( "[\t" + get_line() + "] Z80:14cyc(cond=true), 9cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)" );	//	DJNZ nn
-		this->log_data_dump();
-		log.push_back( "" );
+		log.write_dump( this->code_address, this->file_address, this->data );
+		log.write_separator();
 	}
 	return check_all_fixed();
 }

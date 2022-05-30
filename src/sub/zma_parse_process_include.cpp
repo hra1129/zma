@@ -78,7 +78,7 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 	}
 	//	log
 	if( !this->is_analyze_phase ) {
-		log.push_back( "[\tINCLUDE \"" + this->s_file_name + "\"]" );
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 	}
 	if( p_last_line->get_fixed_file_address() && p_last_line->get_fixed_code_size() ) {
 		this->file_address = p_last_line->get_file_address() + p_last_line->get_code_size();

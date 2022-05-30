@@ -42,7 +42,7 @@ bool CZMA_PARSE_ADD_INCLUDE_PATH::process( CZMA_INFORMATION& info, CZMA_PARSE* p
 	}
 	//	log
 	if( !this->is_analyze_phase ) {
-		log.push_back( "[\t" + get_line() + "]" );
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		log.push_back( "\tAdd include path: " + v.s );
 	}
 	return true;

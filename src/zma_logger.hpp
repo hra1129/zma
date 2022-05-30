@@ -18,6 +18,10 @@ public:
 	void write_separator( void );
 
 	// --------------------------------------------------------------------
+	//	Hexadecimal
+	std::string convert_to_hex( int value, int columns );
+
+	// --------------------------------------------------------------------
 	//	Dump
 	void write_dump( int address, int offset, std::vector<unsigned char> &data );
 
@@ -27,5 +31,5 @@ public:
 
 	// --------------------------------------------------------------------
 	//	Cycles information
-	void write_cycle_information( int z80_cycle, int r800_cycle );
+	void write_cycle_information( int z80_cycle, int r800_cycle, int z80_cycle2 = -1, int r800_cycle2 = -1, const std::string s_comment = "");
 };

@@ -21,9 +21,10 @@ bool CZMA_PARSE_INDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	if( opecode( info, 0xED, 0xBA ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			log.push_back( "[\t" + get_line() + "] Z80:23 or 18cyc, R800:? or 12 or 11cyc" );
-			this->log_data_dump();
-			log.push_back( "" );
+			log.write_dump( this->code_address, this->file_address, this->data );
+			log.write_separator();
 		}
 		return check_all_fixed();
 	}
