@@ -93,10 +93,10 @@ public:
 		CZMA_INFO_REPEAT_BLOCK,
 		CZMA_INFO_IF_BLOCK,
 	} BLOCK_TYPE_T;
-	std::map< std::string, BLOCK_TYPE_T >	block_begin_table{ { "REPEAT", { CZMA_INFO_REPEAT_BLOCK } },
-													{ "ELSEIF", CZMA_INFO_IF_BLOCK }, { "ELSE", CZMA_INFO_IF_BLOCK }, { "IF", { CZMA_INFO_IF_BLOCK } } };
-	std::map< std::string, BLOCK_TYPE_T >	block_end_table{ { "ENDM", CZMA_INFO_MACRO_BLOCK }, { "ENDR", CZMA_INFO_REPEAT_BLOCK },
-													{ "ELSEIF", CZMA_INFO_IF_BLOCK }, { "ELSE", CZMA_INFO_IF_BLOCK }, { "ENDIF", CZMA_INFO_IF_BLOCK }  };
+	std::map< std::string, BLOCK_TYPE_T >	block_begin_table{ { "REPEAT", { BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK } },
+													{ "ELSEIF", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }, { "ELSE", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }, { "IF", { BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK } } };
+	std::map< std::string, BLOCK_TYPE_T >	block_end_table{ { "ENDM", BLOCK_TYPE_T::CZMA_INFO_MACRO_BLOCK }, { "ENDR", BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK },
+													{ "ELSEIF", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }, { "ELSE", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }, { "ENDIF", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }  };
 	bool is_updated;
 	bool is_block_processing;
 	BLOCK_TYPE_T block_type;
