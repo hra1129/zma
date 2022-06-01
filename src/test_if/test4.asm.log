@@ -1,19 +1,21 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
-Define macro {USE_HOGE MACRO FLAG}
-
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     5|      |    |USE_HOGE MACRO FLAG
+------+------+----+----------------------------------
 ((USE_HOGE 1))
 	Scope path: @MACRO0:
-[IF 1]
-
-[ELSE]
-
+    14|      |    |IF 1
+------+------+----+----------------------------------
+    14|      |    |ELSE
+------+------+----+----------------------------------
 MESSAGE: aaaaaaaa: test4.asm(14)
-[ENDIF]
-	Selected {IF 1} block.
-
+    14|      |    |ENDIF
+      |      |    |  Selected {IF 1} block.
+------+------+----+----------------------------------
 
 << label >>

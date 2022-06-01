@@ -67,7 +67,7 @@ bool CZMA_PARSE_ELSEIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 	}
 	//	log
 	if( !is_analyze_phase ) {
-		log.push_back( "[" + get_line() + "]" );
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		log.write_separator();
 	}
 	return check_all_fixed();
@@ -101,7 +101,7 @@ bool CZMA_PARSE_ELSE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	}
 	//	log
 	if( !is_analyze_phase ) {
-		log.push_back( "[" + get_line() + "]" );
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		log.write_separator();
 	}
 	return check_all_fixed();
@@ -211,12 +211,14 @@ bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	}
 
 	if( !is_analyze_phase ) {
-		log.push_back( "[" + get_line() + "]" );
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		if( do_process ) {
-			log.push_back( "\tSelected {" + p_selected_if->get_line() + "} block." );
+			std::stringstream s;
+			s << "Selected {" << p_selected_if->get_line() + "} block.";
+			log.write_message( s.str() );
 		}
 		else {
-			log.push_back( "\tAll condition is not selected." );
+			log.write_message( "All condition is not selected." );
 		}
 		log.write_separator();
 	}

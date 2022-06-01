@@ -22,11 +22,10 @@ bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	update_flags( &info, p_last_line );
 	//	log
 	if( !this->is_analyze_phase ) {
-		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		std::stringstream s;
-		s << "0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
-		log.push_back( "[" + get_line() + "]" );
-		log.push_back( "\tlabel address: " + s.str() );
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+		s << "label address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
+		log.write_message( s.str() );
 		log.write_separator();
 	}
 	if( this->is_data_fixed ) {

@@ -1,8 +1,10 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
 ERROR: Illegal expression.: test1.asm(6)
 ERROR: Illegal expression.: test1.asm(7)
 ERROR: Illegal expression.: test1.asm(8)

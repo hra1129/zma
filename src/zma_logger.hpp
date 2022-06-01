@@ -30,6 +30,10 @@ public:
 	void write_line_infomation( int line_no, int address, int offset, const std::string &s_line_image );
 
 	// --------------------------------------------------------------------
+	//	Write message
+	void write_message( const std::string &s_message );
+
+	// --------------------------------------------------------------------
 	//	Cycles information
 	void write_cycle_information( int z80_cycle, int r800_cycle, int z80_cycle2 = -1, int r800_cycle2 = -1, const std::string s_comment = "");
 };

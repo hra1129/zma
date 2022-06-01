@@ -36,6 +36,7 @@ bool CZMA_PARSE_INC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 	if( this->opecode_rp( info, 0x03 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( words[1] == "IX" || words[1] == "IY" ) {
 				log.write_cycle_information( 12, 1 );		//	INC IX
 			}
@@ -50,6 +51,7 @@ bool CZMA_PARSE_INC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 	if( this->opecode_ref_hl( info, 0x34 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( words[2] == "HL" ) {
 				log.write_cycle_information( 12, 7 );		//	INC [HL]
 			}
