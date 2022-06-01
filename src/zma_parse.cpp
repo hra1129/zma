@@ -724,7 +724,7 @@ bool CZMA_PARSE::opecode_hl_rp( CZMA_INFORMATION& info, unsigned char op1 ) {
 		this->data.push_back( op1 | (unsigned char)(rp << 4) );
 		return true;
 	}
-	if( words.size() == 4 && words[1] == "IX" && words[2] == "," && info.is_rp( words[3] ) ) {
+	if( words.size() == 4 && words[1] == "IX" && words[2] == "," && info.is_ix_rp( words[3] ) ) {
 		if( this->is_data_fixed ) {
 			return true;
 		}
@@ -735,7 +735,7 @@ bool CZMA_PARSE::opecode_hl_rp( CZMA_INFORMATION& info, unsigned char op1 ) {
 		this->data.push_back( op1 | (unsigned char)(rp << 4) );
 		return true;
 	}
-	if( words.size() == 4 && words[1] == "IY" && words[2] == "," && info.is_rp( words[3] ) ) {
+	if( words.size() == 4 && words[1] == "IY" && words[2] == "," && info.is_iy_rp( words[3] ) ) {
 		if( this->is_data_fixed ) {
 			return true;
 		}

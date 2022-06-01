@@ -1606,7 +1606,7 @@ label_jr_c:
 	defb	0xDD, 0x28, 0, 0
 
 ;	DD 29 00 00
-	add		ix, hl
+	add		ix, ix
 	nop
 	nop
 
@@ -2512,7 +2512,7 @@ label_jr_c:
 	defb	0xFD, 0x28, 0, 0
 
 ;	FD 29 00 00
-	add		iy, hl
+	add		iy, iy
 	nop
 	nop
 
