@@ -58,6 +58,31 @@ bool CZMA_PARSE_XOR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		}
 		return check_all_fixed();
 	}
+	if( this->opecode_sss( info, 0xA8 ) ) {
+		//	log
+		if( !this->is_analyze_phase ) {
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+			if( data.size() == 2 ) {
+				log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:2cyc" );	//	XOR IXh
+			}
+			else {
+				log.push_back( "[\t" + get_line() + "] Z80:5cyc, R800:1cyc" );	//	XOR r
+			}
+			log.write_dump( this->code_address, this->file_address, this->data );
+			log.write_separator();
+		}
+		return check_all_fixed();
+	}
+	if( this->opecode_n( info, 0xEE ) ) {
+		//	log
+		if( !this->is_analyze_phase ) {
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+			log.push_back( "[\t" + get_line() + "] Z80:8cyc, R800:2cyc" );	//	XOR n
+			log.write_dump( this->code_address, this->file_address, this->data );
+			log.write_separator();
+		}
+		return check_all_fixed();
+	}
 	put_error( "Illegal operand" );
 	return false;
 }

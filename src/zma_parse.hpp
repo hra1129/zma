@@ -79,6 +79,7 @@ protected:
 	bool opecode_ref_hl( CZMA_INFORMATION& info, unsigned char op1 );
 	bool opecode_ddd_n( CZMA_INFORMATION& info, unsigned char op1 );
 	bool opecode_a_n( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_n( CZMA_INFORMATION &info, unsigned char op1 );
 	bool opecode_rp( CZMA_INFORMATION& info, unsigned char op1 );
 	bool opecode_rp_nn( CZMA_INFORMATION& info, unsigned char op1 );
 	bool opecode_rp_ref_nn( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );

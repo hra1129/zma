@@ -5,3 +5,4 @@ Debug
 *.lib
 *.a
 *.o
+.vs

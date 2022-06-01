@@ -1089,6 +1089,30 @@ bool CZMA_PARSE::opecode_a_n( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
+bool CZMA_PARSE::opecode_n( CZMA_INFORMATION &info, unsigned char op1 ){
+	CVALUE imm8;
+
+	if( words.size() < 2 || words[ 1 ] == "[" ){
+		return false;
+	}
+	this->set_code_size( &info, 2 );
+	if( !this->expression( info, 1, imm8 ) ){
+		return false;
+	}
+	if( imm8.value_type != CVALUE_TYPE::CV_INTEGER ){
+		put_error( "Illegal operand." );
+		return false;
+	}
+	if( this->is_data_fixed ){
+		return true;
+	}
+	this->is_data_fixed = true;
+	this->data.push_back( op1 );
+	this->data.push_back( imm8.i );
+	return true;
+}
+
+// --------------------------------------------------------------------
 bool CZMA_PARSE::opecode_rp( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int rp;
 
