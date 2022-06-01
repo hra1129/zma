@@ -28,7 +28,7 @@ bool CZMA_PARSE_IF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		p_if_sub->p_if		= this;
 		p_if->m_sub.push_back( p_if_sub );
 		p_if_sub->p_text	= new CZMA_TEXT;
-		info.block_type				= info.CZMA_INFO_IF_BLOCK;
+		info.block_type				= CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK;
 		info.is_block_processing	= true;
 		info.p_if					= p_if;
 		info.p_text					= &(p_if_sub->p_text->m_text);
@@ -51,7 +51,7 @@ bool CZMA_PARSE_ELSEIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 
 	update_flags( &info, p_last_line );
 	if( !this->is_data_fixed ) {
-		if( !info.is_block_processing || info.block_type != info.CZMA_INFO_IF_BLOCK ) {
+		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
 			put_error( "There is an ELSEIF description at an incorrect position." );
 			return false;
 		}
@@ -81,7 +81,7 @@ bool CZMA_PARSE_ELSE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 
 	update_flags( &info, p_last_line );
 	if( !this->is_data_fixed ) {
-		if( !info.is_block_processing || info.block_type != info.CZMA_INFO_IF_BLOCK ) {
+		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
 			put_error( "There is an ELSE description at an incorrect position." );
 			return false;
 		}

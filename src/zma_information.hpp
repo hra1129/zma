@@ -87,12 +87,12 @@ public:
 
 	unsigned int auto_label_index;
 
-	typedef enum {
+	enum class BLOCK_TYPE_T {
 		CZMA_INFO_UNKNOWN,
 		CZMA_INFO_MACRO_BLOCK,
 		CZMA_INFO_REPEAT_BLOCK,
 		CZMA_INFO_IF_BLOCK,
-	} BLOCK_TYPE_T;
+	};
 	std::map< std::string, BLOCK_TYPE_T >	block_begin_table{ { "REPEAT", { BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK } },
 													{ "ELSEIF", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }, { "ELSE", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }, { "IF", { BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK } } };
 	std::map< std::string, BLOCK_TYPE_T >	block_end_table{ { "ENDM", BLOCK_TYPE_T::CZMA_INFO_MACRO_BLOCK }, { "ENDR", BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK },
@@ -110,7 +110,7 @@ public:
 
 	CZMA_IF_T*								p_if;
 
-	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), block_type( CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ) {
+	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ) {
 	}
 
 	unsigned int get_auto_label_index( void ) {

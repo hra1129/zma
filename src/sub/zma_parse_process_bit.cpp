@@ -23,13 +23,13 @@ bool CZMA_PARSE_BIT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( data.size() == 2 && (data[1] & 0x07) != 0x06 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:2cyc" );	//	BIT b,r
+				log.write_cycle_information( 10, 2 );			//	BIT b,r
 			}
 			else if( data.size() == 2 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:14cyc, R800:5cyc" );	//	BIT b,[HL]
+				log.write_cycle_information( 14, 5 );			//	BIT b,[HL]
 			}
 			else {
-				log.push_back( "[\t" + get_line() + "] Z80:22cyc, R800:7cyc" );	//	BIT b,[IX+o]
+				log.write_cycle_information( 22, 7 );			//	BIT b,[IX+o]
 			}
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();

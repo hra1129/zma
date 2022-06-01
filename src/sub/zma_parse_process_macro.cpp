@@ -56,7 +56,7 @@ bool CZMA_PARSE_MACRO::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 			i = i + 2;
 			p_macro->parameter_name_list.push_back( arg );
 		}
-		info.block_type = info.CZMA_INFO_MACRO_BLOCK;
+		info.block_type = CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_MACRO_BLOCK;
 		info.is_block_processing = true;
 		info.p_macro = p_macro;
 		info.p_text = &(info.p_macro->m_text);

@@ -55,7 +55,7 @@ bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 			return false;
 		}
 
-		info.block_type = info.CZMA_INFO_REPEAT_BLOCK;
+		info.block_type = CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK;
 		info.p_repeat = p_repeat;
 		info.is_block_processing = true;
 		info.p_text = &(info.p_repeat->m_text);

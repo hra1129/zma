@@ -22,7 +22,7 @@ bool CZMA_PARSE_CPDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-			log.push_back( "[\t" + get_line() + "] Z80:23cyc(BC!=0 && A!=[HL]), 18cyc(others), R800:?cyc(BC!=0 && A!=[HL]), 8cyc(others)" );
+			log.write_cycle_information( 23, 0, 18, 8 );	//	CPDR
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
 		}
