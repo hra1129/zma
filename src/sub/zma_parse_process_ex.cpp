@@ -60,14 +60,14 @@ bool CZMA_PARSE_EX::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		if( words.size() == 6 ) {
 			if( words[5] == "HL" ) {
-				log.push_back( "[\t" + get_line() + "] Z80:20cyc, R800:7cyc" );
+				log.write_cycle_information( 20, 7 );			//	EX (SP), HL
 			}
 			else {
-				log.push_back( "[\t" + get_line() + "] Z80:25cyc, R800:8cyc" );
+				log.write_cycle_information( 25, 8 );			//	EX (SP), IX
 			}
 		}
 		else {
-			log.push_back( "[\t" + get_line() + "] Z80:5cyc, R800:1cyc" );
+			log.write_cycle_information( 5, 1 );			//	EX DE, HL/ EX AF, AF'
 		}
 		log.write_dump( this->code_address, this->file_address, this->data );
 		log.write_separator();

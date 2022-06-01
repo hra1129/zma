@@ -18,22 +18,7 @@
 bool CZMA_PARSE_JP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 
 	update_flags( &info, p_last_line );
-	if( opecode_ccc_nnn( info, 0xC3, 0xC2 ) ) {
-		//	log
-		if( !this->is_analyze_phase ) {
-			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-			if( data[0] == 0xC3 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:11cyc, R800:5cyc" );	//	JP nn
-			}
-			else {
-				log.push_back( "[\t" + get_line() + "] Z80:11cyc, R800:5cyc(cond=true), 3cyc(cond=false)" );	//	JP cond, nn
-			}
-			log.write_dump( this->code_address, this->file_address, this->data );
-			log.write_separator();
-		}
-		return check_all_fixed();
-	}
-	if( words.size() == 2 && words[1] == "HL" ) {
+	if( (words.size() == 2 && words[1] == "HL") || (words.size() == 4 && words[1] == "(" && words[2] == "HL" && words[3] == ")") ) {
 		if( !this->is_data_fixed ) {
 			this->set_code_size( &info, 1 );
 			this->is_data_fixed = true;
@@ -42,13 +27,13 @@ bool CZMA_PARSE_JP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-			log.push_back( "[\t" + get_line() + "] Z80:5cyc, R800:3cyc" );	//	JP HL
+			log.write_cycle_information( 5, 3 );		//	JP HL
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
 		}
 		return check_all_fixed();
 	}
-	if( words.size() == 2 && words[1] == "IX" ) {
+	if( (words.size() == 2 && words[1] == "IX") || (words.size() == 4 && words[1] == "(" && words[2] == "IX" && words[3] == ")") ) {
 		if( !this->is_data_fixed ) {
 			this->set_code_size( &info, 2 );
 			this->is_data_fixed = true;
@@ -58,13 +43,13 @@ bool CZMA_PARSE_JP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-			log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:4cyc" );	//	JP IX
+			log.write_cycle_information( 10, 4 );		//	JP IX
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
 		}
 		return check_all_fixed();
 	}
-	if( words.size() == 2 && words[1] == "IY" ) {
+	if( (words.size() == 2 && words[1] == "IY") || (words.size() == 4 && words[1] == "(" && words[2] == "IY" && words[3] == ")") ) {
 		if( !this->is_data_fixed ) {
 			this->set_code_size( &info, 2 );
 			this->is_data_fixed = true;
@@ -74,7 +59,22 @@ bool CZMA_PARSE_JP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-			log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:4cyc" );	//	JP IY
+			log.write_cycle_information( 10, 4 );	//	JP IY
+			log.write_dump( this->code_address, this->file_address, this->data );
+			log.write_separator();
+		}
+		return check_all_fixed();
+	}
+	if( opecode_ccc_nnn( info, 0xC3, 0xC2 ) ) {
+		//	log
+		if( !this->is_analyze_phase ) {
+			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+			if( data[0] == 0xC3 ) {
+				log.write_cycle_information( 11, 5 );		//	JP nn
+			}
+			else {
+				log.write_cycle_information( 11, 5, -1, 3 );		//	JP cond, nn
+			}
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
 		}

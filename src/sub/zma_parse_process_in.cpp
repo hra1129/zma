@@ -23,10 +23,12 @@ bool CZMA_PARSE_IN::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( data[0] == 0xDB ) {
-				log.push_back( "[\t" + get_line() + "] Z80:12cyc, R800:10 or 9cyc" );		//	IN A,[n]
+				log.write_cycle_information( 12, 10, -1, 9 );	//	IN A, [n]
+				log.push_back( "[\t" + get_line() + "] Z80:12cyc, R800:10 or 9cyc" );
 			}
 			else {
-				log.push_back( "[\t" + get_line() + "] Z80:14cyc, R800:10 or 9cyc" );		//	IN A,[C]
+				log.write_cycle_information( 14, 10, -1, 9 );	//	IN A, [C]
+				log.push_back( "[\t" + get_line() + "] Z80:14cyc, R800:10 or 9cyc" );
 			}
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
