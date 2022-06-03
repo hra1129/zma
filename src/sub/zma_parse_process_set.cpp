@@ -23,13 +23,13 @@ bool CZMA_PARSE_SET::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( data.size() == 2 && (data[1] & 0x07) != 0x06 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:2cyc" );		//	SET b,r
+				log.write_cycle_information( 10, 2 );		//	SET b,r
 			}
 			else if( data.size() == 2 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:17cyc, R800:8cyc" );		//	SET b,[HL]
+				log.write_cycle_information( 17, 8 );		//	SET b,[HL]
 			}
 			else {
-				log.push_back( "[\t" + get_line() + "] Z80:25cyc, R800:10cyc" );	//	SET b,[IX+o]
+				log.write_cycle_information( 25, 10 );	//	SET b,[IX+o]
 			}
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();

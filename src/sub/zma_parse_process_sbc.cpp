@@ -23,10 +23,10 @@ bool CZMA_PARSE_SBC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( data.size() == 2 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:2cyc" );	//	SBC A, IXh
+				log.write_cycle_information( 10, 2 );	//	SBC A, IXh
 			}
 			else {
-				log.push_back( "[\t" + get_line() + "] Z80:5cyc, R800:1cyc" );	//	SBC A, r
+				log.write_cycle_information( 5, 1 );	//	SBC A, r
 			}
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
@@ -38,10 +38,10 @@ bool CZMA_PARSE_SBC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( words[4] == "HL" ) {
-				log.push_back( "[\t" + get_line() + "] Z80:8cyc, R800:4cyc" );	//	SBC A, [HL]
+				log.write_cycle_information( 8, 4 );	//	SBC A, [HL]
 			}
 			else {
-				log.push_back( "[\t" + get_line() + "] Z80:21cyc, R800:7cyc" );	//	SBC A, [IX+o]
+				log.write_cycle_information( 21, 7 );	//	SBC A, [IX+o]
 			}
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
@@ -52,7 +52,7 @@ bool CZMA_PARSE_SBC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-			log.push_back( "[\t" + get_line() + "] Z80:8cyc, R800:2cyc" );	//	SBC A, n
+			log.write_cycle_information( 8, 2 );	//	SBC A, n
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
 		}
@@ -62,7 +62,7 @@ bool CZMA_PARSE_SBC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-			log.push_back( "[\t" + get_line() + "] Z80:17cyc, R800:2cyc" );	//	SBC HL, rr
+			log.write_cycle_information( 17, 2 );	//	SBC HL, rr
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
 		}

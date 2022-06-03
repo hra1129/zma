@@ -24,14 +24,14 @@ bool CZMA_PARSE_SRL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( data.size() == 2 ) {
 				if( this->data[1] == 0x3E ) {
-					log.push_back( "[\t" + get_line() + "] Z80:17cyc, R800:8cyc" );		//	SRL [HL]
+					log.write_cycle_information( 17, 8 );		//	SRL [HL]
 				}
 				else {
-					log.push_back( "[\t" + get_line() + "] Z80:10cyc, R800:2cyc" );		//	SRL	r
+					log.write_cycle_information( 10, 2 );		//	SRL	r
 				}
 			}
 			else {
-				log.push_back( "[\t" + get_line() + "] Z80:25cyc, R800:10cyc" );		//	SRL	[IX+d]
+				log.write_cycle_information( 25, 10 );		//	SRL	[IX+d]
 			}
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();

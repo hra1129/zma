@@ -242,9 +242,9 @@ bool CZMA_PARSE_ENDIF::write( CZMA_INFORMATION& info, std::ofstream* f ) {
 		break;
 	}
 	for( auto line : log ) {
-		info.log << line << std::endl;
+		log.push_back( line );
 	}
-	info.log << std::endl;
+	log.write_separator();
 	return result;
 }
 
