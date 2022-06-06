@@ -31,11 +31,35 @@ void CZMA_LOG::write_separator( void ) {
 }
 
 // --------------------------------------------------------------------
-void CZMA_LOG::write_line_infomation( int line_no, int address, int offset, const std::string &s_line_image ){
+std::string CZMA_LOG::get_line_infomation( int line_no, int address, int offset, const std::string &s_line_image ){
 	std::stringstream s;
 
-	s << std::dec << std::setw(6) << std::right << line_no << "|      |    |" << s_line_image;
-	this->push_back( s.str() );
+	if( line_no < 0 ){
+		s << "      |";
+	}
+	else{
+		s << std::dec << std::setw( 6 ) << std::right << line_no << "|";
+	}
+	if( offset < 0 ){
+		s << "      |";
+	}
+	else{
+		s << std::hex << std::setw( 6 ) << std::setfill('0') << std::uppercase << std::right << offset << "|";
+	}
+	if( address < 0 ){
+		s << "    |";
+	}
+	else{
+		s << std::hex << std::setw( 4 ) << std::setfill( '0' ) << std::uppercase << std::right << address << "|";
+	}
+	s << s_line_image;
+	return s.str();
+}
+
+// --------------------------------------------------------------------
+void CZMA_LOG::write_line_infomation( int line_no, int address, int offset, const std::string &s_line_image ){
+
+	this->push_back( get_line_infomation( line_no, -1, -1, s_line_image ) );
 }
 
 // --------------------------------------------------------------------

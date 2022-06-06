@@ -18,17 +18,12 @@
 bool CZMA_PARSE_ENDR::write( CZMA_INFORMATION& info, std::ofstream* f ) {
 	bool result;
 
-	info.log << "\trepeat begin" << std::endl;
-	for( auto line : log ) {
-	}
 	result = true;
 	for( auto text : this->text_list ) {
-		result = result & text->write( info, f );
+		result = result && text->write( info, f );
 	}
-	info.log << "\trepeat end" << std::endl;
 	for( auto line : log ) {
 		info.log << line << std::endl;
-		info.log << std::endl;
 	}
 	return result;
 }
@@ -94,7 +89,7 @@ bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 	//	log
 	if( !is_analyze_phase ) {
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-		log.write_message( "\tScope path: " + info.get_scope_path() );
+		log.write_message( "Enter scope: " + info.get_scope_path() );
 		log.write_separator();
 	}
 	return check_all_fixed();
@@ -105,6 +100,7 @@ bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	CZMA_TEXT* p_text;
 	int i;
 	unsigned int sub_success_count;
+	std::string s_scope;
 
 	update_flags( &info, p_last_line );
 	if( !this->is_loaded ) {
@@ -167,6 +163,7 @@ bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 		put_error( "Scope of ENDR does not exist." );
 		return false;
 	}
+	s_scope = info.get_scope_path();
 	info.scope.pop_back();
 
 	if( words.size() != 1 ) {
@@ -175,7 +172,7 @@ bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	}
 	//	log
 	if( !is_analyze_phase ) {
-		log.write_message( "\tScope path: " + info.get_scope_path() );
+		log.write_message( "Exit scope: " + s_scope );
 		log.write_separator();
 	}
 	return check_all_fixed();

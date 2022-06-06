@@ -17,9 +17,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  label address: 0x000002
 ------+------+----+----------------------------------
     14|      |    |REPEAT I, 32
-      |      |    |  	Scope path: @REPEAT0:
+      |      |    |  Enter scope: @REPEAT0:
 ------+------+----+----------------------------------
-	repeat begin
 ((SHOT_ATTRIBUTE))
 	Scope path: @REPEAT0:@MACRO0:
     15|      |    |DB 0
@@ -948,11 +947,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000200|0200|  00 00
 ------+------+----+----------------------------------
-	repeat end
-      |      |    |  	Scope path: 
-
+      |      |    |  Exit scope: @REPEAT0:
 ------+------+----+----------------------------------
-
     18|      |    |DW 1
       |000202|0202|  01 00
 ------+------+----+----------------------------------
@@ -962,6 +958,6 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  label address: 0x000204
 ------+------+----+----------------------------------
 << label >>
-@REPEAT0:I 31 ( 0x1f )
-END_ADDRESS 516 ( 0x204 )
-SHOT_TABLE 2 ( 0x2 )
+@REPEAT0:I .... 31 ( 0x1f )
+END_ADDRESS ... 516 ( 0x204 )
+SHOT_TABLE .... 2 ( 0x2 )

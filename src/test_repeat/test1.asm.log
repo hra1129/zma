@@ -6,49 +6,35 @@ Programmed by t.hara
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      5|      |    |REPEAT I, 5
-      |      |    |  	Scope path: @REPEAT0:
+      |      |    |  Enter scope: @REPEAT0:
 ------+------+----+----------------------------------
-	repeat begin
      6|      |    |REPEAT I, I
-      |      |    |  	Scope path: @REPEAT0:@REPEAT1:
+      |      |    |  Enter scope: @REPEAT0:@REPEAT1:
 ------+------+----+----------------------------------
-	repeat begin
-	repeat end
-      |      |    |  	Scope path: @REPEAT0:
-
+      |      |    |  Exit scope: @REPEAT0:@REPEAT1:
 ------+------+----+----------------------------------
-
      6|      |    |REPEAT I, I
-      |      |    |  	Scope path: @REPEAT0:@REPEAT2:
+      |      |    |  Enter scope: @REPEAT0:@REPEAT2:
 ------+------+----+----------------------------------
-	repeat begin
      7|      |    |DEFB I + LABEL
       |000000|0000|  0B
 ------+------+----+----------------------------------
-	repeat end
-      |      |    |  	Scope path: @REPEAT0:
-
+      |      |    |  Exit scope: @REPEAT0:@REPEAT2:
 ------+------+----+----------------------------------
-
      6|      |    |REPEAT I, I
-      |      |    |  	Scope path: @REPEAT0:@REPEAT3:
+      |      |    |  Enter scope: @REPEAT0:@REPEAT3:
 ------+------+----+----------------------------------
-	repeat begin
      7|      |    |DEFB I + LABEL
       |000001|0001|  0B
 ------+------+----+----------------------------------
      7|      |    |DEFB I + LABEL
       |000002|0002|  0C
 ------+------+----+----------------------------------
-	repeat end
-      |      |    |  	Scope path: @REPEAT0:
-
+      |      |    |  Exit scope: @REPEAT0:@REPEAT3:
 ------+------+----+----------------------------------
-
      6|      |    |REPEAT I, I
-      |      |    |  	Scope path: @REPEAT0:@REPEAT4:
+      |      |    |  Enter scope: @REPEAT0:@REPEAT4:
 ------+------+----+----------------------------------
-	repeat begin
      7|      |    |DEFB I + LABEL
       |000003|0003|  0B
 ------+------+----+----------------------------------
@@ -58,15 +44,11 @@ LINE# |OFFSET|ADDR|MNEMONIC
      7|      |    |DEFB I + LABEL
       |000005|0005|  0D
 ------+------+----+----------------------------------
-	repeat end
-      |      |    |  	Scope path: @REPEAT0:
-
+      |      |    |  Exit scope: @REPEAT0:@REPEAT4:
 ------+------+----+----------------------------------
-
      6|      |    |REPEAT I, I
-      |      |    |  	Scope path: @REPEAT0:@REPEAT5:
+      |      |    |  Enter scope: @REPEAT0:@REPEAT5:
 ------+------+----+----------------------------------
-	repeat begin
      7|      |    |DEFB I + LABEL
       |000006|0006|  0B
 ------+------+----+----------------------------------
@@ -79,16 +61,10 @@ LINE# |OFFSET|ADDR|MNEMONIC
      7|      |    |DEFB I + LABEL
       |000009|0009|  0E
 ------+------+----+----------------------------------
-	repeat end
-      |      |    |  	Scope path: @REPEAT0:
-
+      |      |    |  Exit scope: @REPEAT0:@REPEAT5:
 ------+------+----+----------------------------------
-
-	repeat end
-      |      |    |  	Scope path: 
-
+      |      |    |  Exit scope: @REPEAT0:
 ------+------+----+----------------------------------
-
     11|      |    |DEFB 0
       |00000A|000A|  00
 ------+------+----+----------------------------------
@@ -96,10 +72,10 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  label address: 0x00000b
 ------+------+----+----------------------------------
 << label >>
-@REPEAT0:@REPEAT1:I 0 ( 0x0 )
-@REPEAT0:@REPEAT2:I 0 ( 0x0 )
-@REPEAT0:@REPEAT3:I 1 ( 0x1 )
-@REPEAT0:@REPEAT4:I 2 ( 0x2 )
-@REPEAT0:@REPEAT5:I 3 ( 0x3 )
-@REPEAT0:I 4 ( 0x4 )
-LABEL 11 ( 0xb )
+@REPEAT0:@REPEAT1:I ... 0 ( 0x0 )
+@REPEAT0:@REPEAT2:I ... 0 ( 0x0 )
+@REPEAT0:@REPEAT3:I ... 1 ( 0x1 )
+@REPEAT0:@REPEAT4:I ... 2 ( 0x2 )
+@REPEAT0:@REPEAT5:I ... 3 ( 0x3 )
+@REPEAT0:I ............ 4 ( 0x4 )
+LABEL ................. 11 ( 0xb )

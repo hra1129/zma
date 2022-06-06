@@ -33,7 +33,7 @@ bool CZMA_PARSE_SCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	//	log
 	if( !is_analyze_phase ) {
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-		log.push_back( "\tScope path: " + info.get_scope_path() );
+		log.write_message( "Enter scope: " + info.get_scope_path() );
 		log.write_separator();
 	}
 	return check_all_fixed();

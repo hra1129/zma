@@ -194,17 +194,35 @@ public:
 		}
 		include_path.push_back( s + "/" + p_sub_path );
 	}
+	std::string dot( std::string s, int max_length ){
+		int length = max_length - s.size();
+		std::string s_result = " ";
+		for( int i = 0; i < length; i++ ){
+			s_result = s_result + ".";
+		}
+		return s_result;
+	}
+
 	void write( void ) {
+		std::string s;
 		log << "<< label >>" << std::endl;
+		size_t max_label_length = 0;
+		for( auto item : dict ){
+			if( item.first.size() > max_label_length ){
+				max_label_length = item.first.size();
+			}
+		}
+		max_label_length += 3;
 		for( auto item : dict ) { 
+			s = dot( item.first, max_label_length );
 			if( item.second.value_type == CVALUE_TYPE::CV_INTEGER ) {
-				log << item.first << " " << std::dec << item.second.i << " ( 0x" << std::hex << item.second.i << " )" << std::endl;
+				log << item.first << s << " " << std::dec << item.second.i << " ( 0x" << std::hex << item.second.i << " )" << std::endl;
 			}
 			else if( item.second.value_type == CVALUE_TYPE::CV_STRING ) {
-				log << item.first << " \"" << item.second.s << "\"" << std::endl;
+				log << item.first << s << " \"" << item.second.s << "\"" << std::endl;
 			}
 			else {
-				log << item.first << " ????" << std::endl;
+				log << item.first << s << " ????" << std::endl;
 			}
 		}
 

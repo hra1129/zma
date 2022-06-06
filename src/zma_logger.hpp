@@ -30,6 +30,10 @@ public:
 	void write_line_infomation( int line_no, int address, int offset, const std::string &s_line_image );
 
 	// --------------------------------------------------------------------
+	//	LINE#:ADRS:OFFSET:MNEMONIC
+	std::string get_line_infomation( int line_no, int address, int offset, const std::string &s_line_image );
+
+	// --------------------------------------------------------------------
 	//	Write message
 	void write_message( const std::string &s_message );
 

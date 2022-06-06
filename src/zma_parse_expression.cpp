@@ -83,7 +83,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			put_error( "Invalid operator '!'." );
 			return false;
 		}
-		result.i = !result.i;
+		result.i = (int) !((bool)result.i);
 		return is_success;
 	}
 	if( s == "~" ) {
@@ -698,7 +698,7 @@ bool CZMA_PARSE::operator_logical_and( CZMA_INFORMATION& info, int& index, CVALU
 				put_error( "Invalid operator '&&'" );
 				return false;
 			}
-			result.i = result.i && term.i;
+			result.i = (int)( (bool)result.i && (bool)term.i );
 			continue;
 		}
 		break;
@@ -732,7 +732,7 @@ bool CZMA_PARSE::operator_logical_or( CZMA_INFORMATION& info, int& index, CVALUE
 				put_error( "Invalid operator '||'" );
 				return false;
 			}
-			result.i = result.i || term.i;
+			result.i = (int)( (bool)result.i || (bool)term.i );
 			continue;
 		}
 		break;
