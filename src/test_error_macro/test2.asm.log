@@ -1,11 +1,13 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
-Define macro {HOGE MACRO}
-
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     6|      |    |HOGE MACRO
+------+------+----+----------------------------------
 ERROR: MACRO cannot define in MACRO/REPEAT/IF block.: test2.asm(7)
-Define macro {MOGE MACRO}
-
+     7|      |    |MOGE MACRO
+------+------+----+----------------------------------
 << label >>

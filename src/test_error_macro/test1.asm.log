@@ -1,9 +1,12 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
-ERROR: Block processing is not close.: test1.asm(6)
-Define macro {HOGE MACRO NUM}
-
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     6|      |    |HOGE MACRO NUM
+     6|ERROR |    |Block processing is not close.: test1.asm(6)
+     6|      |    |HOGE MACRO NUM
+------+------+----+----------------------------------
 << label >>

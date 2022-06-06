@@ -165,6 +165,7 @@ CZMA_PARSE::CZMA_PARSE( std::vector<std::string> words, const char* p_file_name,
 	this->is_analyze_phase = true;
 	this->is_label_search_state = true;
 	this->is_structure_error = false;
+	this->number_of_error_for_this = 0;
 }
 
 // --------------------------------------------------------------------
@@ -275,17 +276,19 @@ int CZMA_PARSE::relative_address( CZMA_INFORMATION &info, int index ) {
 
 // --------------------------------------------------------------------
 void CZMA_PARSE::put_error( std::string message ) {
-	std::stringstream ss;
-	std::string s;
 
 	if( this->is_analyze_phase ) {
 		return;
 	}
-	ss << "ERROR: " << message << ": " << p_file_name << "(" << line_no << ")";
-	s = ss.str();
-	std::cerr << s << "\n";
-	log.push_back( s );
-	number_of_error++;
+	if( number_of_error_for_this == 0 ){
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, this->get_line() );
+	}
+	if( message != last_error ){
+		log.write_error_message( p_file_name, this->line_no, message );
+		number_of_error++;
+		number_of_error_for_this++;
+		last_error = message;
+	}
 }
 
 // --------------------------------------------------------------------

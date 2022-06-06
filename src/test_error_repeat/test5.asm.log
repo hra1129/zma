@@ -1,36 +1,43 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
-[REPEAT I , 5]
-	Scope path: @REPEAT0:
-
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     7|      |    |REPEAT I, 5
+      |      |    |  	Scope path: @REPEAT0:
+------+------+----+----------------------------------
 	repeat begin
-[	DEFB 1]
-000000: 01
-
-[	DEFB 1]
-000001: 01
-
-[	DEFB 1]
-000002: 01
-
-[	DEFB 1]
-000003: 01
-
-[	DEFB 1]
-000004: 01
-
+     8|      |    |DEFB 1
+      |000000|0000|  01
+------+------+----+----------------------------------
+     8|      |    |DEFB 1
+      |000001|0001|  01
+------+------+----+----------------------------------
+     8|      |    |DEFB 1
+      |000002|0002|  01
+------+------+----+----------------------------------
+     8|      |    |DEFB 1
+      |000003|0003|  01
+------+------+----+----------------------------------
+     8|      |    |DEFB 1
+      |000004|0004|  01
+------+------+----+----------------------------------
 	repeat end
-ERROR: ENDR is not need parameters.: test5.asm(9)
+     9|      |    |ENDR AAA
 
-ERROR: Illegal expression.: test5.asm(11)
+     9|ERROR |    |ENDR is not need parameters.: test5.asm(9)
+
+    11|      |    |REPEAT I, 5 AAA
+    11|ERROR |    |Illegal expression.: test5.asm(11)
 	repeat begin
 	repeat end
-ERROR: Block processing is not close.: test5.asm(13)
+    13|      |    |ENDR
 
-ERROR: REPEAT counter is not fixed.: test5.asm(13)
+    13|ERROR |    |Block processing is not close.: test5.asm(13)
+
+    13|ERROR |    |REPEAT counter is not fixed.: test5.asm(13)
 
 << label >>
 @REPEAT0:I 4 ( 0x4 )

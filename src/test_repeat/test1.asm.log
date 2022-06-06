@@ -1,98 +1,100 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
-[REPEAT I , 5]
-	Scope path: @REPEAT0:
-
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     5|      |    |REPEAT I, 5
+      |      |    |  	Scope path: @REPEAT0:
+------+------+----+----------------------------------
 	repeat begin
-[REPEAT I , I]
-	Scope path: @REPEAT0:@REPEAT1:
-
+     6|      |    |REPEAT I, I
+      |      |    |  	Scope path: @REPEAT0:@REPEAT1:
+------+------+----+----------------------------------
 	repeat begin
 	repeat end
-	Scope path: @REPEAT0:
+      |      |    |  	Scope path: @REPEAT0:
 
+------+------+----+----------------------------------
 
-
-[REPEAT I , I]
-	Scope path: @REPEAT0:@REPEAT2:
-
+     6|      |    |REPEAT I, I
+      |      |    |  	Scope path: @REPEAT0:@REPEAT2:
+------+------+----+----------------------------------
 	repeat begin
-[	DEFB I + LABEL]
-000000: 0b
-
+     7|      |    |DEFB I + LABEL
+      |000000|0000|  0B
+------+------+----+----------------------------------
 	repeat end
-	Scope path: @REPEAT0:
+      |      |    |  	Scope path: @REPEAT0:
 
+------+------+----+----------------------------------
 
-
-[REPEAT I , I]
-	Scope path: @REPEAT0:@REPEAT3:
-
+     6|      |    |REPEAT I, I
+      |      |    |  	Scope path: @REPEAT0:@REPEAT3:
+------+------+----+----------------------------------
 	repeat begin
-[	DEFB I + LABEL]
-000001: 0b
-
-[	DEFB I + LABEL]
-000002: 0c
-
+     7|      |    |DEFB I + LABEL
+      |000001|0001|  0B
+------+------+----+----------------------------------
+     7|      |    |DEFB I + LABEL
+      |000002|0002|  0C
+------+------+----+----------------------------------
 	repeat end
-	Scope path: @REPEAT0:
+      |      |    |  	Scope path: @REPEAT0:
 
+------+------+----+----------------------------------
 
-
-[REPEAT I , I]
-	Scope path: @REPEAT0:@REPEAT4:
-
+     6|      |    |REPEAT I, I
+      |      |    |  	Scope path: @REPEAT0:@REPEAT4:
+------+------+----+----------------------------------
 	repeat begin
-[	DEFB I + LABEL]
-000003: 0b
-
-[	DEFB I + LABEL]
-000004: 0c
-
-[	DEFB I + LABEL]
-000005: 0d
-
+     7|      |    |DEFB I + LABEL
+      |000003|0003|  0B
+------+------+----+----------------------------------
+     7|      |    |DEFB I + LABEL
+      |000004|0004|  0C
+------+------+----+----------------------------------
+     7|      |    |DEFB I + LABEL
+      |000005|0005|  0D
+------+------+----+----------------------------------
 	repeat end
-	Scope path: @REPEAT0:
+      |      |    |  	Scope path: @REPEAT0:
 
+------+------+----+----------------------------------
 
-
-[REPEAT I , I]
-	Scope path: @REPEAT0:@REPEAT5:
-
+     6|      |    |REPEAT I, I
+      |      |    |  	Scope path: @REPEAT0:@REPEAT5:
+------+------+----+----------------------------------
 	repeat begin
-[	DEFB I + LABEL]
-000006: 0b
+     7|      |    |DEFB I + LABEL
+      |000006|0006|  0B
+------+------+----+----------------------------------
+     7|      |    |DEFB I + LABEL
+      |000007|0007|  0C
+------+------+----+----------------------------------
+     7|      |    |DEFB I + LABEL
+      |000008|0008|  0D
+------+------+----+----------------------------------
+     7|      |    |DEFB I + LABEL
+      |000009|0009|  0E
+------+------+----+----------------------------------
+	repeat end
+      |      |    |  	Scope path: @REPEAT0:
 
-[	DEFB I + LABEL]
-000007: 0c
-
-[	DEFB I + LABEL]
-000008: 0d
-
-[	DEFB I + LABEL]
-000009: 0e
+------+------+----+----------------------------------
 
 	repeat end
-	Scope path: @REPEAT0:
+      |      |    |  	Scope path: 
 
+------+------+----+----------------------------------
 
-
-	repeat end
-	Scope path: 
-
-
-
-[	DEFB 0]
-00000a: 00
-
-[LABEL :]
-	label address: 0x00000b
-
+    11|      |    |DEFB 0
+      |00000A|000A|  00
+------+------+----+----------------------------------
+    12|      |    |LABEL :
+      |      |    |  label address: 0x00000b
+------+------+----+----------------------------------
 << label >>
 @REPEAT0:@REPEAT1:I 0 ( 0x0 )
 @REPEAT0:@REPEAT2:I 0 ( 0x0 )

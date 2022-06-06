@@ -34,6 +34,10 @@ public:
 	void write_message( const std::string &s_message );
 
 	// --------------------------------------------------------------------
+	//	Write error message
+	void write_error_message( const char *p_file_name, int line_no, const std::string &s_message );
+
+	// --------------------------------------------------------------------
 	//	Cycles information
 	void write_cycle_information( int z80_cycle, int r800_cycle, int z80_cycle2 = -1, int r800_cycle2 = -1, const std::string s_comment = "");
 };

@@ -1,239 +1,371 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
-ERROR: user error!!!: test.asm(6)
-ERROR: User error: test.asm(7)
-ERROR: Invalid operator '+'.: test.asm(8)
-ERROR: Illegal parameter in ERROR.: test.asm(8)
-ERROR: Illegal parameter in ERROR.: test.asm(8)
-ERROR: 100: test.asm(9)
-ERROR: Illegal parameter in ERROR.: test.asm(10)
-ERROR: Illegal parameter in ERROR.: test.asm(10)
-ERROR: Message not found in MESSAGE.: test.asm(13)
-ERROR: Invalid operator '+'.: test.asm(14)
-ERROR: Illegal parameter in MESSAGE.: test.asm(14)
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     6|      |    |ERROR "user error!!!"
+     6|ERROR |    |user error!!!: test.asm(6)
+     7|      |    |ERROR
+     7|ERROR |    |User error: test.asm(7)
+     8|      |    |ERROR +
+     8|ERROR |    |Invalid operator '+'.: test.asm(8)
+     8|ERROR |    |Illegal parameter in ERROR.: test.asm(8)
+     9|      |    |ERROR 100
+     9|ERROR |    |100: test.asm(9)
+    10|      |    |ERROR HOGE
+    10|ERROR |    |Illegal parameter in ERROR.: test.asm(10)
+    13|      |    |MESSAGE
+    13|ERROR |    |Message not found in MESSAGE.: test.asm(13)
+    14|      |    |MESSAGE +
+    14|ERROR |    |Invalid operator '+'.: test.asm(14)
+    14|ERROR |    |Illegal parameter in MESSAGE.: test.asm(14)
 MESSAGE: 100: test.asm(15)
-ERROR: Illegal parameter in MESSAGE.: test.asm(16)
-ERROR: Path not found in ADD_INCLUDE_PATH.: test.asm(19)
-ERROR: Invalid operator '+'.: test.asm(20)
-ERROR: Illegal parameter in ADD_INCLUDE_PATH.: test.asm(20)
-[	ADD_INCLUDE_PATH 100]
+    16|      |    |MESSAGE MONMON
+    16|ERROR |    |Illegal parameter in MESSAGE.: test.asm(16)
+    19|      |    |ADD_INCLUDE_PATH
+    19|ERROR |    |Path not found in ADD_INCLUDE_PATH.: test.asm(19)
+    20|      |    |ADD_INCLUDE_PATH +
+    20|ERROR |    |Invalid operator '+'.: test.asm(20)
+    20|ERROR |    |Illegal parameter in ADD_INCLUDE_PATH.: test.asm(20)
+    21|      |    |ADD_INCLUDE_PATH 100
 	Add include path: 100
-ERROR: Illegal command: test.asm(24)
-ERROR: Offset value is out of range (-129).: test.asm(27)
-ERROR: Illegal operand.: test.asm(27)
-ERROR: Offset value is out of range (128).: test.asm(28)
-ERROR: Illegal operand.: test.asm(28)
-ERROR: Offset value is out of range (-129).: test.asm(29)
-ERROR: Illegal operand.: test.asm(29)
-ERROR: Offset value is out of range (128).: test.asm(30)
-ERROR: Illegal operand.: test.asm(30)
-ERROR: Offset value is out of range (-129).: test.asm(31)
-ERROR: Illegal operand.: test.asm(31)
-ERROR: Illegal operand.: test.asm(31)
-ERROR: Offset value is out of range (128).: test.asm(32)
-ERROR: Illegal operand.: test.asm(32)
-ERROR: Illegal operand.: test.asm(32)
-ERROR: Offset value is out of range (-129).: test.asm(33)
-ERROR: Illegal operand.: test.asm(33)
-ERROR: Illegal operand.: test.asm(33)
-ERROR: Offset value is out of range (128).: test.asm(34)
-ERROR: Illegal operand.: test.asm(34)
-ERROR: Illegal operand.: test.asm(34)
-ERROR: Offset value is out of range (-129).: test.asm(35)
-ERROR: Illegal operand: test.asm(35)
-ERROR: Offset value is out of range (128).: test.asm(36)
-ERROR: Illegal operand: test.asm(36)
-ERROR: Offset value is out of range (-129).: test.asm(37)
-ERROR: Illegal operand: test.asm(37)
-ERROR: Offset value is out of range (128).: test.asm(38)
-ERROR: Illegal operand: test.asm(38)
-ERROR: Illegal operand.: test.asm(41)
-ERROR: Illegal operand.: test.asm(42)
-ERROR: Illegal operand.: test.asm(43)
-ERROR: Illegal operand.: test.asm(44)
-ERROR: Illegal operand.: test.asm(45)
-ERROR: Illegal operand.: test.asm(46)
-ERROR: Illegal operand.: test.asm(47)
-ERROR: Illegal operand.: test.asm(48)
-ERROR: Illegal operand.: test.asm(49)
-ERROR: Illegal operand.: test.asm(50)
-ERROR: Illegal operand.: test.asm(51)
-ERROR: Illegal operand.: test.asm(52)
-ERROR: Illegal operand.: test.asm(53)
-ERROR: Illegal operand: test.asm(54)
-ERROR: Illegal operand: test.asm(55)
-ERROR: Illegal operand: test.asm(56)
-ERROR: Illegal operand: test.asm(57)
-ERROR: Illegal operand: test.asm(58)
-ERROR: Illegal operand: test.asm(59)
-ERROR: Illegal operand: test.asm(60)
-ERROR: Illegal operand: test.asm(61)
-ERROR: Illegal operand: test.asm(62)
-ERROR: Illegal operand: test.asm(63)
-ERROR: Illegal operand: test.asm(64)
-ERROR: Illegal operand: test.asm(65)
-ERROR: Illegal operand: test.asm(66)
-ERROR: There is an extra account that can not be interpreted.: test.asm(69)
-ERROR: Illegal operand.: test.asm(69)
-ERROR: Illegal operand: test.asm(70)
-ERROR: Illegal operand: test.asm(71)
-ERROR: Illegal operand: test.asm(72)
-ERROR: Illegal operand: test.asm(73)
-ERROR: Illegal operand: test.asm(74)
-ERROR: Illegal operand: test.asm(75)
-ERROR: Illegal operand: test.asm(76)
-ERROR: Illegal operand: test.asm(77)
-ERROR: Illegal operand: test.asm(78)
-ERROR: Illegal operand: test.asm(79)
-ERROR: Illegal operand: test.asm(80)
-ERROR: Illegal operand: test.asm(81)
-ERROR: Illegal operand: test.asm(82)
-ERROR: Illegal operand: test.asm(83)
-ERROR: Illegal operand: test.asm(84)
-ERROR: Illegal operand: test.asm(85)
-ERROR: Illegal operand: test.asm(86)
-ERROR: Illegal operand: test.asm(87)
-ERROR: Illegal operand: test.asm(88)
-ERROR: Illegal operand: test.asm(89)
-ERROR: Illegal operand: test.asm(90)
-ERROR: Illegal operand: test.asm(91)
-ERROR: Illegal operand: test.asm(92)
-ERROR: Illegal operand.: test.asm(93)
-ERROR: Illegal operand: test.asm(94)
-ERROR: Illegal operand: test.asm(95)
-ERROR: Illegal operand: test.asm(96)
-ERROR: Illegal operand: test.asm(97)
-ERROR: Illegal operand: test.asm(98)
-ERROR: Illegal operand: test.asm(99)
-ERROR: Illegal operand.: test.asm(100)
-ERROR: Illegal operand: test.asm(100)
-ERROR: Illegal operand.: test.asm(101)
-ERROR: Illegal operand: test.asm(101)
-ERROR: Illegal operand: test.asm(102)
-ERROR: Illegal operand: test.asm(103)
-ERROR: Illegal operand: test.asm(104)
-[	CP A , 10 AAA] Z80:8cyc, R800:2cyc
-ffffffff: fe 0a
-
-ERROR: Illegal operand: test.asm(106)
-[	CP A , [ IX ] AAA] Z80:21cyc, R800:7cyc
-ffffffff: dd be 00
-
-[	CP A , [ IX + 1 ] AAA] Z80:21cyc, R800:7cyc
-ffffffff: dd be 01
-
-ERROR: Illegal operand: test.asm(109)
-ERROR: Illegal operand: test.asm(110)
-ERROR: Illegal operand: test.asm(111)
-ERROR: Illegal operand: test.asm(112)
-ERROR: Illegal operand: test.asm(113)
-ERROR: Illegal operand: test.asm(114)
-ERROR: Illegal operand: test.asm(115)
-ERROR: Illegal operand: test.asm(116)
-ERROR: Illegal operand: test.asm(117)
-ERROR: Illegal operand: test.asm(118)
-ERROR: Illegal operand: test.asm(119)
-ERROR: Illegal operand: test.asm(120)
-ERROR: Illegal operand: test.asm(121)
-ERROR: Illegal operand: test.asm(122)
-ERROR: Illegal operand: test.asm(123)
-ERROR: Illegal operand: test.asm(124)
-ERROR: Illegal operand: test.asm(125)
-ERROR: Illegal operand: test.asm(126)
-ERROR: Illegal operand: test.asm(127)
-ERROR: Illegal operand: test.asm(128)
-ERROR: Illegal operand: test.asm(129)
-ERROR: Illegal operand: test.asm(130)
-ERROR: Illegal operand: test.asm(131)
-ERROR: Illegal operand: test.asm(132)
-ERROR: Illegal operand: test.asm(133)
-ERROR: Illegal operand: test.asm(134)
-ERROR: Illegal operand: test.asm(135)
-ERROR: Illegal operand: test.asm(136)
-ERROR: Illegal operand: test.asm(137)
-ERROR: Illegal operand: test.asm(138)
-ERROR: Illegal operand: test.asm(139)
-ERROR: Illegal operand: test.asm(140)
-ERROR: Illegal operand: test.asm(141)
-ERROR: Illegal operand: test.asm(142)
-ERROR: Illegal operand: test.asm(143)
-ERROR: Illegal operand: test.asm(144)
-ERROR: Illegal operand: test.asm(145)
-ERROR: Illegal operand: test.asm(148)
-ERROR: Invalid operator '+'.: test.asm(149)
-ERROR: Illegal expression.: test.asm(149)
-ERROR: Illegal restart address (74565): test.asm(150)
-ERROR: Illegal expression.: test.asm(151)
-ERROR: Illegal operand: test.asm(154)
-ERROR: Illegal operand.: test.asm(157)
-ERROR: Illegal operand: test.asm(157)
-ERROR: Illegal operand.: test.asm(158)
-ERROR: Illegal operand: test.asm(158)
-ERROR: Illegal operand.: test.asm(159)
-ERROR: Illegal operand: test.asm(159)
-[	ORG 256]
-	code address: 0x000100
-
-ERROR: Out of range relative address: test.asm(163)
-ERROR: Illegal operand: test.asm(163)
-ERROR: Out of range relative address: test.asm(164)
-ERROR: Illegal operand: test.asm(164)
-ERROR: Illegal operand.: test.asm(167)
-ERROR: Illegal operand.: test.asm(167)
-ERROR: Illegal operand.: test.asm(168)
-ERROR: Illegal operand.: test.asm(168)
-ERROR: Illegal operand.: test.asm(169)
-ERROR: Illegal operand.: test.asm(169)
-ERROR: Illegal operand.: test.asm(170)
-ERROR: Illegal operand.: test.asm(170)
-ERROR: Illegal operand.: test.asm(171)
-ERROR: Illegal operand.: test.asm(171)
-ERROR: Illegal operand.: test.asm(172)
-ERROR: Illegal operand.: test.asm(172)
-ERROR: Illegal operand.: test.asm(173)
-ERROR: Illegal operand.: test.asm(173)
-ERROR: Illegal operand.: test.asm(174)
-ERROR: Illegal operand.: test.asm(174)
-ERROR: Illegal operand.: test.asm(175)
-ERROR: Illegal operand.: test.asm(175)
-ERROR: Illegal operand.: test.asm(176)
-ERROR: Illegal operand.: test.asm(176)
-ERROR: Illegal operand.: test.asm(177)
-ERROR: Illegal operand.: test.asm(177)
-ERROR: Illegal operand.: test.asm(178)
-ERROR: Illegal operand.: test.asm(178)
-ERROR: Illegal operand.: test.asm(179)
-ERROR: Illegal operand.: test.asm(179)
-ERROR: Illegal operand.: test.asm(180)
-ERROR: Illegal operand.: test.asm(180)
-ERROR: Illegal operand.: test.asm(181)
-ERROR: Illegal operand.: test.asm(181)
-ERROR: Illegal operand.: test.asm(182)
-ERROR: Illegal operand.: test.asm(182)
-ERROR: Illegal operand.: test.asm(183)
-ERROR: Illegal operand.: test.asm(183)
-ERROR: Illegal operand.: test.asm(184)
-ERROR: Illegal operand.: test.asm(184)
-ERROR: Illegal operand.: test.asm(185)
-ERROR: Illegal operand.: test.asm(185)
-ERROR: Illegal operand.: test.asm(186)
-ERROR: Illegal operand.: test.asm(186)
-ERROR: Illegal operand.: test.asm(187)
-ERROR: Illegal operand.: test.asm(187)
-ERROR: Illegal operand.: test.asm(188)
-ERROR: Illegal operand.: test.asm(188)
-ERROR: Illegal operand.: test.asm(189)
-ERROR: Illegal operand.: test.asm(189)
-ERROR: Illegal operand.: test.asm(190)
-ERROR: Illegal operand.: test.asm(190)
-ERROR: Illegal operand.: test.asm(193)
-ERROR: Illegal operand.: test.asm(193)
-ERROR: Illegal operand.: test.asm(194)
-ERROR: Illegal operand.: test.asm(194)
-ERROR: Illegal operand.: test.asm(195)
-ERROR: Illegal operand.: test.asm(195)
-ERROR: Illegal operand.: test.asm(196)
+    24|      |    |INVALID_OPECODE
+    24|ERROR |    |Illegal command: test.asm(24)
+    27|      |    |LD A, [ IX - 129 ]
+    27|ERROR |    |Offset value is out of range (-129).: test.asm(27)
+    27|ERROR |    |Illegal operand.: test.asm(27)
+    28|      |    |LD A, [ IX + 128 ]
+    28|ERROR |    |Offset value is out of range (128).: test.asm(28)
+    28|ERROR |    |Illegal operand.: test.asm(28)
+    29|      |    |LD A, [ IY - 129 ]
+    29|ERROR |    |Offset value is out of range (-129).: test.asm(29)
+    29|ERROR |    |Illegal operand.: test.asm(29)
+    30|      |    |LD A, [ IY + 128 ]
+    30|ERROR |    |Offset value is out of range (128).: test.asm(30)
+    30|ERROR |    |Illegal operand.: test.asm(30)
+    31|      |    |LD [ IX - 129 ], A
+    31|ERROR |    |Offset value is out of range (-129).: test.asm(31)
+    31|ERROR |    |Illegal operand.: test.asm(31)
+    32|      |    |LD [ IX + 128 ], A
+    32|ERROR |    |Offset value is out of range (128).: test.asm(32)
+    32|ERROR |    |Illegal operand.: test.asm(32)
+    33|      |    |LD [ IY - 129 ], A
+    33|ERROR |    |Offset value is out of range (-129).: test.asm(33)
+    33|ERROR |    |Illegal operand.: test.asm(33)
+    34|      |    |LD [ IY + 128 ], A
+    34|ERROR |    |Offset value is out of range (128).: test.asm(34)
+    34|ERROR |    |Illegal operand.: test.asm(34)
+    35|      |    |INC [ IX - 129 ]
+    35|ERROR |    |Offset value is out of range (-129).: test.asm(35)
+    35|ERROR |    |Illegal operand: test.asm(35)
+    36|      |    |INC [ IX + 128 ]
+    36|ERROR |    |Offset value is out of range (128).: test.asm(36)
+    36|ERROR |    |Illegal operand: test.asm(36)
+    37|      |    |INC [ IY - 129 ]
+    37|ERROR |    |Offset value is out of range (-129).: test.asm(37)
+    37|ERROR |    |Illegal operand: test.asm(37)
+    38|      |    |INC [ IY + 128 ]
+    38|ERROR |    |Offset value is out of range (128).: test.asm(38)
+    38|ERROR |    |Illegal operand: test.asm(38)
+    41|      |    |LD A,
+    41|ERROR |    |Illegal operand.: test.asm(41)
+    42|      |    |LD A, [
+    42|ERROR |    |Illegal operand.: test.asm(42)
+    43|      |    |LD A, [ HL
+    43|ERROR |    |Illegal operand.: test.asm(43)
+    44|      |    |LD A, [ IX
+    44|ERROR |    |Illegal operand.: test.asm(44)
+    45|      |    |LD A, [ IY
+    45|ERROR |    |Illegal operand.: test.asm(45)
+    46|      |    |LD A, [ IX +
+    46|ERROR |    |Illegal operand.: test.asm(46)
+    47|      |    |LD A, [ IY +
+    47|ERROR |    |Illegal operand.: test.asm(47)
+    48|      |    |LD A, [ IX -
+    48|ERROR |    |Illegal operand.: test.asm(48)
+    49|      |    |LD A, [ IY -
+    49|ERROR |    |Illegal operand.: test.asm(49)
+    50|      |    |LD A, [ IX + 1
+    50|ERROR |    |Illegal operand.: test.asm(50)
+    51|      |    |LD A, [ IY + 1
+    51|ERROR |    |Illegal operand.: test.asm(51)
+    52|      |    |LD A, [ IX - 1
+    52|ERROR |    |Illegal operand.: test.asm(52)
+    53|      |    |LD A, [ IY - 1
+    53|ERROR |    |Illegal operand.: test.asm(53)
+    54|      |    |INC
+    54|ERROR |    |Illegal operand: test.asm(54)
+    55|      |    |INC [
+    55|ERROR |    |Illegal operand: test.asm(55)
+    56|      |    |INC [ HL
+    56|ERROR |    |Illegal operand: test.asm(56)
+    57|      |    |INC [ IX
+    57|ERROR |    |Illegal operand: test.asm(57)
+    58|      |    |INC [ IY
+    58|ERROR |    |Illegal operand: test.asm(58)
+    59|      |    |INC [ IX +
+    59|ERROR |    |Illegal operand: test.asm(59)
+    60|      |    |INC [ IY +
+    60|ERROR |    |Illegal operand: test.asm(60)
+    61|      |    |INC [ IX -
+    61|ERROR |    |Illegal operand: test.asm(61)
+    62|      |    |INC [ IY -
+    62|ERROR |    |Illegal operand: test.asm(62)
+    63|      |    |INC [ IX + 1
+    63|ERROR |    |Illegal operand: test.asm(63)
+    64|      |    |INC [ IY + 1
+    64|ERROR |    |Illegal operand: test.asm(64)
+    65|      |    |INC [ IX - 1
+    65|ERROR |    |Illegal operand: test.asm(65)
+    66|      |    |INC [ IY - 1
+    66|ERROR |    |Illegal operand: test.asm(66)
+    69|      |    |LD A, [ IX + 1 ] AAA
+    69|ERROR |    |There is an extra account that can not be interpreted.: test.asm(69)
+    69|ERROR |    |Illegal operand.: test.asm(69)
+    70|      |    |NOP AAA
+    70|ERROR |    |Illegal operand: test.asm(70)
+    71|      |    |CCF AAA
+    71|ERROR |    |Illegal operand: test.asm(71)
+    72|      |    |MULUW BC, DE AAA
+    72|ERROR |    |Illegal operand: test.asm(72)
+    73|      |    |MULUB C, D AAA
+    73|ERROR |    |Illegal operand: test.asm(73)
+    74|      |    |RRD AAA
+    74|ERROR |    |Illegal operand: test.asm(74)
+    75|      |    |RLD AAA
+    75|ERROR |    |Illegal operand: test.asm(75)
+    76|      |    |DAA AAA
+    76|ERROR |    |Illegal operand: test.asm(76)
+    77|      |    |OTDR AAA
+    77|ERROR |    |Illegal operand: test.asm(77)
+    78|      |    |OUTD AAA
+    78|ERROR |    |Illegal operand: test.asm(78)
+    79|      |    |OTIR AAA
+    79|ERROR |    |Illegal operand: test.asm(79)
+    80|      |    |OUTI AAA
+    80|ERROR |    |Illegal operand: test.asm(80)
+    81|      |    |OUT [ C ], A AAA
+    81|ERROR |    |Illegal operand: test.asm(81)
+    82|      |    |INDR AAA
+    82|ERROR |    |Illegal operand: test.asm(82)
+    83|      |    |IND AAA
+    83|ERROR |    |Illegal operand: test.asm(83)
+    84|      |    |INIR AAA
+    84|ERROR |    |Illegal operand: test.asm(84)
+    85|      |    |INI AAA
+    85|ERROR |    |Illegal operand: test.asm(85)
+    86|      |    |IN A, [ C ] AAA
+    86|ERROR |    |Illegal operand: test.asm(86)
+    87|      |    |IM0 AAA
+    87|ERROR |    |Illegal operand: test.asm(87)
+    88|      |    |IM1 AAA
+    88|ERROR |    |Illegal operand: test.asm(88)
+    89|      |    |IM2 AAA
+    89|ERROR |    |Illegal operand: test.asm(89)
+    90|      |    |DI AAA
+    90|ERROR |    |Illegal operand: test.asm(90)
+    91|      |    |EI AAA
+    91|ERROR |    |Illegal operand: test.asm(91)
+    92|      |    |HALT AAA
+    92|ERROR |    |Illegal operand: test.asm(92)
+    93|      |    |RST 0x38 AAA
+    93|ERROR |    |Illegal operand.: test.asm(93)
+    94|      |    |RETN AAA
+    94|ERROR |    |Illegal operand: test.asm(94)
+    95|      |    |RETI AAA
+    95|ERROR |    |Illegal operand: test.asm(95)
+    96|      |    |RET AAA
+    96|ERROR |    |Illegal operand: test.asm(96)
+    97|      |    |CALL 0 AAA
+    97|ERROR |    |Illegal operand: test.asm(97)
+    98|      |    |CALL Z, 0 AAA
+    98|ERROR |    |Illegal operand: test.asm(98)
+    99|      |    |DJNZ 0 AAA
+    99|ERROR |    |Illegal operand: test.asm(99)
+   100|      |    |JR 0 AAA
+   100|ERROR |    |Illegal operand.: test.asm(100)
+   100|ERROR |    |Illegal operand: test.asm(100)
+   101|      |    |JR Z, 0 AAA
+   101|ERROR |    |Illegal operand.: test.asm(101)
+   101|ERROR |    |Illegal operand: test.asm(101)
+   102|      |    |JP 0 AAA
+   102|ERROR |    |Illegal operand: test.asm(102)
+   103|      |    |JP Z, 0 AAA
+   103|ERROR |    |Illegal operand: test.asm(103)
+   104|      |    |CP A, B AAA
+   104|ERROR |    |Illegal operand: test.asm(104)
+   105|      |    |CP A, 10 AAA
+      |      |    |  Z80:8cyc, R800:2cyc
+      |XXXXXX|XXXX|  FE 0A
+------+------+----+----------------------------------
+   106|      |    |CP A, [ HL ] AAA
+   106|ERROR |    |Illegal operand: test.asm(106)
+   107|      |    |CP A, [ IX ] AAA
+      |      |    |  Z80:21cyc, R800:7cyc
+      |XXXXXX|XXXX|  DD BE 00
+------+------+----+----------------------------------
+   108|      |    |CP A, [ IX + 1 ] AAA
+      |      |    |  Z80:21cyc, R800:7cyc
+      |XXXXXX|XXXX|  DD BE 01
+------+------+----+----------------------------------
+   109|      |    |CPDR AAA
+   109|ERROR |    |Illegal operand: test.asm(109)
+   110|      |    |CPD AAA
+   110|ERROR |    |Illegal operand: test.asm(110)
+   111|      |    |CPIR AAA
+   111|ERROR |    |Illegal operand: test.asm(111)
+   112|      |    |CPI AAA
+   112|ERROR |    |Illegal operand: test.asm(112)
+   113|      |    |SET 1, A AAA
+   113|ERROR |    |Illegal operand: test.asm(113)
+   114|      |    |RES 1, A AAA
+   114|ERROR |    |Illegal operand: test.asm(114)
+   115|      |    |BIT 1, A AAA
+   115|ERROR |    |Illegal operand: test.asm(115)
+   116|      |    |SCF AAA
+   116|ERROR |    |Illegal operand: test.asm(116)
+   117|      |    |NEG AAA
+   117|ERROR |    |Illegal operand: test.asm(117)
+   118|      |    |CPL AAA
+   118|ERROR |    |Illegal operand: test.asm(118)
+   119|      |    |XOR A, A AAA
+   119|ERROR |    |Illegal operand: test.asm(119)
+   120|      |    |OR A, A AAA
+   120|ERROR |    |Illegal operand: test.asm(120)
+   121|      |    |AND A, A AAA
+   121|ERROR |    |Illegal operand: test.asm(121)
+   122|      |    |SBC A, A AAA
+   122|ERROR |    |Illegal operand: test.asm(122)
+   123|      |    |SUB A, A AAA
+   123|ERROR |    |Illegal operand: test.asm(123)
+   124|      |    |ADC A, A AAA
+   124|ERROR |    |Illegal operand: test.asm(124)
+   125|      |    |ADD A, A AAA
+   125|ERROR |    |Illegal operand: test.asm(125)
+   126|      |    |DEC A AAA
+   126|ERROR |    |Illegal operand: test.asm(126)
+   127|      |    |SRL A AAA
+   127|ERROR |    |Illegal operand: test.asm(127)
+   128|      |    |SRA A AAA
+   128|ERROR |    |Illegal operand: test.asm(128)
+   129|      |    |SLA A AAA
+   129|ERROR |    |Illegal operand: test.asm(129)
+   130|      |    |RR A AAA
+   130|ERROR |    |Illegal operand: test.asm(130)
+   131|      |    |RRC A AAA
+   131|ERROR |    |Illegal operand: test.asm(131)
+   132|      |    |RRA AAA
+   132|ERROR |    |Illegal operand: test.asm(132)
+   133|      |    |RRCA AAA
+   133|ERROR |    |Illegal operand: test.asm(133)
+   134|      |    |RL A AAA
+   134|ERROR |    |Illegal operand: test.asm(134)
+   135|      |    |RLC A AAA
+   135|ERROR |    |Illegal operand: test.asm(135)
+   136|      |    |RLA AAA
+   136|ERROR |    |Illegal operand: test.asm(136)
+   137|      |    |RLCA AAA
+   137|ERROR |    |Illegal operand: test.asm(137)
+   138|      |    |POP HL AAA
+   138|ERROR |    |Illegal operand: test.asm(138)
+   139|      |    |PUSH HL AAA
+   139|ERROR |    |Illegal operand: test.asm(139)
+   140|      |    |EX DE, HL AAA
+   140|ERROR |    |Illegal operand: test.asm(140)
+   141|      |    |EXX AAA
+   141|ERROR |    |Illegal operand: test.asm(141)
+   142|      |    |LDDR AAA
+   142|ERROR |    |Illegal operand: test.asm(142)
+   143|      |    |LDD AAA
+   143|ERROR |    |Illegal operand: test.asm(143)
+   144|      |    |LDIR AAA
+   144|ERROR |    |Illegal operand: test.asm(144)
+   145|      |    |LDI AAA
+   145|ERROR |    |Illegal operand: test.asm(145)
+   148|      |    |RST
+   148|ERROR |    |Illegal operand: test.asm(148)
+   149|      |    |RST +
+   149|ERROR |    |Invalid operator '+'.: test.asm(149)
+   149|ERROR |    |Illegal expression.: test.asm(149)
+   150|      |    |RST 0x12345
+   150|ERROR |    |Illegal restart address (74565): test.asm(150)
+   151|      |    |RST "hoge"
+   151|ERROR |    |Illegal expression.: test.asm(151)
+   154|      |    |EX [ SP ], DE
+   154|ERROR |    |Illegal operand: test.asm(154)
+   157|      |    |JR "hoge"
+   157|ERROR |    |Illegal operand.: test.asm(157)
+   157|ERROR |    |Illegal operand: test.asm(157)
+   158|      |    |JP "hoge"
+   158|ERROR |    |Illegal operand.: test.asm(158)
+   158|ERROR |    |Illegal operand: test.asm(158)
+   159|      |    |CALL "hoge"
+   159|ERROR |    |Illegal operand.: test.asm(159)
+   159|ERROR |    |Illegal operand: test.asm(159)
+   162|      |    |ORG 256
+------+------+----+----------------------------------
+   163|      |    |JR 127
+   163|ERROR |    |Out of range relative address: test.asm(163)
+   163|ERROR |    |Illegal operand: test.asm(163)
+   164|      |    |JR 1000
+   164|ERROR |    |Out of range relative address: test.asm(164)
+   164|ERROR |    |Illegal operand: test.asm(164)
+   167|      |    |LD IXH, IXH
+   167|ERROR |    |Illegal operand.: test.asm(167)
+   168|      |    |LD IXH, IXL
+   168|ERROR |    |Illegal operand.: test.asm(168)
+   169|      |    |LD IXH, IYH
+   169|ERROR |    |Illegal operand.: test.asm(169)
+   170|      |    |LD IXH, IYL
+   170|ERROR |    |Illegal operand.: test.asm(170)
+   171|      |    |LD IXL, IXH
+   171|ERROR |    |Illegal operand.: test.asm(171)
+   172|      |    |LD IXL, IXL
+   172|ERROR |    |Illegal operand.: test.asm(172)
+   173|      |    |LD IXL, IYH
+   173|ERROR |    |Illegal operand.: test.asm(173)
+   174|      |    |LD IXL, IYL
+   174|ERROR |    |Illegal operand.: test.asm(174)
+   175|      |    |LD IYH, IXH
+   175|ERROR |    |Illegal operand.: test.asm(175)
+   176|      |    |LD IYH, IXL
+   176|ERROR |    |Illegal operand.: test.asm(176)
+   177|      |    |LD IYH, IYH
+   177|ERROR |    |Illegal operand.: test.asm(177)
+   178|      |    |LD IYH, IYL
+   178|ERROR |    |Illegal operand.: test.asm(178)
+   179|      |    |LD IYL, IXH
+   179|ERROR |    |Illegal operand.: test.asm(179)
+   180|      |    |LD IYL, IXL
+   180|ERROR |    |Illegal operand.: test.asm(180)
+   181|      |    |LD IYL, IYH
+   181|ERROR |    |Illegal operand.: test.asm(181)
+   182|      |    |LD IYL, IYL
+   182|ERROR |    |Illegal operand.: test.asm(182)
+   183|      |    |LD H, IXH
+   183|ERROR |    |Illegal operand.: test.asm(183)
+   184|      |    |LD H, IXL
+   184|ERROR |    |Illegal operand.: test.asm(184)
+   185|      |    |LD H, IYH
+   185|ERROR |    |Illegal operand.: test.asm(185)
+   186|      |    |LD H, IYL
+   186|ERROR |    |Illegal operand.: test.asm(186)
+   187|      |    |LD L, IXH
+   187|ERROR |    |Illegal operand.: test.asm(187)
+   188|      |    |LD L, IXL
+   188|ERROR |    |Illegal operand.: test.asm(188)
+   189|      |    |LD L, IYH
+   189|ERROR |    |Illegal operand.: test.asm(189)
+   190|      |    |LD L, IYL
+   190|ERROR |    |Illegal operand.: test.asm(190)
+   193|      |    |LD [ IX + 0 ], [ HL ]
+   193|ERROR |    |Illegal operand.: test.asm(193)
+   194|      |    |LD [ IX + 0 ], [ 123 ]
+   194|ERROR |    |Illegal operand.: test.asm(194)
+   195|      |    |LD [ HL ], [ IX + 0 ]
+   195|ERROR |    |Illegal operand.: test.asm(195)
+   196|      |    |LD [ 123 ], [ IX + 0 ]
+   196|ERROR |    |Illegal operand.: test.asm(196)
 << label >>

@@ -25,6 +25,8 @@ protected:
 	int line_no;
 	bool is_analyze_phase;
 	static int number_of_error;
+	int number_of_error_for_this;
+	std::string last_error;
 	CZMA_LOG log;
 
 	bool is_structure_error;

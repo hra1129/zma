@@ -14,8 +14,4 @@ LINE# |OFFSET|ADDR|MNEMONIC
     14|      |    |ELSE
 ------+------+----+----------------------------------
 MESSAGE: aaaaaaaa: test4.asm(14)
-    14|      |    |ENDIF
-      |      |    |  Selected {IF 1} block.
-------+------+----+----------------------------------
-
 << label >>

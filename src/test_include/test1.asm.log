@@ -1,40 +1,48 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
-[	INCLUDE ".//sub_test.asm"] begin
-[	LD DE , 0X5566] Z80:11cyc, R800:3cyc
-000000: 11 66 55
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     5|      |    |INCLUDE "sub_test.asm" begin
+     5|      |    |LD DE, 0x5566
+      |      |    |  Z80:11cyc, R800:3cyc
+      |000000|0000|  11 66 55
+------+------+----+----------------------------------
+     5|      |    |INCLUDE "sub_test.asm" end
 
-[	INCLUDE ".//sub_test.asm"] end
+     6|      |    |INCLUDE "sub_test.asm" begin
+     5|      |    |LD DE, 0x5566
+      |      |    |  Z80:11cyc, R800:3cyc
+      |XXXXXX|0003|  11 66 55
+------+------+----+----------------------------------
+     6|      |    |INCLUDE "sub_test.asm" end
 
-[	INCLUDE ".//sub_test.asm"] begin
-[	LD DE , 0X5566] Z80:11cyc, R800:3cyc
-000003: 11 66 55
-
-[	INCLUDE ".//sub_test.asm"] end
-
-[	ADD_INCLUDE_PATH "sub"]
+     8|      |    |ADD_INCLUDE_PATH "sub"
 	Add include path: sub
-[	ADD_INCLUDE_PATH "sub2/"]
+     9|      |    |ADD_INCLUDE_PATH "sub2/"
 	Add include path: sub2/
-[	INCLUDE "sub/sub_test2.asm"] begin
-[	LD BC , 0X6677] Z80:11cyc, R800:3cyc
-000006: 01 77 66
+    11|      |    |INCLUDE "sub_test2.asm" begin
+     5|      |    |LD BC, 0x6677
+      |      |    |  Z80:11cyc, R800:3cyc
+      |XXXXXX|0006|  01 77 66
+------+------+----+----------------------------------
+    11|      |    |INCLUDE "sub_test2.asm" end
 
-[	INCLUDE "sub/sub_test2.asm"] end
+    12|      |    |INCLUDE "sub_test3.asm" begin
+     5|      |    |LD HL, 0x6677
+      |      |    |  Z80:11cyc, R800:3cyc
+      |XXXXXX|0009|  21 77 66
+------+------+----+----------------------------------
+    12|      |    |INCLUDE "sub_test3.asm" end
 
-[	INCLUDE "sub2//sub_test3.asm"] begin
-[	LD HL , 0X6677] Z80:11cyc, R800:3cyc
-000009: 21 77 66
-
-[	INCLUDE "sub2//sub_test3.asm"] end
-
-[	LD BC , 0X4523] Z80:11cyc, R800:3cyc
-00000c: 01 23 45
-
-[	RET] Z80:11cyc, R800:5cyc
-00000f: c9
-
+    14|      |    |LD BC, 0x4523
+      |      |    |  Z80:11cyc, R800:3cyc
+      |XXXXXX|000C|  01 23 45
+------+------+----+----------------------------------
+    15|      |    |RET
+      |      |    |  Z80:11cyc, R800:5cyc
+      |XXXXXX|000F|  C9
+------+------+----+----------------------------------
 << label >>

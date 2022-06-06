@@ -1,7 +1,10 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
-ERROR: ENDSCOPE in wrong position.: test1.asm(6)
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     6|      |    |ENDSCOPE
+     6|ERROR |    |ENDSCOPE in wrong position.: test1.asm(6)
 << label >>

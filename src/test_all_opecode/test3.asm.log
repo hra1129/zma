@@ -5,11 +5,12 @@ Programmed by t.hara
 << code >>
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
-ERROR: Operand is out of range.: test3.asm(6)
-ERROR: Illegal operand.: test3.asm(6)
-ERROR: Operand is out of range.: test3.asm(7)
-ERROR: Illegal operand.: test3.asm(7)
-ERROR: Illegal operand.: test3.asm(10)
-ERROR: Illegal operand.: test3.asm(10)
-ERROR: Illegal operand.: test3.asm(10)
+     6|      |    |LD A, 1000
+     6|ERROR |    |Operand is out of range.: test3.asm(6)
+     6|ERROR |    |Illegal operand.: test3.asm(6)
+     7|      |    |LD HL, 99999
+     7|ERROR |    |Operand is out of range.: test3.asm(7)
+     7|ERROR |    |Illegal operand.: test3.asm(7)
+    10|      |    |LD [ IX + 1 ], HL
+    10|ERROR |    |Illegal operand.: test3.asm(10)
 << label >>

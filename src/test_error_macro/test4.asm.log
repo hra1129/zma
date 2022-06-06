@@ -1,9 +1,12 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
-Define macro {HOGE MACRO A , B , C}
-
-ERROR: Mismatched number of arguments.: test4.asm(10)
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     5|      |    |HOGE MACRO A, B, C
+------+------+----+----------------------------------
+    10|      |    |HOGE 100, 200
+    10|ERROR |    |Mismatched number of arguments.: test4.asm(10)
 << label >>

@@ -1,10 +1,14 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
-Define macro {HOGE MACRO A , B , C}
-
-ERROR: There are declarations of the same macro 'HOGE' in multiple places.: test6.asm(10)
-ERROR: Cannot evaluate the expression(1): test6.asm(11)
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     5|      |    |HOGE MACRO A, B, C
+------+------+----+----------------------------------
+    10|      |    |HOGE MACRO A, B
+    10|ERROR |    |There are declarations of the same macro 'HOGE' in multiple places.: test6.asm(10)
+    11|      |    |DEFB A, B
+    11|ERROR |    |Cannot evaluate the expression(1): test6.asm(11)
 << label >>

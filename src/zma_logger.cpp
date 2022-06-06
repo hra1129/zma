@@ -47,6 +47,22 @@ void CZMA_LOG::write_message( const std::string &s_message ){
 }
 
 // --------------------------------------------------------------------
+void CZMA_LOG::write_error_message( const char *p_file_name, int line_no, const std::string &s_message ){
+	std::stringstream s, ss;
+
+	if( line_no < 0 ){
+		ss << s_message << ": " << p_file_name;
+		s << "      |ERROR |    |" << ss.str();
+	}
+	else{
+		ss << s_message << ": " << p_file_name << "(" << line_no << ")";
+		s << std::dec << std::setw( 6 ) << std::right << line_no << "|ERROR |    |" << ss.str();
+	}
+	std::cerr << "ERROR:" << ss.str() << "\n";
+	this->push_back( s.str() );
+}
+
+// --------------------------------------------------------------------
 void CZMA_LOG::write_cycle_information( int z80_cycle, int r800_cycle, int z80_cycle2, int r800_cycle2, const std::string s_comment ){
 	std::stringstream s;
 

@@ -1,45 +1,50 @@
-Z80 Macro Assembler ZMA v1.0.15
+Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
 << code >>
-Define macro {BBB MACRO}
-
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     6|      |    |BBB MACRO
+------+------+----+----------------------------------
 	repeat begin
-[	DEFB 1]
-000000: 01
-
+    11|      |    |DEFB 1
+      |000000|0000|  01
+------+------+----+----------------------------------
 ((BBB))
 	Scope path: @MACRO0:
-[	DEFB 1]
-000001: 01
-
+    11|      |    |DEFB 1
+      |000001|0001|  01
+------+------+----+----------------------------------
 ((BBB))
 	Scope path: @MACRO1:
-[	DEFB 1]
-000002: 01
-
+    11|      |    |DEFB 1
+      |000002|0002|  01
+------+------+----+----------------------------------
 ((BBB))
 	Scope path: @MACRO2:
-[	DEFB 1]
-000003: 01
-
+    11|      |    |DEFB 1
+      |000003|0003|  01
+------+------+----+----------------------------------
 ((BBB))
 	Scope path: @MACRO3:
-[	DEFB 1]
-000004: 01
-
+    11|      |    |DEFB 1
+      |000004|0004|  01
+------+------+----+----------------------------------
 ((BBB))
 	Scope path: @MACRO4:
 	repeat end
 ERROR: Invalid block pair.: test2.asm(7)
 
-ERROR: Scope of ENDR does not exist.: test2.asm(7)
+     7|      |    |ENDR
 
-ERROR: Block processing is not close.: test2.asm(10)
-[REPEAT I , 5]
-	Scope path: @REPEAT0:
+     7|ERROR |    |Scope of ENDR does not exist.: test2.asm(7)
 
-ERROR: Scope is not closed.: test2.asm(10)
+    10|      |    |REPEAT I, 5
+    10|ERROR |    |Block processing is not close.: test2.asm(10)
+    10|      |    |REPEAT I, 5
+      |      |    |  	Scope path: @REPEAT0:
+------+------+----+----------------------------------
+    10|ERROR |    |Scope is not closed.: test2.asm(10)
 << label >>
 @REPEAT0:I 4 ( 0x4 )
