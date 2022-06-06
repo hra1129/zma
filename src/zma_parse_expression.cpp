@@ -104,7 +104,29 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			return true;
 		}
 		num = "";
-		if( s[1] == 'X' ) {
+		if( s[s.size() - 1] == 'H' ){
+			for( auto c : s ){
+				if( isxdigit( c ) ){
+					num = num + c;
+					continue;
+				}
+				if( c == '_' || c == 'H' ) {
+					continue;
+				}
+				put_error( std::string( "Description of numerical value '" ) + s + "' is abnormal." );
+				return false;
+			}
+			result.value_type = CVALUE_TYPE::CV_INTEGER;
+			try{
+				result.i = (int)std::stoll( num, nullptr, 16 );
+			}
+			catch( ... ){
+				put_error( std::string( "Numerical descriptions '" ) + num + "' are unusual." );
+				result.i = 0;
+			}
+			return true;
+		}
+		else if( s[ 1 ] == 'X' ){
 			for( auto c : s.substr( 2 ) ) {
 				if( isxdigit( c ) ) {
 					num = num + c;
@@ -171,6 +193,28 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 	}
 	if( isdigit( s[0] ) ) {
 		num = "";
+		if( s[ s.size() - 1 ] == 'H' ){
+			for( auto c : s ){
+				if( isxdigit( c ) ){
+					num = num + c;
+					continue;
+				}
+				if( c == '_' || c == 'H' ){
+					continue;
+				}
+				put_error( std::string( "Description of numerical value '" ) + s + "' is abnormal." );
+				return false;
+			}
+			result.value_type = CVALUE_TYPE::CV_INTEGER;
+			try{
+				result.i = (int)std::stoll( num, nullptr, 16 );
+			}
+			catch( ... ){
+				put_error( std::string( "Numerical descriptions '" ) + num + "' are unusual." );
+				result.i = 0;
+			}
+			return true;
+		}
 		index++;
 		for( auto c : s ) {
 			if( isdigit( c ) ) {

@@ -13,4 +13,18 @@ LINE# |OFFSET|ADDR|MNEMONIC
      7|ERROR |    |Illegal operand.: test3.asm(7)
     10|      |    |LD [ IX + 1 ], HL
     10|ERROR |    |Illegal operand.: test3.asm(10)
+    12|      |    |LD A, 0A0H
+      |      |    |  Z80:8cyc, R800:2cyc
+      |000008|0008|  3E A0
+------+------+----+----------------------------------
+    13|      |    |LD A, 10H
+      |      |    |  Z80:8cyc, R800:2cyc
+      |00000A|000A|  3E 10
+------+------+----+----------------------------------
+    14|      |    |LD A, 20H
+      |      |    |  Z80:8cyc, R800:2cyc
+      |00000C|000C|  3E 20
+------+------+----+----------------------------------
+    15|      |    |LD A, A0H
+    15|ERROR |    |Illegal operand.: test3.asm(15)
 << label >>

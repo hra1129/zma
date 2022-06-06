@@ -8,3 +8,8 @@
 
 ; ïsê≥Ç»ñΩóﬂ
 	ld		[ix+1],hl
+
+	ld		a, 0A0h
+	ld		a, 10h
+	ld		a, 20h
+	ld		a, A0h
