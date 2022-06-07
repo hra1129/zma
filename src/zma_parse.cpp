@@ -292,6 +292,24 @@ void CZMA_PARSE::put_error( std::string message ) {
 }
 
 // --------------------------------------------------------------------
+std::string CZMA_PARSE::escape( const std::string &s ){
+	std::string ss;
+
+	for( auto c : s ){
+		switch( c ) {
+		case '\a': ss = ss + "\\a";	break;
+		case '\b': ss = ss + "\\b";	break;
+		case '\f': ss = ss + "\\f";	break;
+		case '\n': ss = ss + "\\n";	break;
+		case '\r': ss = ss + "\\r";	break;
+		case '\t': ss = ss + "\\t";	break;
+		default:   ss = ss + c;     break;
+		}
+	}
+	return ss;
+}
+
+// --------------------------------------------------------------------
 void CZMA_PARSE::put_message( std::string message ) {
 	std::stringstream ss;
 	std::string s;
@@ -299,10 +317,10 @@ void CZMA_PARSE::put_message( std::string message ) {
 	if(this->is_analyze_phase) {
 		return;
 	}
-	ss << "MESSAGE: " << message << ": " << p_file_name << "(" << line_no << ")";
+	ss << "MESSAGE: " << this->escape( message ) << ": " << p_file_name << "(" << line_no << ")";
 	s = ss.str();
 	std::cout << s << "\n";
-	log.push_back( s );
+	log.write_message( s );
 }
 
 // --------------------------------------------------------------------
@@ -314,11 +332,11 @@ void CZMA_PARSE::put_structure_error( std::string message ) {
 		return;
 	}
 	this->is_structure_error = true;
-	ss << "ERROR: " << message << ": " << p_file_name << "(" << line_no << ")";
+	ss << message << ": " << p_file_name << "(" << line_no << ")";
 	s = ss.str();
 	std::cerr << s << "\n";
 	this->structure_error = s;
-	log.push_back( s );
+	log.write_error_message( this->p_file_name, this->line_no, s );
 	number_of_error++;
 }
 

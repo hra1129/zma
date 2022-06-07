@@ -363,7 +363,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |00005F|C05F|  00
 ------+------+----+----------------------------------
    145|      |    |JR LABEL_JR
-[	JR LABEL_JR] Z80:13cyc, R800:3cyc
+      |      |    |  Z80:13cyc, R800:3cyc
       |000060|C060|  18 00
 ------+------+----+----------------------------------
    146|      |    |LABEL_JR :
@@ -486,7 +486,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |00007F|C07F|  00
 ------+------+----+----------------------------------
    192|      |    |JR NZ, LABEL_JR_NZ
-[	JR NZ, LABEL_JR_NZ] Z80:13cyc(cond=true), 8cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)
+      |      |    |  Z80:13cyc/8cycR800:3cyc/2cyc
       |000080|C080|  20 00
 ------+------+----+----------------------------------
    193|      |    |LABEL_JR_NZ :
@@ -593,7 +593,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |00009F|C09F|  00
 ------+------+----+----------------------------------
    235|      |    |JR Z, LABEL_JR_Z
-[	JR Z, LABEL_JR_Z] Z80:13cyc(cond=true), 8cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)
+      |      |    |  Z80:13cyc/8cycR800:3cyc/2cyc
       |0000A0|C0A0|  28 00
 ------+------+----+----------------------------------
    236|      |    |LABEL_JR_Z :
@@ -708,7 +708,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |0000BF|C0BF|  00
 ------+------+----+----------------------------------
    280|      |    |JR NC, LABEL_JR_NC
-[	JR NC, LABEL_JR_NC] Z80:13cyc(cond=true), 8cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)
+      |      |    |  Z80:13cyc/8cycR800:3cyc/2cyc
       |0000C0|C0C0|  30 00
 ------+------+----+----------------------------------
    281|      |    |LABEL_JR_NC :
@@ -815,7 +815,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |0000DF|C0DF|  00
 ------+------+----+----------------------------------
    323|      |    |JR C, LABEL_JR_C
-[	JR C, LABEL_JR_C] Z80:13cyc(cond=true), 8cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)
+      |      |    |  Z80:13cyc/8cycR800:3cyc/2cyc
       |0000E0|C0E0|  38 00
 ------+------+----+----------------------------------
    324|      |    |LABEL_JR_C :
@@ -12444,9 +12444,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |001BBC|DBBC|  FD CB 00 FF
 ------+------+----+----------------------------------
 << label >>
-LABEL_DJNZ 49218 ( 0xc042 )
-LABEL_JR 49250 ( 0xc062 )
-LABEL_JR_C 49378 ( 0xc0e2 )
-LABEL_JR_NC 49346 ( 0xc0c2 )
-LABEL_JR_NZ 49282 ( 0xc082 )
-LABEL_JR_Z 49314 ( 0xc0a2 )
+LABEL_DJNZ .... 49218 ( 0xc042 )
+LABEL_JR ...... 49250 ( 0xc062 )
+LABEL_JR_C .... 49378 ( 0xc0e2 )
+LABEL_JR_NC ... 49346 ( 0xc0c2 )
+LABEL_JR_NZ ... 49282 ( 0xc082 )
+LABEL_JR_Z .... 49314 ( 0xc0a2 )

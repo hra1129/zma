@@ -24,7 +24,12 @@ bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	if( !this->is_analyze_phase ) {
 		std::stringstream s;
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-		s << "label address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
+		if( this->get_code_address() == -1 ){
+			s << "label address: 0xXXXXXX";
+		}
+		else { 
+			s << "label address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
+		}
 		log.write_message( s.str() );
 		log.write_separator();
 	}
@@ -40,7 +45,7 @@ bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	if( this->get_fixed_code_address() ) {
 		label = info.get_scope_path() + words[0];
 		if( info.dict.count( label ) ) {
-			put_error( std::string("There are declarations of the same label '") + label + "' in multiple places." );
+			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
 			return false;
 		}
 		else {
@@ -52,7 +57,7 @@ bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 		}
 	}
 	else {
-		put_error( std::string( "Label '" ) + words[0] + "' is indeterminate." );
+		put_error( "Label '" + words[0] + "' is indeterminate." );
 		return false;
 	}
 	return check_all_fixed();

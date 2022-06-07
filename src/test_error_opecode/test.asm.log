@@ -21,7 +21,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
     14|      |    |MESSAGE +
     14|ERROR |    |Invalid operator '+'.: test.asm(14)
     14|ERROR |    |Illegal parameter in MESSAGE.: test.asm(14)
-MESSAGE: 100: test.asm(15)
+      |      |    |  MESSAGE: 100: test.asm(15)
     16|      |    |MESSAGE MONMON
     16|ERROR |    |Illegal parameter in MESSAGE.: test.asm(16)
     19|      |    |ADD_INCLUDE_PATH

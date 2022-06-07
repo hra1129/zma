@@ -81,8 +81,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  Z80:11cyc, R800:3cyc
       |000033|1249|  01 3F 00
 ------+------+----+----------------------------------
-MESSAGE: mojimojimoji: test.asm(50)
-MESSAGE: mojimojimoji: test.asm(51)
+      |      |    |  MESSAGE: mojimojimoji: test.asm(50)
+      |      |    |  MESSAGE: mojimojimoji: test.asm(51)
     54|      |    |LD BC, 21 / 3
       |      |    |  Z80:11cyc, R800:3cyc
       |000036|124C|  01 07 00
@@ -95,9 +95,9 @@ MESSAGE: mojimojimoji: test.asm(51)
       |      |    |  Z80:11cyc, R800:3cyc
       |00003C|1252|  01 1C 00
 ------+------+----+----------------------------------
-MESSAGE: moji = moji: test.asm(61)
-MESSAGE: moji = 123: test.asm(62)
-MESSAGE: 123 = moji = moji: test.asm(63)
+      |      |    |  MESSAGE: moji = moji: test.asm(61)
+      |      |    |  MESSAGE: moji = 123: test.asm(62)
+      |      |    |  MESSAGE: 123 = moji = moji: test.asm(63)
     66|      |    |LD BC, 24 - 9
       |      |    |  Z80:11cyc, R800:3cyc
       |00003F|1255|  01 0F 00
@@ -246,7 +246,6 @@ MESSAGE: 123 = moji = moji: test.asm(63)
       |      |    |  Z80:11cyc, R800:3cyc
       |0000AB|12C1|  01 01 00
 ------+------+----+----------------------------------
-MESSAGE: 
-	\'"?: test.asm(131)
-MESSAGE: Š¿Žš•\Ž¦ƒ¿ƒÀ‚P‚Q‚R: test.asm(134)
+      |      |    |  MESSAGE: \a\b\f\n\r\t\'"?: test.asm(131)
+      |      |    |  MESSAGE: Š¿Žš•\Ž¦ƒ¿ƒÀ‚P‚Q‚R: test.asm(134)
 << label >>

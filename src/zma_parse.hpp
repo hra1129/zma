@@ -107,6 +107,7 @@ public:
 	void put_structure_error( std::string message );
 	std::vector<std::string> words;
 	int expression( CZMA_INFORMATION& info, int index, CVALUE& result );
+	std::string escape( const std::string &s );
 
 	// ----------------------------------------------------------------
 	//	Constructor

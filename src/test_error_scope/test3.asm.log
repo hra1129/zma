@@ -6,7 +6,7 @@ Programmed by t.hara
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |SCOPE AAA
-	Scope path: AAA:
+      |      |    |  Enter scope: AAA:
 ------+------+----+----------------------------------
      7|      |    |DEFB 1
       |000000|0000|  01
@@ -20,7 +20,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
     17|      |    |SCOPE BBB CCC
     17|ERROR |    |SCOPE command has only one parameter.: test3.asm(17)
     19|      |    |SCOPE DDD
-	Scope path: DDD:
+      |      |    |  Enter scope: DDD:
 ------+------+----+----------------------------------
     20|      |    |ENDSCOPE DDD
     20|ERROR |    |ENDSCOPE command has not parameter.: test3.asm(20)

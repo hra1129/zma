@@ -25,7 +25,7 @@ bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 			//	ƒTƒCƒY
 			i = this->expression( info, 1, v );
 			if( i == 0 ){
-				put_error( std::string( "Cannot evaluate the expression" ) );
+				put_error( "Cannot evaluate the expression" );
 				data.clear();
 				return false;
 			}
@@ -42,7 +42,7 @@ bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 			if( i < (int)this->words.size() && this->words[ i ] == "," ){
 				i = this->expression( info, i + 1, v );
 				if( i == 0 ){
-					put_error( std::string( "Cannot evaluate the expression" ) );
+					put_error( "Cannot evaluate the expression" );
 					data.clear();
 					return false;
 				}
@@ -72,11 +72,11 @@ bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 	if( !is_analyze_phase ){
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		if( this->get_code_size() ){
-			log.push_back( "\tAllocate space: " + std::to_string( this->get_code_size() ) + "byte(s)" );
-			log.push_back( "\t\tFill value: " + std::to_string( this->data[0] ) );
+			log.write_message( "Allocate space: " + std::to_string( this->get_code_size() ) + "byte(s)" );
+			log.write_message( "Fill value    : " + std::to_string( this->data[0] ) );
 		}
 		else{
-			log.push_back( "\tNo space was allocated." );
+			log.write_message( "No space was allocated." );
 		}
 		log.write_separator();
 	}

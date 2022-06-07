@@ -11,8 +11,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000000|4000|  41 42
 ------+------+----+----------------------------------
      7|      |    |SPACE 10, 0x55
-	Allocate space: 10byte(s)
-		Fill value: 85
+      |      |    |  Allocate space: 10byte(s)
+      |      |    |  Fill value    : 85
 ------+------+----+----------------------------------
      8|      |    |LD HL, [ $ ]
       |      |    |  Z80:17cyc, R800:7cyc
@@ -31,8 +31,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |004000|4000|  45 46
 ------+------+----+----------------------------------
     14|      |    |SPACE 10
-	Allocate space: 10byte(s)
-		Fill value: 0
+      |      |    |  Allocate space: 10byte(s)
+      |      |    |  Fill value    : 0
 ------+------+----+----------------------------------
     15|      |    |LD HL, [ $ ]
       |      |    |  Z80:17cyc, R800:7cyc

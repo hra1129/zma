@@ -6,9 +6,8 @@ Programmed by t.hara
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      7|      |    |REPEAT I, 5
-      |      |    |  	Scope path: @REPEAT0:
+      |      |    |  Enter scope: @REPEAT0:
 ------+------+----+----------------------------------
-	repeat begin
      8|      |    |DEFB 1
       |000000|0000|  01
 ------+------+----+----------------------------------
@@ -24,20 +23,12 @@ LINE# |OFFSET|ADDR|MNEMONIC
      8|      |    |DEFB 1
       |000004|0004|  01
 ------+------+----+----------------------------------
-	repeat end
      9|      |    |ENDR AAA
-
      9|ERROR |    |ENDR is not need parameters.: test5.asm(9)
-
     11|      |    |REPEAT I, 5 AAA
     11|ERROR |    |Illegal expression.: test5.asm(11)
-	repeat begin
-	repeat end
     13|      |    |ENDR
-
     13|ERROR |    |Block processing is not close.: test5.asm(13)
-
     13|ERROR |    |REPEAT counter is not fixed.: test5.asm(13)
-
 << label >>
-@REPEAT0:I 4 ( 0x4 )
+@REPEAT0:I ... 4 ( 0x4 )

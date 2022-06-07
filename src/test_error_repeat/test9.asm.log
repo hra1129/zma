@@ -7,12 +7,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |REPEAT I, J
      6|ERROR |    |Illegal expression.: test9.asm(6)
-	repeat begin
-	repeat end
      8|      |    |ENDR
-
      8|ERROR |    |Block processing is not close.: test9.asm(8)
-
      8|ERROR |    |REPEAT counter is not fixed.: test9.asm(8)
-
 << label >>

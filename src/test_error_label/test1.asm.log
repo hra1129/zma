@@ -46,17 +46,17 @@ LINE# |OFFSET|ADDR|MNEMONIC
     27|      |    |DEFS LL
     27|ERROR |    |Illegal expression.: test1.asm(27)
     28|      |    |LL :
-      |      |    |  label address: 0xffffffff
+      |      |    |  label address: 0xXXXXXX
 ------+------+----+----------------------------------
     28|      |    |LL :
     28|ERROR |    |Label 'LL' is indeterminate.: test1.asm(28)
     30|      |    |LABEL_1 :
-      |      |    |  label address: 0xffffffff
+      |      |    |  label address: 0xXXXXXX
 ------+------+----+----------------------------------
     30|      |    |LABEL_1 :
     30|ERROR |    |Label 'LABEL_1' is indeterminate.: test1.asm(30)
     31|      |    |LABEL_2 ::
-      |      |    |  global label address: 0xffffffff
+      |      |    |  global label address: 0xXXXXXX
 ------+------+----+----------------------------------
     31|      |    |LABEL_2 ::
     31|ERROR |    |Label 'LABEL_2' is indeterminate.: test1.asm(31)
@@ -97,9 +97,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
     52|      |    |LABEL2_4 := INVALID_LABEL
     52|ERROR |    |Label 'LABEL2_4' is indeterminate.: test1.asm(52)
 << label >>
-LABEL_0X100 256 ( 0x100 )
-LABEL_0X200 256 ( 0x100 )
-LABEL_0X300 256 ( 0x100 )
-LABEL_0X400 256 ( 0x100 )
-LABEL_0X500 256 ( 0x100 )
-LABEL_0X600 256 ( 0x100 )
+LABEL_0X100 ... 256 ( 0x100 )
+LABEL_0X200 ... 256 ( 0x100 )
+LABEL_0X300 ... 256 ( 0x100 )
+LABEL_0X400 ... 256 ( 0x100 )
+LABEL_0X500 ... 256 ( 0x100 )
+LABEL_0X600 ... 256 ( 0x100 )

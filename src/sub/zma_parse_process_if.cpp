@@ -161,7 +161,7 @@ bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 		}
 		//	else句を持っており、かつすべての句の中身のサイズが同じであれば、中身のコードが確定していなくても、サイズを確定させる
 		if( current_next_code_address != -1 && has_else && !no_fixed ) {
-			this->set_code_size( &info, 0 );
+			this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
 			this->next_code_address = current_next_code_address;
 			info.is_updated = true;
 		}
@@ -207,6 +207,7 @@ bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	}
 	if( this->next_code_address == -1 && p_last_line->get_next_code_address() != -1 ) {
 		this->next_code_address = p_last_line->get_next_code_address();
+		this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
 		info.is_updated = true;
 	}
 

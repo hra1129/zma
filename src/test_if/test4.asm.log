@@ -13,5 +13,5 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |ELSE
 ------+------+----+----------------------------------
-MESSAGE: aaaaaaaa: test4.asm(14)
+      |      |    |  MESSAGE: aaaaaaaa: test4.asm(14)
 << label >>

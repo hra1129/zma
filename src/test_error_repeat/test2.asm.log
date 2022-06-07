@@ -7,7 +7,6 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |BBB MACRO
 ------+------+----+----------------------------------
-	repeat begin
     11|      |    |DEFB 1
       |000000|0000|  01
 ------+------+----+----------------------------------
@@ -33,18 +32,14 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
 ((BBB))
 	Scope path: @MACRO4:
-	repeat end
-ERROR: Invalid block pair.: test2.asm(7)
-
+     7|ERROR |    |Invalid block pair.: test2.asm(7): test2.asm(7)
      7|      |    |ENDR
-
      7|ERROR |    |Scope of ENDR does not exist.: test2.asm(7)
-
     10|      |    |REPEAT I, 5
     10|ERROR |    |Block processing is not close.: test2.asm(10)
     10|      |    |REPEAT I, 5
-      |      |    |  	Scope path: @REPEAT0:
+      |      |    |  Enter scope: @REPEAT0:
 ------+------+----+----------------------------------
     10|ERROR |    |Scope is not closed.: test2.asm(10)
 << label >>
-@REPEAT0:I 4 ( 0x4 )
+@REPEAT0:I ... 4 ( 0x4 )

@@ -42,5 +42,5 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000008|0008|  10 FD
 ------+------+----+----------------------------------
 << label >>
-@MACRO0:LOOP 2 ( 0x2 )
-@MACRO1:LOOP 7 ( 0x7 )
+@MACRO0:LOOP ... 2 ( 0x2 )
+@MACRO1:LOOP ... 7 ( 0x7 )

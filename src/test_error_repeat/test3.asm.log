@@ -6,7 +6,7 @@ Programmed by t.hara
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |REPEAT I, 5
-      |      |    |  	Scope path: @REPEAT0:
+      |      |    |  Enter scope: @REPEAT0:
 ------+------+----+----------------------------------
 << label >>
-@REPEAT0:I 0 ( 0x0 )
+@REPEAT0:I ... 0 ( 0x0 )

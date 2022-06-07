@@ -24,7 +24,12 @@ bool CZMA_PARSE_GLOBAL_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 	if( !this->is_analyze_phase ) {
 		std::stringstream s;
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-		s << "global label address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
+		if( this->get_code_address() == -1 ){
+			s << "global label address: 0xXXXXXX";
+		}
+		else{
+			s << "global label address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
+		}
 		log.write_message( s.str() );
 		log.write_separator();
 	}

@@ -5,10 +5,6 @@ Programmed by t.hara
 << code >>
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
-	repeat begin
-	repeat end
      6|      |    |ENDR
-
      6|ERROR |    |Illegal ENDR.: test1.asm(6)
-
 << label >>

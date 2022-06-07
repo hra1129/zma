@@ -8,4 +8,6 @@ move zma.log test3.asm.log
 move zma.log test4.asm.log
 ..\release\zma.exe test5.asm test5.asm.bin
 move zma.log test5.asm.log
+..\release\zma.exe test6.asm test6.asm.bin
+move zma.log test6.asm.log
 pause

@@ -63,7 +63,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
     63|      |    |ELSE
 ------+------+----+----------------------------------
     66|      |    |LABEL1 :
-      |      |    |  label address: 0xffffffff
+      |      |    |  label address: 0xXXXXXX
 ------+------+----+----------------------------------
     66|      |    |LABEL1 :
     66|ERROR |    |Label 'LABEL1' is indeterminate.: test1.asm(66)

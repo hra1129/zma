@@ -1,0 +1,30 @@
+Z80 Macro Assembler ZMA v1.0.16-alpha
+=====================================================
+Programmed by t.hara
+
+<< code >>
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     6|      |    |LD A, 1000
+     6|ERROR |    |Operand is out of range.: test3.asm(6)
+     6|ERROR |    |Illegal operand.: test3.asm(6)
+     7|      |    |LD HL, 99999
+     7|ERROR |    |Operand is out of range.: test3.asm(7)
+     7|ERROR |    |Illegal operand.: test3.asm(7)
+    10|      |    |LD [ IX + 1 ], HL
+    10|ERROR |    |Illegal operand.: test3.asm(10)
+    12|      |    |LD A, 0A0H
+      |      |    |  Z80:8cyc, R800:2cyc
+      |000008|0008|  3E A0
+------+------+----+----------------------------------
+    13|      |    |LD A, 10H
+      |      |    |  Z80:8cyc, R800:2cyc
+      |00000A|000A|  3E 10
+------+------+----+----------------------------------
+    14|      |    |LD A, 20H
+      |      |    |  Z80:8cyc, R800:2cyc
+      |00000C|000C|  3E 20
+------+------+----+----------------------------------
+    15|      |    |LD A, A0H
+    15|ERROR |    |Illegal operand.: test3.asm(15)
+<< label >>

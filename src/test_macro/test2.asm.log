@@ -7,43 +7,38 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      5|      |    |DEF_SPACE MACRO NUM
 ------+------+----+----------------------------------
-MESSAGE: Current Address = 0: test2.asm(12)
-MESSAGE: Current Address = 0: test2.asm(13)
-MESSAGE: File Address    = 0: test2.asm(14)
+      |      |    |  MESSAGE: Current Address = 0: test2.asm(12)
+      |      |    |  MESSAGE: Current Address = 0: test2.asm(13)
+      |      |    |  MESSAGE: File Address    = 0: test2.asm(14)
     16|      |    |DEFB 0xFF
       |000000|0000|  FF
 ------+------+----+----------------------------------
 ((DEF_SPACE 2))
 	Scope path: @MACRO0:
-MESSAGE: 2バイトの領域を確保するバイトの領域を確保する: test2.asm(17)
+      |      |    |  MESSAGE: 2バイトの領域を確保するバイトの領域を確保する: test2.asm(17)
     17|      |    |REPEAT I, 2
-      |      |    |  	Scope path: @MACRO0:@REPEAT1:
+      |      |    |  Enter scope: @MACRO0:@REPEAT1:
 ------+------+----+----------------------------------
-	repeat begin
     17|      |    |DEFB 0
       |000001|0001|  00
 ------+------+----+----------------------------------
     17|      |    |DEFB 0
       |000002|0002|  00
 ------+------+----+----------------------------------
-	repeat end
-      |      |    |  	Scope path: @MACRO0:
-
+      |      |    |  Exit scope: @MACRO0:@REPEAT1:
 ------+------+----+----------------------------------
-
-MESSAGE: Current Address = 3: test2.asm(19)
-MESSAGE: Current Address = 3: test2.asm(20)
-MESSAGE: File Address    = 3: test2.asm(21)
+      |      |    |  MESSAGE: Current Address = 3: test2.asm(19)
+      |      |    |  MESSAGE: Current Address = 3: test2.asm(20)
+      |      |    |  MESSAGE: File Address    = 3: test2.asm(21)
     23|      |    |DEFB 0xFF
       |000003|0003|  FF
 ------+------+----+----------------------------------
 ((DEF_SPACE 5))
 	Scope path: @MACRO1:
-MESSAGE: 5バイトの領域を確保するバイトの領域を確保する: test2.asm(24)
+      |      |    |  MESSAGE: 5バイトの領域を確保するバイトの領域を確保する: test2.asm(24)
     24|      |    |REPEAT I, 5
-      |      |    |  	Scope path: @MACRO1:@REPEAT3:
+      |      |    |  Enter scope: @MACRO1:@REPEAT3:
 ------+------+----+----------------------------------
-	repeat begin
     24|      |    |DEFB 0
       |000004|0004|  00
 ------+------+----+----------------------------------
@@ -59,26 +54,22 @@ MESSAGE: 5バイトの領域を確保するバイトの領域を確保する: test2.asm(24)
     24|      |    |DEFB 0
       |000008|0008|  00
 ------+------+----+----------------------------------
-	repeat end
-      |      |    |  	Scope path: @MACRO1:
-
+      |      |    |  Exit scope: @MACRO1:@REPEAT3:
 ------+------+----+----------------------------------
-
     26|      |    |ORG 0
 ------+------+----+----------------------------------
-MESSAGE: Current Address = 0: test2.asm(27)
-MESSAGE: Current Address = 0: test2.asm(28)
-MESSAGE: File Address    = 9: test2.asm(29)
+      |      |    |  MESSAGE: Current Address = 0: test2.asm(27)
+      |      |    |  MESSAGE: Current Address = 0: test2.asm(28)
+      |      |    |  MESSAGE: File Address    = 9: test2.asm(29)
     31|      |    |DEFB 0xFF
       |000009|0000|  FF
 ------+------+----+----------------------------------
 ((DEF_SPACE 4))
 	Scope path: @MACRO2:
-MESSAGE: 4バイトの領域を確保するバイトの領域を確保する: test2.asm(32)
+      |      |    |  MESSAGE: 4バイトの領域を確保するバイトの領域を確保する: test2.asm(32)
     32|      |    |REPEAT I, 4
-      |      |    |  	Scope path: @MACRO2:@REPEAT5:
+      |      |    |  Enter scope: @MACRO2:@REPEAT5:
 ------+------+----+----------------------------------
-	repeat begin
     32|      |    |DEFB 0
       |00000A|0001|  00
 ------+------+----+----------------------------------
@@ -91,14 +82,11 @@ MESSAGE: 4バイトの領域を確保するバイトの領域を確保する: test2.asm(32)
     32|      |    |DEFB 0
       |00000D|0004|  00
 ------+------+----+----------------------------------
-	repeat end
-      |      |    |  	Scope path: @MACRO2:
-
+      |      |    |  Exit scope: @MACRO2:@REPEAT5:
 ------+------+----+----------------------------------
-
 << label >>
-@MACRO0:@REPEAT1:I 1 ( 0x1 )
-@MACRO1:@REPEAT3:I ????
-@MACRO2:@REPEAT3:I 4 ( 0x4 )
-@MACRO2:@REPEAT5:I ????
-@MACRO4:@REPEAT5:I 3 ( 0x3 )
+@MACRO0:@REPEAT1:I ... 1 ( 0x1 )
+@MACRO1:@REPEAT3:I ... ????
+@MACRO2:@REPEAT3:I ... 4 ( 0x4 )
+@MACRO2:@REPEAT5:I ... ????
+@MACRO4:@REPEAT5:I ... 3 ( 0x3 )

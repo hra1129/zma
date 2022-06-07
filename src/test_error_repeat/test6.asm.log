@@ -6,45 +6,40 @@ Programmed by t.hara
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |REPEAT I, 5
-      |      |    |  	Scope path: @REPEAT0:
+      |      |    |  Enter scope: @REPEAT0:
 ------+------+----+----------------------------------
-	repeat begin
      7|      |    |SCOPE SUB
-	Scope path: @REPEAT0:SUB:
+      |      |    |  Enter scope: @REPEAT0:SUB:
 ------+------+----+----------------------------------
      8|      |    |DEFB 2
       |000000|0000|  02
 ------+------+----+----------------------------------
      7|      |    |SCOPE SUB
-	Scope path: @REPEAT0:SUB:SUB:
+      |      |    |  Enter scope: @REPEAT0:SUB:SUB:
 ------+------+----+----------------------------------
      8|      |    |DEFB 2
       |000001|0001|  02
 ------+------+----+----------------------------------
      7|      |    |SCOPE SUB
-	Scope path: @REPEAT0:SUB:SUB:SUB:
+      |      |    |  Enter scope: @REPEAT0:SUB:SUB:SUB:
 ------+------+----+----------------------------------
      8|      |    |DEFB 2
       |000002|0002|  02
 ------+------+----+----------------------------------
      7|      |    |SCOPE SUB
-	Scope path: @REPEAT0:SUB:SUB:SUB:SUB:
+      |      |    |  Enter scope: @REPEAT0:SUB:SUB:SUB:SUB:
 ------+------+----+----------------------------------
      8|      |    |DEFB 2
       |000003|0003|  02
 ------+------+----+----------------------------------
      7|      |    |SCOPE SUB
-	Scope path: @REPEAT0:SUB:SUB:SUB:SUB:SUB:
+      |      |    |  Enter scope: @REPEAT0:SUB:SUB:SUB:SUB:SUB:
 ------+------+----+----------------------------------
      8|      |    |DEFB 2
       |000004|0004|  02
 ------+------+----+----------------------------------
-	repeat end
      9|      |    |ENDR
-
      9|ERROR |    |Scope of ENDR does not exist.: test6.asm(9)
-
      9|ERROR |    |Scope is not closed.: test6.asm(9)
-
 << label >>
-@REPEAT0:I 4 ( 0x4 )
+@REPEAT0:I ... 4 ( 0x4 )

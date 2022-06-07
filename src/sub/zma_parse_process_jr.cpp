@@ -24,10 +24,10 @@ bool CZMA_PARSE_JR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( data[0] == 0x18 ) {
-				log.push_back( "[\t" + get_line() + "] Z80:13cyc, R800:3cyc" );	//	JR nn
+				log.write_cycle_information( 13, 3 );			//	JR nn
 			}
 			else {
-				log.push_back( "[\t" + get_line() + "] Z80:13cyc(cond=true), 8cyc(cond=false), R800:3cyc(cond=true), 2cyc(cond=false)" );	//	JR cond, nn
+				log.write_cycle_information( 13, 3, 8, 2 );		//	JR cond, nn
 			}
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
