@@ -197,17 +197,17 @@ LINE# |OFFSET|ADDR|MNEMONIC
    104|      |    |CP A, B AAA
    104|ERROR |    |Illegal operand: test.asm(104)
    105|      |    |CP A, 10 AAA
-      |      |    |  Z80:8cyc, R800:2cyc
+      |      |    |  Z80:8cyc R800:2cyc
       |XXXXXX|XXXX|  FE 0A
 ------+------+----+----------------------------------
    106|      |    |CP A, [ HL ] AAA
    106|ERROR |    |Illegal operand: test.asm(106)
    107|      |    |CP A, [ IX ] AAA
-      |      |    |  Z80:21cyc, R800:7cyc
+      |      |    |  Z80:21cyc R800:7cyc
       |XXXXXX|XXXX|  DD BE 00
 ------+------+----+----------------------------------
    108|      |    |CP A, [ IX + 1 ] AAA
-      |      |    |  Z80:21cyc, R800:7cyc
+      |      |    |  Z80:21cyc R800:7cyc
       |XXXXXX|XXXX|  DD BE 01
 ------+------+----+----------------------------------
    109|      |    |CPDR AAA

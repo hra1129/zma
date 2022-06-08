@@ -15,7 +15,7 @@
 #include <algorithm>
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE_ENDR::write( CZMA_INFORMATION& info, std::ofstream* f ) {
+bool CZMA_PARSE_ENDR::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
 	bool result;
 
 	result = true;
@@ -132,7 +132,7 @@ bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	if( !this->is_data_fixed ) {
 		for( auto p_text : this->text_list ) {
 			for( auto p : p_text->m_text ) {
-				this->is_data_fixed = this->is_data_fixed && p->get_fixed_code_size();
+				this->is_data_fixed = this->is_data_fixed && p->is_fixed_code_size();
 			}
 		}
 		if( this->is_data_fixed ) {
@@ -143,7 +143,7 @@ bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 		this->code_size = 0;
 		for( auto p_text : this->text_list ) {
 			for( auto p : p_text->m_text ) {
-				if( this->code_size != -1 && p->get_fixed_code_size() ) {
+				if( this->code_size != -1 && p->is_fixed_code_size() ) {
 					this->code_size = this->code_size + p->get_code_size();
 				}
 				else {

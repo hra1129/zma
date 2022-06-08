@@ -7,14 +7,14 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      5|      |    |INCLUDE "sub_test.asm" begin
      5|      |    |LD DE, 0x5566
-      |      |    |  Z80:11cyc, R800:3cyc
+      |      |    |  Z80:11cyc R800:3cyc
       |000000|0000|  11 66 55
 ------+------+----+----------------------------------
      5|      |    |INCLUDE "sub_test.asm" end
 
      6|      |    |INCLUDE "sub_test.asm" begin
      5|      |    |LD DE, 0x5566
-      |      |    |  Z80:11cyc, R800:3cyc
+      |      |    |  Z80:11cyc R800:3cyc
       |XXXXXX|0003|  11 66 55
 ------+------+----+----------------------------------
      6|      |    |INCLUDE "sub_test.asm" end
@@ -25,24 +25,24 @@ LINE# |OFFSET|ADDR|MNEMONIC
 	Add include path: sub2/
     11|      |    |INCLUDE "sub_test2.asm" begin
      5|      |    |LD BC, 0x6677
-      |      |    |  Z80:11cyc, R800:3cyc
+      |      |    |  Z80:11cyc R800:3cyc
       |XXXXXX|0006|  01 77 66
 ------+------+----+----------------------------------
     11|      |    |INCLUDE "sub_test2.asm" end
 
     12|      |    |INCLUDE "sub_test3.asm" begin
      5|      |    |LD HL, 0x6677
-      |      |    |  Z80:11cyc, R800:3cyc
+      |      |    |  Z80:11cyc R800:3cyc
       |XXXXXX|0009|  21 77 66
 ------+------+----+----------------------------------
     12|      |    |INCLUDE "sub_test3.asm" end
 
     14|      |    |LD BC, 0x4523
-      |      |    |  Z80:11cyc, R800:3cyc
+      |      |    |  Z80:11cyc R800:3cyc
       |XXXXXX|000C|  01 23 45
 ------+------+----+----------------------------------
     15|      |    |RET
-      |      |    |  Z80:11cyc, R800:5cyc
+      |      |    |  Z80:11cyc R800:5cyc
       |XXXXXX|000F|  C9
 ------+------+----+----------------------------------
 << label >>

@@ -25,7 +25,7 @@ bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 			log.write_cycle_information( 11, 2 );			//	ld	{A|I|R}, {A|I|R}
 		}
 	}
-	else if( opecode_ddd_sss( info, 0x40 ) ) {				//	ld <reg8>, <reg8> line
+	else if( opecode_destination8_source8( info, 0x40 ) ) {				//	ld <reg8>, <reg8> line
 		//	log
 		if( !is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -37,7 +37,7 @@ bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 			}
 		}
 	}
-	else if( opecode_ddd_ref_hl( info, 0x46 ) ) {				//	ld <reg8>, [HL] line
+	else if( opecode_destination8_memory_hl( info, 0x46 ) ) {				//	ld <reg8>, [HL] line
 		//	log
 		if( !is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -49,7 +49,7 @@ bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 			}
 		}
 	}
-	else if( opecode_a_ref_bc( info, 0x0A ) ) {				//	ld a, [bc/de/nn] line
+	else if( opecode_a_memory_bc( info, 0x0A ) ) {				//	ld a, [bc/de/nn] line
 		//	log
 		if( !is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -61,7 +61,7 @@ bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 			}
 		}
 	}
-	else if( opecode_ddd_n( info, 0x06 ) ) {					//	ld <reg8>, imm8 line
+	else if( opecode_destination8_n8( info, 0x06 ) ) {					//	ld <reg8>, imm8 line
 		//	log
 		if( !is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -85,7 +85,7 @@ bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 			}
 		}
 	}
-	else if( opecode_rp_nn( info, 0x01 ) ) {					//	ld <reg16>, imm16 line
+	else if( opecode_destination16_n16( info, 0x01 ) ) {					//	ld <reg16>, imm16 line
 		//	log
 		if( !is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -97,7 +97,7 @@ bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 			}
 		}
 	}
-	else if( opecode_rp_ref_nn( info, 0x2A, 0x4B ) ) {		//	ld <reg16>, [nn] line
+	else if( opecode_destination16_memory16( info, 0x2A, 0x4B ) ) {		//	ld <reg16>, [nn] line
 		//	log
 		if( !is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -109,14 +109,14 @@ bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 			}
 		}
 	}
-	else if( opecode_ref_hl_sss( info, 0x70 ) ) {			//	ld [HL], <reg8> line
+	else if( opecode_memory_hl_source8( info, 0x70 ) ) {			//	ld [HL], <reg8> line
 		//	log
 		if( !is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			log.write_cycle_information( 8, 4 );			//	ld [HL], <reg8>
 		}
 	}
-	else if( opecode_ref_hl_n( info, 0x36 ) ) {				//	ld [HL], imm8 line
+	else if( opecode_memory_hl_n8( info, 0x36 ) ) {				//	ld [HL], imm8 line
 		//	log
 		if( !is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -128,7 +128,7 @@ bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 			}
 		}
 	}
-	else if( opecode_ref_bc_a( info, 0x02 ) ) {				//	ld [bc/de/nn], a line
+	else if( opecode_memory_bc_a( info, 0x02 ) ) {				//	ld [bc/de/nn], a line
 		//	log
 		if( !is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -140,7 +140,7 @@ bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 			}
 		}
 	}
-	else if( opecode_ref_nn_rp( info, 0xED, 0x22, 0x43 ) ) {	//	ld [nn], <reg16> line
+	else if( opecode_memory16_source16( info, 0xED, 0x22, 0x43 ) ) {	//	ld [nn], <reg16> line
 		//	log
 		if( !is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );

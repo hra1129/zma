@@ -20,7 +20,7 @@ bool CZMA_PARSE_DEFW::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	CVALUE v;
 
 	update_flags( &info, p_last_line );
-	if( !this->get_fixed_code_size() ) {
+	if( !this->is_fixed_code_size() ) {
 		count = 1;
 		for( i = 1; i < ( int) words.size(); i++ ) {
 			if( words[i] == "," ) {

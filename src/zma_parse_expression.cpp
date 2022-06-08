@@ -21,7 +21,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 	if( s == "$" || s == "CODE_ADDRESS" ) {
 		index++;
 		result.value_type = CVALUE_TYPE::CV_INTEGER;
-		if( this->get_fixed_code_address() ) {
+		if( this->is_fixed_code_address() ) {
 			result.i = this->get_code_address();
 		}
 		else {
@@ -33,7 +33,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 	if( s == "FILE_ADDRESS" ) {
 		index++;
 		result.value_type = CVALUE_TYPE::CV_INTEGER;
-		if( this->get_fixed_file_address() ) {
+		if( this->is_fixed_file_address() ) {
 			result.i = this->get_file_address();
 		}
 		else {

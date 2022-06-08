@@ -65,7 +65,7 @@ bool CZMA_PARSE_JP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		}
 		return check_all_fixed();
 	}
-	if( opecode_ccc_nnn( info, 0xC3, 0xC2 ) ) {
+	if( opecode_condition_address( info, 0xC3, 0xC2 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );

@@ -38,7 +38,7 @@ bool CZMA_PARSE_BINARY_LINK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last
 		put_error( "BINARY_LINK command has only one parameter." );
 		return false;
 	}
-	if( !this->get_fixed_code_size() ) {
+	if( !this->is_fixed_code_size() ) {
 		std::ifstream file;
 		file.open( path.s, std::ios::binary );
 		if( !file ){

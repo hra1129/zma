@@ -13,8 +13,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     11|      |    |DEFB 1
       |000000|0000|  01
 ------+------+----+----------------------------------
-((BBB))
-	Scope path: AAA:@MACRO0:
+    12|      |    |BBB
+      |      |    |  Intra-macro scope: AAA:@MACRO0:
     12|      |    |BBB
     12|ERROR |    |Scope is not closed.: test2.asm(12)
     12|      |    |ENDSCOPE

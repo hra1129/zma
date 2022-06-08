@@ -42,7 +42,7 @@ bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 		put_error( "Label name cannot be string." );
 		return false;
 	}
-	if( this->get_fixed_code_address() ) {
+	if( this->is_fixed_code_address() ) {
 		label = info.get_scope_path() + words[0];
 		if( info.dict.count( label ) ) {
 			put_error( "There are declarations of the same label '" + label + "' in multiple places." );

@@ -7,20 +7,20 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      5|      |    |HOGE MACRO
 ------+------+----+----------------------------------
-((HOGE))
-	Scope path: @MACRO0:
+     9|      |    |HOGE
+      |      |    |  Intra-macro scope: @MACRO0:
      9|      |    |INCLUDE "sub.asm" begin
      5|      |    |LD DE, 100
-      |      |    |  Z80:11cyc, R800:3cyc
+      |      |    |  Z80:11cyc R800:3cyc
       |000000|0000|  11 64 00
 ------+------+----+----------------------------------
      9|      |    |INCLUDE "sub.asm" end
 
-((HOGE))
-	Scope path: @MACRO1:
+    10|      |    |HOGE
+      |      |    |  Intra-macro scope: @MACRO1:
     10|      |    |INCLUDE "sub.asm" begin
      5|      |    |LD DE, 100
-      |      |    |  Z80:11cyc, R800:3cyc
+      |      |    |  Z80:11cyc R800:3cyc
       |XXXXXX|0003|  11 64 00
 ------+------+----+----------------------------------
     10|      |    |INCLUDE "sub.asm" end
@@ -30,8 +30,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     13|      |    |INCLUDE "sub_macro1.asm" end
 
-((MOGE))
-	Scope path: @MACRO2:
+    14|      |    |MOGE
+      |      |    |  Intra-macro scope: @MACRO2:
     14|      |    |DEFB 0, 1
       |XXXXXX|0006|  00 01
 ------+------+----+----------------------------------

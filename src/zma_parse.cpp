@@ -176,14 +176,14 @@ bool CZMA_PARSE::update_flags( CZMA_INFORMATION* p_info, const CZMA_PARSE* p_las
 		this->set_file_address( p_info, 0 );
 	}
 	else {
-		if( p_last_line->get_fixed_next_code_address() ) {
+		if( p_last_line->is_fixed_next_code_address() ) {
 			this->set_code_address( p_info, p_last_line->get_next_code_address() );
 		}
 		else {
 			result = false;
 		}
 
-		if( p_last_line->get_fixed_file_address() && p_last_line->get_fixed_code_size() ) {
+		if( p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
 			this->set_file_address( p_info, p_last_line->get_file_address() + p_last_line->get_code_size() );
 		}
 		else {
@@ -193,7 +193,7 @@ bool CZMA_PARSE::update_flags( CZMA_INFORMATION* p_info, const CZMA_PARSE* p_las
 	if( !this->is_data_fixed ) {
 		result = false;
 	}
-	if( this->get_fixed_code_address() && this->get_fixed_code_size() ) {
+	if( this->is_fixed_code_address() && this->is_fixed_code_size() ) {
 		if( this->next_code_address == -1 ) {
 			p_info->is_updated = true;
 		}
@@ -413,7 +413,7 @@ bool CZMA_PARSE::opecode_a_i_r( CZMA_INFORMATION& info ) {
 
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ddd_sss( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_destination8_source8( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int ddd, sss;
 	int ixhl = 0;
 
@@ -471,7 +471,7 @@ bool CZMA_PARSE::opecode_ddd_sss( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_a_sss( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_a_source8( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int sss;
 	CVALUE d;
 
@@ -511,7 +511,7 @@ bool CZMA_PARSE::opecode_a_sss( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ddd_c( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 ) {
+bool CZMA_PARSE::opecode_destination8_c( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 ) {
 	int ddd;
 	CVALUE nn;
 
@@ -558,7 +558,7 @@ bool CZMA_PARSE::opecode_ddd_c( CZMA_INFORMATION& info, unsigned char op1, unsig
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_c_sss( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 ) {
+bool CZMA_PARSE::opecode_c_source8( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 ) {
 	int sss, n;
 	CVALUE nn;
 
@@ -610,7 +610,7 @@ bool CZMA_PARSE::opecode_c_sss( CZMA_INFORMATION& info, unsigned char op1, unsig
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_n_sss( CZMA_INFORMATION& info, unsigned char op1, bool no_3operand ) {
+bool CZMA_PARSE::opecode_bit_source8( CZMA_INFORMATION& info, unsigned char op1, bool no_3operand ) {
 	int sss, ddd, n;
 	CVALUE b, d;
 
@@ -732,7 +732,7 @@ bool CZMA_PARSE::opecode_n_sss( CZMA_INFORMATION& info, unsigned char op1, bool 
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_hl_rp( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_hl_source16( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int rp;
 
 	if( words.size() == 4 && words[1] == "HL" && words[2] == "," && info.is_rp( words[3] ) ) {
@@ -771,7 +771,7 @@ bool CZMA_PARSE::opecode_hl_rp( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_hl_rp_witnout_ix( CZMA_INFORMATION& info, unsigned char op1, unsigned char op2 ) {
+bool CZMA_PARSE::opecode_hl_source16_witnout_ix( CZMA_INFORMATION& info, unsigned char op1, unsigned char op2 ) {
 	int rp;
 
 	if( words.size() == 4 && words[1] == "HL" && words[2] == "," && info.is_rp( words[3] ) ) {
@@ -789,7 +789,7 @@ bool CZMA_PARSE::opecode_hl_rp_witnout_ix( CZMA_INFORMATION& info, unsigned char
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ddd_ref_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_destination8_memory_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int ddd, index;
 	CVALUE d;
 
@@ -882,7 +882,7 @@ bool CZMA_PARSE::opecode_ddd_ref_hl( CZMA_INFORMATION& info, unsigned char op1 )
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_a_ref_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_a_memory_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
 	CVALUE d;
 
 	if( words.size() < 6 || words[1] != "A" || words[2] != "," || (!check_location_hl( 3 ) && !check_location_ix( 3 ) && !check_location_iy( 3 )) ) {
@@ -955,7 +955,7 @@ bool CZMA_PARSE::opecode_a_ref_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ref_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_memory_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
 	CVALUE d;
 	int index;
 
@@ -1038,7 +1038,7 @@ bool CZMA_PARSE::opecode_ref_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ddd_n( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_destination8_n8( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int ddd;
 	CVALUE imm8;
 
@@ -1086,7 +1086,7 @@ bool CZMA_PARSE::opecode_ddd_n( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_a_n( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_a_n8( CZMA_INFORMATION& info, unsigned char op1 ) {
 	CVALUE imm8;
 
 	if( words.size() < 4 || words[1] != "A" || words[2] != "," || words[3] == "[" ) {
@@ -1110,7 +1110,7 @@ bool CZMA_PARSE::opecode_a_n( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_n( CZMA_INFORMATION &info, unsigned char op1 ){
+bool CZMA_PARSE::opecode_n8( CZMA_INFORMATION &info, unsigned char op1 ){
 	CVALUE imm8;
 
 	if( words.size() < 2 || words[ 1 ] == "[" ){
@@ -1134,7 +1134,7 @@ bool CZMA_PARSE::opecode_n( CZMA_INFORMATION &info, unsigned char op1 ){
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_rp( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_register16( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int rp;
 
 	if( words.size() != 2 || (!info.is_rp( words[1] ) && words[1] != "IX" && words[1] != "IY") ) {
@@ -1163,7 +1163,7 @@ bool CZMA_PARSE::opecode_rp( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_rp_nn( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_destination16_n16( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int rp;
 	CVALUE nn;
 
@@ -1210,7 +1210,7 @@ bool CZMA_PARSE::opecode_rp_nn( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_rp_ref_nn( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
+bool CZMA_PARSE::opecode_destination16_memory16( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
 	int rp;
 	CVALUE nn;
 
@@ -1261,7 +1261,7 @@ bool CZMA_PARSE::opecode_rp_ref_nn( CZMA_INFORMATION& info, unsigned char op1, u
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ref_hl_sss( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_memory_hl_source8( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int i, sss;
 	CVALUE nn;
 
@@ -1346,7 +1346,7 @@ bool CZMA_PARSE::opecode_ref_hl_sss( CZMA_INFORMATION& info, unsigned char op1 )
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ref_hl_n( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int i;
 	CVALUE n, d;
 
@@ -1469,7 +1469,7 @@ bool CZMA_PARSE::opecode_ref_hl_n( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_a_ref_bc( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_a_memory_bc( CZMA_INFORMATION& info, unsigned char op1 ) {
 	CVALUE nn;
 	int index;
 
@@ -1527,7 +1527,7 @@ bool CZMA_PARSE::opecode_a_ref_bc( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ref_bc_a( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_memory_bc_a( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int i;
 	CVALUE nn;
 
@@ -1581,7 +1581,7 @@ bool CZMA_PARSE::opecode_ref_bc_a( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ref_nn_rp( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 ) {
+bool CZMA_PARSE::opecode_memory16_source16( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 ) {
 	int i, rp;
 	CVALUE nn;
 
@@ -1731,7 +1731,7 @@ bool CZMA_PARSE::opecode_sp_hl( CZMA_INFORMATION& info, unsigned char op1 ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_rp_with_af( CZMA_INFORMATION& info, unsigned char op1 ) {
+bool CZMA_PARSE::opecode_register16_with_af( CZMA_INFORMATION& info, unsigned char op1 ) {
 	int rp;
 
 	if( words.size() != 2 || (!info.is_rp_with_af( words[1] ) && words[1] != "IX" && words[1] != "IY") ) {
@@ -1760,7 +1760,7 @@ bool CZMA_PARSE::opecode_rp_with_af( CZMA_INFORMATION& info, unsigned char op1 )
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_sss( CZMA_INFORMATION& info, unsigned char op1, int op2 ) {
+bool CZMA_PARSE::opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int op2 ) {
 	int sss, ddd, n;
 	CVALUE nn;
 
@@ -1905,7 +1905,7 @@ bool CZMA_PARSE::opecode_sss( CZMA_INFORMATION& info, unsigned char op1, int op2
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ccc_nnn( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
+bool CZMA_PARSE::opecode_condition_address( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
 	int ccc, index;
 	CVALUE address;
 
@@ -1963,7 +1963,7 @@ bool CZMA_PARSE::opecode_ccc_nnn( CZMA_INFORMATION& info, unsigned char op1, uns
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ccc_e( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
+bool CZMA_PARSE::opecode_condition_offset( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
 	int address, ccc;
 
 	if( words.size() >= 4 && info.is_cc2( words[1] ) ) {
@@ -1999,7 +1999,7 @@ bool CZMA_PARSE::opecode_ccc_e( CZMA_INFORMATION& info, unsigned char op1, unsig
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ccc( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
+bool CZMA_PARSE::opecode_condition( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
 	int ccc;
 
 	if( words.size() == 2 && info.is_ccc( words[1] ) ) {
@@ -2081,7 +2081,7 @@ bool CZMA_PARSE::opecode_muluw( CZMA_INFORMATION& info ) {
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::opecode_ddd( CZMA_INFORMATION& info, unsigned char op1, int op2 ) {
+bool CZMA_PARSE::opecode_destination8( CZMA_INFORMATION& info, unsigned char op1, int op2 ) {
 	int ddd;
 	CVALUE nn;
 
@@ -2144,7 +2144,7 @@ bool CZMA_PARSE::opecode_ddd( CZMA_INFORMATION& info, unsigned char op1, int op2
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE::write( CZMA_INFORMATION &info, std::ofstream *f ) {
+bool CZMA_PARSE::write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) {
 	unsigned char c;
 
 	for( auto d: data ) {

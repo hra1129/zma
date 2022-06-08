@@ -35,7 +35,7 @@ protected:
 	static std::vector<std::string> get_word_split( std::string s );
 	static std::string delete_head_space( std::string s );
 
-	bool update_flags( CZMA_INFORMATION *p_info, const CZMA_PARSE* p_last_line );
+	virtual bool update_flags( CZMA_INFORMATION *p_info, const CZMA_PARSE* p_last_line );
 	bool check_location_hl( int index );
 	int check_location_ix( int index );
 	int check_location_iy( int index );
@@ -69,34 +69,34 @@ protected:
 	// --------------------------------------------------------------------
 	bool opecode( CZMA_INFORMATION& info, unsigned char op1, int op2 = -1 );
 	bool opecode_a_i_r( CZMA_INFORMATION& info );
-	bool opecode_ddd_sss( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_a_sss( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_ddd_c( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
-	bool opecode_c_sss( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
-	bool opecode_n_sss( CZMA_INFORMATION& info, unsigned char op1, bool no_3operand = false );
-	bool opecode_hl_rp( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_hl_rp_witnout_ix( CZMA_INFORMATION& info, unsigned char op1, unsigned char op2 );
-	bool opecode_ddd_ref_hl( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_a_ref_hl( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_ref_hl( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_ddd_n( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_a_n( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_n( CZMA_INFORMATION &info, unsigned char op1 );
-	bool opecode_rp( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_rp_nn( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_rp_ref_nn( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
-	bool opecode_ref_hl_sss( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_ref_hl_n( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_ref_bc_a( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_ref_nn_rp( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
-	bool opecode_a_ref_bc( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_destination8_source8( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_a_source8( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_destination8_c( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
+	bool opecode_c_source8( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
+	bool opecode_bit_source8( CZMA_INFORMATION& info, unsigned char op1, bool no_3operand = false );
+	bool opecode_hl_source16( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_hl_source16_witnout_ix( CZMA_INFORMATION& info, unsigned char op1, unsigned char op2 );
+	bool opecode_destination8_memory_hl( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_a_memory_hl( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_memory_hl( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_destination8_n8( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_a_n8( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_n8( CZMA_INFORMATION &info, unsigned char op1 );
+	bool opecode_register16( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_destination16_n16( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_destination16_memory16( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
+	bool opecode_memory_hl_source8( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_memory_bc_a( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_memory16_source16( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
+	bool opecode_a_memory_bc( CZMA_INFORMATION& info, unsigned char op1 );
 	bool opecode_sp_hl( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_rp_with_af( CZMA_INFORMATION& info, unsigned char op1 );
-	bool opecode_sss( CZMA_INFORMATION& info, unsigned char op1, int op2 = -1 );
-	bool opecode_ddd( CZMA_INFORMATION& info, unsigned char op1, int op2 = -1 );
-	bool opecode_ccc_nnn( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
-	bool opecode_ccc_e( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
-	bool opecode_ccc( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
+	bool opecode_register16_with_af( CZMA_INFORMATION& info, unsigned char op1 );
+	bool opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int op2 = -1 );
+	bool opecode_destination8( CZMA_INFORMATION& info, unsigned char op1, int op2 = -1 );
+	bool opecode_condition_address( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
+	bool opecode_condition_offset( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
+	bool opecode_condition( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
 	bool opecode_mulub( CZMA_INFORMATION& info, unsigned char op1, int op2 );
 	bool opecode_muluw( CZMA_INFORMATION& info );
 
@@ -129,7 +129,7 @@ public:
 
 	// ----------------------------------------------------------------
 	bool check_all_fixed() const {
-		return get_fixed_code_address() && get_fixed_file_address () && get_fixed_code_size() && check_data_fixed();
+		return is_fixed_code_address() && is_fixed_file_address () && is_fixed_code_size() && check_data_fixed();
 	}
 
 	// ----------------------------------------------------------------
@@ -166,7 +166,7 @@ public:
 			p_info->is_updated = true;
 			this->code_size = new_code_size;
 		}
-		if( this->get_fixed_code_address() ) {
+		if( this->is_fixed_code_address() ) {
 			if( this->next_code_address == -1 ) {
 				p_info->is_updated = true;
 			}
@@ -187,22 +187,22 @@ public:
 	// ----------------------------------------------------------------
 	//	Get method
 	// ----------------------------------------------------------------
-	bool get_fixed_code_address() const {
+	bool is_fixed_code_address() const {
 		return (code_address != -1);
 	}
 
 	// ----------------------------------------------------------------
-	bool get_fixed_next_code_address() const {
+	bool is_fixed_next_code_address() const {
 		return (next_code_address != -1);
 	}
 
 	// ----------------------------------------------------------------
-	bool get_fixed_file_address() const {
+	bool is_fixed_file_address() const {
 		return (file_address != -1);
 	}
 
 	// ----------------------------------------------------------------
-	bool get_fixed_code_size() const {
+	bool is_fixed_code_size() const {
 		return (code_size != -1);
 	}
 
@@ -237,7 +237,7 @@ public:
 	}
 
 	// ----------------------------------------------------------------
-	virtual bool write( CZMA_INFORMATION& info, std::ofstream *f );
+	virtual bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream *f );
 
 	// ----------------------------------------------------------------
 	virtual bool is_parse_error( void ) {

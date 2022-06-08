@@ -18,7 +18,7 @@
 bool CZMA_PARSE_SBC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 
 	update_flags( &info, p_last_line );
-	if( this->opecode_a_sss( info, 0x98 ) ) {
+	if( this->opecode_a_source8( info, 0x98 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -33,7 +33,7 @@ bool CZMA_PARSE_SBC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		}
 		return check_all_fixed();
 	}
-	if( this->opecode_a_ref_hl( info, 0x9E ) ) {
+	if( this->opecode_a_memory_hl( info, 0x9E ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -48,7 +48,7 @@ bool CZMA_PARSE_SBC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		}
 		return check_all_fixed();
 	}
-	if( this->opecode_a_n( info, 0xDE ) ) {
+	if( this->opecode_a_n8( info, 0xDE ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -58,7 +58,7 @@ bool CZMA_PARSE_SBC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		}
 		return check_all_fixed();
 	}
-	if( this->opecode_hl_rp_witnout_ix( info, 0xED, 0x42 ) ) {
+	if( this->opecode_hl_source16_witnout_ix( info, 0xED, 0x42 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );

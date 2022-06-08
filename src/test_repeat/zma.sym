@@ -1,3 +1,2 @@
 @REPEAT0:I equ 01fh
-END_ADDRESS equ 0204h
-SHOT_TABLE equ 02h
+SHOT_TABLE equ 00h

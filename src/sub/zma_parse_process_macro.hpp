@@ -28,5 +28,5 @@ public:
 
 	using CZMA_PARSE::CZMA_PARSE;
 	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
-	bool write( CZMA_INFORMATION& info, std::ofstream* f ) override;
+	bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) override;
 };

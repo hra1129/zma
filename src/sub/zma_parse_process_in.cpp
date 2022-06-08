@@ -18,7 +18,7 @@
 bool CZMA_PARSE_IN::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 
 	update_flags( &info, p_last_line );
-	if( opecode_ddd_c( info, 0xDB, 0xED, 0x40 ) ) {
+	if( opecode_destination8_c( info, 0xDB, 0xED, 0x40 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );

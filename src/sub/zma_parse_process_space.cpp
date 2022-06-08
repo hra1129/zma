@@ -21,7 +21,7 @@ bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 
 	update_flags( &info, p_last_line );
 	if( !this->is_data_fixed ){
-		if( !this->get_fixed_code_size() ){
+		if( !this->is_fixed_code_size() ){
 			//	ƒTƒCƒY
 			i = this->expression( info, 1, v );
 			if( i == 0 ){

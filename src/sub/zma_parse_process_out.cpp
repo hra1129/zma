@@ -18,7 +18,7 @@
 bool CZMA_PARSE_OUT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 
 	update_flags( &info, p_last_line );
-	if( opecode_c_sss( info, 0xD3, 0xED, 0x41 ) ) {
+	if( opecode_c_source8( info, 0xD3, 0xED, 0x41 ) ) {
 		//	log
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );

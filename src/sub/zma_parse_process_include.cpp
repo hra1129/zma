@@ -15,7 +15,7 @@
 #include <algorithm>
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE_INCLUDE::write( CZMA_INFORMATION& info, std::ofstream* f ) {
+bool CZMA_PARSE_INCLUDE::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
 
 	for( auto line : log ) {
 		info.log << line << " begin" << std::endl;
@@ -80,11 +80,11 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 	if( !this->is_analyze_phase ) {
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 	}
-	if( p_last_line->get_fixed_file_address() && p_last_line->get_fixed_code_size() ) {
+	if( p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
 		this->file_address = p_last_line->get_file_address() + p_last_line->get_code_size();
 	}
 	p_last_line = this->text.process( info, success_count, p_last_line, !this->is_analyze_phase );
-	if( p_last_line->get_fixed_next_code_address() ) {
+	if( p_last_line->is_fixed_next_code_address() ) {
 		this->next_code_address = p_last_line->get_next_code_address();
 	}
 	if( !this->is_data_fixed ) {
@@ -97,7 +97,7 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 	}
 	if( this->code_size == -1 ) {
 		for( auto p : text.m_text ) {
-			if( this->code_size != -1 && p->get_fixed_code_size() ) {
+			if( this->code_size != -1 && p->is_fixed_code_size() ) {
 				this->code_size = this->code_size + p->get_code_size();
 			}
 			else {

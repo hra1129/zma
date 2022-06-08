@@ -10,28 +10,28 @@ LINE# |OFFSET|ADDR|MNEMONIC
     11|      |    |DEFB 1
       |000000|0000|  01
 ------+------+----+----------------------------------
-((BBB))
-	Scope path: @MACRO0:
+    12|      |    |BBB
+      |      |    |  Intra-macro scope: @MACRO0:
     11|      |    |DEFB 1
       |000001|0001|  01
 ------+------+----+----------------------------------
-((BBB))
-	Scope path: @MACRO1:
+    12|      |    |BBB
+      |      |    |  Intra-macro scope: @MACRO1:
     11|      |    |DEFB 1
       |000002|0002|  01
 ------+------+----+----------------------------------
-((BBB))
-	Scope path: @MACRO2:
+    12|      |    |BBB
+      |      |    |  Intra-macro scope: @MACRO2:
     11|      |    |DEFB 1
       |000003|0003|  01
 ------+------+----+----------------------------------
-((BBB))
-	Scope path: @MACRO3:
+    12|      |    |BBB
+      |      |    |  Intra-macro scope: @MACRO3:
     11|      |    |DEFB 1
       |000004|0004|  01
 ------+------+----+----------------------------------
-((BBB))
-	Scope path: @MACRO4:
+    12|      |    |BBB
+      |      |    |  Intra-macro scope: @MACRO4:
      7|ERROR |    |Invalid block pair.: test2.asm(7): test2.asm(7)
      7|      |    |ENDR
      7|ERROR |    |Scope of ENDR does not exist.: test2.asm(7)

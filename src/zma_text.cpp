@@ -188,7 +188,7 @@ bool CZMA_TEXT::write( CZMA_INFORMATION& info, std::ofstream* f ) {
 
 	result = true;
 	for( auto p: m_text ) {
-		result = result & p->write( info, f );
+		result = result & p->write_output_and_log( info, f );
 	}
 	return result;
 }

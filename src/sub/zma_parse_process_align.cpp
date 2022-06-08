@@ -21,7 +21,7 @@ bool CZMA_PARSE_ALIGN::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 
 	update_flags( &info, p_last_line );
 	if( !this->is_data_fixed ){
-		if( this->get_fixed_code_address() ){
+		if( this->is_fixed_code_address() ){
 			i = this->expression( info, 1, v );
 			if( i == 0 ){
 				put_error( std::string( "Cannot evaluate the expression" ) );

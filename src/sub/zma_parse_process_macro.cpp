@@ -73,7 +73,7 @@ bool CZMA_PARSE_MACRO::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE_MACRO_INS::write( CZMA_INFORMATION& info, std::ofstream* f ) {
+bool CZMA_PARSE_MACRO_INS::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
 	bool result = true;
 
 	for( auto line : log ) {
@@ -167,7 +167,7 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 	p_last_line = text.process( info, success_count, p_last_line, !this->is_analyze_phase );
 	if( !this->is_data_fixed ) {
 		for( auto p : text.m_text ) {
-			this->is_data_fixed = this->is_data_fixed && p->get_fixed_code_size();
+			this->is_data_fixed = this->is_data_fixed && p->is_fixed_code_size();
 		}
 		if( this->is_data_fixed ) {
 			info.is_updated = true;
@@ -176,7 +176,7 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 	if( this->code_size == -1 ) {
 		this->code_size = 0;
 		for( auto p : text.m_text ) {
-			if( this->code_size != -1 && p->get_fixed_code_size() ) {
+			if( this->code_size != -1 && p->is_fixed_code_size() ) {
 				this->code_size = this->code_size + p->get_code_size();
 			}
 			else {

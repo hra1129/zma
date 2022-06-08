@@ -165,6 +165,7 @@
     <ClCompile Include="sub\zma_parse_process_blank.cpp" />
     <ClCompile Include="sub\zma_parse_process_call.cpp" />
     <ClCompile Include="sub\zma_parse_process_ccf.cpp" />
+    <ClCompile Include="sub\zma_parse_process_container.cpp" />
     <ClCompile Include="sub\zma_parse_process_cp.cpp" />
     <ClCompile Include="sub\zma_parse_process_cpd.cpp" />
     <ClCompile Include="sub\zma_parse_process_cpdr.cpp" />
@@ -269,6 +270,7 @@
     <ClInclude Include="sub\zma_parse_process_blank.hpp" />
     <ClInclude Include="sub\zma_parse_process_call.hpp" />
     <ClInclude Include="sub\zma_parse_process_ccf.hpp" />
+    <ClInclude Include="sub\zma_parse_process_container.hpp" />
     <ClInclude Include="sub\zma_parse_process_cp.hpp" />
     <ClInclude Include="sub\zma_parse_process_cpd.hpp" />
     <ClInclude Include="sub\zma_parse_process_cpdr.hpp" />

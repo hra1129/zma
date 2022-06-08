@@ -227,7 +227,7 @@ bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 }
 
 // --------------------------------------------------------------------
-bool CZMA_PARSE_ENDIF::write( CZMA_INFORMATION& info, std::ofstream* f ) {
+bool CZMA_PARSE_ENDIF::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
 	bool result;
 	CVALUE v;
 

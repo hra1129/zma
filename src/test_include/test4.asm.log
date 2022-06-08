@@ -15,8 +15,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
      9|      |    |PAGE_ALIGN
      9|ERROR |    |Block processing is not close.: test4.asm(9)
-((PAGE_ALIGN))
-	Scope path: @MACRO0:
+     9|      |    |PAGE_ALIGN
+      |      |    |  Intra-macro scope: @MACRO0:
      9|      |    |IF FILE_ADDRESS % 256
 ------+------+----+----------------------------------
      9|      |    |IF FILE_ADDRESS % 256
