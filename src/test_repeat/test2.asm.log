@@ -19,8 +19,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     14|      |    |REPEAT I, 32
       |      |    |  Enter scope: @REPEAT0:
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO0:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO0:
     15|      |    |DB 0
       |000002|0002|  00
 ------+------+----+----------------------------------
@@ -48,8 +48,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000010|0010|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO1:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO1:
     15|      |    |DB 0
       |000012|0012|  00
 ------+------+----+----------------------------------
@@ -77,8 +77,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000020|0020|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO2:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO2:
     15|      |    |DB 0
       |000022|0022|  00
 ------+------+----+----------------------------------
@@ -106,8 +106,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000030|0030|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO3:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO3:
     15|      |    |DB 0
       |000032|0032|  00
 ------+------+----+----------------------------------
@@ -135,8 +135,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000040|0040|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO4:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO4:
     15|      |    |DB 0
       |000042|0042|  00
 ------+------+----+----------------------------------
@@ -164,8 +164,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000050|0050|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO5:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO5:
     15|      |    |DB 0
       |000052|0052|  00
 ------+------+----+----------------------------------
@@ -193,8 +193,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000060|0060|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO6:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO6:
     15|      |    |DB 0
       |000062|0062|  00
 ------+------+----+----------------------------------
@@ -222,8 +222,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000070|0070|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO7:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO7:
     15|      |    |DB 0
       |000072|0072|  00
 ------+------+----+----------------------------------
@@ -251,8 +251,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000080|0080|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO8:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO8:
     15|      |    |DB 0
       |000082|0082|  00
 ------+------+----+----------------------------------
@@ -280,8 +280,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000090|0090|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO9:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO9:
     15|      |    |DB 0
       |000092|0092|  00
 ------+------+----+----------------------------------
@@ -309,8 +309,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0000A0|00A0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO10:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO10:
     15|      |    |DB 0
       |0000A2|00A2|  00
 ------+------+----+----------------------------------
@@ -338,8 +338,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0000B0|00B0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO11:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO11:
     15|      |    |DB 0
       |0000B2|00B2|  00
 ------+------+----+----------------------------------
@@ -367,8 +367,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0000C0|00C0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO12:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO12:
     15|      |    |DB 0
       |0000C2|00C2|  00
 ------+------+----+----------------------------------
@@ -396,8 +396,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0000D0|00D0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO13:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO13:
     15|      |    |DB 0
       |0000D2|00D2|  00
 ------+------+----+----------------------------------
@@ -425,8 +425,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0000E0|00E0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO14:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO14:
     15|      |    |DB 0
       |0000E2|00E2|  00
 ------+------+----+----------------------------------
@@ -454,8 +454,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0000F0|00F0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO15:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO15:
     15|      |    |DB 0
       |0000F2|00F2|  00
 ------+------+----+----------------------------------
@@ -483,8 +483,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000100|0100|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO16:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO16:
     15|      |    |DB 0
       |000102|0102|  00
 ------+------+----+----------------------------------
@@ -512,8 +512,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000110|0110|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO17:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO17:
     15|      |    |DB 0
       |000112|0112|  00
 ------+------+----+----------------------------------
@@ -541,8 +541,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000120|0120|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO18:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO18:
     15|      |    |DB 0
       |000122|0122|  00
 ------+------+----+----------------------------------
@@ -570,8 +570,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000130|0130|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO19:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO19:
     15|      |    |DB 0
       |000132|0132|  00
 ------+------+----+----------------------------------
@@ -599,8 +599,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000140|0140|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO20:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO20:
     15|      |    |DB 0
       |000142|0142|  00
 ------+------+----+----------------------------------
@@ -628,8 +628,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000150|0150|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO21:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO21:
     15|      |    |DB 0
       |000152|0152|  00
 ------+------+----+----------------------------------
@@ -657,8 +657,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000160|0160|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO22:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO22:
     15|      |    |DB 0
       |000162|0162|  00
 ------+------+----+----------------------------------
@@ -686,8 +686,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000170|0170|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO23:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO23:
     15|      |    |DB 0
       |000172|0172|  00
 ------+------+----+----------------------------------
@@ -715,8 +715,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000180|0180|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO24:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO24:
     15|      |    |DB 0
       |000182|0182|  00
 ------+------+----+----------------------------------
@@ -744,8 +744,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |000190|0190|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO25:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO25:
     15|      |    |DB 0
       |000192|0192|  00
 ------+------+----+----------------------------------
@@ -773,8 +773,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0001A0|01A0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO26:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO26:
     15|      |    |DB 0
       |0001A2|01A2|  00
 ------+------+----+----------------------------------
@@ -802,8 +802,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0001B0|01B0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO27:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO27:
     15|      |    |DB 0
       |0001B2|01B2|  00
 ------+------+----+----------------------------------
@@ -831,8 +831,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0001C0|01C0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO28:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO28:
     15|      |    |DB 0
       |0001C2|01C2|  00
 ------+------+----+----------------------------------
@@ -860,8 +860,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0001D0|01D0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO29:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO29:
     15|      |    |DB 0
       |0001D2|01D2|  00
 ------+------+----+----------------------------------
@@ -889,8 +889,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0001E0|01E0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO30:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO30:
     15|      |    |DB 0
       |0001E2|01E2|  00
 ------+------+----+----------------------------------
@@ -918,8 +918,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|      |    |DW 0
       |0001F0|01F0|  00 00
 ------+------+----+----------------------------------
-((SHOT_ATTRIBUTE))
-	Scope path: @REPEAT0:@MACRO31:
+    15|      |    |SHOT_ATTRIBUTE
+      |      |    |  Intra-macro scope: @REPEAT0:@MACRO31:
     15|      |    |DB 0
       |0001F2|01F2|  00
 ------+------+----+----------------------------------

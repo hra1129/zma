@@ -13,8 +13,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     16|      |    |DEFB 0xFF
       |000000|0000|  FF
 ------+------+----+----------------------------------
-((DEF_SPACE 2))
-	Scope path: @MACRO0:
+    17|      |    |DEF_SPACE 2
+      |      |    |  Intra-macro scope: @MACRO0:
       |      |    |  MESSAGE: 2バイトの領域を確保するバイトの領域を確保する: test2.asm(17)
     17|      |    |REPEAT I, 2
       |      |    |  Enter scope: @MACRO0:@REPEAT1:
@@ -33,8 +33,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     23|      |    |DEFB 0xFF
       |000003|0003|  FF
 ------+------+----+----------------------------------
-((DEF_SPACE 5))
-	Scope path: @MACRO1:
+    24|      |    |DEF_SPACE 5
+      |      |    |  Intra-macro scope: @MACRO1:
       |      |    |  MESSAGE: 5バイトの領域を確保するバイトの領域を確保する: test2.asm(24)
     24|      |    |REPEAT I, 5
       |      |    |  Enter scope: @MACRO1:@REPEAT3:
@@ -64,8 +64,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
     31|      |    |DEFB 0xFF
       |000009|0000|  FF
 ------+------+----+----------------------------------
-((DEF_SPACE 4))
-	Scope path: @MACRO2:
+    32|      |    |DEF_SPACE 4
+      |      |    |  Intra-macro scope: @MACRO2:
       |      |    |  MESSAGE: 4バイトの領域を確保するバイトの領域を確保する: test2.asm(32)
     32|      |    |REPEAT I, 4
       |      |    |  Enter scope: @MACRO2:@REPEAT5:

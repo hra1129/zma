@@ -25,7 +25,7 @@ bool CZMA_PARSE_MACRO::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	if( !this->is_data_fixed ) {
 		if( info.macro_list.count( words[0] ) && info.macro_list[words[0]] != nullptr ) {
 			//	同じ名前のマクロを宣言することはできない
-			put_error( std::string( "There are declarations of the same macro '" ) + words[0] + "' in multiple places." );
+			put_error( "There are declarations of the same macro '" + words[0] + "' in multiple places." );
 			return false;
 		}
 		//	引数抽出処理
@@ -49,7 +49,7 @@ bool CZMA_PARSE_MACRO::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 			}
 			for( auto s : p_macro->parameter_name_list ) {
 				if( s.name == words[i] ) {
-					put_error( std::string( "Multiple arguments of the same name '" + words[i] + "' exist." ) );
+					put_error( "Multiple arguments of the same name '" + words[i] + "' exist." );
 					return false;
 				}
 			}
@@ -161,8 +161,8 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 	info.scope.push_back( "@MACRO" + std::to_string( info.get_auto_label_index() ) );
 	//	log
 	if( !is_analyze_phase ) {
-		log.push_back( "((" + get_line() + "))" );
-		log.push_back( "\tScope path: " + info.get_scope_path() );
+		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+		log.write_message( "Intra-macro scope: " + info.get_scope_path() );
 	}
 	p_last_line = text.process( info, success_count, p_last_line, !this->is_analyze_phase );
 	if( !this->is_data_fixed ) {

@@ -92,22 +92,22 @@ void CZMA_LOG::write_cycle_information( int z80_cycle, int r800_cycle, int z80_c
 
 	s << "      |      |    |  ";
 	if( z80_cycle2 >= 0 ){
-		s << "Z80:" << ((z80_cycle == 0) ? '?' : z80_cycle) << "cyc/" << (( z80_cycle2 == 0) ? '?' : z80_cycle2) << "cyc";
+		s << "Z80:" << ((z80_cycle == 0) ? '?' : z80_cycle) << "cyc/" << (( z80_cycle2 == 0) ? '?' : z80_cycle2) << "cyc ";
 	}
 	else if( z80_cycle >= 0 ){
-		s << "Z80:" << ( ( z80_cycle == 0 ) ? '?' : z80_cycle ) << "cyc";
+		s << "Z80:" << ( ( z80_cycle == 0 ) ? '?' : z80_cycle ) << "cyc ";
 	}
 	else{
-		s << "Z80:---";
+		s << "Z80:--- ";
 	}
 	if( r800_cycle2 >= 0 ){
 		s << "R800:" << ((r800_cycle == 0) ? '?' : r800_cycle) << "cyc/" << ((r800_cycle2 == 0) ? '?' : r800_cycle2) << "cyc";
 	}
 	else if( r800_cycle >= 0 ){
-		s << ", R800:" << ( ( r800_cycle == 0 ) ? '?' : r800_cycle ) << "cyc";
+		s << "R800:" << ( ( r800_cycle == 0 ) ? '?' : r800_cycle ) << "cyc";
 	}
 	else{
-		s << ", R800:---";
+		s << "R800:---";
 	}
 	s << s_comment;
 	this->push_back( s.str() );
