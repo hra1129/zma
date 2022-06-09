@@ -12,12 +12,14 @@
 #include <fstream>
 #include <iomanip>
 
+// --------------------------------------------------------------------
 enum class CVALUE_TYPE {
 	CV_UNKNOWN,
 	CV_INTEGER,
 	CV_STRING,
 };
 
+// --------------------------------------------------------------------
 class CVALUE {
 public:
 	CVALUE_TYPE value_type;
@@ -25,25 +27,30 @@ public:
 	int			i;
 	std::string	s;
 
+	// --------------------------------------------------------------------
 	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
 	}
 };
 
+// --------------------------------------------------------------------
 class CZMA_MACRO_ARG {
 public:
 	std::string						name;
 	bool							is_through;
 
+	// --------------------------------------------------------------------
 	CZMA_MACRO_ARG(): name( "" ), is_through( false ) {
 	}
 };
 
+// --------------------------------------------------------------------
 class CZMA_MACRO {
 public:
 	std::vector< CZMA_MACRO_ARG >	parameter_name_list;
 	std::vector<class CZMA_PARSE*>	m_text;
 };
 
+// --------------------------------------------------------------------
 class CZMA_REPEAT_T {
 public:
 	std::string						counter_symbol;
@@ -52,10 +59,12 @@ public:
 	std::string						scope_name;
 	std::vector<class CZMA_PARSE*>	m_text;
 
+	// --------------------------------------------------------------------
 	CZMA_REPEAT_T(): counter_symbol( "" ), counter_end( 0 ), is_counter_end_fixed( false ), scope_name( "" ) {
 	}
 };
 
+// --------------------------------------------------------------------
 class CZMA_IF_SUB_T {
 public:
 	bool							is_condition_fixed = false;
@@ -64,11 +73,13 @@ public:
 	class CZMA_TEXT					*p_text = nullptr;
 };
 
+// --------------------------------------------------------------------
 class CZMA_IF_T {
 public:
 	std::vector<CZMA_IF_SUB_T*>		m_sub;
 };
 
+// --------------------------------------------------------------------
 class CZMA_INFORMATION {
 public:
 	std::map< std::string, CVALUE >	dict;
@@ -110,13 +121,16 @@ public:
 
 	CZMA_IF_T*								p_if;
 
+	// --------------------------------------------------------------------
 	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ) {
 	}
 
+	// --------------------------------------------------------------------
 	unsigned int get_auto_label_index( void ) {
 		return auto_label_index++;
 	}
 
+	// --------------------------------------------------------------------
 	std::string get_scope_path( void ) const {
 		std::string r = "";
 		for( std::string s : scope ) {
@@ -125,6 +139,7 @@ public:
 		return r;
 	}
 
+	// --------------------------------------------------------------------
 	bool get_label_value( CVALUE& result, std::string word ) {
 		int i, l;
 		std::string s;
@@ -144,45 +159,55 @@ public:
 		return false;
 	}
 
+	// --------------------------------------------------------------------
 	bool is_sss_or_ddd( std::string word ) const {
 		int d = (int)sss_or_ddd_id.count( word );
 		return d;
 	}
 
+	// --------------------------------------------------------------------
 	bool is_ix_hl( std::string word ) const {
 		int d = (int)ix_hl.count( word );
 		return d;
 	}
 
+	// --------------------------------------------------------------------
 	bool is_iy_hl( std::string word ) const {
 		int d = (int)iy_hl.count( word );
 		return d;
 	}
 
+	// --------------------------------------------------------------------
 	bool is_rp( std::string word ) const {
 		return (int)rp_id.count( word );
 	}
 
+	// --------------------------------------------------------------------
 	bool is_ix_rp( std::string word ) const{
 		return (int)ix_rp_id.count( word );
 	}
 
+	// --------------------------------------------------------------------
 	bool is_iy_rp( std::string word ) const{
 		return (int)iy_rp_id.count( word );
 	}
 
+	// --------------------------------------------------------------------
 	bool is_rp_with_af( std::string word ) const {
 		return (int)rp_with_af_id.count( word );
 	}
 
+	// --------------------------------------------------------------------
 	bool is_ccc( std::string word ) const {
 		return (int)ccc_id.count( word );
 	}
 
+	// --------------------------------------------------------------------
 	bool is_cc2( std::string word ) const {
 		return (int)cc2_id.count( word );
 	}
 
+	// --------------------------------------------------------------------
 	void add_include_path( const char* p_path, const char *p_sub_path = "" ) {
 		std::string s = p_path;
 
@@ -194,6 +219,8 @@ public:
 		}
 		include_path.push_back( s + "/" + p_sub_path );
 	}
+
+	// --------------------------------------------------------------------
 	std::string dot( std::string s, int max_length ){
 		int length = max_length - s.size();
 		std::string s_result = " ";
@@ -203,6 +230,7 @@ public:
 		return s_result;
 	}
 
+	// --------------------------------------------------------------------
 	void write( void ) {
 		std::string s;
 		log << "<< label >>" << std::endl;

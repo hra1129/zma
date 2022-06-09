@@ -5,6 +5,9 @@
 // --------------------------------------------------------------------
 
 #include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 #include "zma_text.hpp"
 
 static const char* p_version = "v1.0.16-alpha";
@@ -16,18 +19,49 @@ static void usage( const char* p_name ) {
 }
 
 // --------------------------------------------------------------------
+static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
+	int i;
+	std::string s_argument;
+	std::vector<std::string> sa_options;
+
+	for( i = 1; i < argc; i++ ){
+		s_argument = argv[ i ];
+		if( s_argument[ 0 ] == '-' || s_argument[ 0 ] == '/' ){
+			s_argument[ 0 ] = '-';
+			std::transform( s_argument.begin(), s_argument.end(), s_argument.begin(), toupper );
+			if( s_argument == "-H" || s_argument == "-HELP" ){
+				usage( argv[ 0 ] );
+				exit( 1 );
+			}
+			else if( s_argument[ 1 ] == 'I' ){
+				info.add_include_path( s_argument.substr( 2 ).c_str() );
+			}
+			else if( s_argument[ 1 ] == 'D' ){
+				//	★ここに -Dxxx=xxxx な記述の解釈を追加する
+			}
+		}
+		else{
+			sa_options.push_back( s_argument );
+		}
+	}
+	return sa_options;
+}
+
+// --------------------------------------------------------------------
 int main( int argc, char *argv[] ) {
     std::cout << "Z80 Macro Assembler ZMA " << p_version << "\n";
 	std::cout << "=====================================================\n";
 	std::cout << "Programmed by t.hara\n";
 
-	if( argc < 3 ) {
+	CZMA_TEXT src;
+	CZMA_INFORMATION info;
+	std::vector< std::string > sa_options;
+
+	sa_options = get_command_line_options( argc, argv, info );
+	if( sa_options.size() < 2 ) {
 		usage( argv[0] );
 		return 1;
 	}
-
-	CZMA_TEXT src;
-	CZMA_INFORMATION info;
 
 	info.log.open( "zma.log", std::ios::out );
 	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
@@ -38,7 +72,7 @@ int main( int argc, char *argv[] ) {
 	info.log << "======+======+====+==================================\n";
 	info.add_include_path( "./" );
 	info.add_include_path( argv[0], "include/" );
-	src.load( info, argv[1] );
+	src.load( info, sa_options[0].c_str() );
 
 	int return_code = 0;
 	if( src.all_process( info ) ) {
@@ -49,7 +83,7 @@ int main( int argc, char *argv[] ) {
 		return_code = 1;
 		std::cout << "Failed.\n";
 	}
-	if( !src.save( info, argv[ 2 ] ) ){
+	if( !src.save( info, sa_options[1].c_str() ) ){
 		return_code = 1;
 		std::cout << "Save error.\n";
 	}
