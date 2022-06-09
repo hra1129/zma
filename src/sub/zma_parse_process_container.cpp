@@ -16,7 +16,7 @@
 
 // --------------------------------------------------------------------
 bool CZMA_PARSE_CONTAINER::update_flags( CZMA_INFORMATION *p_info, const CZMA_PARSE *p_last_line ){
-
+	return true;
 }
 
 // --------------------------------------------------------------------

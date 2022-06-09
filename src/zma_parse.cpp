@@ -134,6 +134,13 @@ std::vector<std::string> CZMA_PARSE::get_word_split( std::string s ) {
 			//	symbols or numbers
 			for( i = 0; isalpha( s[i] ) || isdigit( s[i] ) || s[i] == '_' || s[i] == '\''; i++ );
 		}
+		else if( s[ 0 ] == '$' && s[ 1 ] == '$' ){
+			i = 2;
+		}
+		else if( s[ 0 ] == '$' ){
+			//	numbers
+			for( i = 1; isxdigit( s[ i ] ) || s[ i ] == '_'; i++ );
+		}
 		else {
 			//	operators
 			i = 1;

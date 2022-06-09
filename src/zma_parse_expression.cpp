@@ -30,7 +30,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 		}
 		return true;
 	}
-	if( s == "FILE_ADDRESS" ) {
+	if( s == "$$" || s == "FILE_ADDRESS" ) {
 		index++;
 		result.value_type = CVALUE_TYPE::CV_INTEGER;
 		if( this->is_fixed_file_address() ) {
@@ -38,6 +38,29 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 		}
 		else {
 			result.value_type = CVALUE_TYPE::CV_UNKNOWN;
+			result.i = 0;
+		}
+		return true;
+	}
+	if( s[ 0 ] == '$' ){
+		num = "";
+		for( auto c : s ){
+			if( isxdigit( c ) ){
+				num = num + c;
+				continue;
+			}
+			if( c == '_' || c == '$' ){
+				continue;
+			}
+			put_error( std::string( "Description of numerical value '" ) + s + "' is abnormal." );
+			return false;
+		}
+		result.value_type = CVALUE_TYPE::CV_INTEGER;
+		try{
+			result.i = (int)std::stoll( num, nullptr, 16 );
+		}
+		catch( ... ){
+			put_error( std::string( "Numerical descriptions '" ) + num + "' are unusual." );
 			result.i = 0;
 		}
 		return true;
