@@ -1,1 +1,1 @@
-L1 equ 00h
+TITLE_COLOR equ 00h
