@@ -116,6 +116,8 @@ static std::map< std::string, CZMA_COMMAND_TYPE > command_list = {
 	{ "RRD", CZMA_COMMAND_TYPE::CZMA_RRD },
 	{ "MULUB", CZMA_COMMAND_TYPE::CZMA_MULUB },
 	{ "MULUW", CZMA_COMMAND_TYPE::CZMA_MULUW },
+	{ "CHG_CHAR_SET", CZMA_COMMAND_TYPE::CZMA_CHG_CHAR_SET },
+	{ "MAPPING_CHAR", CZMA_COMMAND_TYPE::CZMA_MAPPING_CHAR },
 };
 
 // --------------------------------------------------------------------
@@ -242,6 +244,8 @@ CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string>
 		OPE_CASE( RRD );
 		OPE_CASE( MULUB );
 		OPE_CASE( MULUW );
+		OPE_CASE( CHG_CHAR_SET );
+		OPE_CASE( MAPPING_CHAR );
 	default:
 		break;
 	}
@@ -279,8 +283,8 @@ std::string CZMA_PARSE::get_line( void ) {
 
 	r = "";
 	for( auto s : words ) {
-		if( s.size() > 0 && s[0] == '\"' ) {
-			ss = "\"";
+		if( s.size() > 0 && (s[0] == '\"' || s[0] == '\'') ){
+			ss = s[ 0 ];
 			for( int i = 1; i < (int)s.size(); i++ ) {
 				switch( s[i] ) {
 				case '\a':	ss = ss + "\\a";	break;
@@ -295,7 +299,7 @@ std::string CZMA_PARSE::get_line( void ) {
 				default:	ss = ss + s[i];		break;
 				}
 			}
-			ss = ss + '\"';
+			ss = ss + s[0];
 		}
 		else {
 			ss = s;

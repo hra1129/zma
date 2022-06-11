@@ -1,13 +1,7 @@
-﻿  zma_parse_process_adc.cpp
-  zma_parse_process_defd.cpp
-  zma_parse_process_ind.cpp
-  zma_parse_process_otir.cpp
-  zma_parse_process_rrd.cpp
-  zma.cpp
-  zma_parse.cpp
+﻿  zma_parse_process_chg_char_set.cpp
   コード生成しています。
-  99 of 1711 functions ( 5.8%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    177 functions had inline decision re-evaluated but remain unchanged
+  1 of 1812 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    22 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   zma.vcxproj -> C:\Users\hra\Documents\github\zma\src\Release\zma.exe

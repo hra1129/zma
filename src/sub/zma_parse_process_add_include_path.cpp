@@ -25,7 +25,7 @@ bool CZMA_PARSE_ADD_INCLUDE_PATH::process( CZMA_INFORMATION& info, CZMA_PARSE* p
 		put_error( "Path not found in ADD_INCLUDE_PATH." );
 		return false;
 	}
-	if( this->expression( info, 1, v ) == 0 ) {
+	if( this->expression( info, 1, v, false ) == 0 ) {
 		put_error( "Illegal parameter in ADD_INCLUDE_PATH." );
 		return false;
 	}

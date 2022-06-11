@@ -44,17 +44,17 @@ protected:
 	void log_data_dump( void );
 
 	// --------------------------------------------------------------------
-	bool operator_single( CZMA_INFORMATION& info, int &index, CVALUE&result );
-	bool operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& result );
-	bool operator_add_sub( CZMA_INFORMATION& info, int& index, CVALUE& result );
-	bool operator_shift( CZMA_INFORMATION& info, int& index, CVALUE& result );
-	bool operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& result );
-	bool operator_equal( CZMA_INFORMATION& info, int& index, CVALUE& result );
-	bool operator_bit_and( CZMA_INFORMATION& info, int& index, CVALUE& result );
-	bool operator_bit_xor( CZMA_INFORMATION& info, int& index, CVALUE& result );
-	bool operator_bit_or( CZMA_INFORMATION& info, int& index, CVALUE& result );
-	bool operator_logical_and( CZMA_INFORMATION& info, int& index, CVALUE& result );
-	bool operator_logical_or( CZMA_INFORMATION& info, int& index, CVALUE& result );
+	bool operator_single( CZMA_INFORMATION& info, int &index, CVALUE&result, bool do_char_map );
+	bool operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+	bool operator_add_sub( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+	bool operator_shift( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+	bool operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+	bool operator_equal( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+	bool operator_bit_and( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+	bool operator_bit_xor( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+	bool operator_bit_or( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+	bool operator_logical_and( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+	bool operator_logical_or( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
 
 	// --------------------------------------------------------------------
 	//	ñΩóﬂÇÃà¯êîÇâéﬂÇ∑ÇÈä÷êî
@@ -106,7 +106,7 @@ public:
 	void put_message( std::string message );
 	void put_structure_error( std::string message );
 	std::vector<std::string> words;
-	int expression( CZMA_INFORMATION& info, int index, CVALUE& result );
+	int expression( CZMA_INFORMATION& info, int index, CVALUE& result, bool do_char_map = true );
 	std::string escape( const std::string &s );
 
 	// ----------------------------------------------------------------

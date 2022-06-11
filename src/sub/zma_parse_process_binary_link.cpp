@@ -25,7 +25,7 @@ bool CZMA_PARSE_BINARY_LINK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last
 		put_error( "Must be set include file name." );
 		return false;
 	}
-	i = this->expression( info, 1, path );
+	i = this->expression( info, 1, path, false );
 	if( i == 0 ){
 		put_error( "Invalid expression." );
 		return false;

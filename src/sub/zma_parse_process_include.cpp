@@ -42,7 +42,7 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 		put_error( "Must be set include file name." );
 		return false;
 	}
-	i = this->expression( info, 1, path );
+	i = this->expression( info, 1, path, false );
 	if( i == 0 ) {
 		put_error( "Invalid expression." );
 		return false;

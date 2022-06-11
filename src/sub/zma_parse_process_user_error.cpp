@@ -24,7 +24,7 @@ bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_
 		put_error( "User error" );
 		return false;
 	}
-	if( this->expression( info, 1, v ) == 0 ) {
+	if( this->expression( info, 1, v, false ) == 0 ) {
 		put_error( "Illegal parameter in ERROR." );
 	}
 	if( v.value_type == CVALUE_TYPE::CV_STRING ) {

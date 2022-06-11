@@ -26,7 +26,7 @@ enum class CZMA_COMMAND_TYPE {
 	CZMA_NOP, CZMA_HALT, CZMA_DI, CZMA_EI, CZMA_IM0, CZMA_IM1, CZMA_IM2, CZMA_IN, 
 	CZMA_INI, CZMA_INIR, CZMA_IND, CZMA_INDR, CZMA_OUT, CZMA_OUTI, CZMA_OTIR, 
 	CZMA_OUTD, CZMA_OTDR, CZMA_DAA, CZMA_RLD, CZMA_RRD, CZMA_MULUB, CZMA_MULUW,
-	CZMA_CONTAINER,
+	CZMA_CONTAINER, CZMA_CHG_CHAR_SET, CZMA_MAPPING_CHAR,
 };
 
 #include "zma_parse_process_container.hpp"
@@ -126,3 +126,4 @@ enum class CZMA_COMMAND_TYPE {
 #include "zma_parse_process_repeat.hpp"
 #include "zma_parse_process_macro.hpp"
 #include "zma_parse_process_include.hpp"
+#include "zma_parse_process_chg_char_set.hpp"

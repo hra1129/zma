@@ -320,6 +320,9 @@
     <ClCompile Include="sub\zma_parse_process_container.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_chg_char_set.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="zma_text.hpp" />
@@ -423,5 +426,6 @@
     <ClInclude Include="sub\zma_parse_process_repeat.hpp" />
     <ClInclude Include="zma_logger.hpp" />
     <ClInclude Include="sub\zma_parse_process_container.hpp" />
+    <ClInclude Include="sub\zma_parse_process_chg_char_set.hpp" />
   </ItemGroup>
 </Project>

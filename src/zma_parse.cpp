@@ -61,16 +61,16 @@ std::vector<std::string> CZMA_PARSE::get_word_split( std::string s ) {
 					break;
 				}
 				switch( s[2] ) {
-				case 'a':	word = std::to_string( (int)'\a' );		break;
-				case 'b':	word = std::to_string( (int)'\b' );		break;
-				case 'f':	word = std::to_string( (int)'\f' );		break;
-				case 'n':	word = std::to_string( (int)'\n' );		break;
-				case 'r':	word = std::to_string( (int)'\r' );		break;
-				case 't':	word = std::to_string( (int)'\t' );		break;
-				case '\\':	word = std::to_string( (int)'\\' );		break;
-				case '\'':	word = std::to_string( (int)'\'' );		break;
-				case '\"':	word = std::to_string( (int)'\"' );		break;
-				default:	word = std::to_string( ( int) s[2] );	break;
+				case 'a':	word = "'\a";		break;
+				case 'b':	word = "'\b";		break;
+				case 'f':	word = "'\f";		break;
+				case 'n':	word = "'\n";		break;
+				case 'r':	word = "'\r";		break;
+				case 't':	word = "'\t";		break;
+				case '\\':	word = "'\\";		break;
+				case '\'':	word = "'\'";		break;
+				case '\"':	word = "'\"";		break;
+				default:	word = std::string("'") + s[2];	break;
 				}
 				words.push_back( word );
 				if( s[3] != '\'' ) {
@@ -81,7 +81,7 @@ std::vector<std::string> CZMA_PARSE::get_word_split( std::string s ) {
 				continue;
 			}
 			else {
-				word = std::to_string( ( int) s[1] );
+				word = std::string( "\'" ) + s[1];
 				words.push_back( word );
 				if( s[2] != '\'' ) {
 					s = s.substr( 2 );

@@ -150,6 +150,8 @@ bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
 	for( ; ; ) {
 		success_count = 0;
 		info.scope.clear();
+		info.p_char_set = nullptr;
+		info.s_char_set = "DEFAULT";
 		info.is_updated = false;
 		info.is_block_processing = false;
 		info.auto_label_index = 0;
@@ -164,6 +166,8 @@ bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
 		}
 	}
 	info.scope.clear();
+	info.p_char_set = nullptr;
+	info.s_char_set = "DEFAULT";
 	info.is_block_processing = false;
 	info.auto_label_index = 0;
 	p_last_line = this->process( info, success_count, nullptr, true );

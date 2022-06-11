@@ -24,7 +24,7 @@ bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 		put_error( "Message not found in MESSAGE." );
 		return false;
 	}
-	if( this->expression( info, 1, v ) == 0 ) {
+	if( this->expression( info, 1, v, false ) == 0 ) {
 		put_error( "Illegal parameter in MESSAGE." );
 		return false;
 	}

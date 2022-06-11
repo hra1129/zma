@@ -80,6 +80,12 @@ public:
 };
 
 // --------------------------------------------------------------------
+class CZMA_CHAR_SET {
+public:
+	std::vector< unsigned char >	ascii_to_map;
+};
+
+// --------------------------------------------------------------------
 class CZMA_INFORMATION {
 public:
 	std::map< std::string, CVALUE >	dict;
@@ -121,8 +127,12 @@ public:
 
 	CZMA_IF_T*								p_if;
 
+	std::map< std::string, CZMA_CHAR_SET >	char_set_list;
+	CZMA_CHAR_SET*							p_char_set;
+	std::string								s_char_set;
+
 	// --------------------------------------------------------------------
-	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ) {
+	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ), p_char_set( nullptr ){
 	}
 
 	// --------------------------------------------------------------------
