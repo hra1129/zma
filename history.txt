@@ -119,3 +119,5 @@
 	(7) FILE_ADDRESS と同様に使える $$ を追加
 
 	(8) CHG_CHAR_SET命令, MAPPING_CHAR命令を追加。説明書にも追記。
+
+	(9) INCLUDE命令で、FILE_ADDRESS の計算が抜けており、その後の OFFSET が確定せずに不可解な動作を起こすバグを修正。

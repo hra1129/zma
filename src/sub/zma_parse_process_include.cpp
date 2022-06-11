@@ -86,6 +86,7 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 	p_last_line = this->text.process( info, success_count, p_last_line, !this->is_analyze_phase );
 	if( p_last_line->is_fixed_next_code_address() ) {
 		this->next_code_address = p_last_line->get_next_code_address();
+		this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
 	}
 	if( !this->is_data_fixed ) {
 		for( auto p : text.m_text ) {
