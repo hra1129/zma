@@ -21,7 +21,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
     10|      |    |INCLUDE "sub.asm" begin
      5|      |    |LD DE, 100
       |      |    |  Z80:11cyc R800:3cyc
-      |XXXXXX|0003|  11 64 00
+      |000003|0003|  11 64 00
 ------+------+----+----------------------------------
     10|      |    |INCLUDE "sub.asm" end
 
@@ -33,6 +33,6 @@ LINE# |OFFSET|ADDR|MNEMONIC
     14|      |    |MOGE
       |      |    |  Intra-macro scope: @MACRO2:
     14|      |    |DEFB 0, 1
-      |XXXXXX|0006|  00 01
+      |000006|0006|  00 01
 ------+------+----+----------------------------------
 << label >>
