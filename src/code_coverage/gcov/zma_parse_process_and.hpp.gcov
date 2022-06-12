@@ -10,4 +10,4 @@
         -:    8:
         -:    9:#include "zma_parse_process.hpp"
         -:   10:
-       60:   11:CLASS_CZMA_PARSE( AND );
+       62:   11:CLASS_CZMA_PARSE( AND );

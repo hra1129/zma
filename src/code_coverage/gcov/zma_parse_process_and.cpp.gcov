@@ -17,10 +17,10 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-      180:   18:bool CZMA_PARSE_AND::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      186:   18:bool CZMA_PARSE_AND::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-      180:   20:	update_flags( &info, p_last_line );
-      180:   21:	if( this->opecode_a_source8( info, 0xA0 ) ) {
+      186:   20:	update_flags( &info, p_last_line );
+      186:   21:	if( this->opecode_a_source8( info, 0xA0 ) ) {
         -:   22:		//	log
        75:   23:		if( !this->is_analyze_phase ) {
        50:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -35,7 +35,7 @@
         -:   33:		}
         -:   34:		return check_all_fixed();
         -:   35:	}
-      105:   36:	if( this->opecode_a_n8( info, 0xE6 ) ) {
+      111:   36:	if( this->opecode_a_n8( info, 0xE6 ) ) {
         -:   37:		//	log
         9:   38:		if( !this->is_analyze_phase ) {
         6:   39:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -45,7 +45,7 @@
         -:   43:		}
         -:   44:		return check_all_fixed();
         -:   45:	}
-       96:   46:	if( this->opecode_a_memory_hl( info, 0xA6 ) ) {
+      102:   46:	if( this->opecode_a_memory_hl( info, 0xA6 ) ) {
         -:   47:		//	log
        27:   48:		if( !this->is_analyze_phase ) {
        18:   49:			if( words[4] == "HL" ) {
@@ -59,18 +59,18 @@
         -:   57:		}
         -:   58:		return check_all_fixed();
         -:   59:	}
-       69:   60:	if( this->opecode_source8( info, 0xA0 ) ) {
+       75:   60:	if( this->opecode_source8( info, 0xA0 ) ) {
         -:   61:		//	log
-       60:   62:		if( !this->is_analyze_phase ) {
-       40:   63:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       40:   64:			if( data.size() == 2 ) {
+       66:   62:		if( !this->is_analyze_phase ) {
+       44:   63:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       44:   64:			if( data.size() == 2 ) {
     #####:   65:				log.write_cycle_information( 10, 2 );			//	AND IXh
         -:   66:			}
         -:   67:			else {
-       40:   68:				log.write_cycle_information( 5, 1 );			//	AND r
+       44:   68:				log.write_cycle_information( 5, 1 );			//	AND r
         -:   69:			}
-       20:   70:			log.write_dump( this->code_address, this->file_address, this->data );
-       20:   71:			log.write_separator();
+       22:   70:			log.write_dump( this->code_address, this->file_address, this->data );
+       22:   71:			log.write_separator();
         -:   72:		}
         -:   73:		return check_all_fixed();
         -:   74:	}
@@ -86,5 +86,5 @@
         -:   84:	}
         6:   85:	put_error( "Illegal operand" );
         3:   86:	return false;
-      136:   87:}
+      138:   87:}
         -:   88:

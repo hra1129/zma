@@ -22,11 +22,11 @@ bool CZMA_PARSE_ADD_INCLUDE_PATH::process( CZMA_INFORMATION& info, CZMA_PARSE* p
 	set_code_size( &info, 0 );
 	update_flags( &info, p_last_line );
 	if( words.size() == 1 ) {
-		put_error( "Path not found in ADD_INCLUDE_PATH." );
+		put_error( "Illegal parameter." );
 		return false;
 	}
 	if( this->expression( info, 1, v, false ) == 0 ) {
-		put_error( "Illegal parameter in ADD_INCLUDE_PATH." );
+		put_error( "Illegal parameter." );
 		return false;
 	}
 	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
@@ -43,7 +43,7 @@ bool CZMA_PARSE_ADD_INCLUDE_PATH::process( CZMA_INFORMATION& info, CZMA_PARSE* p
 	//	log
 	if( !this->is_analyze_phase ) {
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-		log.push_back( "\tAdd include path: " + v.s );
+		log.write_message( "Add include path: " + v.s );
 	}
 	return true;
 }

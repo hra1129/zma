@@ -34,7 +34,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  Intra-macro scope: @MACRO4:
      7|ERROR |    |Invalid block pair.: test2.asm(7): test2.asm(7)
      7|      |    |ENDR
-     7|ERROR |    |Scope of ENDR does not exist.: test2.asm(7)
+     7|ERROR |    |Invalid command.: test2.asm(7)
     10|      |    |REPEAT I, 5
     10|ERROR |    |Block processing is not close.: test2.asm(10)
     10|      |    |REPEAT I, 5

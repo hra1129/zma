@@ -52,7 +52,7 @@ bool CZMA_PARSE_ELSEIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 	update_flags( &info, p_last_line );
 	if( !this->is_data_fixed ) {
 		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
-			put_error( "There is an ELSEIF description at an incorrect position." );
+			put_error( "Invalid command." );
 			return false;
 		}
 		//	条件式を取り込む
@@ -82,7 +82,7 @@ bool CZMA_PARSE_ELSE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	update_flags( &info, p_last_line );
 	if( !this->is_data_fixed ) {
 		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
-			put_error( "There is an ELSE description at an incorrect position." );
+			put_error( "Invalid command." );
 			return false;
 		}
 		//	条件式を取り込む
@@ -96,7 +96,7 @@ bool CZMA_PARSE_ELSE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 		this->set_code_size( &info, 0 );
 	}
 	if( words.size() != 1 ) {
-		put_error( "ELSE is not need parameters." );
+		put_error( "Too many parameters." );
 		return false;
 	}
 	//	log
@@ -126,12 +126,12 @@ bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 		info.is_updated = true;
 	}
 	if( p_if == nullptr ) {
-		put_error( "Illegal ENDIF." );
+		put_error( "Invalid command." );
 		return false;
 	}
 	info.is_block_processing = false;
 	if( words.size() != 1 ) {
-		put_error( "ENDIF is not need parameters." );
+		put_error( "Too many parameters." );
 		return false;
 	}
 	//	コードサイズを求める処理

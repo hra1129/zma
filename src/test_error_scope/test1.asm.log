@@ -6,5 +6,5 @@ Programmed by t.hara
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |ENDSCOPE
-     6|ERROR |    |ENDSCOPE in wrong position.: test1.asm(6)
+     6|ERROR |    |Invalid command.: test1.asm(6)
 << label >>

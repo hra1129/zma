@@ -22,17 +22,17 @@
         -:   20:
        43:   21:	update_flags( &info, p_last_line );
        86:   22:	if( words.size() > 1 ) {
-        6:   23:		put_error( "ENDSCOPE command has not parameter." );
+        6:   23:		put_error( "Too many parameters." );
         3:   24:		return false;
         -:   25:	}
        40:   26:	this->is_data_fixed = true;
         -:   27:	this->set_code_size( &info, 0 );
        80:   28:	if( info.scope.size() < 1 ) {
-       12:   29:		put_error( "ENDSCOPE in wrong position." );
+       12:   29:		put_error( "Invalid command." );
         6:   30:		return false;
         -:   31:	}
        68:   32:	if( info.scope[ info.scope.size() - 1 ][0] == '@' ) {
-        6:   33:		put_error( "ENDSCOPE in wrong position." );
+        6:   33:		put_error( "Invalid command." );
         3:   34:		return false;
         -:   35:	}
        62:   36:	s_scope = info.get_scope_path();
@@ -45,5 +45,5 @@
         9:   43:		log.write_separator();
         -:   44:	}
         -:   45:	return check_all_fixed();
-      136:   46:}
+      138:   46:}
         -:   47:

@@ -106,7 +106,7 @@ bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	if( !this->is_loaded ) {
 		p_repeat = info.p_repeat;
 		if( p_repeat == nullptr ) {
-			put_error( "Illegal ENDR." );
+			put_error( "Illegal command." );
 			return false;
 		}
 		if( !p_repeat->is_counter_end_fixed ) {
@@ -156,18 +156,18 @@ bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 		}
 	}
 	if( info.scope.size() == 0 ) {
-		put_error( "Scope of ENDR does not exist." );
+		put_error( "Invalid command." );
 		return false;
 	}
 	if( info.scope[info.scope.size() - 1] != p_repeat->scope_name ) {
-		put_error( "Scope of ENDR does not exist." );
+		put_error( "Invalid command." );
 		return false;
 	}
 	s_scope = info.get_scope_path();
 	info.scope.pop_back();
 
 	if( words.size() != 1 ) {
-		put_error( "ENDR is not need parameters." );
+		put_error( "Too many parameters." );
 		return false;
 	}
 	//	log

@@ -44,20 +44,20 @@ bool CZMA_PARSE_CONTAINER::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 
 	update_flags( &info, p_last_line );
 	if( words.size() < 2 ) {
-		put_error( "Must be set include file name." );
+		put_error( "Illegal parameter." );
 		return false;
 	}
 	i = this->expression( info, 1, path );
 	if( i == 0 ) {
-		put_error( "Invalid expression." );
+		put_error( "Illegal expression." );
 		return false;
 	}
 	if( path.value_type != CVALUE_TYPE::CV_STRING ) {
-		put_error( "Invalid parameter." );
+		put_error( "Illegal parameter." );
 		return false;
 	}
 	if( i < (int)words.size() ) {
-		put_error( "INCLUDE command has only one parameter." );
+		put_error( "Too many parameters." );
 		return false;
 	}
 	if( !this->is_loaded ) {
@@ -76,7 +76,7 @@ bool CZMA_PARSE_CONTAINER::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 			}
 		}
 		if( !is_open ) {
-			put_error( std::string( "Cannot open include file '" ) + path.s + "'." );
+			put_error( std::string( "Cannot open the file '" ) + path.s + "'." );
 			return false;
 		}
 		info.is_updated = true;

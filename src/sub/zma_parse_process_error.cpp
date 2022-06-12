@@ -17,6 +17,6 @@
 // --------------------------------------------------------------------
 bool CZMA_PARSE_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 
-	put_error( "Illegal command" );
+	put_error( "Invalid command" );
 	return false;
 }

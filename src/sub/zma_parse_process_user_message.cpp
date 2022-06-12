@@ -21,11 +21,11 @@ bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 	set_code_size( &info, 0 );
 	update_flags( &info, p_last_line );
 	if( words.size() == 1 ) {
-		put_error( "Message not found in MESSAGE." );
+		put_error( "Too many parameters." );
 		return false;
 	}
 	if( this->expression( info, 1, v, false ) == 0 ) {
-		put_error( "Illegal parameter in MESSAGE." );
+		put_error( "Illegal parameter." );
 		return false;
 	}
 	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {

@@ -39,7 +39,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000004|0004|  02
 ------+------+----+----------------------------------
      9|      |    |ENDR
-     9|ERROR |    |Scope of ENDR does not exist.: test6.asm(9)
+     9|ERROR |    |Invalid command.: test6.asm(9)
      9|ERROR |    |Scope is not closed.: test6.asm(9)
 << label >>
 @REPEAT0:I ... 4 ( 0x4 )

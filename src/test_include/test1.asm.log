@@ -18,9 +18,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
      6|      |    |INCLUDE "sub_test.asm" end
      8|      |    |ADD_INCLUDE_PATH "sub"
-	Add include path: sub
+      |      |    |  Add include path: sub
      9|      |    |ADD_INCLUDE_PATH "sub2/"
-	Add include path: sub2/
+      |      |    |  Add include path: sub2/
     11|      |    |INCLUDE "sub_test2.asm" begin
      5|      |    |LD BC, 0x6677
       |      |    |  Z80:11cyc R800:3cyc

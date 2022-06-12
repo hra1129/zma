@@ -70,7 +70,7 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 			}
 		}
 		if( !is_open ) {
-			put_error( std::string( "Cannot open include file '" ) + path.s + "'." );
+			put_error( std::string( "Cannot open the file '" ) + path.s + "'." );
 			return false;
 		}
 		info.is_updated = true;

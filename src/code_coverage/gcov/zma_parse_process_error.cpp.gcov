@@ -17,8 +17,8 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       12:   18:bool CZMA_PARSE_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       15:   18:bool CZMA_PARSE_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-       24:   20:	put_error( "Illegal command" );
-       12:   21:	return false;
-      136:   22:}
+       30:   20:	put_error( "Invalid command" );
+       15:   21:	return false;
+      138:   22:}

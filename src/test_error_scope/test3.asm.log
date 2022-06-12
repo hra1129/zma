@@ -14,15 +14,15 @@ LINE# |OFFSET|ADDR|MNEMONIC
      9|      |    |IF 1
 ------+------+----+----------------------------------
     10|      |    |ENDSCOPE
-    10|ERROR |    |ENDSCOPE in wrong position.: test3.asm(10)
+    10|ERROR |    |Invalid command.: test3.asm(10)
     14|      |    |SCOPE
-    14|ERROR |    |Must be set scope name.: test3.asm(14)
+    14|ERROR |    |Must be set name.: test3.asm(14)
     17|      |    |SCOPE BBB CCC
-    17|ERROR |    |SCOPE command has only one parameter.: test3.asm(17)
+    17|ERROR |    |Too many parameters.: test3.asm(17)
     19|      |    |SCOPE DDD
       |      |    |  Enter scope: DDD:
 ------+------+----+----------------------------------
     20|      |    |ENDSCOPE DDD
-    20|ERROR |    |ENDSCOPE command has not parameter.: test3.asm(20)
+    20|ERROR |    |Too many parameters.: test3.asm(20)
     20|ERROR |    |Scope is not closed.: test3.asm(20)
 << label >>

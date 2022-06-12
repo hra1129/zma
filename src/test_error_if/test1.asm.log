@@ -6,12 +6,12 @@ Programmed by t.hara
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |ELSEIF 0
-     6|ERROR |    |There is an ELSEIF description at an incorrect position.: test1.asm(6)
+     6|ERROR |    |Invalid command.: test1.asm(6)
      7|      |    |DEFB 1
       |XXXXXX|XXXX|  01
 ------+------+----+----------------------------------
     11|      |    |ELSE
-    11|ERROR |    |There is an ELSE description at an incorrect position.: test1.asm(11)
+    11|ERROR |    |Invalid command.: test1.asm(11)
     12|      |    |DEFB 2
       |XXXXXX|XXXX|  02
 ------+------+----+----------------------------------
@@ -22,7 +22,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
     22|      |    |ELSEIF 0
 ------+------+----+----------------------------------
     24|      |    |ELSE HOGEHOGE
-    24|ERROR |    |ELSE is not need parameters.: test1.asm(24)
+    24|ERROR |    |Too many parameters.: test1.asm(24)
     25|      |    |DEFB 6
       |XXXXXX|XXXX|  06
 ------+------+----+----------------------------------

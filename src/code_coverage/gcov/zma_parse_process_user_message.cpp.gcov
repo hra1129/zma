@@ -23,11 +23,11 @@
       213:   21:	set_code_size( &info, 0 );
       213:   22:	update_flags( &info, p_last_line );
       426:   23:	if( words.size() == 1 ) {
-        6:   24:		put_error( "Message not found in MESSAGE." );
+        6:   24:		put_error( "Too many parameters." );
         3:   25:		return false;
         -:   26:	}
       210:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
-      120:   28:		put_error( "Illegal parameter in MESSAGE." );
+      120:   28:		put_error( "Illegal parameter." );
        60:   29:		return false;
         -:   30:	}
       150:   31:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
@@ -38,5 +38,5 @@
        86:   36:		put_message( v.s );
         -:   37:	}
         -:   38:	return true;
-      136:   39:}
+      138:   39:}
         -:   40:

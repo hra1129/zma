@@ -21,11 +21,11 @@
         -:   19:
        63:   20:	update_flags( &info, p_last_line );
       126:   21:	if( words.size() < 2 ) {
-        6:   22:		put_error( "Must be set scope name." );
+        6:   22:		put_error( "Must be set name." );
         3:   23:		return false;
         -:   24:	}
        60:   25:	if( words.size() > 2 ) {
-        6:   26:		put_error( "SCOPE command has only one parameter." );
+        6:   26:		put_error( "Too many parameters." );
         3:   27:		return false;
         -:   28:	}
        57:   29:	this->is_data_fixed = true;
@@ -39,5 +39,5 @@
        17:   37:		log.write_separator();
         -:   38:	}
         -:   39:	return check_all_fixed();
-      136:   40:}
+      138:   40:}
         -:   41:

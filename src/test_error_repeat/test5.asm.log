@@ -24,7 +24,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000004|0004|  01
 ------+------+----+----------------------------------
      9|      |    |ENDR AAA
-     9|ERROR |    |ENDR is not need parameters.: test5.asm(9)
+     9|ERROR |    |Too many parameters.: test5.asm(9)
     11|      |    |REPEAT I, 5 AAA
     11|ERROR |    |Illegal expression.: test5.asm(11)
     13|      |    |ENDR

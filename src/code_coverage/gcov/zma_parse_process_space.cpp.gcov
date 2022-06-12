@@ -27,7 +27,7 @@
         -:   25:			//	ƒTƒCƒY
         4:   26:			i = this->expression( info, 1, v );
         4:   27:			if( i == 0 ){
-    #####:   28:				put_error( "Cannot evaluate the expression" );
+    #####:   28:				put_error( "Illegal expression." );
         -:   29:				data.clear();
     #####:   30:				return false;
         -:   31:			}
@@ -36,7 +36,7 @@
     #####:   34:				return false;
         -:   35:			}
         4:   36:			if( v.i < 0 || v.i > 65536 ){
-    #####:   37:				put_error( "Invalid parameter." );
+    #####:   37:				put_error( "Illegal parameter." );
     #####:   38:				return false;
         -:   39:			}
         -:   40:			space_size = v.i;
@@ -44,7 +44,7 @@
         9:   42:			if( i < (int)this->words.size() && this->words[ i ] == "," ){
         1:   43:				i = this->expression( info, i + 1, v );
         1:   44:				if( i == 0 ){
-    #####:   45:					put_error( "Cannot evaluate the expression" );
+    #####:   45:					put_error( "Illegal expression." );
         -:   46:					data.clear();
     #####:   47:					return false;
         -:   48:				}
@@ -53,7 +53,7 @@
     #####:   51:					return false;
         -:   52:				}
         1:   53:				if( v.i < 0 || v.i > 65536 ){
-    #####:   54:					put_error( "Invalid parameter." );
+    #####:   54:					put_error( "Illegal parameter." );
     #####:   55:					return false;
         -:   56:				}
         -:   57:				value = v.i;
@@ -83,5 +83,5 @@
         4:   81:		log.write_separator();
         -:   82:	}
         -:   83:	return check_all_fixed();
-      136:   84:}
+      138:   84:}
         -:   85:

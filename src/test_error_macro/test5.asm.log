@@ -8,5 +8,5 @@ LINE# |OFFSET|ADDR|MNEMONIC
      5|      |    |HOGE MACRO A, B, C
 ------+------+----+----------------------------------
     10|      |    |HOGA 100, 200, 150
-    10|ERROR |    |Illegal command: test5.asm(10)
+    10|ERROR |    |Invalid command: test5.asm(10)
 << label >>

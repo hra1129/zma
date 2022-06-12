@@ -18,5 +18,5 @@ LINE# |OFFSET|ADDR|MNEMONIC
     12|      |    |BBB
     12|ERROR |    |Scope is not closed.: test2.asm(12)
     12|      |    |ENDSCOPE
-    12|ERROR |    |ENDSCOPE in wrong position.: test2.asm(12)
+    12|ERROR |    |Invalid command.: test2.asm(12)
 << label >>

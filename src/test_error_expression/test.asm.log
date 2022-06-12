@@ -79,16 +79,16 @@ LINE# |OFFSET|ADDR|MNEMONIC
     51|ERROR |    |Illegal operand.: test.asm(51)
     52|      |    |MESSAGE "aa" * "bb"
     52|ERROR |    |Invalid operator '*': test.asm(52)
-    52|ERROR |    |Illegal parameter in MESSAGE.: test.asm(52)
+    52|ERROR |    |Illegal parameter.: test.asm(52)
     53|      |    |MESSAGE "aa" / "bb"
     53|ERROR |    |Invalid operator '/': test.asm(53)
-    53|ERROR |    |Illegal parameter in MESSAGE.: test.asm(53)
+    53|ERROR |    |Illegal parameter.: test.asm(53)
     54|      |    |MESSAGE "aa" % "bb"
     54|ERROR |    |Invalid operator '%': test.asm(54)
-    54|ERROR |    |Illegal parameter in MESSAGE.: test.asm(54)
+    54|ERROR |    |Illegal parameter.: test.asm(54)
     55|      |    |MESSAGE "aa" - "bb"
     55|ERROR |    |Invalid operator '-': test.asm(55)
-    55|ERROR |    |Illegal parameter in MESSAGE.: test.asm(55)
+    55|ERROR |    |Illegal parameter.: test.asm(55)
       |      |    |  MESSAGE: aa: test.asm(56)
       |      |    |  MESSAGE: aa: test.asm(57)
       |      |    |  MESSAGE: aa: test.asm(58)
@@ -103,46 +103,46 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  MESSAGE: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: test.asm(67)
     68|      |    |MESSAGE 20 / "bb"
     68|ERROR |    |Invalid operator '/': test.asm(68)
-    68|ERROR |    |Illegal parameter in MESSAGE.: test.asm(68)
+    68|ERROR |    |Illegal parameter.: test.asm(68)
     69|      |    |MESSAGE 20 % "bb"
     69|ERROR |    |Invalid operator '%': test.asm(69)
-    69|ERROR |    |Illegal parameter in MESSAGE.: test.asm(69)
+    69|ERROR |    |Illegal parameter.: test.asm(69)
     70|      |    |MESSAGE 20 - "bb"
     70|ERROR |    |Invalid operator '-': test.asm(70)
-    70|ERROR |    |Illegal parameter in MESSAGE.: test.asm(70)
+    70|ERROR |    |Illegal parameter.: test.asm(70)
     71|      |    |MESSAGE 20 | "bb"
     71|ERROR |    |Invalid operator '|': test.asm(71)
-    71|ERROR |    |Illegal parameter in MESSAGE.: test.asm(71)
+    71|ERROR |    |Illegal parameter.: test.asm(71)
     72|      |    |MESSAGE 20 & "bb"
     72|ERROR |    |Invalid operator '&': test.asm(72)
-    72|ERROR |    |Illegal parameter in MESSAGE.: test.asm(72)
+    72|ERROR |    |Illegal parameter.: test.asm(72)
     73|      |    |MESSAGE 20 ^ "bb"
     73|ERROR |    |Invalid operator '^': test.asm(73)
-    73|ERROR |    |Illegal parameter in MESSAGE.: test.asm(73)
+    73|ERROR |    |Illegal parameter.: test.asm(73)
     74|      |    |MESSAGE 20 && "bb"
     74|ERROR |    |Invalid operator '&&': test.asm(74)
-    74|ERROR |    |Illegal parameter in MESSAGE.: test.asm(74)
+    74|ERROR |    |Illegal parameter.: test.asm(74)
     75|      |    |MESSAGE 20 || "bb"
     75|ERROR |    |Invalid operator '||': test.asm(75)
-    75|ERROR |    |Illegal parameter in MESSAGE.: test.asm(75)
+    75|ERROR |    |Illegal parameter.: test.asm(75)
     76|      |    |MESSAGE 20 >> "bb"
     76|ERROR |    |Invalid operator '>>': test.asm(76)
-    76|ERROR |    |Illegal parameter in MESSAGE.: test.asm(76)
+    76|ERROR |    |Illegal parameter.: test.asm(76)
     77|      |    |MESSAGE 20 << "bb"
     77|ERROR |    |Invalid operator '<<': test.asm(77)
-    77|ERROR |    |Illegal parameter in MESSAGE.: test.asm(77)
+    77|ERROR |    |Illegal parameter.: test.asm(77)
     78|      |    |MESSAGE 20 > "bb"
     78|ERROR |    |Invalid operator '>': test.asm(78)
-    78|ERROR |    |Illegal parameter in MESSAGE.: test.asm(78)
+    78|ERROR |    |Illegal parameter.: test.asm(78)
     79|      |    |MESSAGE 20 < "bb"
     79|ERROR |    |Invalid operator '<': test.asm(79)
-    79|ERROR |    |Illegal parameter in MESSAGE.: test.asm(79)
+    79|ERROR |    |Illegal parameter.: test.asm(79)
     80|      |    |MESSAGE 20 >= "bb"
     80|ERROR |    |Invalid operator '>=': test.asm(80)
-    80|ERROR |    |Illegal parameter in MESSAGE.: test.asm(80)
+    80|ERROR |    |Illegal parameter.: test.asm(80)
     81|      |    |MESSAGE 20 <= "bb"
     81|ERROR |    |Invalid operator '<=': test.asm(81)
-    81|ERROR |    |Illegal parameter in MESSAGE.: test.asm(81)
+    81|ERROR |    |Illegal parameter.: test.asm(81)
     82|      |    |LD BC, 10 + INVALID_LABEL
     82|ERROR |    |Illegal operand.: test.asm(82)
 << label >>

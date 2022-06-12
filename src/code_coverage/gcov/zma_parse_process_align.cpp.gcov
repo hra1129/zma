@@ -26,7 +26,7 @@
         2:   24:		if( this->is_fixed_code_address() ){
         2:   25:			i = this->expression( info, 1, v );
         2:   26:			if( i == 0 ){
-    #####:   27:				put_error( std::string( "Cannot evaluate the expression" ) );
+    #####:   27:				put_error( "Illegal expression." );
         -:   28:				data.clear();
     #####:   29:				return false;
         -:   30:			}
@@ -54,8 +54,8 @@
         -:   52:
         6:   53:	if( !is_analyze_phase ){
         4:   54:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       10:   55:		log.push_back( "\tPadding: " + std::to_string( this->get_code_size() ) + "byte(s)" );
+       10:   55:		log.write_message( "Padding: " + std::to_string( this->get_code_size() ) + "byte(s)" );
         2:   56:		log.write_separator();
         -:   57:	}
         -:   58:	return check_all_fixed();
-      136:   59:}
+      138:   59:}

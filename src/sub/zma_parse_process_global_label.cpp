@@ -41,7 +41,7 @@ bool CZMA_PARSE_GLOBAL_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 		}
 	}
 	if( words[0][0] == '\"' ) {
-		put_error( "Label name cannot be string." );
+		put_error( "Invalid command." );
 		return false;
 	}
 	if( this->is_fixed_code_address() ) {

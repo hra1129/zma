@@ -8,31 +8,31 @@ LINE# |OFFSET|ADDR|MNEMONIC
      6|      |    |ERROR "user error!!!"
      6|ERROR |    |user error!!!: test.asm(6)
      7|      |    |ERROR
-     7|ERROR |    |User error: test.asm(7)
+     7|ERROR |    |Too many parameters.: test.asm(7)
      8|      |    |ERROR +
      8|ERROR |    |Invalid operator '+'.: test.asm(8)
-     8|ERROR |    |Illegal parameter in ERROR.: test.asm(8)
+     8|ERROR |    |Illegal parameter.: test.asm(8)
      9|      |    |ERROR 100
      9|ERROR |    |100: test.asm(9)
     10|      |    |ERROR HOGE
-    10|ERROR |    |Illegal parameter in ERROR.: test.asm(10)
+    10|ERROR |    |Illegal parameter.: test.asm(10)
     13|      |    |MESSAGE
-    13|ERROR |    |Message not found in MESSAGE.: test.asm(13)
+    13|ERROR |    |Too many parameters.: test.asm(13)
     14|      |    |MESSAGE +
     14|ERROR |    |Invalid operator '+'.: test.asm(14)
-    14|ERROR |    |Illegal parameter in MESSAGE.: test.asm(14)
+    14|ERROR |    |Illegal parameter.: test.asm(14)
       |      |    |  MESSAGE: 100: test.asm(15)
     16|      |    |MESSAGE MONMON
-    16|ERROR |    |Illegal parameter in MESSAGE.: test.asm(16)
+    16|ERROR |    |Illegal parameter.: test.asm(16)
     19|      |    |ADD_INCLUDE_PATH
-    19|ERROR |    |Path not found in ADD_INCLUDE_PATH.: test.asm(19)
+    19|ERROR |    |Illegal parameter.: test.asm(19)
     20|      |    |ADD_INCLUDE_PATH +
     20|ERROR |    |Invalid operator '+'.: test.asm(20)
-    20|ERROR |    |Illegal parameter in ADD_INCLUDE_PATH.: test.asm(20)
+    20|ERROR |    |Illegal parameter.: test.asm(20)
     21|      |    |ADD_INCLUDE_PATH 100
-	Add include path: 100
+      |      |    |  Add include path: 100
     24|      |    |INVALID_OPECODE
-    24|ERROR |    |Illegal command: test.asm(24)
+    24|ERROR |    |Invalid command: test.asm(24)
     27|      |    |LD A, [ IX - 129 ]
     27|ERROR |    |Offset value is out of range (-129).: test.asm(27)
     27|ERROR |    |Illegal operand.: test.asm(27)

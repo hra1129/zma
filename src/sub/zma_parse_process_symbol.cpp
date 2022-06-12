@@ -19,13 +19,38 @@ bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 	std::string label;
 	CVALUE v;
 
-	update_flags( &info, p_last_line );
-	if( this->is_data_fixed ) {
-		return check_all_fixed();
-	}
 	this->set_code_size( &info, 0 );
+	update_flags( &info, p_last_line );
+	//	log
+	label = info.get_scope_path() + words[0];
+	if( !this->is_analyze_phase ) {
+		std::stringstream s;
+		log.write_line_infomation( this->line_no, -1, -1, get_line() );
+		if( !info.dict.count( label ) ){
+			s << "global symbol [" << label << "] = UNKNOWN";
+		}
+		else {
+			v = info.dict[label];
+			if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
+				s << "Symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
+			}
+			else if( v.value_type == CVALUE_TYPE::CV_STRING ) {
+				s << "Symbol [" << label << "] = \"" << v.s << "\"";
+			}
+			else {
+				s << "Symbol [" << label << "] = UNKNOWN";
+			}
+		}
+		log.write_message( s.str() );
+		log.write_separator();
+	}
+	if( this->is_data_fixed ) {
+		if( check_all_fixed() && info.dict.count( label ) ){
+			return true;
+		}
+	}
 	if( words[0][0] == '\"' ) {
-		put_error( "Label name cannot be string." );
+		put_error( "Invalid command." );
 		return false;
 	}
 	if( this->expression( info, 2, v ) ) {
@@ -33,9 +58,8 @@ bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 			put_error( "Illegal expression." );
 			return false;
 		}
-		label = info.get_scope_path() + words[0];
 		if( info.dict.count( label ) ) {
-			put_error( std::string( "There are declarations of the same label '" ) + label + "' in multiple places." );
+			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
 			return false;
 		}
 		else {
@@ -45,9 +69,8 @@ bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 		}
 	}
 	else {
-		put_error( std::string( "Label '" ) + words[0] + "' is indeterminate." );
+		put_error( "Label '" + words[0] + "' is indeterminate." );
 		return false;
 	}
 	return check_all_fixed();
 }
-

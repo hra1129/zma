@@ -24,11 +24,11 @@
        15:   22:	set_code_size( &info, 0 );
        15:   23:	update_flags( &info, p_last_line );
        30:   24:	if( words.size() == 1 ) {
-        6:   25:		put_error( "Path not found in ADD_INCLUDE_PATH." );
+        6:   25:		put_error( "Illegal parameter." );
         3:   26:		return false;
         -:   27:	}
        12:   28:	if( this->expression( info, 1, v, false ) == 0 ) {
-        6:   29:		put_error( "Illegal parameter in ADD_INCLUDE_PATH." );
+        6:   29:		put_error( "Illegal parameter." );
         3:   30:		return false;
         -:   31:	}
         9:   32:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
@@ -45,7 +45,7 @@
         -:   43:	//	log
         9:   44:	if( !this->is_analyze_phase ) {
         6:   45:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        6:   46:		log.push_back( "\tAdd include path: " + v.s );
+        6:   46:		log.write_message( "Add include path: " + v.s );
         -:   47:	}
         -:   48:	return true;
-      136:   49:}
+      138:   49:}

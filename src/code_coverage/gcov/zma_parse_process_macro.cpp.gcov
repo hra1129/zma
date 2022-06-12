@@ -194,4 +194,4 @@
         -:  192:	}
       369:  193:	this->next_code_address = p_last_line->get_next_code_address();
         -:  194:	return result && check_all_fixed();
-      136:  195:}
+      138:  195:}

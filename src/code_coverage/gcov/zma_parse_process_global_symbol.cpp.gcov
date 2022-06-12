@@ -24,52 +24,55 @@
        24:   22:	this->set_code_size( &info, 0 );
        24:   23:	update_flags( &info, p_last_line );
         -:   24:	//	log
-       72:   25:	label = info.get_scope_path() + words[ 0 ];
-       24:   26:	if( !this->is_analyze_phase ){
+       24:   25:	label = words[0];
+       24:   26:	if( !this->is_analyze_phase ) {
        16:   27:		std::stringstream s;
-       16:   28:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        8:   29:		if( this->get_code_address() == -1 ){
-        2:   30:			s << "global label address: 0xXXXXXX";
+       16:   28:		log.write_line_infomation( this->line_no, -1, -1, get_line() );
+        -:   29:		if( !info.dict.count( label ) ){
+        4:   30:			s << "global symbol [" << label << "] = UNKNOWN";
         -:   31:		}
-        -:   32:		else{
-        6:   33:			s << "global label [" << label << "] address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
-        -:   34:		}
-       16:   35:		log.write_message( s.str() );
-        8:   36:		log.write_separator();
-        -:   37:	}
-       24:   38:	if( this->is_data_fixed ) {
-        -:   39:		if( check_all_fixed() && info.dict.count( label ) ){
-        -:   40:			return true;
-        -:   41:		}
-        -:   42:	}
-       40:   43:	if( words[ 0 ][ 0 ] == '\"' ){
-        6:   44:		put_error( "Label name cannot be string." );
-        3:   45:		return false;
+        -:   32:		else {
+        4:   33:			v = info.dict[label];
+        4:   34:			if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
+        8:   35:				s << "Global symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
+        -:   36:			}
+    #####:   37:			else if( v.value_type == CVALUE_TYPE::CV_STRING ) {
+    #####:   38:				s << "Global symbol [" << label << "] = \"" << v.s << "\"";
+        -:   39:			}
+        -:   40:			else {
+    #####:   41:				s << "Global symbol [" << label << "] = UNKNOWN";
+        -:   42:			}
+        -:   43:		}
+       16:   44:		log.write_message( s.str() );
+        8:   45:		log.write_separator();
         -:   46:	}
-        -:   47:
-        -:   48:
-        -:   49:
-        -:   50:	this->set_code_size( &info, 0 );
-       17:   51:	if( this->expression( info, 2, v ) ) {
-       14:   52:		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
-       12:   53:			put_error( "Illegal expression." );
-        6:   54:			return false;
-        -:   55:		}
-        8:   56:		label = words[0];
-        -:   57:		if( info.dict.count( label ) ) {
-       30:   58:			put_error( std::string( "There are declarations of the same label '" ) + label + "' in multiple places." );
+       24:   47:	if( this->is_data_fixed ) {
+        -:   48:		if( check_all_fixed() && info.dict.count( label ) ){
+        -:   49:			return true;
+        -:   50:		}
+        -:   51:	}
+       40:   52:	if( words[0][0] == '\"' ) {
+        6:   53:		put_error( "Invalid command." );
+        3:   54:		return false;
+        -:   55:	}
+       17:   56:	if( this->expression( info, 2, v ) ) {
+       14:   57:		if( v.value_type == CVALUE_TYPE::CV_UNKNOWN ) {
+       12:   58:			put_error( "Illegal expression." );
         6:   59:			return false;
         -:   60:		}
-        -:   61:		else {
-        2:   62:			this->is_data_fixed = true;
-        2:   63:			info.dict[label] = v;
-        2:   64:			info.is_updated = true;
-        -:   65:		}
-        -:   66:	}
-        -:   67:	else {
-       12:   68:		put_error( std::string( "Label '" ) + words[0] + "' is indeterminate." );
-        3:   69:		return false;
+        -:   61:		if( info.dict.count( label ) ) {
+       24:   62:			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
+        6:   63:			return false;
+        -:   64:		}
+        -:   65:		else {
+        2:   66:			this->is_data_fixed = true;
+        2:   67:			info.dict[label] = v;
+        2:   68:			info.is_updated = true;
+        -:   69:		}
         -:   70:	}
-        -:   71:	return check_all_fixed();
-      136:   72:}
-        -:   73:
+        -:   71:	else {
+        9:   72:		put_error( "Label '" + words[0] + "' is indeterminate." );
+        3:   73:		return false;
+        -:   74:	}
+        -:   75:	return check_all_fixed();
+      138:   76:}

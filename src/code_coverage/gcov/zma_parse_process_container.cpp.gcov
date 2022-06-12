@@ -46,20 +46,20 @@
         -:   44:
     #####:   45:	update_flags( &info, p_last_line );
     #####:   46:	if( words.size() < 2 ) {
-    #####:   47:		put_error( "Must be set include file name." );
+    #####:   47:		put_error( "Illegal parameter." );
     #####:   48:		return false;
         -:   49:	}
     #####:   50:	i = this->expression( info, 1, path );
     #####:   51:	if( i == 0 ) {
-    #####:   52:		put_error( "Invalid expression." );
+    #####:   52:		put_error( "Illegal expression." );
     #####:   53:		return false;
         -:   54:	}
     #####:   55:	if( path.value_type != CVALUE_TYPE::CV_STRING ) {
-    #####:   56:		put_error( "Invalid parameter." );
+    #####:   56:		put_error( "Illegal parameter." );
     #####:   57:		return false;
         -:   58:	}
     #####:   59:	if( i < (int)words.size() ) {
-    #####:   60:		put_error( "INCLUDE command has only one parameter." );
+    #####:   60:		put_error( "Too many parameters." );
     #####:   61:		return false;
         -:   62:	}
     #####:   63:	if( !this->is_loaded ) {
@@ -78,7 +78,7 @@
         -:   76:			}
         -:   77:		}
         -:   78:		if( !is_open ) {
-    #####:   79:			put_error( std::string( "Cannot open include file '" ) + path.s + "'." );
+    #####:   79:			put_error( std::string( "Cannot open the file '" ) + path.s + "'." );
     #####:   80:			return false;
         -:   81:		}
     #####:   82:		info.is_updated = true;
@@ -119,4 +119,4 @@
         -:  117:		return false;
         -:  118:	}
         -:  119:	return check_all_fixed();
-      136:  120:}
+      138:  120:}

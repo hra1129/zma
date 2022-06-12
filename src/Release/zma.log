@@ -1,7 +1,22 @@
-﻿  zma_parse_process_include.cpp
+﻿  zma_parse_process_add_include_path.cpp
+  zma_parse_process_align.cpp
+  zma_parse_process_binary_link.cpp
+  zma_parse_process_container.cpp
+  zma_parse_process_endscope.cpp
+  zma_parse_process_error.cpp
+  zma_parse_process_global_label.cpp
+  zma_parse_process_global_symbol.cpp
+  zma_parse_process_if.cpp
+  zma_parse_process_include.cpp
+  zma_parse_process_repeat.cpp
+  zma_parse_process_scope.cpp
+  zma_parse_process_space.cpp
+  zma_parse_process_symbol.cpp
+  zma_parse_process_user_error.cpp
+  zma_parse_process_user_message.cpp
   コード生成しています。
-  1 of 1812 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  21 of 1812 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    26 functions had inline decision re-evaluated but remain unchanged
+    156 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   zma.vcxproj -> C:\Users\hra\Documents\github\zma\src\Release\zma.exe

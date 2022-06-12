@@ -43,7 +43,7 @@
         -:   41:		}
         -:   42:	}
        24:   43:	if( words[0][0] == '\"' ) {
-        6:   44:		put_error( "Label name cannot be string." );
+        6:   44:		put_error( "Invalid command." );
         3:   45:		return false;
         -:   46:	}
         9:   47:	if( this->is_fixed_code_address() ) {
@@ -64,4 +64,4 @@
         3:   62:		return false;
         -:   63:	}
         -:   64:	return check_all_fixed();
-      136:   65:}
+      138:   65:}

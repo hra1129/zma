@@ -11,5 +11,5 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000000|0000|  02
 ------+------+----+----------------------------------
      8|      |    |ENDR
-     8|ERROR |    |Illegal ENDR.: test8.asm(8)
+     8|ERROR |    |Illegal command.: test8.asm(8)
 << label >>

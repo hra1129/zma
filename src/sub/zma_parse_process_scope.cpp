@@ -19,11 +19,11 @@ bool CZMA_PARSE_SCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 
 	update_flags( &info, p_last_line );
 	if( words.size() < 2 ) {
-		put_error( "Must be set scope name." );
+		put_error( "Must be set name." );
 		return false;
 	}
 	if( words.size() > 2 ) {
-		put_error( "SCOPE command has only one parameter." );
+		put_error( "Too many parameters." );
 		return false;
 	}
 	this->is_data_fixed = true;

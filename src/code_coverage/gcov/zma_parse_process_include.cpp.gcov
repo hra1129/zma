@@ -72,7 +72,7 @@
         -:   70:			}
         -:   71:		}
         -:   72:		if( !is_open ) {
-       12:   73:			put_error( std::string( "Cannot open include file '" ) + path.s + "'." );
+       12:   73:			put_error( std::string( "Cannot open the file '" ) + path.s + "'." );
         3:   74:			return false;
         -:   75:		}
        14:   76:		info.is_updated = true;
@@ -114,4 +114,4 @@
         -:  112:		return false;
         -:  113:	}
         -:  114:	return check_all_fixed();
-      136:  115:}
+      138:  115:}

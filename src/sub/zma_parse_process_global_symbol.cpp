@@ -22,15 +22,24 @@ bool CZMA_PARSE_GLOBAL_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_la
 	this->set_code_size( &info, 0 );
 	update_flags( &info, p_last_line );
 	//	log
-	label = info.get_scope_path() + words[ 0 ];
-	if( !this->is_analyze_phase ){
+	label = words[0];
+	if( !this->is_analyze_phase ) {
 		std::stringstream s;
-		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-		if( this->get_code_address() == -1 ){
-			s << "global label address: 0xXXXXXX";
+		log.write_line_infomation( this->line_no, -1, -1, get_line() );
+		if( !info.dict.count( label ) ){
+			s << "global symbol [" << label << "] = UNKNOWN";
 		}
-		else{
-			s << "global label [" << label << "] address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
+		else {
+			v = info.dict[label];
+			if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
+				s << "Global symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
+			}
+			else if( v.value_type == CVALUE_TYPE::CV_STRING ) {
+				s << "Global symbol [" << label << "] = \"" << v.s << "\"";
+			}
+			else {
+				s << "Global symbol [" << label << "] = UNKNOWN";
+			}
 		}
 		log.write_message( s.str() );
 		log.write_separator();
@@ -40,22 +49,17 @@ bool CZMA_PARSE_GLOBAL_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_la
 			return true;
 		}
 	}
-	if( words[ 0 ][ 0 ] == '\"' ){
-		put_error( "Label name cannot be string." );
+	if( words[0][0] == '\"' ) {
+		put_error( "Invalid command." );
 		return false;
 	}
-
-
-
-	this->set_code_size( &info, 0 );
 	if( this->expression( info, 2, v ) ) {
-		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
+		if( v.value_type == CVALUE_TYPE::CV_UNKNOWN ) {
 			put_error( "Illegal expression." );
 			return false;
 		}
-		label = words[0];
 		if( info.dict.count( label ) ) {
-			put_error( std::string( "There are declarations of the same label '" ) + label + "' in multiple places." );
+			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
 			return false;
 		}
 		else {
@@ -65,9 +69,8 @@ bool CZMA_PARSE_GLOBAL_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_la
 		}
 	}
 	else {
-		put_error( std::string( "Label '" ) + words[0] + "' is indeterminate." );
+		put_error( "Label '" + words[0] + "' is indeterminate." );
 		return false;
 	}
 	return check_all_fixed();
 }
-

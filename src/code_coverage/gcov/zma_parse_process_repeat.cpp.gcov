@@ -108,7 +108,7 @@
        76:  106:	if( !this->is_loaded ) {
        31:  107:		p_repeat = info.p_repeat;
        31:  108:		if( p_repeat == nullptr ) {
-       18:  109:			put_error( "Illegal ENDR." );
+       18:  109:			put_error( "Illegal command." );
         9:  110:			return false;
         -:  111:		}
        22:  112:		if( !p_repeat->is_counter_end_fixed ) {
@@ -158,18 +158,18 @@
         -:  156:		}
         -:  157:	}
       122:  158:	if( info.scope.size() == 0 ) {
-        2:  159:		put_error( "Scope of ENDR does not exist." );
+        2:  159:		put_error( "Invalid command." );
         1:  160:		return false;
         -:  161:	}
       120:  162:	if( info.scope[info.scope.size() - 1] != p_repeat->scope_name ) {
-        8:  163:		put_error( "Scope of ENDR does not exist." );
+        8:  163:		put_error( "Invalid command." );
         4:  164:		return false;
         -:  165:	}
       112:  166:	s_scope = info.get_scope_path();
         -:  167:	info.scope.pop_back();
         -:  168:
       112:  169:	if( words.size() != 1 ) {
-        4:  170:		put_error( "ENDR is not need parameters." );
+        4:  170:		put_error( "Too many parameters." );
         2:  171:		return false;
         -:  172:	}
         -:  173:	//	log
@@ -178,4 +178,4 @@
        13:  176:		log.write_separator();
         -:  177:	}
         -:  178:	return check_all_fixed();
-      136:  179:}
+      138:  179:}

@@ -54,7 +54,7 @@
        60:   52:	update_flags( &info, p_last_line );
        60:   53:	if( !this->is_data_fixed ) {
        24:   54:		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
-        6:   55:			put_error( "There is an ELSEIF description at an incorrect position." );
+        6:   55:			put_error( "Invalid command." );
         3:   56:			return false;
         -:   57:		}
         -:   58:		//	条件式を取り込む
@@ -84,7 +84,7 @@
        98:   82:	update_flags( &info, p_last_line );
        98:   83:	if( !this->is_data_fixed ) {
        36:   84:		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
-        6:   85:			put_error( "There is an ELSE description at an incorrect position." );
+        6:   85:			put_error( "Invalid command." );
         3:   86:			return false;
         -:   87:		}
         -:   88:		//	条件式を取り込む
@@ -98,7 +98,7 @@
         -:   96:		this->set_code_size( &info, 0 );
         -:   97:	}
       190:   98:	if( words.size() != 1 ) {
-        6:   99:		put_error( "ELSE is not need parameters." );
+        6:   99:		put_error( "Too many parameters." );
         3:  100:		return false;
         -:  101:	}
         -:  102:	//	log
@@ -128,12 +128,12 @@
        49:  126:		info.is_updated = true;
         -:  127:	}
       143:  128:	if( p_if == nullptr ) {
-       14:  129:		put_error( "Illegal ENDIF." );
+       14:  129:		put_error( "Invalid command." );
         7:  130:		return false;
         -:  131:	}
       136:  132:	info.is_block_processing = false;
       272:  133:	if( words.size() != 1 ) {
-        6:  134:		put_error( "ENDIF is not need parameters." );
+        6:  134:		put_error( "Too many parameters." );
         3:  135:		return false;
         -:  136:	}
         -:  137:	//	コードサイズを求める処理
@@ -249,5 +249,5 @@
         -:  247:	}
        42:  248:	log.write_separator();
         -:  249:	return result;
-      136:  250:}
+      138:  250:}
         -:  251:
