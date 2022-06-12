@@ -10,7 +10,6 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  Enter scope: @REPEAT0:
 ------+------+----+----------------------------------
      5|      |    |INCLUDE "sub_repeat.asm" end
-
      6|      |    |DEFB I
       |000000|0000|  00
 ------+------+----+----------------------------------
@@ -32,12 +31,10 @@ LINE# |OFFSET|ADDR|MNEMONIC
      5|      |    |HOGE MACRO
 ------+------+----+----------------------------------
      8|      |    |INCLUDE "sub_macro.asm" end
-
     11|      |    |INCLUDE "sub_if.asm" begin
      5|      |    |IF 1
 ------+------+----+----------------------------------
     11|      |    |INCLUDE "sub_if.asm" end
-
      6|      |    |DEFB 9
       |000005|0005|  09
 ------+------+----+----------------------------------
@@ -46,7 +43,6 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  Enter scope: MMM:
 ------+------+----+----------------------------------
     14|      |    |INCLUDE "sub_scope.asm" end
-
     15|      |    |ENDSCOPE
       |      |    |  Exit scope: MMM:
 ------+------+----+----------------------------------

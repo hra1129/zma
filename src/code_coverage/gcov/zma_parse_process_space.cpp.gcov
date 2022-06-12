@@ -1,0 +1,87 @@
+        -:    0:Source:../sub/zma_parse_process_space.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+       12:   18:bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
+        -:   19:	int i, space_size, value;
+        -:   20:	CVALUE v;
+        -:   21:
+       12:   22:	update_flags( &info, p_last_line );
+       12:   23:	if( !this->is_data_fixed ){
+        4:   24:		if( !this->is_fixed_code_size() ){
+        -:   25:			//	サイズ
+        4:   26:			i = this->expression( info, 1, v );
+        4:   27:			if( i == 0 ){
+    #####:   28:				put_error( "Cannot evaluate the expression" );
+        -:   29:				data.clear();
+    #####:   30:				return false;
+        -:   31:			}
+        4:   32:			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
+    #####:   33:				put_error( "Illegal expression." );
+    #####:   34:				return false;
+        -:   35:			}
+        4:   36:			if( v.i < 0 || v.i > 65536 ){
+    #####:   37:				put_error( "Invalid parameter." );
+    #####:   38:				return false;
+        -:   39:			}
+        -:   40:			space_size = v.i;
+        -:   41:			//	, があるか？
+        9:   42:			if( i < (int)this->words.size() && this->words[ i ] == "," ){
+        1:   43:				i = this->expression( info, i + 1, v );
+        1:   44:				if( i == 0 ){
+    #####:   45:					put_error( "Cannot evaluate the expression" );
+        -:   46:					data.clear();
+    #####:   47:					return false;
+        -:   48:				}
+        1:   49:				if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
+    #####:   50:					put_error( "Illegal expression." );
+    #####:   51:					return false;
+        -:   52:				}
+        1:   53:				if( v.i < 0 || v.i > 65536 ){
+    #####:   54:					put_error( "Invalid parameter." );
+    #####:   55:					return false;
+        -:   56:				}
+        -:   57:				value = v.i;
+        -:   58:			}
+        -:   59:			else{
+        -:   60:				value = 0;
+        -:   61:			}
+        -:   62:			//	スペースを確保する
+        -:   63:			this->set_code_size( &info, space_size );
+     1068:   64:			for( i = 0; i < space_size; i++ ){
+     1064:   65:				this->data.push_back( value );
+        -:   66:			}
+        4:   67:			this->is_data_fixed = true;
+        4:   68:			info.is_updated = true;
+        -:   69:		}
+        -:   70:	}
+        -:   71:
+       12:   72:	if( !is_analyze_phase ){
+        8:   73:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        4:   74:		if( this->get_code_size() ){
+       16:   75:			log.write_message( "Allocate space: " + std::to_string( this->get_code_size() ) + "byte(s)" );
+       16:   76:			log.write_message( "Fill value    : " + std::to_string( this->data[0] ) );
+        -:   77:		}
+        -:   78:		else{
+    #####:   79:			log.write_message( "No space was allocated." );
+        -:   80:		}
+        4:   81:		log.write_separator();
+        -:   82:	}
+        -:   83:	return check_all_fixed();
+      136:   84:}
+        -:   85:

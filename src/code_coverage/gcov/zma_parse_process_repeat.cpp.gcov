@@ -1,0 +1,181 @@
+        -:    0:Source:../sub/zma_parse_process_repeat.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+       22:   18:bool CZMA_PARSE_ENDR::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
+        -:   19:	bool result;
+        -:   20:
+        -:   21:	result = true;
+      386:   22:	for( auto text : this->text_list ) {
+      364:   23:		result = result && text->write( info, f );
+        -:   24:	}
+       71:   25:	for( auto line : log ) {
+       49:   26:		info.log << line << std::endl;
+        -:   27:	}
+       22:   28:	return result;
+        -:   29:}
+        -:   30:
+        -:   31:// --------------------------------------------------------------------
+       76:   32:bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   33:	std::string label;
+        -:   34:	CVALUE v;
+        -:   35:	int index;
+        -:   36:
+       76:   37:	update_flags( &info, p_last_line );
+        -:   38:	this->set_code_size( &info, 0 );
+       76:   39:	if( p_repeat == nullptr ) {
+       22:   40:		p_repeat = new CZMA_REPEAT_T;
+        -:   41:	}
+       76:   42:	if( !p_repeat->is_counter_end_fixed ) {
+       58:   43:		if( words.size() < 4 ) {
+        -:   44:			//	REPEAT •Ï”–¼ , ’l ‚ÅA­‚È‚­‚Æ‚à 4[word] ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
+        6:   45:			put_error( "Illegal parameter." );
+        3:   46:			return false;
+        -:   47:		}
+       26:   48:		if( words[2] != "," ) {
+        6:   49:			put_error( "Illegal parameter." );
+        3:   50:			return false;
+        -:   51:		}
+        -:   52:
+       23:   53:		info.block_type = CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK;
+       23:   54:		info.p_repeat = p_repeat;
+       23:   55:		info.is_block_processing = true;
+       23:   56:		info.p_text = &(info.p_repeat->m_text);
+        -:   57:
+       23:   58:		index = this->expression( info, 3, v );
+       23:   59:		if( index == 0 ) {
+        4:   60:			put_error( "Illegal expression." );
+        2:   61:			return false;
+        -:   62:		}
+       42:   63:		if( index < ( int) words.size() ) {
+        4:   64:			put_error( "Illegal expression." );
+        2:   65:			return false;
+        -:   66:		}
+       19:   67:		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
+        4:   68:			put_error( "Illegal parameter." );
+        2:   69:			return false;
+        -:   70:		}
+       17:   71:		p_repeat->counter_end = v.i;
+       17:   72:		p_repeat->is_counter_end_fixed = true;
+       51:   73:		p_repeat->scope_name = "@REPEAT" + std::to_string( info.get_auto_label_index() );
+       17:   74:		info.scope.push_back( p_repeat->scope_name );
+       68:   75:		p_repeat->counter_symbol = info.get_scope_path() + words[1];
+       17:   76:		v.value_type = CVALUE_TYPE::CV_INTEGER;
+       17:   77:		v.i = 0;
+       17:   78:		info.dict[p_repeat->counter_symbol] = v;
+        -:   79:
+       17:   80:		this->is_data_fixed = true;
+       17:   81:		info.is_updated = true;
+        -:   82:	}
+        -:   83:	else {
+       47:   84:		info.scope.push_back( p_repeat->scope_name );
+        -:   85:
+      188:   86:		p_repeat->counter_symbol = info.get_scope_path() + words[1];
+        -:   87:	}
+        -:   88:
+        -:   89:	//	log
+       64:   90:	if( !is_analyze_phase ) {
+       34:   91:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       51:   92:		log.write_message( "Enter scope: " + info.get_scope_path() );
+       17:   93:		log.write_separator();
+        -:   94:	}
+        -:   95:	return check_all_fixed();
+        -:   96:}
+        -:   97:
+        -:   98:// --------------------------------------------------------------------
+       76:   99:bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:  100:	CZMA_TEXT* p_text;
+        -:  101:	int i;
+        -:  102:	unsigned int sub_success_count;
+        -:  103:	std::string s_scope;
+        -:  104:
+       76:  105:	update_flags( &info, p_last_line );
+       76:  106:	if( !this->is_loaded ) {
+       31:  107:		p_repeat = info.p_repeat;
+       31:  108:		if( p_repeat == nullptr ) {
+       18:  109:			put_error( "Illegal ENDR." );
+        9:  110:			return false;
+        -:  111:		}
+       22:  112:		if( !p_repeat->is_counter_end_fixed ) {
+       12:  113:			put_error( "REPEAT counter is not fixed." );
+        6:  114:			return false;
+        -:  115:		}
+      744:  116:		for( i = 0; i < p_repeat->counter_end; i++ ) {
+      364:  117:			info.dict[p_repeat->counter_symbol].i = i;
+      364:  118:			p_text = new CZMA_TEXT;
+     1112:  119:			for( auto ins_p : p_repeat->m_text ) {
+      768:  120:				p_text->m_text.push_back( CZMA_PARSE::create( info, ins_p->words, ins_p->get_file_name(), ins_p->get_line_no() ) );
+        -:  121:			}
+      364:  122:			this->text_list.push_back( p_text );
+        -:  123:		}
+       16:  124:		this->is_loaded = true;
+       16:  125:		info.is_updated = true;
+        -:  126:	}
+       61:  127:	info.is_block_processing = false;
+     3939:  128:	for( i = 0; i < p_repeat->counter_end; i++ ) {
+     1939:  129:		info.dict[p_repeat->counter_symbol].i = i;
+     3878:  130:		p_last_line = this->text_list[i]->process( info, sub_success_count, p_last_line, !is_analyze_phase );
+        -:  131:	}
+       61:  132:	if( !this->is_data_fixed ) {
+     2000:  133:		for( auto p_text : this->text_list ) {
+     3923:  134:			for( auto p : p_text->m_text ) {
+     1984:  135:				this->is_data_fixed = this->is_data_fixed && p->is_fixed_code_size();
+        -:  136:			}
+        -:  137:		}
+       61:  138:		if( this->is_data_fixed ) {
+    #####:  139:			info.is_updated = true;
+        -:  140:		}
+        -:  141:	}
+       61:  142:	if( this->code_size == -1 ) {
+       16:  143:		this->code_size = 0;
+      380:  144:		for( auto p_text : this->text_list ) {
+      743:  145:			for( auto p : p_text->m_text ) {
+      379:  146:				if( this->code_size != -1 && p->is_fixed_code_size() ) {
+      379:  147:					this->code_size = this->code_size + p->get_code_size();
+        -:  148:				}
+        -:  149:				else {
+    #####:  150:					this->code_size = -1;
+        -:  151:				}
+        -:  152:			}
+        -:  153:		}
+       16:  154:		if( this->code_size != -1 ) {
+       16:  155:			info.is_updated = true;
+        -:  156:		}
+        -:  157:	}
+      122:  158:	if( info.scope.size() == 0 ) {
+        2:  159:		put_error( "Scope of ENDR does not exist." );
+        1:  160:		return false;
+        -:  161:	}
+      120:  162:	if( info.scope[info.scope.size() - 1] != p_repeat->scope_name ) {
+        8:  163:		put_error( "Scope of ENDR does not exist." );
+        4:  164:		return false;
+        -:  165:	}
+      112:  166:	s_scope = info.get_scope_path();
+        -:  167:	info.scope.pop_back();
+        -:  168:
+      112:  169:	if( words.size() != 1 ) {
+        4:  170:		put_error( "ENDR is not need parameters." );
+        2:  171:		return false;
+        -:  172:	}
+        -:  173:	//	log
+       54:  174:	if( !is_analyze_phase ) {
+       26:  175:		log.write_message( "Exit scope: " + s_scope );
+       13:  176:		log.write_separator();
+        -:  177:	}
+        -:  178:	return check_all_fixed();
+      136:  179:}

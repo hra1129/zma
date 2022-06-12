@@ -1,0 +1,49 @@
+        -:    0:Source:../zma_logger.hpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	ZMA: CZMA_TEXT
+        -:    3:// ====================================================================
+        -:    4://	2019/05/02	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#pragma once
+        -:    8:
+        -:    9:#include <fstream>
+        -:   10:#include <string>
+        -:   11:#include <vector>
+        -:   12:
+     7665:   13:class CZMA_LOG: public std::vector< std::string > {
+        -:   14:public:
+        -:   15:
+        -:   16:	// --------------------------------------------------------------------
+        -:   17:	//	Separator
+        -:   18:	void write_separator( void );
+        -:   19:
+        -:   20:	// --------------------------------------------------------------------
+        -:   21:	//	Hexadecimal
+        -:   22:	std::string convert_to_hex( int value, int columns );
+        -:   23:
+        -:   24:	// --------------------------------------------------------------------
+        -:   25:	//	Dump
+        -:   26:	void write_dump( int address, int offset, std::vector<unsigned char> &data );
+        -:   27:
+        -:   28:	// --------------------------------------------------------------------
+        -:   29:	//	LINE#:ADRS:OFFSET:MNEMONIC
+        -:   30:	void write_line_infomation( int line_no, int address, int offset, const std::string &s_line_image );
+        -:   31:
+        -:   32:	// --------------------------------------------------------------------
+        -:   33:	//	LINE#:ADRS:OFFSET:MNEMONIC
+        -:   34:	std::string get_line_infomation( int line_no, int address, int offset, const std::string &s_line_image );
+        -:   35:
+        -:   36:	// --------------------------------------------------------------------
+        -:   37:	//	Write message
+        -:   38:	void write_message( const std::string &s_message );
+        -:   39:
+        -:   40:	// --------------------------------------------------------------------
+        -:   41:	//	Write error message
+        -:   42:	void write_error_message( const char *p_file_name, int line_no, const std::string &s_message );
+        -:   43:
+        -:   44:	// --------------------------------------------------------------------
+        -:   45:	//	Cycles information
+        -:   46:	void write_cycle_information( int z80_cycle, int r800_cycle, int z80_cycle2 = -1, int r800_cycle2 = -1, const std::string s_comment = "");
+        -:   47:};

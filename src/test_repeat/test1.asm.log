@@ -69,7 +69,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |00000A|000A|  00
 ------+------+----+----------------------------------
     12|      |    |LABEL :
-      |      |    |  label address: 0x00000b
+      |      |    |  label [LABEL] address: 0x00000b
 ------+------+----+----------------------------------
 << label >>
 @REPEAT0:@REPEAT1:I ... 0 ( 0x0 )

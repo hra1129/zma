@@ -8,38 +8,44 @@ LINE# |OFFSET|ADDR|MNEMONIC
      5|      |    |ORG 0x100
 ------+------+----+----------------------------------
      8|      |    |LABEL_0X100 :
-      |      |    |  label address: 0x000100
+      |      |    |  label [LABEL_0X100] address: 0x000100
 ------+------+----+----------------------------------
      9|      |    |LABEL_0X100 :
-      |      |    |  label address: 0x000100
+      |      |    |  label [LABEL_0X100] address: 0x000100
 ------+------+----+----------------------------------
      9|      |    |LABEL_0X100 :
      9|ERROR |    |There are declarations of the same label 'LABEL_0X100' in multiple places.: test1.asm(9)
     11|      |    |LABEL_0X200 :
-      |      |    |  label address: 0x000100
+      |      |    |  label [LABEL_0X200] address: 0x000100
 ------+------+----+----------------------------------
     12|      |    |LABEL_0X200 ::
-      |      |    |  global label address: 0x000100
+      |      |    |  global label [LABEL_0X200] address: 0x000100
 ------+------+----+----------------------------------
     12|      |    |LABEL_0X200 ::
     12|ERROR |    |There are declarations of the same label 'LABEL_0X200' in multiple places.: test1.asm(12)
     14|      |    |LABEL_0X300 :
-      |      |    |  label address: 0x000100
+      |      |    |  label [LABEL_0X300] address: 0x000100
 ------+------+----+----------------------------------
     15|      |    |LABEL_0X300 = 2
     15|ERROR |    |There are declarations of the same label 'LABEL_0X300' in multiple places.: test1.asm(15)
     17|      |    |LABEL_0X400 :
-      |      |    |  label address: 0x000100
+      |      |    |  label [LABEL_0X400] address: 0x000100
+------+------+----+----------------------------------
+    18|      |    |LABEL_0X400 := 2
+      |      |    |  global label [LABEL_0X400] address: 0x000100
 ------+------+----+----------------------------------
     18|      |    |LABEL_0X400 := 2
     18|ERROR |    |There are declarations of the same label 'LABEL_0X400' in multiple places.: test1.asm(18)
     20|      |    |LABEL_0X500 ::
-      |      |    |  global label address: 0x000100
+      |      |    |  global label [LABEL_0X500] address: 0x000100
 ------+------+----+----------------------------------
     21|      |    |LABEL_0X500 = 2
     21|ERROR |    |There are declarations of the same label 'LABEL_0X500' in multiple places.: test1.asm(21)
     23|      |    |LABEL_0X600 ::
-      |      |    |  global label address: 0x000100
+      |      |    |  global label [LABEL_0X600] address: 0x000100
+------+------+----+----------------------------------
+    24|      |    |LABEL_0X600 := 2
+      |      |    |  global label [LABEL_0X600] address: 0x000100
 ------+------+----+----------------------------------
     24|      |    |LABEL_0X600 := 2
     24|ERROR |    |There are declarations of the same label 'LABEL_0X600' in multiple places.: test1.asm(24)
@@ -63,21 +69,27 @@ LINE# |OFFSET|ADDR|MNEMONIC
     32|      |    |LABEL_3 = $
     32|ERROR |    |Illegal expression.: test1.asm(32)
     33|      |    |LABEL_4 := FILE_ADDRESS
+      |      |    |  global label address: 0xXXXXXX
+------+------+----+----------------------------------
+    33|      |    |LABEL_4 := FILE_ADDRESS
     33|ERROR |    |Illegal expression.: test1.asm(33)
     36|      |    |ORG 0x200
 ------+------+----+----------------------------------
     37|      |    |"Š¿Žš1" :
-      |      |    |  label address: 0x000200
+      |      |    |  label ["Š¿Žš1] address: 0x000200
 ------+------+----+----------------------------------
     37|      |    |"Š¿Žš1" :
     37|ERROR |    |Label name cannot be string.: test1.asm(37)
     38|      |    |"Š¿Žš2" ::
-      |      |    |  global label address: 0x000200
+      |      |    |  global label ["Š¿Žš2] address: 0x000200
 ------+------+----+----------------------------------
     38|      |    |"Š¿Žš2" ::
     38|ERROR |    |Label name cannot be string.: test1.asm(38)
     39|      |    |"Š¿Žš3" = 1
     39|ERROR |    |Label name cannot be string.: test1.asm(39)
+    40|      |    |"Š¿Žš4" := 2
+      |      |    |  global label ["Š¿Žš4] address: 0x000200
+------+------+----+----------------------------------
     40|      |    |"Š¿Žš4" := 2
     40|ERROR |    |Label name cannot be string.: test1.asm(40)
     43|      |    |ORG 0x300
@@ -89,11 +101,17 @@ LINE# |OFFSET|ADDR|MNEMONIC
     46|      |    |LABEL1_3 = $ AAA
     46|ERROR |    |Illegal expression.: test1.asm(46)
     47|      |    |LABEL1_4 := $ AAA
+      |      |    |  global label address: 0xXXXXXX
+------+------+----+----------------------------------
+    47|      |    |LABEL1_4 := $ AAA
     47|ERROR |    |Illegal expression.: test1.asm(47)
     50|      |    |ORG 0x500
 ------+------+----+----------------------------------
     51|      |    |LABEL2_3 = INVALID_LABEL
     51|ERROR |    |Label 'LABEL2_3' is indeterminate.: test1.asm(51)
+    52|      |    |LABEL2_4 := INVALID_LABEL
+      |      |    |  global label [LABEL2_4] address: 0x000500
+------+------+----+----------------------------------
     52|      |    |LABEL2_4 := INVALID_LABEL
     52|ERROR |    |Label 'LABEL2_4' is indeterminate.: test1.asm(52)
 << label >>

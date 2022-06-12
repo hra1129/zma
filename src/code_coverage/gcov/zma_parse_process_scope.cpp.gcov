@@ -1,0 +1,43 @@
+        -:    0:Source:../sub/zma_parse_process_scope.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+       63:   18:bool CZMA_PARSE_SCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   19:
+       63:   20:	update_flags( &info, p_last_line );
+      126:   21:	if( words.size() < 2 ) {
+        6:   22:		put_error( "Must be set scope name." );
+        3:   23:		return false;
+        -:   24:	}
+       60:   25:	if( words.size() > 2 ) {
+        6:   26:		put_error( "SCOPE command has only one parameter." );
+        3:   27:		return false;
+        -:   28:	}
+       57:   29:	this->is_data_fixed = true;
+        -:   30:	this->set_code_size( &info, 0 );
+      114:   31:	info.scope.push_back( words[1] );
+        -:   32:
+        -:   33:	//	log
+       57:   34:	if( !is_analyze_phase ) {
+       34:   35:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       51:   36:		log.write_message( "Enter scope: " + info.get_scope_path() );
+       17:   37:		log.write_separator();
+        -:   38:	}
+        -:   39:	return check_all_fixed();
+      136:   40:}
+        -:   41:

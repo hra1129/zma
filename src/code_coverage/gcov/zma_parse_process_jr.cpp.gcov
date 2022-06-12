@@ -1,0 +1,42 @@
+        -:    0:Source:../sub/zma_parse_process_jr.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+       52:   18:bool CZMA_PARSE_JR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   19:
+       52:   20:	update_flags( &info, p_last_line );
+        -:   21:
+       52:   22:	if( opecode_condition_offset( info, 0x18, 0x20 ) ) {
+        -:   23:		//	log
+       26:   24:		if( !this->is_analyze_phase ) {
+       22:   25:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       11:   26:			if( data[0] == 0x18 ) {
+        6:   27:				log.write_cycle_information( 13, 3 );			//	JR nn
+        -:   28:			}
+        -:   29:			else {
+       16:   30:				log.write_cycle_information( 13, 3, 8, 2 );		//	JR cond, nn
+        -:   31:			}
+       11:   32:			log.write_dump( this->code_address, this->file_address, this->data );
+       11:   33:			log.write_separator();
+        -:   34:		}
+        -:   35:		return check_all_fixed();
+        -:   36:	}
+       52:   37:	put_error( "Illegal operand" );
+       26:   38:	return false;
+      136:   39:}
+        -:   40:

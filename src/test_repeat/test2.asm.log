@@ -14,7 +14,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
      1|      |    |SHOT_ATTRIBUTE MACRO
 ------+------+----+----------------------------------
     13|      |    |SHOT_TABLE :
-      |      |    |  label address: 0x000002
+      |      |    |  label [SHOT_TABLE] address: 0x000002
 ------+------+----+----------------------------------
     14|      |    |REPEAT I, 32
       |      |    |  Enter scope: @REPEAT0:
@@ -953,9 +953,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000202|0202|  01 00
 ------+------+----+----------------------------------
      5|      |    |INCLUDE "test2_inc.asm" end
-
      6|      |    |END_ADDRESS :
-      |      |    |  label address: 0x000204
+      |      |    |  label [END_ADDRESS] address: 0x000204
 ------+------+----+----------------------------------
 << label >>
 @REPEAT0:I .... 31 ( 0x1f )

@@ -1,0 +1,55 @@
+        -:    0:Source:../sub/zma_parse_process_symbol.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+       42:   18:bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   19:	std::string label;
+        -:   20:	CVALUE v;
+        -:   21:
+       42:   22:	update_flags( &info, p_last_line );
+       42:   23:	if( this->is_data_fixed ) {
+        -:   24:		return check_all_fixed();
+        -:   25:	}
+        -:   26:	this->set_code_size( &info, 0 );
+       52:   27:	if( words[0][0] == '\"' ) {
+        6:   28:		put_error( "Label name cannot be string." );
+        3:   29:		return false;
+        -:   30:	}
+       23:   31:	if( this->expression( info, 2, v ) ) {
+       20:   32:		if( v.value_type == CVALUE_TYPE::CV_UNKNOWN ) {
+       12:   33:			put_error( "Illegal expression." );
+        6:   34:			return false;
+        -:   35:		}
+       42:   36:		label = info.get_scope_path() + words[0];
+        -:   37:		if( info.dict.count( label ) ) {
+       24:   38:			put_error( std::string( "There are declarations of the same label '" ) + label + "' in multiple places." );
+        6:   39:			return false;
+        -:   40:		}
+        -:   41:		else {
+        8:   42:			this->is_data_fixed = true;
+        8:   43:			info.dict[label] = v;
+        8:   44:			info.is_updated = true;
+        -:   45:		}
+        -:   46:	}
+        -:   47:	else {
+       12:   48:		put_error( std::string( "Label '" ) + words[0] + "' is indeterminate." );
+        3:   49:		return false;
+        -:   50:	}
+        -:   51:	return check_all_fixed();
+      136:   52:}
+        -:   53:

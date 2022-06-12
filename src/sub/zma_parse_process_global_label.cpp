@@ -19,32 +19,34 @@ bool CZMA_PARSE_GLOBAL_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 	std::string label;
 	CVALUE v;
 
+	this->set_code_size( &info, 0 );
 	update_flags( &info, p_last_line );
 	//	log
+	label = words[ 0 ];
 	if( !this->is_analyze_phase ) {
 		std::stringstream s;
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		if( this->get_code_address() == -1 ){
 			s << "global label address: 0xXXXXXX";
 		}
-		else{
-			s << "global label address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
+		else {
+			s << "global label [" << label << "] address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
 		}
 		log.write_message( s.str() );
 		log.write_separator();
 	}
 	if( this->is_data_fixed ) {
-		return check_all_fixed();
+		if( check_all_fixed() && info.dict.count( label ) ){
+			return true;
+		}
 	}
-	this->set_code_size( &info, 0 );
 	if( words[0][0] == '\"' ) {
 		put_error( "Label name cannot be string." );
 		return false;
 	}
 	if( this->is_fixed_code_address() ) {
-		label = words[0];
 		if( info.dict.count( label ) ) {
-			put_error( std::string( "There are declarations of the same label '" ) + label + "' in multiple places." );
+			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
 			return false;
 		}
 		else {
@@ -56,9 +58,8 @@ bool CZMA_PARSE_GLOBAL_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 		}
 	}
 	else {
-		put_error( std::string( "Label '" ) + words[0] + "' is indeterminate." );
+		put_error( "Label '" + words[0] + "' is indeterminate." );
 		return false;
 	}
 	return check_all_fixed();
 }
-

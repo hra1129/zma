@@ -1,0 +1,36 @@
+        -:    0:Source:../sub/zma_parse_process_cpd.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+        6:   18:bool CZMA_PARSE_CPD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   19:
+        6:   20:	update_flags( &info, p_last_line );
+        6:   21:	if( this->opecode( info, 0xED, 0xA9 ) ) {
+        -:   22:		//	log
+        3:   23:		if( !this->is_analyze_phase ) {
+        2:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        2:   25:			log.write_cycle_information( 18, 6 );	//	CPD
+        1:   26:			log.write_dump( this->code_address, this->file_address, this->data );
+        1:   27:			log.write_separator();
+        -:   28:		}
+        -:   29:		return check_all_fixed();
+        -:   30:	}
+        6:   31:	put_error( "Illegal operand" );
+        3:   32:	return false;
+      136:   33:}
+        -:   34:

@@ -1,0 +1,42 @@
+        -:    0:Source:../sub/zma_parse_process_user_message.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+      213:   18:bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   19:	CVALUE v;
+        -:   20:
+      213:   21:	set_code_size( &info, 0 );
+      213:   22:	update_flags( &info, p_last_line );
+      426:   23:	if( words.size() == 1 ) {
+        6:   24:		put_error( "Message not found in MESSAGE." );
+        3:   25:		return false;
+        -:   26:	}
+      210:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
+      120:   28:		put_error( "Illegal parameter in MESSAGE." );
+       60:   29:		return false;
+        -:   30:	}
+      150:   31:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
+        9:   32:		v.s = std::to_string( v.i );
+        -:   33:	}
+        -:   34:	//	log
+      150:   35:	if( !this->is_analyze_phase ) {
+       86:   36:		put_message( v.s );
+        -:   37:	}
+        -:   38:	return true;
+      136:   39:}
+        -:   40:

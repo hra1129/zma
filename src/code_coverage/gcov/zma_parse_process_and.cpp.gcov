@@ -1,0 +1,90 @@
+        -:    0:Source:../sub/zma_parse_process_and.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+      180:   18:bool CZMA_PARSE_AND::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   19:
+      180:   20:	update_flags( &info, p_last_line );
+      180:   21:	if( this->opecode_a_source8( info, 0xA0 ) ) {
+        -:   22:		//	log
+       75:   23:		if( !this->is_analyze_phase ) {
+       50:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       50:   25:			if( data.size() == 2 ) {
+        8:   26:				log.write_cycle_information( 10, 2 );			//	AND A, IXh
+        -:   27:			}
+        -:   28:			else {
+       42:   29:				log.write_cycle_information( 5, 1 );			//	AND A, r
+        -:   30:			}
+       25:   31:			log.write_dump( this->code_address, this->file_address, this->data );
+       25:   32:			log.write_separator();
+        -:   33:		}
+        -:   34:		return check_all_fixed();
+        -:   35:	}
+      105:   36:	if( this->opecode_a_n8( info, 0xE6 ) ) {
+        -:   37:		//	log
+        9:   38:		if( !this->is_analyze_phase ) {
+        6:   39:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        6:   40:			log.write_cycle_information( 8, 2 );				//	AND A, n
+        3:   41:			log.write_dump( this->code_address, this->file_address, this->data );
+        3:   42:			log.write_separator();
+        -:   43:		}
+        -:   44:		return check_all_fixed();
+        -:   45:	}
+       96:   46:	if( this->opecode_a_memory_hl( info, 0xA6 ) ) {
+        -:   47:		//	log
+       27:   48:		if( !this->is_analyze_phase ) {
+       18:   49:			if( words[4] == "HL" ) {
+        6:   50:				log.write_cycle_information( 8, 4 );			//	AND A, [HL]
+        -:   51:			}
+        -:   52:			else {
+       12:   53:				log.write_cycle_information( 21, 7 );			//	AND A, [IX+o]
+        -:   54:			}
+        9:   55:			log.write_dump( this->code_address, this->file_address, this->data );
+        9:   56:			log.write_separator();
+        -:   57:		}
+        -:   58:		return check_all_fixed();
+        -:   59:	}
+       69:   60:	if( this->opecode_source8( info, 0xA0 ) ) {
+        -:   61:		//	log
+       60:   62:		if( !this->is_analyze_phase ) {
+       40:   63:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       40:   64:			if( data.size() == 2 ) {
+    #####:   65:				log.write_cycle_information( 10, 2 );			//	AND IXh
+        -:   66:			}
+        -:   67:			else {
+       40:   68:				log.write_cycle_information( 5, 1 );			//	AND r
+        -:   69:			}
+       20:   70:			log.write_dump( this->code_address, this->file_address, this->data );
+       20:   71:			log.write_separator();
+        -:   72:		}
+        -:   73:		return check_all_fixed();
+        -:   74:	}
+        9:   75:	if( this->opecode_n8( info, 0xE6 ) ) {
+        -:   76:		//	log
+        6:   77:		if( !this->is_analyze_phase ) {
+        4:   78:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        4:   79:			log.write_cycle_information( 8, 2 );				//	AND n
+        2:   80:			log.write_dump( this->code_address, this->file_address, this->data );
+        2:   81:			log.write_separator();
+        -:   82:		}
+        -:   83:		return check_all_fixed();
+        -:   84:	}
+        6:   85:	put_error( "Illegal operand" );
+        3:   86:	return false;
+      136:   87:}
+        -:   88:

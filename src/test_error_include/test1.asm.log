@@ -8,31 +8,21 @@ LINE# |OFFSET|ADDR|MNEMONIC
      6|      |    |INCLUDE begin
      6|ERROR |    |Must be set include file name.: test1.asm(6) begin
      6|      |    |INCLUDE end
-
      6|ERROR |    |Must be set include file name.: test1.asm(6) end
-
      9|      |    |INCLUDE 100 begin
      9|ERROR |    |Invalid parameter.: test1.asm(9) begin
      9|      |    |INCLUDE 100 end
-
      9|ERROR |    |Invalid parameter.: test1.asm(9) end
-
     12|      |    |INCLUDE "sub.asm" 100 begin
     12|ERROR |    |INCLUDE command has only one parameter.: test1.asm(12) begin
     12|      |    |INCLUDE "sub.asm" 100 end
-
     12|ERROR |    |INCLUDE command has only one parameter.: test1.asm(12) end
-
     15|      |    |INCLUDE INVALID_LABEL + "sub.asm" begin
     15|ERROR |    |Invalid expression.: test1.asm(15) begin
     15|      |    |INCLUDE INVALID_LABEL + "sub.asm" end
-
     15|ERROR |    |Invalid expression.: test1.asm(15) end
-
     18|      |    |INCLUDE "invalid_file" begin
     18|ERROR |    |Cannot open include file 'invalid_file'.: test1.asm(18) begin
     18|      |    |INCLUDE "invalid_file" end
-
     18|ERROR |    |Cannot open include file 'invalid_file'.: test1.asm(18) end
-
 << label >>

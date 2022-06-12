@@ -8,7 +8,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
      1|      |    |SHOT_ATTRIBUTE MACRO
 ------+------+----+----------------------------------
     13|      |    |SHOT_TABLE :
-      |      |    |  label address: 0x000000
+      |      |    |  label [SHOT_TABLE] address: 0x000000
 ------+------+----+----------------------------------
     14|      |    |REPEAT I, 32
       |      |    |  Enter scope: @REPEAT0:

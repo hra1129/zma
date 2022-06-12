@@ -1,0 +1,39 @@
+        -:    0:Source:../sub/zma_parse_process_if.hpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#pragma once
+        -:    8:
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:
+      128:   11:CLASS_CZMA_PARSE( IF );
+        -:   12:
+        -:   13:// --------------------------------------------------------------------
+        -:   14:class CZMA_PARSE_ELSEIF: public CZMA_PARSE_IF {
+        -:   15:public:
+       29:   16:	using CZMA_PARSE_IF::CZMA_PARSE_IF;
+        -:   17:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
+        -:   18:};
+        -:   19:
+        -:   20:// --------------------------------------------------------------------
+        -:   21:class CZMA_PARSE_ELSE: public CZMA_PARSE_IF {
+        -:   22:public:
+       42:   23:	using CZMA_PARSE_IF::CZMA_PARSE_IF;
+        -:   24:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
+        -:   25:};
+        -:   26:
+        -:   27:// --------------------------------------------------------------------
+        -:   28:class CZMA_PARSE_ENDIF: public CZMA_PARSE {
+        -:   29:public:
+        -:   30:	CZMA_IF_T* p_if = nullptr;
+        -:   31:	bool is_loaded = false;
+        -:   32:
+       59:   33:	using CZMA_PARSE::CZMA_PARSE;
+        -:   34:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
+        -:   35:	bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) override;
+        -:   36:};
+        -:   37:

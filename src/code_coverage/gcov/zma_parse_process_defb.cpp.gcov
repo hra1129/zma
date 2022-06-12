@@ -1,0 +1,65 @@
+        -:    0:Source:../sub/zma_parse_process_defb.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+     5298:   18:bool CZMA_PARSE_DEFB::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
+        -:   19:	int i, count;
+        -:   20:	CVALUE v;
+        -:   21:
+     5298:   22:	update_flags( &info, p_last_line );
+     5298:   23:	if( !this->is_fixed_code_size() ){
+        -:   24:		count = 1;
+    25157:   25:		for( i = 1; i < (int)words.size(); i++ ){
+    14818:   26:			if( words[ i ] == "," ){
+     2962:   27:				count++;
+        -:   28:			}
+        -:   29:		}
+     1465:   30:		this->set_code_size( &info, count );
+        -:   31:	}
+     5298:   32:	if( !this->is_data_fixed ){
+        -:   33:		i = 1;
+    10348:   34:		for( count = 0; count < this->get_code_size(); count++ ){
+     4468:   35:			i = this->expression( info, i, v );
+     4468:   36:			if( i == 0 ){
+      234:   37:				put_error( std::string( "Cannot evaluate the expression(" ) + std::to_string( count + 1 ) + ")" );
+        -:   38:				data.clear();
+       39:   39:				return false;
+        -:   40:			}
+     4429:   41:			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
+        6:   42:				put_error( "Illegal expression." );
+        3:   43:				return false;
+        -:   44:			}
+    11821:   45:			if( i < (int)words.size() && words[ i ] != "," ){
+        9:   46:				put_error( std::string( "Illegal expression." ) );
+        -:   47:				data.clear();
+        3:   48:				return false;
+        -:   49:			}
+     4423:   50:			i++;
+     8846:   51:			data.push_back( v.i & 255 );
+        -:   52:		}
+     1457:   53:		this->is_data_fixed = true;
+        -:   54:	}
+        -:   55:	//	log
+     5253:   56:	if( !this->is_analyze_phase ){
+     2884:   57:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+     1442:   58:		log.write_dump( this->code_address, this->file_address, this->data );
+     1442:   59:		log.write_separator();
+        -:   60:	}
+        -:   61:	return check_all_fixed();
+      136:   62:}
+        -:   63:

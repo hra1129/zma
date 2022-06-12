@@ -1,0 +1,68 @@
+        -:    0:Source:../sub/zma_parse_process_label.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+      114:   18:bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   19:	std::string label;
+        -:   20:	CVALUE v;
+        -:   21:
+      114:   22:	this->set_code_size( &info, 0 );
+      114:   23:	update_flags( &info, p_last_line );
+        -:   24:	//	log
+      342:   25:	label = info.get_scope_path() + words[ 0 ];
+      114:   26:	if( !this->is_analyze_phase ) {
+       72:   27:		std::stringstream s;
+       72:   28:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       36:   29:		if( this->get_code_address() == -1 ){
+        3:   30:			s << "label address: 0xXXXXXX";
+        -:   31:		}
+        -:   32:		else { 
+       33:   33:			s << "label [" << label << "] address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
+        -:   34:		}
+       72:   35:		log.write_message( s.str() );
+       36:   36:		log.write_separator();
+        -:   37:	}
+      114:   38:	if( this->is_data_fixed ) {
+        -:   39:		if( check_all_fixed() && info.dict.count( label ) ){
+        -:   40:			return true;
+        -:   41:		}
+        -:   42:	}
+       96:   43:	if( words[0][0] == '\"' ) {
+        6:   44:		put_error( "Label name cannot be string." );
+        3:   45:		return false;
+        -:   46:	}
+       45:   47:	if( this->is_fixed_code_address() ) {
+        -:   48:		if( info.dict.count( label ) ) {
+       12:   49:			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
+        3:   50:			return false;
+        -:   51:		}
+        -:   52:		else {
+       31:   53:			this->is_data_fixed = true;
+       31:   54:			v.value_type = CVALUE_TYPE::CV_INTEGER;
+       31:   55:			v.i = this->get_code_address();
+       31:   56:			info.dict[label] = v;
+       31:   57:			info.is_updated = true;
+        -:   58:		}
+        -:   59:	}
+        -:   60:	else {
+       33:   61:		put_error( "Label '" + words[0] + "' is indeterminate." );
+       11:   62:		return false;
+        -:   63:	}
+        -:   64:	return check_all_fixed();
+      136:   65:}
+        -:   66:

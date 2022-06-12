@@ -15,7 +15,6 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000000|0000|  11 64 00
 ------+------+----+----------------------------------
      9|      |    |INCLUDE "sub.asm" end
-
     10|      |    |HOGE
       |      |    |  Intra-macro scope: @MACRO1:
     10|      |    |INCLUDE "sub.asm" begin
@@ -24,12 +23,10 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000003|0003|  11 64 00
 ------+------+----+----------------------------------
     10|      |    |INCLUDE "sub.asm" end
-
     13|      |    |INCLUDE "sub_macro1.asm" begin
      5|      |    |MOGE MACRO
 ------+------+----+----------------------------------
     13|      |    |INCLUDE "sub_macro1.asm" end
-
     14|      |    |MOGE
       |      |    |  Intra-macro scope: @MACRO2:
     14|      |    |DEFB 0, 1

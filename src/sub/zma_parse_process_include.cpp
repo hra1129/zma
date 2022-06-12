@@ -23,7 +23,6 @@ bool CZMA_PARSE_INCLUDE::write_output_and_log( CZMA_INFORMATION& info, std::ofst
 	bool result = this->text.write( info, f );
 	for( auto line : log ) {
 		info.log << line << " end" << std::endl;
-		info.log << std::endl;
 	}
 	return result;
 }

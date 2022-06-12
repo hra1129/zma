@@ -1,0 +1,53 @@
+        -:    0:Source:../sub/zma_parse_process_defs.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+       76:   18:bool CZMA_PARSE_DEFS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   19:	CVALUE v;
+        -:   20:	int index;
+        -:   21:
+       76:   22:	update_flags( &info, p_last_line );
+       76:   23:	index = this->expression( info, 1, v );
+       76:   24:	if( index == 0 ) {
+       24:   25:		put_error( "Illegal expression." );
+       12:   26:		return false;
+        -:   27:	}
+      128:   28:	if( index < ( int) words.size() ) {
+        6:   29:		put_error( "Illegal parameter." );
+        3:   30:		return false;
+        -:   31:	}
+       61:   32:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
+        3:   33:		v.value_type = CVALUE_TYPE::CV_STRING;
+        9:   34:		v.s = std::to_string( v.i );
+        -:   35:	}
+       61:   36:	this->set_code_size( &info, (unsigned int)v.s.size() );
+       61:   37:	if( !this->is_data_fixed ) {
+    16534:   38:		for( auto c : v.s ) {
+    33028:   39:			data.push_back( c );
+        -:   40:		}
+       20:   41:		this->is_data_fixed = true;
+        -:   42:	}
+        -:   43:	//	log
+       61:   44:	if( !this->is_analyze_phase ) {
+       40:   45:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       20:   46:		log.write_dump( this->code_address, this->file_address, this->data );
+       20:   47:		log.write_separator();
+        -:   48:	}
+        -:   49:	return check_all_fixed();
+      136:   50:}
+        -:   51:

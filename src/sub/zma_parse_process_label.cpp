@@ -19,8 +19,10 @@ bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	std::string label;
 	CVALUE v;
 
+	this->set_code_size( &info, 0 );
 	update_flags( &info, p_last_line );
 	//	log
+	label = info.get_scope_path() + words[ 0 ];
 	if( !this->is_analyze_phase ) {
 		std::stringstream s;
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -28,22 +30,21 @@ bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 			s << "label address: 0xXXXXXX";
 		}
 		else { 
-			s << "label address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
+			s << "label [" << label << "] address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
 		}
 		log.write_message( s.str() );
 		log.write_separator();
 	}
 	if( this->is_data_fixed ) {
-		return check_all_fixed();
+		if( check_all_fixed() && info.dict.count( label ) ){
+			return true;
+		}
 	}
-	this->set_code_size( &info, 0 );
-	update_flags( &info, p_last_line );
 	if( words[0][0] == '\"' ) {
 		put_error( "Label name cannot be string." );
 		return false;
 	}
 	if( this->is_fixed_code_address() ) {
-		label = info.get_scope_path() + words[0];
 		if( info.dict.count( label ) ) {
 			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
 			return false;

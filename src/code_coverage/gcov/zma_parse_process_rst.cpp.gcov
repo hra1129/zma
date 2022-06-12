@@ -1,0 +1,59 @@
+        -:    0:Source:../sub/zma_parse_process_rst.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+       39:   18:bool CZMA_PARSE_RST::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   19:	CVALUE p;
+        -:   20:	int index;
+       39:   21:	update_flags( &info, p_last_line );
+       78:   22:	if( words.size() >= 2 ) {
+       36:   23:		index = this->expression( info, 1, p );
+       36:   24:		if( index == 0 ) {
+        6:   25:			put_error( "Illegal expression." );
+        3:   26:			return false;
+        -:   27:		}
+       33:   28:		if( p.value_type != CVALUE_TYPE::CV_INTEGER ) {
+        6:   29:			put_error( "Illegal expression." );
+        3:   30:			return false;
+        -:   31:		}
+       60:   32:		if( index < (int)words.size() ) {
+        6:   33:			put_error( "Illegal operand." );
+        3:   34:			return false;
+        -:   35:		}
+       27:   36:		if( (p.i & ~0x38) != 0 ) {
+       15:   37:			put_error( std::string("Illegal restart address (") + std::to_string(p.i) + ")" );
+        3:   38:			return false;
+        -:   39:		}
+       24:   40:		if( !this->is_data_fixed ) {
+        8:   41:			this->is_data_fixed = true;
+        -:   42:			this->set_code_size( &info, 1 );
+       16:   43:			this->data.push_back( 0xC7 | p.i );
+        -:   44:		}
+        -:   45:		//	log
+       24:   46:		if( !this->is_analyze_phase ) {
+       16:   47:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       16:   48:			log.write_cycle_information( 12, 6, -1, 7 );
+        8:   49:			log.write_dump( this->code_address, this->file_address, this->data );
+        8:   50:			log.write_separator();
+        -:   51:		}
+        -:   52:		return check_all_fixed();
+        -:   53:	}
+        6:   54:	put_error( "Illegal operand" );
+        3:   55:	return false;
+      136:   56:}
+        -:   57:

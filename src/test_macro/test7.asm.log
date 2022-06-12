@@ -10,7 +10,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
      9|      |    |ORG 0x100
 ------+------+----+----------------------------------
     10|      |    |L1 :
-      |      |    |  label address: 0x000100
+      |      |    |  label [L1] address: 0x000100
 ------+------+----+----------------------------------
     11|      |    |GOTO L1
       |      |    |  Intra-macro scope: @MACRO0:

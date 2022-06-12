@@ -1,0 +1,23 @@
+        -:    0:Source:../sub/zma_parse_process_include.hpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#pragma once
+        -:    8:
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:
+        -:   11:// --------------------------------------------------------------------
+        -:   12:class CZMA_PARSE_INCLUDE: public CZMA_PARSE {
+        -:   13:public:
+        -:   14:	CZMA_TEXT text;
+        -:   15:	bool is_loaded = false;
+        -:   16:	std::string s_file_name;
+        -:   17:
+       40:   18:	using CZMA_PARSE::CZMA_PARSE;
+        -:   19:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
+        -:   20:	bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) override;
+        -:   21:};

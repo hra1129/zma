@@ -1,0 +1,93 @@
+        -:    0:Source:../zma.cpp
+        -:    0:Programs:103
+        -:    1:﻿// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler ZMA
+        -:    3:// ====================================================================
+        -:    4://	2019/05/02	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include <iostream>
+        -:    8:#include <vector>
+        -:    9:#include <string>
+        -:   10:#include <algorithm>
+        -:   11:#include "zma_text.hpp"
+        -:   12:
+        -:   13:static const char* p_version = "v1.0.16-alpha";
+        -:   14:
+        -:   15:// --------------------------------------------------------------------
+    #####:   16:static void usage( const char* p_name ) {
+    #####:   17:	std::cerr << "Usage> " << p_name << " <input.asm> <output.bin>\n";
+    #####:   18:	std::cerr << "This is Z80/R800 Macro Assembler.\n";
+    #####:   19:}
+        -:   20:
+        -:   21:// --------------------------------------------------------------------
+       68:   22:static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
+        -:   23:	int i;
+        -:   24:	std::string s_argument;
+        -:   25:	std::vector<std::string> sa_options;
+        -:   26:
+      340:   27:	for( i = 1; i < argc; i++ ){
+      136:   28:		s_argument = argv[ i ];
+      136:   29:		if( s_argument[ 0 ] == '-' || s_argument[ 0 ] == '/' ){
+    #####:   30:			s_argument[ 0 ] = '-';
+        -:   31:			std::transform( s_argument.begin(), s_argument.end(), s_argument.begin(), toupper );
+    #####:   32:			if( s_argument == "-H" || s_argument == "-HELP" ){
+    #####:   33:				usage( argv[ 0 ] );
+    #####:   34:				exit( 1 );
+        -:   35:			}
+    #####:   36:			else if( s_argument[ 1 ] == 'I' ){
+    #####:   37:				info.add_include_path( s_argument.substr( 2 ).c_str() );
+        -:   38:			}
+        -:   39:			else if( s_argument[ 1 ] == 'D' ){
+        -:   40:				//	★ここに -Dxxx=xxxx な記述の解釈を追加する
+        -:   41:			}
+        -:   42:		}
+        -:   43:		else{
+      136:   44:			sa_options.push_back( s_argument );
+        -:   45:		}
+        -:   46:	}
+       68:   47:	return sa_options;
+        -:   48:}
+        -:   49:
+        -:   50:// --------------------------------------------------------------------
+       68:   51:int main( int argc, char *argv[] ) {
+       68:   52:    std::cout << "Z80 Macro Assembler ZMA " << p_version << "\n";
+       68:   53:	std::cout << "=====================================================\n";
+       68:   54:	std::cout << "Programmed by t.hara\n";
+        -:   55:
+      136:   56:	CZMA_TEXT src;
+      136:   57:	CZMA_INFORMATION info;
+       68:   58:	std::vector< std::string > sa_options;
+        -:   59:
+      136:   60:	sa_options = get_command_line_options( argc, argv, info );
+      136:   61:	if( sa_options.size() < 2 ) {
+    #####:   62:		usage( argv[0] );
+        -:   63:		return 1;
+        -:   64:	}
+        -:   65:
+       68:   66:	info.log.open( "zma.log", std::ios::out );
+       68:   67:	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
+       68:   68:	info.log << "=====================================================\n";
+       68:   69:	info.log << "Programmed by t.hara\n\n";
+       68:   70:	info.log << "<< code >>\n";
+       68:   71:	info.log << "LINE# |OFFSET|ADDR|MNEMONIC\n";
+       68:   72:	info.log << "======+======+====+==================================\n";
+       68:   73:	info.add_include_path( "./" );
+       68:   74:	info.add_include_path( argv[0], "include/" );
+      136:   75:	src.load( info, sa_options[0].c_str() );
+        -:   76:
+        -:   77:	int return_code = 0;
+       68:   78:	if( src.all_process( info ) ) {
+        -:   79:		return_code = 0;
+       38:   80:		std::cout << "Success.\n";
+        -:   81:	}
+        -:   82:	else {
+        -:   83:		return_code = 1;
+       30:   84:		std::cout << "Failed.\n";
+        -:   85:	}
+      136:   86:	if( !src.save( info, sa_options[1].c_str() ) ){
+        -:   87:		return_code = 1;
+        2:   88:		std::cout << "Save error.\n";
+        -:   89:	}
+        -:   90:	return return_code;
+      136:   91:}

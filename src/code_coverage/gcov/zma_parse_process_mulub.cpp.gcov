@@ -1,0 +1,36 @@
+        -:    0:Source:../sub/zma_parse_process_mulub.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+       15:   18:bool CZMA_PARSE_MULUB::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   19:
+       15:   20:	update_flags( &info, p_last_line );
+       15:   21:	if( opecode_mulub( info, 0xED, 0xC1 ) ) {
+        -:   22:		//	log
+       12:   23:		if( !this->is_analyze_phase ) {
+        8:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        8:   25:			log.write_cycle_information( -1, 14 );
+        4:   26:			log.write_dump( this->code_address, this->file_address, this->data );
+        4:   27:			log.write_separator();
+        -:   28:		}
+        -:   29:		return check_all_fixed();
+        -:   30:	}
+        6:   31:	put_error( "Illegal operand" );
+        3:   32:	return false;
+      136:   33:}
+        -:   34:

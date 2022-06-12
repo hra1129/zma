@@ -1,0 +1,336 @@
+        -:    0:Source:../zma_parse_process.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+        -:   18:int CZMA_PARSE::number_of_error = 0;
+        -:   19:
+        -:   20:// --------------------------------------------------------------------
+      136:   21:static std::map< std::string, CZMA_COMMAND_TYPE > command_list = {
+        -:   22:	{ "ALIGN", CZMA_COMMAND_TYPE::CZMA_ALIGN },
+        -:   23:	{ "SPACE", CZMA_COMMAND_TYPE::CZMA_SPACE },
+        -:   24:	{ "REPEAT", CZMA_COMMAND_TYPE::CZMA_REPEAT },
+        -:   25:	{ "ENDR", CZMA_COMMAND_TYPE::CZMA_ENDR },
+        -:   26:	{ "ENDM", CZMA_COMMAND_TYPE::CZMA_ENDM },
+        -:   27:	{ "IF", CZMA_COMMAND_TYPE::CZMA_IF },
+        -:   28:	{ "ELSEIF", CZMA_COMMAND_TYPE::CZMA_ELSEIF },
+        -:   29:	{ "ELSE", CZMA_COMMAND_TYPE::CZMA_ELSE },
+        -:   30:	{ "ENDIF", CZMA_COMMAND_TYPE::CZMA_ENDIF },
+        -:   31:	{ "ORG", CZMA_COMMAND_TYPE::CZMA_ORG },
+        -:   32:	{ "INCLUDE", CZMA_COMMAND_TYPE::CZMA_INCLUDE },
+        -:   33:	{ "ADD_INCLUDE_PATH", CZMA_COMMAND_TYPE::CZMA_ADD_INCLUDE_PATH },
+        -:   34:	{ "ERROR", CZMA_COMMAND_TYPE::CZMA_USER_ERROR },
+        -:   35:	{ "MESSAGE", CZMA_COMMAND_TYPE::CZMA_USER_MESSAGE },
+        -:   36:	{ "SCOPE", CZMA_COMMAND_TYPE::CZMA_SCOPE },
+        -:   37:	{ "ENDSCOPE", CZMA_COMMAND_TYPE::CZMA_ENDSCOPE },
+        -:   38:	{ "BINARY_LINK", CZMA_COMMAND_TYPE::CZMA_BINARY_LINK },
+        -:   39:	{ "DEFB", CZMA_COMMAND_TYPE::CZMA_DEFB },
+        -:   40:	{ "DEFW", CZMA_COMMAND_TYPE::CZMA_DEFW },
+        -:   41:	{ "DEFD", CZMA_COMMAND_TYPE::CZMA_DEFD },
+        -:   42:	{ "DEFS", CZMA_COMMAND_TYPE::CZMA_DEFS },
+        -:   43:	{ "DB", CZMA_COMMAND_TYPE::CZMA_DEFB },
+        -:   44:	{ "DW", CZMA_COMMAND_TYPE::CZMA_DEFW },
+        -:   45:	{ "DD", CZMA_COMMAND_TYPE::CZMA_DEFD },
+        -:   46:	{ "DS", CZMA_COMMAND_TYPE::CZMA_DEFS },
+        -:   47:	{ "LD", CZMA_COMMAND_TYPE::CZMA_LD },
+        -:   48:	{ "LDI", CZMA_COMMAND_TYPE::CZMA_LDI },
+        -:   49:	{ "LDIR", CZMA_COMMAND_TYPE::CZMA_LDIR },
+        -:   50:	{ "LDD", CZMA_COMMAND_TYPE::CZMA_LDD },
+        -:   51:	{ "LDDR", CZMA_COMMAND_TYPE::CZMA_LDDR },
+        -:   52:	{ "EX", CZMA_COMMAND_TYPE::CZMA_EX },
+        -:   53:	{ "EXX", CZMA_COMMAND_TYPE::CZMA_EXX },
+        -:   54:	{ "PUSH", CZMA_COMMAND_TYPE::CZMA_PUSH },
+        -:   55:	{ "POP", CZMA_COMMAND_TYPE::CZMA_POP },
+        -:   56:	{ "RLCA", CZMA_COMMAND_TYPE::CZMA_RLCA },
+        -:   57:	{ "RLA", CZMA_COMMAND_TYPE::CZMA_RLA },
+        -:   58:	{ "RLC", CZMA_COMMAND_TYPE::CZMA_RLC },
+        -:   59:	{ "RL", CZMA_COMMAND_TYPE::CZMA_RL },
+        -:   60:	{ "RRCA", CZMA_COMMAND_TYPE::CZMA_RRCA },
+        -:   61:	{ "RRA", CZMA_COMMAND_TYPE::CZMA_RRA },
+        -:   62:	{ "RRC", CZMA_COMMAND_TYPE::CZMA_RRC },
+        -:   63:	{ "RR", CZMA_COMMAND_TYPE::CZMA_RR },
+        -:   64:	{ "SLA", CZMA_COMMAND_TYPE::CZMA_SLA },
+        -:   65:	{ "SRA", CZMA_COMMAND_TYPE::CZMA_SRA },
+        -:   66:	{ "SRL", CZMA_COMMAND_TYPE::CZMA_SRL },
+        -:   67:	{ "SLL", CZMA_COMMAND_TYPE::CZMA_SLL },
+        -:   68:	{ "ADD", CZMA_COMMAND_TYPE::CZMA_ADD },
+        -:   69:	{ "ADC", CZMA_COMMAND_TYPE::CZMA_ADC },
+        -:   70:	{ "INC", CZMA_COMMAND_TYPE::CZMA_INC },
+        -:   71:	{ "SUB", CZMA_COMMAND_TYPE::CZMA_SUB },
+        -:   72:	{ "SBC", CZMA_COMMAND_TYPE::CZMA_SBC },
+        -:   73:	{ "DEC", CZMA_COMMAND_TYPE::CZMA_DEC },
+        -:   74:	{ "AND", CZMA_COMMAND_TYPE::CZMA_AND },
+        -:   75:	{ "OR", CZMA_COMMAND_TYPE::CZMA_OR },
+        -:   76:	{ "XOR", CZMA_COMMAND_TYPE::CZMA_XOR },
+        -:   77:	{ "CPL", CZMA_COMMAND_TYPE::CZMA_CPL },
+        -:   78:	{ "NEG", CZMA_COMMAND_TYPE::CZMA_NEG },
+        -:   79:	{ "CCF", CZMA_COMMAND_TYPE::CZMA_CCF },
+        -:   80:	{ "SCF", CZMA_COMMAND_TYPE::CZMA_SCF },
+        -:   81:	{ "BIT", CZMA_COMMAND_TYPE::CZMA_BIT },
+        -:   82:	{ "RES", CZMA_COMMAND_TYPE::CZMA_RES },
+        -:   83:	{ "SET", CZMA_COMMAND_TYPE::CZMA_SET },
+        -:   84:	{ "CPI", CZMA_COMMAND_TYPE::CZMA_CPI },
+        -:   85:	{ "CPIR", CZMA_COMMAND_TYPE::CZMA_CPIR },
+        -:   86:	{ "CPD", CZMA_COMMAND_TYPE::CZMA_CPD },
+        -:   87:	{ "CPDR", CZMA_COMMAND_TYPE::CZMA_CPDR },
+        -:   88:	{ "CP", CZMA_COMMAND_TYPE::CZMA_CP },
+        -:   89:	{ "JP", CZMA_COMMAND_TYPE::CZMA_JP },
+        -:   90:	{ "JR", CZMA_COMMAND_TYPE::CZMA_JR },
+        -:   91:	{ "DJNZ", CZMA_COMMAND_TYPE::CZMA_DJNZ },
+        -:   92:	{ "CALL", CZMA_COMMAND_TYPE::CZMA_CALL },
+        -:   93:	{ "RET", CZMA_COMMAND_TYPE::CZMA_RET },
+        -:   94:	{ "RETI", CZMA_COMMAND_TYPE::CZMA_RETI },
+        -:   95:	{ "RETN", CZMA_COMMAND_TYPE::CZMA_RETN },
+        -:   96:	{ "RST", CZMA_COMMAND_TYPE::CZMA_RST },
+        -:   97:	{ "NOP", CZMA_COMMAND_TYPE::CZMA_NOP },
+        -:   98:	{ "HALT", CZMA_COMMAND_TYPE::CZMA_HALT },
+        -:   99:	{ "DI", CZMA_COMMAND_TYPE::CZMA_DI },
+        -:  100:	{ "EI", CZMA_COMMAND_TYPE::CZMA_EI },
+        -:  101:	{ "IM0", CZMA_COMMAND_TYPE::CZMA_IM0 },
+        -:  102:	{ "IM1", CZMA_COMMAND_TYPE::CZMA_IM1 },
+        -:  103:	{ "IM2", CZMA_COMMAND_TYPE::CZMA_IM2 },
+        -:  104:	{ "IN", CZMA_COMMAND_TYPE::CZMA_IN },
+        -:  105:	{ "INI", CZMA_COMMAND_TYPE::CZMA_INI },
+        -:  106:	{ "INIR", CZMA_COMMAND_TYPE::CZMA_INIR },
+        -:  107:	{ "IND", CZMA_COMMAND_TYPE::CZMA_IND },
+        -:  108:	{ "INDR", CZMA_COMMAND_TYPE::CZMA_INDR },
+        -:  109:	{ "OUT", CZMA_COMMAND_TYPE::CZMA_OUT },
+        -:  110:	{ "OUTI", CZMA_COMMAND_TYPE::CZMA_OUTI },
+        -:  111:	{ "OTIR", CZMA_COMMAND_TYPE::CZMA_OTIR },
+        -:  112:	{ "OUTD", CZMA_COMMAND_TYPE::CZMA_OUTD },
+        -:  113:	{ "OTDR", CZMA_COMMAND_TYPE::CZMA_OTDR },
+        -:  114:	{ "DAA", CZMA_COMMAND_TYPE::CZMA_DAA },
+        -:  115:	{ "RLD", CZMA_COMMAND_TYPE::CZMA_RLD },
+        -:  116:	{ "RRD", CZMA_COMMAND_TYPE::CZMA_RRD },
+        -:  117:	{ "MULUB", CZMA_COMMAND_TYPE::CZMA_MULUB },
+        -:  118:	{ "MULUW", CZMA_COMMAND_TYPE::CZMA_MULUW },
+        -:  119:	{ "CHG_CHAR_SET", CZMA_COMMAND_TYPE::CZMA_CHG_CHAR_SET },
+        -:  120:	{ "MAPPING_CHAR", CZMA_COMMAND_TYPE::CZMA_MAPPING_CHAR },
+        -:  121:};
+        -:  122:
+        -:  123:// --------------------------------------------------------------------
+        -:  124:#define OPE_CASE( operation )																			\
+        -:  125:	case CZMA_COMMAND_TYPE::CZMA_##operation:																			\
+        -:  126:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_##operation( words, p_file_name, line_no ))
+        -:  127:
+        -:  128:// --------------------------------------------------------------------
+     9080:  129:CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string> words, const char* p_file_name, int line_no ) {
+        -:  130:
+    18160:  131:	if( words.size() == 0 ) {
+     6962:  132:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_BLANK( words, p_file_name, line_no ));
+        -:  133:	}
+     7008:  134:	if( words.size() == 2 && words[1] == ":" ) {
+       76:  135:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_LABEL( words, p_file_name, line_no ));
+        -:  136:	}
+     6932:  137:	if( words.size() == 2 && words[1] == "::" ) {
+       12:  138:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_GLOBAL_LABEL( words, p_file_name, line_no ));
+        -:  139:	}
+     7867:  140:	if( words.size() >= 3 && words[1] == "=" ) {
+       28:  141:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_SYMBOL( words, p_file_name, line_no ));
+        -:  142:	}
+     7839:  143:	if( words.size() >= 3 && words[1] == ":=" ) {
+       16:  144:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_GLOBAL_SYMBOL( words, p_file_name, line_no ));
+        -:  145:	}
+     9188:  146:	if( words.size() >= 2 && words[1] == "MACRO" ) {
+       32:  147:		info.macro_list[words[0]] = nullptr;
+       64:  148:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_MACRO( words, p_file_name, line_no ));
+        -:  149:	}
+        -:  150:	if( words.size() >= 1 && info.macro_list.count( words[0] ) ) {
+      218:  151:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_MACRO_INS( words, p_file_name, line_no ));
+        -:  152:	}
+     5392:  153:	switch( command_list[words[0]] ) {
+       50:  154:		OPE_CASE( ORG );
+       20:  155:		OPE_CASE( INCLUDE );
+       10:  156:		OPE_CASE( ADD_INCLUDE_PATH );
+        4:  157:		OPE_CASE( ALIGN );
+        8:  158:		OPE_CASE( SPACE );
+       52:  159:		OPE_CASE( REPEAT );
+       52:  160:		OPE_CASE( ENDR );
+       62:  161:		OPE_CASE( ENDM );
+      114:  162:		OPE_CASE( IF );
+       58:  163:		OPE_CASE( ELSEIF );
+       84:  164:		OPE_CASE( ELSE );
+      118:  165:		OPE_CASE( ENDIF );
+       54:  166:		OPE_CASE( USER_ERROR );
+      140:  167:		OPE_CASE( USER_MESSAGE );
+       40:  168:		OPE_CASE( SCOPE );
+       28:  169:		OPE_CASE( ENDSCOPE );
+        2:  170:		OPE_CASE( BINARY_LINK );
+     3018:  171:		OPE_CASE( DEFB );
+      948:  172:		OPE_CASE( DEFW );
+       16:  173:		OPE_CASE( DEFD );
+       56:  174:		OPE_CASE( DEFS );
+      942:  175:		OPE_CASE( LD );
+       14:  176:		OPE_CASE( PUSH );
+       14:  177:		OPE_CASE( POP );
+       14:  178:		OPE_CASE( EX );
+        4:  179:		OPE_CASE( EXX );
+        4:  180:		OPE_CASE( LDI );
+        4:  181:		OPE_CASE( LDIR );
+        4:  182:		OPE_CASE( LDD );
+        4:  183:		OPE_CASE( LDDR );
+        4:  184:		OPE_CASE( RLCA );
+        4:  185:		OPE_CASE( RLA );
+       22:  186:		OPE_CASE( RLC );
+       24:  187:		OPE_CASE( RL );
+        4:  188:		OPE_CASE( RRCA );
+        4:  189:		OPE_CASE( RRA );
+       22:  190:		OPE_CASE( RRC );
+       24:  191:		OPE_CASE( RR );
+       22:  192:		OPE_CASE( SLA );
+       24:  193:		OPE_CASE( SRA );
+       24:  194:		OPE_CASE( SRL );
+        2:  195:		OPE_CASE( SLL );
+       88:  196:		OPE_CASE( ADD );
+       40:  197:		OPE_CASE( ADC );
+       88:  198:		OPE_CASE( INC );
+       32:  199:		OPE_CASE( SUB );
+       40:  200:		OPE_CASE( SBC );
+       42:  201:		OPE_CASE( DEC );
+      120:  202:		OPE_CASE( AND );
+       32:  203:		OPE_CASE( OR );
+       32:  204:		OPE_CASE( XOR );
+        4:  205:		OPE_CASE( CPL );
+        4:  206:		OPE_CASE( NEG );
+        4:  207:		OPE_CASE( CCF );
+        4:  208:		OPE_CASE( SCF );
+      164:  209:		OPE_CASE( BIT );
+      164:  210:		OPE_CASE( RES );
+      164:  211:		OPE_CASE( SET );
+        4:  212:		OPE_CASE( CPI );
+        4:  213:		OPE_CASE( CPIR );
+        4:  214:		OPE_CASE( CPD );
+        4:  215:		OPE_CASE( CPDR );
+       84:  216:		OPE_CASE( CP );
+       52:  217:		OPE_CASE( JP );
+       40:  218:		OPE_CASE( JR );
+       10:  219:		OPE_CASE( DJNZ );
+       24:  220:		OPE_CASE( CALL );
+       26:  221:		OPE_CASE( RET );
+        4:  222:		OPE_CASE( RETI );
+        4:  223:		OPE_CASE( RETN );
+       26:  224:		OPE_CASE( RST );
+     3148:  225:		OPE_CASE( NOP );
+        4:  226:		OPE_CASE( HALT );
+        4:  227:		OPE_CASE( EI );
+        4:  228:		OPE_CASE( DI );
+        4:  229:		OPE_CASE( IM0 );
+        4:  230:		OPE_CASE( IM1 );
+        4:  231:		OPE_CASE( IM2 );
+       20:  232:		OPE_CASE( IN );
+        4:  233:		OPE_CASE( INI );
+        4:  234:		OPE_CASE( INIR );
+        4:  235:		OPE_CASE( IND );
+        4:  236:		OPE_CASE( INDR );
+       36:  237:		OPE_CASE( OUT );
+        4:  238:		OPE_CASE( OUTI );
+        4:  239:		OPE_CASE( OTIR );
+        4:  240:		OPE_CASE( OUTD );
+        4:  241:		OPE_CASE( OTDR );
+        4:  242:		OPE_CASE( DAA );
+        4:  243:		OPE_CASE( RLD );
+        4:  244:		OPE_CASE( RRD );
+       10:  245:		OPE_CASE( MULUB );
+        6:  246:		OPE_CASE( MULUW );
+        6:  247:		OPE_CASE( CHG_CHAR_SET );
+        8:  248:		OPE_CASE( MAPPING_CHAR );
+        -:  249:	default:
+        -:  250:		break;
+        -:  251:	}
+       36:  252:	return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_ERROR( words, p_file_name, line_no ));
+        -:  253:}
+        -:  254:
+        -:  255:// --------------------------------------------------------------------
+    #####:  256:void CZMA_PARSE::log_data_dump( void ) {
+        -:  257:	int address, count;
+    #####:  258:	std::stringstream line;
+    #####:  259:	address = this->get_code_address();
+        -:  260:	count = 0;
+    #####:  261:	line.str("");
+    #####:  262:	for( auto d : data ) {
+    #####:  263:		if( count == 0 ) {
+    #####:  264:			line << std::hex << std::setw( 6 ) << std::setfill( '0' ) << address << ":";
+        -:  265:		}
+    #####:  266:		line << " " << std::hex << std::setw( 2 ) << std::setfill( '0' ) << (int)d;
+    #####:  267:		address++;
+    #####:  268:		count++;
+    #####:  269:		if( count == 8 ) {
+    #####:  270:			log.push_back( line.str() );
+    #####:  271:			line.str( "" );
+        -:  272:			count = 0;
+        -:  273:		}
+        -:  274:	}
+    #####:  275:	if( count != 0 ) {
+    #####:  276:		log.push_back( line.str() );
+        -:  277:	}
+    #####:  278:}
+        -:  279:
+        -:  280:// --------------------------------------------------------------------
+     5314:  281:std::string CZMA_PARSE::get_line( void ) {
+        -:  282:	std::string r, ss;
+        -:  283:
+        -:  284:	r = "";
+    23588:  285:	for( auto s : words ) {
+    36548:  286:		if( s.size() > 0 && (s[0] == '\"' || s[0] == '\'') ){
+      151:  287:			ss = s[ 0 ];
+     1317:  288:			for( int i = 1; i < (int)s.size(); i++ ) {
+     1166:  289:				switch( s[i] ) {
+    #####:  290:				case '\a':	ss = ss + "\\a";	break;
+    #####:  291:				case '\b':	ss = ss + "\\b";	break;
+    #####:  292:				case '\f':	ss = ss + "\\f";	break;
+        4:  293:				case '\n':	ss = ss + "\\n";	break;
+        2:  294:				case '\r':	ss = ss + "\\r";	break;
+    #####:  295:				case '\t':	ss = ss + "\\t";	break;
+    #####:  296:				case '\\':	ss = ss + "\\\\";	break;
+    #####:  297:				case '\'':	ss = ss + "\\'";	break;
+    #####:  298:				case '\"':	ss = ss + "\\\"";	break;
+     1160:  299:				default:	ss = ss + s[i];		break;
+        -:  300:				}
+        -:  301:			}
+      302:  302:			ss = ss + s[0];
+        -:  303:		}
+        -:  304:		else {
+        -:  305:			ss = s;
+        -:  306:		}
+    18274:  307:		if( r == "" ) {
+        -:  308:			r = ss;
+        -:  309:		}
+    12960:  310:		else if( ss == "," ){
+     8012:  311:			r = r + ss;
+        -:  312:		}
+     8954:  313:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'X' ){
+     3037:  314:			ss[ 1 ] = 'x';
+     9111:  315:			r = r + " " + ss;
+        -:  316:		}
+     7988:  317:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'B' ){
+        3:  318:			ss[ 1 ] = 'b';
+        9:  319:			r = r + " " + ss;
+        -:  320:		}
+        -:  321:		else {
+    23656:  322:			r = r + " " + ss;
+        -:  323:		}
+        -:  324:	}
+     5314:  325:	return r;
+        -:  326:}
+        -:  327:
+        -:  328:// --------------------------------------------------------------------
+     7925:  329:CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::string s, const char* p_file_name, int line_no ) {
+     7925:  330:	std::vector<std::string> words;
+        -:  331:
+    23775:  332:	words = CZMA_PARSE::get_word_split( s );
+    15850:  333:	return create( info, words, p_file_name, line_no );
+      204:  334:}

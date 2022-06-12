@@ -1,0 +1,44 @@
+        -:    0:Source:../sub/zma_parse_process_bit.cpp
+        -:    0:Programs:103
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_parse.hpp"
+        -:    8:#include "zma_text.hpp"
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:#include <string>
+        -:   11:#include <cctype>
+        -:   12:#include <iostream>
+        -:   13:#include <fstream>
+        -:   14:#include <sstream>
+        -:   15:#include <algorithm>
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+      246:   18:bool CZMA_PARSE_BIT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   19:
+      246:   20:	update_flags( &info, p_last_line );
+      246:   21:	if( this->opecode_bit_source8( info, 0x40, true ) ) {
+        -:   22:		//	log
+      243:   23:		if( !this->is_analyze_phase ) {
+      162:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+      162:   25:			if( data.size() == 2 && (data[1] & 0x07) != 0x06 ) {
+      168:   26:				log.write_cycle_information( 10, 2 );			//	BIT b,r
+        -:   27:			}
+       25:   28:			else if( data.size() == 2 ) {
+       16:   29:				log.write_cycle_information( 14, 5 );			//	BIT b,[HL]
+        -:   30:			}
+        -:   31:			else {
+       34:   32:				log.write_cycle_information( 22, 7 );			//	BIT b,[IX+o]
+        -:   33:			}
+       81:   34:			log.write_dump( this->code_address, this->file_address, this->data );
+       81:   35:			log.write_separator();
+        -:   36:		}
+        -:   37:		return check_all_fixed();
+        -:   38:	}
+        6:   39:	put_error( "Illegal operand" );
+        3:   40:	return false;
+      136:   41:}
+        -:   42:
