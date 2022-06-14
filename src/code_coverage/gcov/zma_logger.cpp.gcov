@@ -14,16 +14,16 @@
         -:   12:#include <sstream>
         -:   13:
         -:   14:// --------------------------------------------------------------------
-     6788:   15:std::string CZMA_LOG::convert_to_hex( int value, int columns ){
-    13576:   16:	std::stringstream s;
+     6796:   15:std::string CZMA_LOG::convert_to_hex( int value, int columns ){
+    13592:   16:	std::stringstream s;
         -:   17:
-     6788:   18:	if( value == -1 ){
+     6796:   18:	if( value == -1 ){
     #####:   19:		s << std::setw( columns ) << std::setfill( 'X' ) << "X";
         -:   20:	}
         -:   21:	else{
-     6788:   22:		s << std::setw( columns ) << std::hex << std::right << std::setfill( '0' ) << std::uppercase << value;
+     6796:   22:		s << std::setw( columns ) << std::hex << std::right << std::setfill( '0' ) << std::uppercase << value;
         -:   23:	}
-     6788:   24:	return s.str();
+     6796:   24:	return s.str();
         -:   25:}
         -:   26:
         -:   27:
@@ -116,25 +116,25 @@
      2376:  114:}
         -:  115:
         -:  116:// --------------------------------------------------------------------
-     3383:  117:void CZMA_LOG::write_dump( int address, int offset, std::vector<unsigned char> &data ){
+     3385:  117:void CZMA_LOG::write_dump( int address, int offset, std::vector<unsigned char> &data ){
         -:  118:	int count;
-     6766:  119:	std::stringstream line;
+     6770:  119:	std::stringstream line;
         -:  120:	count = 0;
-    10675:  121:	for( auto d : data ){
-     7292:  122:		if( count == 0 ){
-    16970:  123:			line << "      |" << convert_to_hex( offset, 6 ) << "|" << convert_to_hex( address, 4 ) << "| ";
+    10697:  121:	for( auto d : data ){
+     7312:  122:		if( count == 0 ){
+    16990:  123:			line << "      |" << convert_to_hex( offset, 6 ) << "|" << convert_to_hex( address, 4 ) << "| ";
         -:  124:		}
-     7292:  125:		line << " " << std::right << std::setw( 2 ) << std::hex << std::uppercase << std::setfill( '0' ) << (int)(d & 255);
-     7292:  126:		address++;
-     7292:  127:		offset++;
-     7292:  128:		count++;
-     7292:  129:		if( count == 8 ){
-       22:  130:			push_back( line.str() );
-       22:  131:			line.str( "" );
+     7312:  125:		line << " " << std::right << std::setw( 2 ) << std::hex << std::uppercase << std::setfill( '0' ) << (int)(d & 255);
+     7312:  126:		address++;
+     7312:  127:		offset++;
+     7312:  128:		count++;
+     7312:  129:		if( count == 8 ){
+       26:  130:			push_back( line.str() );
+       26:  131:			line.str( "" );
         -:  132:			count = 0;
         -:  133:		}
         -:  134:	}
-     3383:  135:	if( count != 0 ){
-     6766:  136:		push_back( line.str() );
+     3385:  135:	if( count != 0 ){
+     6770:  136:		push_back( line.str() );
         -:  137:	}
-     3395:  138:}
+     3397:  138:}

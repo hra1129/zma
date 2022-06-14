@@ -23,6 +23,50 @@ static void usage( const char* p_name ) {
 }
 
 // --------------------------------------------------------------------
+static void option_d( CZMA_INFORMATION &info, std::string s_argument ){
+	std::string s_name;
+	std::string s_value;
+	CVALUE value;
+	size_t i;
+
+	for( i = 2; i < s_argument.size(); i++ ){
+		if( s_argument[ i ] == '=' ){
+			break;
+		}
+		s_name = s_name + s_argument[ i ];
+	}
+	i++;
+	for( ; i < s_argument.size(); i++ ){
+		s_value = s_value + s_argument[ i ];
+	}
+	if( s_name == "" || s_value == "" ){
+		std::cerr << "Invalid command line option [" << s_argument << "].\n";
+		return;
+	}
+	if( s_value.size() > 0 && s_value[ 0 ] == '\'' ){
+		if( s_value[ s_value.size() - 1 ] != '\'' ){
+			std::cerr << "Invalid command line option [" << s_argument << "].\n";
+			return;
+		}
+		s_value = s_value.substr( 1, s_value.size() - 2 );
+		value.value_type = CVALUE_TYPE::CV_STRING;
+		value.s = s_value;
+		info.log << "  String : " << s_name << " = \"" << value.s << "\"\n";
+	}
+	else{
+		value.value_type = CVALUE_TYPE::CV_INTEGER;
+		try{
+			value.i = std::stoi( s_value );
+		}
+		catch( ... ){
+			value.i = 0;
+		}
+		info.log << "  Integer: " << s_name << " = " << value.i << "\n";
+	}
+	info.dict[ s_name ] = value;
+}
+
+// --------------------------------------------------------------------
 static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
 	int i;
 	std::string s_argument;
@@ -44,12 +88,19 @@ static std::vector<std::string> get_command_line_options( int argc, char *argv[]
 				info.add_include_path( s_argument.substr( 2 ).c_str() );
 			}
 			else if( s_argument[ 1 ] == 'D' ){
-				//	★ここに -Dxxx=xxxx な記述の解釈を追加する
+				option_d( info, s_argument );
 			}
 		}
 		else{
 			sa_options.push_back( s_argument );
 		}
+	}
+
+	if( info.defs_is_space ){
+		info.log << "  DEFS is DEFINE SPACE.\n\n";
+	}
+	else{
+		info.log << "  DEFS is DEFINE STRING (default).\n\n";
 	}
 	return sa_options;
 }
@@ -64,22 +115,17 @@ int main( int argc, char *argv[] ) {
 	CZMA_INFORMATION info;
 	std::vector< std::string > sa_options;
 
+	info.log.open( "zma.log", std::ios::out );
+	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
+	info.log << "=====================================================\n";
+	info.log << "Programmed by t.hara\n\n";
+
 	sa_options = get_command_line_options( argc, argv, info );
 	if( sa_options.size() < 2 ) {
 		usage( argv[0] );
 		return 1;
 	}
 
-	info.log.open( "zma.log", std::ios::out );
-	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
-	info.log << "=====================================================\n";
-	info.log << "Programmed by t.hara\n\n";
-	if( info.defs_is_space ){
-		info.log << "  DEFS is DEFINE SPACE.\n\n";
-	}
-	else{
-		info.log << "  DEFS is DEFINE STRING (default).\n\n";
-	}
 	info.log << "<< code >>\n";
 	info.log << "LINE# |OFFSET|ADDR|MNEMONIC\n";
 	info.log << "======+======+====+==================================\n";

@@ -2160,8 +2160,8 @@
     40048: 2158:		c = d;
     40048: 2159:		f->write( (const char*) &c, 1 );
         -: 2160:	}
-    18912: 2161:	for( auto line : log ) {
-    12614: 2162:		info.log << line << std::endl;
+    18916: 2161:	for( auto line : log ) {
+    12618: 2162:		info.log << line << std::endl;
         -: 2163:	}
      6298: 2164:	return true;
        12: 2165:}

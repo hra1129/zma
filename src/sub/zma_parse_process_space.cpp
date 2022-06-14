@@ -78,6 +78,7 @@ bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 		else{
 			log.write_message( "No space was allocated." );
 		}
+		log.write_dump( this->code_address, this->file_address, this->data );
 		log.write_separator();
 	}
 	return check_all_fixed();
