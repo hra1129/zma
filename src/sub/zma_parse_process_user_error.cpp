@@ -27,10 +27,13 @@ bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_
 	if( this->expression( info, 1, v, false ) == 0 ) {
 		put_error( "Illegal parameter." );
 	}
-	if( v.value_type == CVALUE_TYPE::CV_STRING ) {
+	else if( v.is_unknown() ){
+		put_error( "Illegal parameter." );
+	}
+	else if( v.is_string() ){
 		put_error( v.s );
 	}
-	else if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
+	else if( v.is_integer() ) {
 		put_error( std::to_string( v.i ) );
 	}
 	else {

@@ -17,10 +17,10 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-        6:   18:bool CZMA_PARSE_INIR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        3:   18:bool CZMA_PARSE_INIR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-        6:   20:	update_flags( &info, p_last_line );
-        6:   21:	if( opecode( info, 0xED, 0xB2 ) ) {
+        3:   20:	update_flags( &info, p_last_line );
+        3:   21:	if( opecode( info, 0xED, 0xB2 ) ) {
         -:   22:		//	log
         3:   23:		if( !this->is_analyze_phase ) {
         2:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -30,7 +30,7 @@
         -:   28:		}
         -:   29:		return check_all_fixed();
         -:   30:	}
-        6:   31:	put_error( "Illegal operand" );
-        3:   32:	return false;
-      138:   33:}
+    #####:   31:	put_error( "Illegal operand" );
+    #####:   32:	return false;
+       12:   33:}
         -:   34:

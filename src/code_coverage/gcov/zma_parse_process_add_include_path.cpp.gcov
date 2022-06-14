@@ -17,35 +17,35 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       15:   18:bool CZMA_PARSE_ADD_INCLUDE_PATH::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+    #####:   18:bool CZMA_PARSE_ADD_INCLUDE_PATH::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	CVALUE v;
         -:   20:	bool is_loaded = false;
         -:   21:
-       15:   22:	set_code_size( &info, 0 );
-       15:   23:	update_flags( &info, p_last_line );
-       30:   24:	if( words.size() == 1 ) {
-        6:   25:		put_error( "Illegal parameter." );
-        3:   26:		return false;
+    #####:   22:	set_code_size( &info, 0 );
+    #####:   23:	update_flags( &info, p_last_line );
+    #####:   24:	if( words.size() == 1 ) {
+    #####:   25:		put_error( "Illegal parameter." );
+    #####:   26:		return false;
         -:   27:	}
-       12:   28:	if( this->expression( info, 1, v, false ) == 0 ) {
-        6:   29:		put_error( "Illegal parameter." );
-        3:   30:		return false;
+    #####:   28:	if( this->expression( info, 1, v, false ) == 0 ) {
+    #####:   29:		put_error( "Illegal parameter." );
+    #####:   30:		return false;
         -:   31:	}
-        9:   32:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
-        9:   33:		v.s = std::to_string( v.i );
+    #####:   32:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
+    #####:   33:		v.s = std::to_string( v.i );
         -:   34:	}
-       38:   35:	for( auto s : info.include_path ) {
+    #####:   35:	for( auto s : info.include_path ) {
         -:   36:		if( s == v.s ) {
         -:   37:			is_loaded = true;
         -:   38:		}
         -:   39:	}
-        9:   40:	if( !is_loaded ) {
-        3:   41:		info.include_path.push_back( v.s );
+    #####:   40:	if( !is_loaded ) {
+    #####:   41:		info.include_path.push_back( v.s );
         -:   42:	}
         -:   43:	//	log
-        9:   44:	if( !this->is_analyze_phase ) {
-        6:   45:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        6:   46:		log.write_message( "Add include path: " + v.s );
+    #####:   44:	if( !this->is_analyze_phase ) {
+    #####:   45:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+    #####:   46:		log.write_message( "Add include path: " + v.s );
         -:   47:	}
         -:   48:	return true;
-      138:   49:}
+       12:   49:}

@@ -17,10 +17,10 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       60:   18:bool CZMA_PARSE_SBC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       57:   18:bool CZMA_PARSE_SBC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-       60:   20:	update_flags( &info, p_last_line );
-       60:   21:	if( this->opecode_a_source8( info, 0x98 ) ) {
+       57:   20:	update_flags( &info, p_last_line );
+       57:   21:	if( this->opecode_a_source8( info, 0x98 ) ) {
         -:   22:		//	log
        33:   23:		if( !this->is_analyze_phase ) {
        22:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -35,7 +35,7 @@
         -:   33:		}
         -:   34:		return check_all_fixed();
         -:   35:	}
-       27:   36:	if( this->opecode_a_memory_hl( info, 0x9E ) ) {
+       24:   36:	if( this->opecode_a_memory_hl( info, 0x9E ) ) {
         -:   37:		//	log
         9:   38:		if( !this->is_analyze_phase ) {
         6:   39:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -50,7 +50,7 @@
         -:   48:		}
         -:   49:		return check_all_fixed();
         -:   50:	}
-       18:   51:	if( this->opecode_a_n8( info, 0xDE ) ) {
+       15:   51:	if( this->opecode_a_n8( info, 0xDE ) ) {
         -:   52:		//	log
         3:   53:		if( !this->is_analyze_phase ) {
         2:   54:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -60,7 +60,7 @@
         -:   58:		}
         -:   59:		return check_all_fixed();
         -:   60:	}
-       15:   61:	if( this->opecode_hl_source16_witnout_ix( info, 0xED, 0x42 ) ) {
+       12:   61:	if( this->opecode_hl_source16_witnout_ix( info, 0xED, 0x42 ) ) {
         -:   62:		//	log
        12:   63:		if( !this->is_analyze_phase ) {
         8:   64:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -70,7 +70,7 @@
         -:   68:		}
         -:   69:		return check_all_fixed();
         -:   70:	}
-        6:   71:	put_error( "Illegal operand" );
-        3:   72:	return false;
-      138:   73:}
+    #####:   71:	put_error( "Illegal operand" );
+    #####:   72:	return false;
+       12:   73:}
         -:   74:

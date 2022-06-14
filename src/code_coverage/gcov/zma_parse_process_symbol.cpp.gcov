@@ -17,62 +17,74 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       42:   18:bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+    #####:   18:bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	std::string label;
         -:   20:	CVALUE v;
         -:   21:
-       42:   22:	this->set_code_size( &info, 0 );
-       42:   23:	update_flags( &info, p_last_line );
+    #####:   22:	this->set_code_size( &info, 0 );
+    #####:   23:	update_flags( &info, p_last_line );
         -:   24:	//	log
-      126:   25:	label = info.get_scope_path() + words[0];
-       42:   26:	if( !this->is_analyze_phase ) {
-       28:   27:		std::stringstream s;
-       28:   28:		log.write_line_infomation( this->line_no, -1, -1, get_line() );
+    #####:   25:	label = info.get_scope_path() + words[0];
+    #####:   26:	if( !this->is_analyze_phase ) {
+    #####:   27:		std::stringstream s;
+    #####:   28:		log.write_line_infomation( this->line_no, -1, -1, get_line() );
         -:   29:		if( !info.dict.count( label ) ){
-        4:   30:			s << "global symbol [" << label << "] = UNKNOWN";
+    #####:   30:			s << "Symbol [" << label << "] = UNKNOWN";
         -:   31:		}
         -:   32:		else {
-       10:   33:			v = info.dict[label];
-       10:   34:			if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
-       18:   35:				s << "Symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
-        -:   36:			}
-        1:   37:			else if( v.value_type == CVALUE_TYPE::CV_STRING ) {
-        1:   38:				s << "Symbol [" << label << "] = \"" << v.s << "\"";
-        -:   39:			}
-        -:   40:			else {
-    #####:   41:				s << "Symbol [" << label << "] = UNKNOWN";
-        -:   42:			}
-        -:   43:		}
-       28:   44:		log.write_message( s.str() );
-       14:   45:		log.write_separator();
-        -:   46:	}
-       42:   47:	if( this->is_data_fixed ) {
-        -:   48:		if( check_all_fixed() && info.dict.count( label ) ){
-        -:   49:			return true;
-        -:   50:		}
-        -:   51:	}
-       52:   52:	if( words[0][0] == '\"' ) {
-        6:   53:		put_error( "Invalid command." );
-        3:   54:		return false;
-        -:   55:	}
-       23:   56:	if( this->expression( info, 2, v ) ) {
-       20:   57:		if( v.value_type == CVALUE_TYPE::CV_UNKNOWN ) {
-       12:   58:			put_error( "Illegal expression." );
-        6:   59:			return false;
+    #####:   33:			v = info.dict[label];
+    #####:   34:			if( v.is_integer() ) {
+    #####:   35:				if( v.is_unknown() ){
+    #####:   36:					s << "Integer symbol [" << label << "] = UNKNOWN";
+        -:   37:				}
+        -:   38:				else{
+    #####:   39:					s << "Integer symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
+        -:   40:				}
+        -:   41:			}
+    #####:   42:			else if( v.is_string() ) {
+    #####:   43:				if( v.is_unknown() ){
+    #####:   44:					s << "String symbol [" << label << "] = UNKNOWN";
+        -:   45:				}
+        -:   46:				else{
+    #####:   47:					s << "String symbol [" << label << "] = \"" << v.s << "\"";
+        -:   48:				}
+        -:   49:			}
+        -:   50:			else {
+    #####:   51:				s << "Symbol [" << label << "] = UNKNOWN";
+        -:   52:			}
+        -:   53:		}
+    #####:   54:		log.write_message( s.str() );
+    #####:   55:		log.write_separator();
+        -:   56:	}
+    #####:   57:	if( this->is_data_fixed ) {
+        -:   58:		if( check_all_fixed() && info.dict.count( label ) ){
+        -:   59:			return true;
         -:   60:		}
-        -:   61:		if( info.dict.count( label ) ) {
-       24:   62:			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
-        6:   63:			return false;
-        -:   64:		}
-        -:   65:		else {
-        8:   66:			this->is_data_fixed = true;
-        8:   67:			info.dict[label] = v;
-        8:   68:			info.is_updated = true;
-        -:   69:		}
-        -:   70:	}
-        -:   71:	else {
-        9:   72:		put_error( "Label '" + words[0] + "' is indeterminate." );
-        3:   73:		return false;
-        -:   74:	}
-        -:   75:	return check_all_fixed();
-      138:   76:}
+        -:   61:	}
+    #####:   62:	if( words[0][0] == '\"' ) {
+    #####:   63:		put_error( "Invalid command." );
+    #####:   64:		return false;
+        -:   65:	}
+    #####:   66:	if( this->expression( info, 2, v ) ) {
+    #####:   67:		if( v.value_type == CVALUE_TYPE::CV_UNKNOWN ) {
+    #####:   68:			put_error( "Illegal expression." );
+    #####:   69:			return false;
+        -:   70:		}
+    #####:   71:		if( info.dict.count( label ) && !info.dict[ label ].is_unknown() ) {
+    #####:   72:			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
+    #####:   73:			return false;
+        -:   74:		}
+        -:   75:		else {
+    #####:   76:			if( !v.is_unknown() ){
+    #####:   77:				this->is_data_fixed = true;
+        -:   78:			}
+    #####:   79:			info.dict[label] = v;
+    #####:   80:			info.is_updated = true;
+        -:   81:		}
+        -:   82:	}
+        -:   83:	else {
+    #####:   84:		put_error( "Label '" + words[0] + "' is indeterminate." );
+    #####:   85:		return false;
+        -:   86:	}
+        -:   87:	return check_all_fixed();
+       12:   88:}

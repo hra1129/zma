@@ -31,11 +31,21 @@ bool CZMA_PARSE_GLOBAL_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_la
 		}
 		else {
 			v = info.dict[label];
-			if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
-				s << "Global symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
+			if( v.is_integer() ) {
+				if( v.is_unknown() ){
+					s << "Global integer symbol [" << label << "] = UNKNOWN";
+				}
+				else {
+					s << "Global integer symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
+				}
 			}
-			else if( v.value_type == CVALUE_TYPE::CV_STRING ) {
-				s << "Global symbol [" << label << "] = \"" << v.s << "\"";
+			else if( v.is_string() ) {
+				if( v.is_unknown() ){
+					s << "Global string symbol [" << label << "] = UNKNOWN";
+				}
+				else{
+					s << "Global string symbol [" << label << "] = \"" << v.s << "\"";
+				}
 			}
 			else {
 				s << "Global symbol [" << label << "] = UNKNOWN";

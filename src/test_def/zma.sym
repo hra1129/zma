@@ -1,2 +1,6 @@
 LABEL0 equ 00h
-LABEL1 equ 029h
+LABEL1 equ 0fh
+LABEL2 equ 01eh
+LABEL3 equ 028h
+LABEL4 equ 032h
+LABEL5 equ 046h

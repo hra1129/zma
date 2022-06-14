@@ -17,27 +17,27 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       39:   18:bool CZMA_PARSE_RST::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       24:   18:bool CZMA_PARSE_RST::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	CVALUE p;
         -:   20:	int index;
-       39:   21:	update_flags( &info, p_last_line );
-       78:   22:	if( words.size() >= 2 ) {
-       36:   23:		index = this->expression( info, 1, p );
-       36:   24:		if( index == 0 ) {
-        6:   25:			put_error( "Illegal expression." );
-        3:   26:			return false;
+       24:   21:	update_flags( &info, p_last_line );
+       48:   22:	if( words.size() >= 2 ) {
+       24:   23:		index = this->expression( info, 1, p );
+       24:   24:		if( index == 0 ) {
+    #####:   25:			put_error( "Illegal expression." );
+    #####:   26:			return false;
         -:   27:		}
-       33:   28:		if( p.value_type != CVALUE_TYPE::CV_INTEGER ) {
-        6:   29:			put_error( "Illegal expression." );
-        3:   30:			return false;
+       24:   28:		if( p.value_type != CVALUE_TYPE::CV_INTEGER ) {
+    #####:   29:			put_error( "Illegal expression." );
+    #####:   30:			return false;
         -:   31:		}
-       60:   32:		if( index < (int)words.size() ) {
-        6:   33:			put_error( "Illegal operand." );
-        3:   34:			return false;
+       48:   32:		if( index < (int)words.size() ) {
+    #####:   33:			put_error( "Illegal operand." );
+    #####:   34:			return false;
         -:   35:		}
-       27:   36:		if( (p.i & ~0x38) != 0 ) {
-       15:   37:			put_error( std::string("Illegal restart address (") + std::to_string(p.i) + ")" );
-        3:   38:			return false;
+       24:   36:		if( (p.i & ~0x38) != 0 ) {
+    #####:   37:			put_error( std::string("Illegal restart address (") + std::to_string(p.i) + ")" );
+    #####:   38:			return false;
         -:   39:		}
        24:   40:		if( !this->is_data_fixed ) {
         8:   41:			this->is_data_fixed = true;
@@ -53,7 +53,7 @@
         -:   51:		}
         -:   52:		return check_all_fixed();
         -:   53:	}
-        6:   54:	put_error( "Illegal operand" );
-        3:   55:	return false;
-      138:   56:}
+    #####:   54:	put_error( "Illegal operand" );
+    #####:   55:	return false;
+       12:   56:}
         -:   57:

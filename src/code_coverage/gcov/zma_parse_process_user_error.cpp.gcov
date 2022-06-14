@@ -17,26 +17,29 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       31:   18:bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+    #####:   18:bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	CVALUE v;
         -:   20:
-       31:   21:	set_code_size( &info, 0 );
-       31:   22:	update_flags( &info, p_last_line );
-       62:   23:	if( words.size() == 1 ) {
-        6:   24:		put_error( "Too many parameters." );
-        3:   25:		return false;
+    #####:   21:	set_code_size( &info, 0 );
+    #####:   22:	update_flags( &info, p_last_line );
+    #####:   23:	if( words.size() == 1 ) {
+    #####:   24:		put_error( "Too many parameters." );
+    #####:   25:		return false;
         -:   26:	}
-       28:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
-       12:   28:		put_error( "Illegal parameter." );
+    #####:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
+    #####:   28:		put_error( "Illegal parameter." );
         -:   29:	}
-       28:   30:	if( v.value_type == CVALUE_TYPE::CV_STRING ) {
-       38:   31:		put_error( v.s );
+    #####:   30:	else if( v.is_unknown() ){
+    #####:   31:		put_error( "Illegal parameter." );
         -:   32:	}
-        9:   33:	else if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
-        9:   34:		put_error( std::to_string( v.i ) );
+    #####:   33:	else if( v.is_string() ){
+    #####:   34:		put_error( v.s );
         -:   35:	}
-        -:   36:	else {
-       12:   37:		put_error( "Illegal parameter." );
+    #####:   36:	else if( v.is_integer() ) {
+    #####:   37:		put_error( std::to_string( v.i ) );
         -:   38:	}
-        -:   39:	return false;
-      138:   40:}
+        -:   39:	else {
+    #####:   40:		put_error( "Illegal parameter." );
+        -:   41:	}
+        -:   42:	return false;
+       12:   43:}

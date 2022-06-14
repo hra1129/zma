@@ -17,33 +17,33 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       43:   18:bool CZMA_PARSE_ENDSCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+    #####:   18:bool CZMA_PARSE_ENDSCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	std::string s, s_scope;
         -:   20:
-       43:   21:	update_flags( &info, p_last_line );
-       86:   22:	if( words.size() > 1 ) {
-        6:   23:		put_error( "Too many parameters." );
-        3:   24:		return false;
+    #####:   21:	update_flags( &info, p_last_line );
+    #####:   22:	if( words.size() > 1 ) {
+    #####:   23:		put_error( "Too many parameters." );
+    #####:   24:		return false;
         -:   25:	}
-       40:   26:	this->is_data_fixed = true;
+    #####:   26:	this->is_data_fixed = true;
         -:   27:	this->set_code_size( &info, 0 );
-       80:   28:	if( info.scope.size() < 1 ) {
-       12:   29:		put_error( "Invalid command." );
-        6:   30:		return false;
+    #####:   28:	if( info.scope.size() < 1 ) {
+    #####:   29:		put_error( "Invalid command." );
+    #####:   30:		return false;
         -:   31:	}
-       68:   32:	if( info.scope[ info.scope.size() - 1 ][0] == '@' ) {
-        6:   33:		put_error( "Invalid command." );
-        3:   34:		return false;
+    #####:   32:	if( info.scope[ info.scope.size() - 1 ][0] == '@' ) {
+    #####:   33:		put_error( "Invalid command." );
+    #####:   34:		return false;
         -:   35:	}
-       62:   36:	s_scope = info.get_scope_path();
+    #####:   36:	s_scope = info.get_scope_path();
         -:   37:	info.scope.pop_back();
         -:   38:
         -:   39:	//	log
-       31:   40:	if( !is_analyze_phase ) {
-       18:   41:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       18:   42:		log.write_message( "Exit scope: " + s_scope );
-        9:   43:		log.write_separator();
+    #####:   40:	if( !is_analyze_phase ) {
+    #####:   41:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+    #####:   42:		log.write_message( "Exit scope: " + s_scope );
+    #####:   43:		log.write_separator();
         -:   44:	}
         -:   45:	return check_all_fixed();
-      138:   46:}
+       12:   46:}
         -:   47:

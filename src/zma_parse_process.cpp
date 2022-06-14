@@ -171,7 +171,11 @@ CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string>
 		OPE_CASE( DEFB );
 		OPE_CASE( DEFW );
 		OPE_CASE( DEFD );
-		OPE_CASE( DEFS );
+		case CZMA_COMMAND_TYPE::CZMA_DEFS:
+			if( info.defs_is_space ){
+				return reinterpret_cast<CZMA_PARSE *> ( new CZMA_PARSE_SPACE( words, p_file_name, line_no ) );
+			}
+			return reinterpret_cast<CZMA_PARSE *> ( new CZMA_PARSE_DEFS( words, p_file_name, line_no ) );
 		OPE_CASE( LD );
 		OPE_CASE( PUSH );
 		OPE_CASE( POP );
@@ -282,7 +286,7 @@ std::string CZMA_PARSE::get_line( void ) {
 	std::string r, ss;
 
 	r = "";
-	for( auto s : words ) {
+	for( auto &s : words ) {
 		if( s.size() > 0 && (s[0] == '\"' || s[0] == '\'') ){
 			ss = s[ 0 ];
 			for( int i = 1; i < (int)s.size(); i++ ) {

@@ -15,9 +15,9 @@
         -:   13:public:
         -:   14:	CZMA_REPEAT_T* p_repeat = nullptr;
         -:   15:
-       22:   16:	using CZMA_PARSE::CZMA_PARSE;
+    #####:   16:	using CZMA_PARSE::CZMA_PARSE;
         -:   17:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
-       32:   18:	virtual bool is_parse_error( void ) {
-       32:   19:		return true;
+    #####:   18:	virtual bool is_parse_error( void ) {
+    #####:   19:		return true;
         -:   20:	}
         -:   21:};

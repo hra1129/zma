@@ -17,27 +17,27 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       63:   18:bool CZMA_PARSE_SCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+    #####:   18:bool CZMA_PARSE_SCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-       63:   20:	update_flags( &info, p_last_line );
-      126:   21:	if( words.size() < 2 ) {
-        6:   22:		put_error( "Must be set name." );
-        3:   23:		return false;
+    #####:   20:	update_flags( &info, p_last_line );
+    #####:   21:	if( words.size() < 2 ) {
+    #####:   22:		put_error( "Must be set name." );
+    #####:   23:		return false;
         -:   24:	}
-       60:   25:	if( words.size() > 2 ) {
-        6:   26:		put_error( "Too many parameters." );
-        3:   27:		return false;
+    #####:   25:	if( words.size() > 2 ) {
+    #####:   26:		put_error( "Too many parameters." );
+    #####:   27:		return false;
         -:   28:	}
-       57:   29:	this->is_data_fixed = true;
+    #####:   29:	this->is_data_fixed = true;
         -:   30:	this->set_code_size( &info, 0 );
-      114:   31:	info.scope.push_back( words[1] );
+    #####:   31:	info.scope.push_back( words[1] );
         -:   32:
         -:   33:	//	log
-       57:   34:	if( !is_analyze_phase ) {
-       34:   35:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       51:   36:		log.write_message( "Enter scope: " + info.get_scope_path() );
-       17:   37:		log.write_separator();
+    #####:   34:	if( !is_analyze_phase ) {
+    #####:   35:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+    #####:   36:		log.write_message( "Enter scope: " + info.get_scope_path() );
+    #####:   37:		log.write_separator();
         -:   38:	}
         -:   39:	return check_all_fixed();
-      138:   40:}
+       12:   40:}
         -:   41:

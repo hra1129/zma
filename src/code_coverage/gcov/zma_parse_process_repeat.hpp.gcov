@@ -15,7 +15,7 @@
         -:   13:public:
         -:   14:	CZMA_REPEAT_T *p_repeat = nullptr;
         -:   15:
-       26:   16:	using CZMA_PARSE::CZMA_PARSE;
+    #####:   16:	using CZMA_PARSE::CZMA_PARSE;
         -:   17:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
         -:   18:};
         -:   19:
@@ -26,7 +26,7 @@
         -:   24:	CZMA_REPEAT_T* p_repeat = nullptr;
         -:   25:	bool is_loaded = false;
         -:   26:
-       52:   27:	using CZMA_PARSE::CZMA_PARSE;
+    #####:   27:	using CZMA_PARSE::CZMA_PARSE;
         -:   28:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
         -:   29:	bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) override;
         -:   30:};

@@ -17,32 +17,32 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       12:   18:bool CZMA_PARSE_DJNZ::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        3:   18:bool CZMA_PARSE_DJNZ::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	int relative;
         -:   20:
-       12:   21:	update_flags( &info, p_last_line );
-       24:   22:	if( words.size() != 2 ) {
-        6:   23:		put_error( "Illegal operand" );
-        3:   24:		return false;
+        3:   21:	update_flags( &info, p_last_line );
+        6:   22:	if( words.size() != 2 ) {
+    #####:   23:		put_error( "Illegal operand" );
+    #####:   24:		return false;
         -:   25:	}
-        9:   26:	if( !this->is_data_fixed ) {
+        3:   26:	if( !this->is_data_fixed ) {
         -:   27:		this->set_code_size( &info, 2 );
-        4:   28:		relative = this->relative_address( info, 1 );
-        4:   29:		if( relative == -9999 ) {
+        2:   28:		relative = this->relative_address( info, 1 );
+        2:   29:		if( relative == -9999 ) {
         2:   30:			put_error( "Illegal operand" );
         1:   31:			return false;
         -:   32:		}
-        3:   33:		this->is_data_fixed = true;
-        6:   34:		this->data.push_back( 0x10 );
-        6:   35:		this->data.push_back( relative );
+        1:   33:		this->is_data_fixed = true;
+        2:   34:		this->data.push_back( 0x10 );
+        2:   35:		this->data.push_back( relative );
         -:   36:	}
         -:   37:	//	log
-        8:   38:	if( !this->is_analyze_phase ) {
-        6:   39:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        6:   40:		log.write_cycle_information( 14, 3, 9, 2 );
-        3:   41:		log.write_dump( this->code_address, this->file_address, this->data );
-        3:   42:		log.write_separator();
+        2:   38:	if( !this->is_analyze_phase ) {
+        2:   39:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        2:   40:		log.write_cycle_information( 14, 3, 9, 2 );
+        1:   41:		log.write_dump( this->code_address, this->file_address, this->data );
+        1:   42:		log.write_separator();
         -:   43:	}
         -:   44:	return check_all_fixed();
-      138:   45:}
+       12:   45:}
         -:   46:

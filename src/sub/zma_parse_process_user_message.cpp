@@ -28,7 +28,11 @@ bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 		put_error( "Illegal parameter." );
 		return false;
 	}
-	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
+	else if( v.is_unknown() ){
+		put_error( "Illegal parameter." );
+		return false;
+	}
+	if( v.is_integer() ) {
 		v.s = std::to_string( v.i );
 	}
 	//	log
@@ -37,4 +41,3 @@ bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 	}
 	return true;
 }
-

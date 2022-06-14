@@ -29,7 +29,11 @@ bool CZMA_PARSE_DEFS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 		put_error( "Illegal parameter." );
 		return false;
 	}
-	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
+	if( v.is_unknown() ){
+		put_error( "Illegal parameter." );
+		return false;
+	}
+	if( v.is_integer() ) {
 		v.value_type = CVALUE_TYPE::CV_STRING;
 		v.s = std::to_string( v.i );
 	}

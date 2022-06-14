@@ -14,8 +14,12 @@ static const char* p_version = "v1.0.16-alpha";
 
 // --------------------------------------------------------------------
 static void usage( const char* p_name ) {
-	std::cerr << "Usage> " << p_name << " <input.asm> <output.bin>\n";
+	std::cerr << "Usage> " << p_name << " [-options] <input.asm> <output.bin>\n";
 	std::cerr << "This is Z80/R800 Macro Assembler.\n";
+	std::cerr << "[-options]\n";
+	std::cerr << "  -HELP, -H ... Display this message.\n";
+	std::cerr << "  -I{path} .... Add {path} to the include path.\n";
+	std::cerr << "  -DEFS ....... Change the DEFS instruction to an area allocation instruction.\n";
 }
 
 // --------------------------------------------------------------------
@@ -32,6 +36,9 @@ static std::vector<std::string> get_command_line_options( int argc, char *argv[]
 			if( s_argument == "-H" || s_argument == "-HELP" ){
 				usage( argv[ 0 ] );
 				exit( 1 );
+			}
+			else if( s_argument == "-DEFS" ){
+				info.defs_is_space = true;
 			}
 			else if( s_argument[ 1 ] == 'I' ){
 				info.add_include_path( s_argument.substr( 2 ).c_str() );
@@ -67,6 +74,12 @@ int main( int argc, char *argv[] ) {
 	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
 	info.log << "=====================================================\n";
 	info.log << "Programmed by t.hara\n\n";
+	if( info.defs_is_space ){
+		info.log << "  DEFS is DEFINE SPACE.\n\n";
+	}
+	else{
+		info.log << "  DEFS is DEFINE STRING (default).\n\n";
+	}
 	info.log << "<< code >>\n";
 	info.log << "LINE# |OFFSET|ADDR|MNEMONIC\n";
 	info.log << "======+======+====+==================================\n";

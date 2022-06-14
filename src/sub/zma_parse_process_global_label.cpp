@@ -45,19 +45,23 @@ bool CZMA_PARSE_GLOBAL_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 		return false;
 	}
 	if( this->is_fixed_code_address() ) {
-		if( info.dict.count( label ) ) {
+		if( info.dict.count( label ) && info.dict[ label ].value_type == CVALUE_TYPE::CV_UNKNOWN_INTEGER ) {
 			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
 			return false;
 		}
 		else {
 			this->is_data_fixed = true;
-			v.value_type = CVALUE_TYPE::CV_INTEGER;
 			v.i = this->get_code_address();
+			v.value_type = CVALUE_TYPE::CV_INTEGER;
 			info.dict[label] = v;
 			info.is_updated = true;
 		}
 	}
 	else {
+		v.i = -1;
+		v.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
+		info.dict[ label ] = v;
+		info.is_updated = true;
 		put_error( "Label '" + words[0] + "' is indeterminate." );
 		return false;
 	}

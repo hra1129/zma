@@ -25,7 +25,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			result.i = this->get_code_address();
 		}
 		else {
-			result.value_type = CVALUE_TYPE::CV_UNKNOWN;
+			result.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
 			result.i = 0;
 		}
 		return true;
@@ -37,7 +37,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			result.i = this->get_file_address();
 		}
 		else {
-			result.value_type = CVALUE_TYPE::CV_UNKNOWN;
+			result.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
 			result.i = 0;
 		}
 		return true;
@@ -58,7 +58,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			if( c == '_' || c == '$' ){
 				continue;
 			}
-			put_error( std::string( "Description of numerical value '" ) + s + "' is abnormal." );
+			put_error( "Description of numerical value '" + s + "' is abnormal." );
 			return false;
 		}
 		result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -66,7 +66,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			result.i = (int)std::stoll( num, nullptr, 16 );
 		}
 		catch( ... ){
-			put_error( std::string( "Numerical descriptions '" ) + num + "' are unusual." );
+			put_error( "Numerical descriptions '" + num + "' are unusual." );
 			result.i = 0;
 		}
 		return true;
@@ -74,7 +74,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 	if( s == "+" ) {
 		index++;
 		is_success = operator_single( info, index, result, do_char_map );
-		if( result.value_type != CVALUE_TYPE::CV_INTEGER ) {
+		if( !result.is_integer() ) {
 			put_error( "Invalid operator '+'." );
 			return false;
 		}
@@ -83,7 +83,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 	if( s == "-" ) {
 		index++;
 		is_success = operator_single( info, index, result, do_char_map );
-		if( result.value_type != CVALUE_TYPE::CV_INTEGER ) {
+		if( !result.is_integer() ) {
 			put_error( "Invalid operator '-'." );
 			return false;
 		}
@@ -108,7 +108,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 	if( s == "!" ) {
 		index++;
 		is_success = operator_single( info, index, result, do_char_map );
-		if( result.value_type != CVALUE_TYPE::CV_INTEGER ) {
+		if( !result.is_integer() ) {
 			put_error( "Invalid operator '!'." );
 			return false;
 		}
@@ -118,7 +118,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 	if( s == "~" ) {
 		index++;
 		is_success = operator_single( info, index, result, do_char_map );
-		if( result.value_type != CVALUE_TYPE::CV_INTEGER ) {
+		if( !result.is_integer() ) {
 			put_error( "Invalid operator '~'." );
 			return false;
 		}
@@ -145,7 +145,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				if( c == '_' || c == 'H' ) {
 					continue;
 				}
-				put_error( std::string( "Description of numerical value '" ) + s + "' is abnormal." );
+				put_error( "Description of numerical value '" + s + "' is abnormal." );
 				return false;
 			}
 			result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -153,7 +153,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				result.i = (int)std::stoll( num, nullptr, 16 );
 			}
 			catch( ... ){
-				put_error( std::string( "Numerical descriptions '" ) + num + "' are unusual." );
+				put_error( "Numerical descriptions '" + num + "' are unusual." );
 				result.i = 0;
 			}
 			return true;
@@ -168,7 +168,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				if( c == '_' ) {
 					continue;
 				}
-				put_error( std::string( "Description of numerical value '" ) + s + "' is abnormal." );
+				put_error( "Description of numerical value '" + s + "' is abnormal." );
 				return false;
 			}
 			result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -176,7 +176,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				result.i = (int)std::stoll( num, nullptr, 16 );
 			}
 			catch(...) {
-				put_error( std::string( "Numerical descriptions '" ) + num + "' are unusual." );
+				put_error( "Numerical descriptions '" + num + "' are unusual." );
 				result.i = 0;
 			}
 			return true;
@@ -191,7 +191,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				if( c == '_' ) {
 					continue;
 				}
-				put_error( std::string( "Description of numerical value '" ) + s + "' is abnormal." );
+				put_error( "Description of numerical value '" + s + "' is abnormal." );
 				return false;
 			}
 			result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -199,7 +199,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				result.i = (int)std::stoll( num, nullptr, 2 );
 			}
 			catch( ... ){
-				put_error( std::string( "Numerical descriptions '" ) + num + "' are unusual." );
+				put_error( "Numerical descriptions '" + num + "' are unusual." );
 				result.i = 0;
 			}
 			return true;
@@ -213,7 +213,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			if( c == '_' ) {
 				continue;
 			}
-			put_error( std::string( "Description of numerical value '" ) + s + "' is abnormal." );
+			put_error( "Description of numerical value '" + s + "' is abnormal." );
 			return false;
 		}
 		result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -221,7 +221,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			result.i = (int)std::stoll( num, nullptr, 8 );
 		}
 		catch( ... ){
-			put_error( std::string( "Numerical descriptions '" ) + num + "' are unusual." );
+			put_error( "Numerical descriptions '" + num + "' are unusual." );
 			result.i = 0;
 		}
 		return true;
@@ -251,7 +251,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				if( c == '_' || c == 'H' ){
 					continue;
 				}
-				put_error( std::string( "Description of numerical value '" ) + s + "' is abnormal." );
+				put_error( "Description of numerical value '" + s + "' is abnormal." );
 				return false;
 			}
 			result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -259,7 +259,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				result.i = (int)std::stoll( num, nullptr, 16 );
 			}
 			catch( ... ){
-				put_error( std::string( "Numerical descriptions '" ) + num + "' are unusual." );
+				put_error( "Numerical descriptions '" + num + "' are unusual." );
 				result.i = 0;
 			}
 			return true;
@@ -273,7 +273,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			if( c == '_' ) {
 				continue;
 			}
-			put_error( std::string( "Description of numerical value '" ) + s + "' is abnormal." );
+			put_error( "Description of numerical value '" + s + "' is abnormal." );
 			return false;
 		}
 		result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -281,7 +281,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			result.i = (int)std::stoll( num, nullptr );
 		}
 		catch( ... ){
-			put_error( std::string( "Numerical descriptions '" ) + num + "' are unusual." );
+			put_error( "Numerical descriptions '" + num + "' are unusual." );
 			result.i = 0;
 		}
 		return true;
@@ -331,24 +331,26 @@ bool CZMA_PARSE::operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& r
 			if( !is_success ) {
 				return false;
 			}
-			if( result.value_type == CVALUE_TYPE::CV_INTEGER && term.value_type == CVALUE_TYPE::CV_INTEGER ) {
+			if( result.is_integer() && term.is_integer() ) {
 				result.i = result.i * term.i;
+				result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 				continue;
 			}
-			else if( result.value_type == CVALUE_TYPE::CV_STRING && term.value_type == CVALUE_TYPE::CV_INTEGER ) {
+			else if( result.is_string() && term.is_integer() ) {
 				s = "";
 				for( i = 0; i < term.i; i++ ) {
 					s = s + result.s;
 				}
+				result.inherit( CVALUE_TYPE::CV_STRING, result.value_type, term.value_type );
 				result.s = s;
 				continue;
 			}
-			else if( result.value_type == CVALUE_TYPE::CV_INTEGER && term.value_type == CVALUE_TYPE::CV_STRING ) {
+			else if( result.is_integer() && term.is_string() ) {
 				s = "";
 				for( i = 0; i < result.i; i++ ) {
 					s = s + term.s;
 				}
-				result.value_type = CVALUE_TYPE::CV_STRING;
+				result.inherit( CVALUE_TYPE::CV_STRING, result.value_type, term.value_type );
 				result.s = s;
 				continue;
 			}
@@ -361,7 +363,7 @@ bool CZMA_PARSE::operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& r
 			if( !is_success ) {
 				return false;
 			}
-			if( result.value_type != CVALUE_TYPE::CV_INTEGER || term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !result.is_integer() || !term.is_integer() ) {
 				put_error( "Invalid operator '/'" );
 				return false;
 			}
@@ -370,6 +372,7 @@ bool CZMA_PARSE::operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& r
 				return false;
 			}
 			else {
+				result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 				result.i = result.i / term.i;
 			}
 			continue;
@@ -380,7 +383,7 @@ bool CZMA_PARSE::operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& r
 			if( !is_success ) {
 				return false;
 			}
-			if( result.value_type != CVALUE_TYPE::CV_INTEGER || term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !result.is_integer() || !term.is_integer() ) {
 				put_error( "Invalid operator '%'" );
 				return false;
 			}
@@ -389,6 +392,7 @@ bool CZMA_PARSE::operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& r
 				return false;
 			}
 			else {
+				result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 				result.i = result.i % term.i;
 			}
 			continue;
@@ -417,19 +421,23 @@ bool CZMA_PARSE::operator_add_sub( CZMA_INFORMATION& info, int& index, CVALUE& r
 			if( !is_success ) {
 				return false;
 			}
-			if( result.value_type == CVALUE_TYPE::CV_INTEGER && term.value_type == CVALUE_TYPE::CV_INTEGER ) {
+			if( result.is_integer() && term.is_integer() ) {
+				result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 				result.i = result.i + term.i;
 			}
-			else if( result.value_type == CVALUE_TYPE::CV_STRING && term.value_type == CVALUE_TYPE::CV_INTEGER ) {
+			else if( result.is_string() && term.is_integer() ) {
+				result.inherit( CVALUE_TYPE::CV_STRING, result.value_type, term.value_type );
 				result.s = result.s + std::to_string(term.i);
 			}
-			else if( result.value_type == CVALUE_TYPE::CV_INTEGER && term.value_type == CVALUE_TYPE::CV_STRING ) {
-				result.value_type = CVALUE_TYPE::CV_STRING;
+			else if( result.is_integer() && term.is_string() ) {
+				result.inherit( CVALUE_TYPE::CV_STRING, result.value_type, term.value_type );
 				result.s = std::to_string(result.i) + term.s;
 			}
-			//if( result.type == CVALUE_TYPE::CV_STRING && term.type == CVALUE_TYPE::CV_STRING ) {
-			result.s = result.s + term.s;
-			//}
+			else{
+			//	result.is_string() && term.is_string()
+				result.inherit( CVALUE_TYPE::CV_STRING, result.value_type, term.value_type );
+				result.s = result.s + term.s;
+			}
 		}
 		else if( s == "-" ) {
 			index++;
@@ -437,10 +445,11 @@ bool CZMA_PARSE::operator_add_sub( CZMA_INFORMATION& info, int& index, CVALUE& r
 			if( !is_success ) {
 				return false;
 			}
-			if( result.value_type != CVALUE_TYPE::CV_INTEGER || term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !result.is_integer() || !term.is_integer() ) {
 				put_error( "Invalid operator '-'" );
 				return false;
 			}
+			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 			result.i = result.i - term.i;
 		}
 		else {
@@ -461,7 +470,7 @@ bool CZMA_PARSE::operator_shift( CZMA_INFORMATION& info, int& index, CVALUE& res
 	if( !is_success ) {
 		return false;
 	}
-	if( result.value_type != CVALUE_TYPE::CV_INTEGER ) {
+	if( !result.is_integer() ) {
 		return true;
 	}
 	for( ;;) {
@@ -472,10 +481,11 @@ bool CZMA_PARSE::operator_shift( CZMA_INFORMATION& info, int& index, CVALUE& res
 			if( !is_success ) {
 				return false;
 			}
-			if( term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !term.is_integer() ) {
 				put_error( "Invalid operator '<<'" );
 				return false;
 			}
+			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 			result.i = result.i << term.i;
 			continue;
 		}
@@ -485,10 +495,11 @@ bool CZMA_PARSE::operator_shift( CZMA_INFORMATION& info, int& index, CVALUE& res
 			if( !is_success ) {
 				return false;
 			}
-			if( term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !term.is_integer() ) {
 				put_error( "Invalid operator '>>'" );
 				return false;
 			}
+			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 			result.i = result.i >> term.i;
 			continue;
 		}
@@ -508,7 +519,7 @@ bool CZMA_PARSE::operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& r
 	if( !is_success ) {
 		return false;
 	}
-	if( result.value_type != CVALUE_TYPE::CV_INTEGER ) {
+	if( !result.is_integer() ) {
 		return true;
 	}
 	for( ;;) {
@@ -519,10 +530,11 @@ bool CZMA_PARSE::operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& r
 			if( !is_success ) {
 				return false;
 			}
-			if( term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !term.is_integer() ) {
 				put_error( "Invalid operator '<'" );
 				return false;
 			}
+			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 			result.i = result.i < term.i;
 			continue;
 		}
@@ -532,10 +544,11 @@ bool CZMA_PARSE::operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& r
 			if( !is_success ) {
 				return false;
 			}
-			if( term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !term.is_integer() ) {
 				put_error( "Invalid operator '>'" );
 				return false;
 			}
+			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 			result.i = result.i > term.i;
 			continue;
 		}
@@ -545,10 +558,11 @@ bool CZMA_PARSE::operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& r
 			if( !is_success ) {
 				return false;
 			}
-			if( term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !term.is_integer() ) {
 				put_error( "Invalid operator '<='" );
 				return false;
 			}
+			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 			result.i = result.i <= term.i;
 			continue;
 		}
@@ -558,10 +572,11 @@ bool CZMA_PARSE::operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& r
 			if( !is_success ) {
 				return false;
 			}
-			if( term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !term.is_integer() ) {
 				put_error( "Invalid operator '>='" );
 				return false;
 			}
+			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 			result.i = result.i >= term.i;
 			continue;
 		}
@@ -589,16 +604,17 @@ bool CZMA_PARSE::operator_equal( CZMA_INFORMATION& info, int& index, CVALUE& res
 			if( !is_success ) {
 				return false;
 			}
-			if( result.value_type == CVALUE_TYPE::CV_STRING && term.value_type == CVALUE_TYPE::CV_STRING ) {
-				result.value_type = CVALUE_TYPE::CV_INTEGER;
+			if( result.is_string() && term.is_string() ) {
+				result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 				result.i = result.s == term.s;
 				continue;
 			}
-			if( result.value_type == CVALUE_TYPE::CV_INTEGER && term.value_type == CVALUE_TYPE::CV_INTEGER ) {
+			if( result.is_integer() && term.is_integer() ) {
+				result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 				result.i = result.i == term.i;
 				continue;
 			}
-			result.value_type = CVALUE_TYPE::CV_INTEGER;
+			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 			result.i = false;
 			continue;
 		}
@@ -608,16 +624,16 @@ bool CZMA_PARSE::operator_equal( CZMA_INFORMATION& info, int& index, CVALUE& res
 			if( !is_success ) {
 				return false;
 			}
-			if( result.value_type == CVALUE_TYPE::CV_STRING && term.value_type == CVALUE_TYPE::CV_STRING ) {
+			if( result.is_string() && term.is_string() ) {
 				result.value_type = CVALUE_TYPE::CV_INTEGER;
 				result.i = result.s != term.s;
 				continue;
 			}
-			if( result.value_type == CVALUE_TYPE::CV_INTEGER && term.value_type == CVALUE_TYPE::CV_INTEGER ) {
+			if( result.is_integer() && term.is_integer() ) {
 				result.i = result.i != term.i;
 				continue;
 			}
-			result.value_type = CVALUE_TYPE::CV_INTEGER;
+			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
 			result.i = true;
 			continue;
 		}
@@ -637,7 +653,7 @@ bool CZMA_PARSE::operator_bit_and( CZMA_INFORMATION& info, int& index, CVALUE& r
 	if( !is_success ) {
 		return false;
 	}
-	if( result.value_type != CVALUE_TYPE::CV_INTEGER ) {
+	if( !result.is_integer() ) {
 		return true;
 	}
 	for( ;;) {
@@ -648,10 +664,11 @@ bool CZMA_PARSE::operator_bit_and( CZMA_INFORMATION& info, int& index, CVALUE& r
 			if( !is_success ) {
 				return false;
 			}
-			if( term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !term.is_integer() ) {
 				put_error( "Invalid operator '&'" );
 				return false;
 			}
+			result.inherit( result.value_type, result.value_type, term.value_type );
 			result.i = result.i & term.i;
 			continue;
 		}
@@ -671,7 +688,7 @@ bool CZMA_PARSE::operator_bit_xor( CZMA_INFORMATION& info, int& index, CVALUE& r
 	if( !is_success ) {
 		return false;
 	}
-	if( result.value_type != CVALUE_TYPE::CV_INTEGER ) {
+	if( !result.is_integer() ) {
 		return true;
 	}
 	for( ;;) {
@@ -682,10 +699,11 @@ bool CZMA_PARSE::operator_bit_xor( CZMA_INFORMATION& info, int& index, CVALUE& r
 			if( !is_success ) {
 				return false;
 			}
-			if( term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !term.is_integer() ) {
 				put_error( "Invalid operator '^'" );
 				return false;
 			}
+			result.inherit( result.value_type, result.value_type, term.value_type );
 			result.i = result.i ^ term.i;
 			continue;
 		}
@@ -705,7 +723,7 @@ bool CZMA_PARSE::operator_bit_or( CZMA_INFORMATION& info, int& index, CVALUE& re
 	if( !is_success ) {
 		return false;
 	}
-	if( result.value_type != CVALUE_TYPE::CV_INTEGER ) {
+	if( !result.is_integer() ) {
 		return true;
 	}
 	for( ;;) {
@@ -716,10 +734,11 @@ bool CZMA_PARSE::operator_bit_or( CZMA_INFORMATION& info, int& index, CVALUE& re
 			if( !is_success ) {
 				return false;
 			}
-			if( term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !term.is_integer() ) {
 				put_error( "Invalid operator '|'" );
 				return false;
 			}
+			result.inherit( result.value_type, result.value_type, term.value_type );
 			result.i = result.i | term.i;
 			continue;
 		}
@@ -739,7 +758,7 @@ bool CZMA_PARSE::operator_logical_and( CZMA_INFORMATION& info, int& index, CVALU
 	if( !is_success ) {
 		return false;
 	}
-	if( result.value_type != CVALUE_TYPE::CV_INTEGER ) {
+	if( !result.is_integer() ) {
 		return true;
 	}
 	for( ;;) {
@@ -750,10 +769,11 @@ bool CZMA_PARSE::operator_logical_and( CZMA_INFORMATION& info, int& index, CVALU
 			if( !is_success ) {
 				return false;
 			}
-			if( term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !term.is_integer() ) {
 				put_error( "Invalid operator '&&'" );
 				return false;
 			}
+			result.inherit( result.value_type, result.value_type, term.value_type );
 			result.i = (int)( (bool)result.i && (bool)term.i );
 			continue;
 		}
@@ -773,7 +793,7 @@ bool CZMA_PARSE::operator_logical_or( CZMA_INFORMATION& info, int& index, CVALUE
 	if( !is_success ) {
 		return false;
 	}
-	if( result.value_type != CVALUE_TYPE::CV_INTEGER ) {
+	if( !result.is_integer() ) {
 		return true;
 	}
 	for( ;;) {
@@ -784,10 +804,11 @@ bool CZMA_PARSE::operator_logical_or( CZMA_INFORMATION& info, int& index, CVALUE
 			if( !is_success ) {
 				return false;
 			}
-			if( term.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !term.is_integer() ) {
 				put_error( "Invalid operator '||'" );
 				return false;
 			}
+			result.inherit( result.value_type, result.value_type, term.value_type );
 			result.i = (int)( (bool)result.i || (bool)term.i );
 			continue;
 		}

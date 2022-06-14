@@ -14,9 +14,11 @@
 
 // --------------------------------------------------------------------
 enum class CVALUE_TYPE {
-	CV_UNKNOWN,
-	CV_INTEGER,
-	CV_STRING,
+	CV_UNKNOWN = 0x100,
+	CV_UNKNOWN_INTEGER = 0x101,
+	CV_UNKNOWN_STRING = 0x102,
+	CV_INTEGER = 0x1,
+	CV_STRING = 0x2,
 };
 
 // --------------------------------------------------------------------
@@ -29,6 +31,26 @@ public:
 
 	// --------------------------------------------------------------------
 	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
+	}
+
+	// --------------------------------------------------------------------
+	bool is_unknown( void ) const{
+		return ( ( (int)value_type & 0x100 ) == 0x100 );
+	}
+
+	// --------------------------------------------------------------------
+	bool is_integer( void ) const{
+		return ( ( (int)value_type & 0xFF ) == 0x1 );
+	}
+
+	// --------------------------------------------------------------------
+	bool is_string( void ) const{
+		return ( ( (int)value_type & 0xFF ) == 0x2 );
+	}
+
+	// --------------------------------------------------------------------
+	void inherit( CVALUE_TYPE base, CVALUE_TYPE inherit_a, CVALUE_TYPE inherit_b ){
+		value_type = (CVALUE_TYPE)( (int)base | ( ( (int)inherit_a | (int)inherit_b ) & 0x100 ) );
 	}
 };
 
@@ -104,6 +126,8 @@ public:
 
 	unsigned int auto_label_index;
 
+	bool		defs_is_space;	//	false: DEFS‹^Ž—–½—ß‚Í•¶Žš—ñ”z’u(default), true: DEFS‹^Ž—–½—ß‚Í—ÌˆæŠm•Û
+
 	enum class BLOCK_TYPE_T {
 		CZMA_INFO_UNKNOWN,
 		CZMA_INFO_MACRO_BLOCK,
@@ -132,7 +156,7 @@ public:
 	std::string								s_char_set;
 
 	// --------------------------------------------------------------------
-	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ), p_char_set( nullptr ){
+	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ), p_char_set( nullptr ), defs_is_space(false) {
 	}
 
 	// --------------------------------------------------------------------

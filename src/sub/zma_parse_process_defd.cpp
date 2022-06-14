@@ -34,16 +34,17 @@ bool CZMA_PARSE_DEFD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 		for( count = 0; (count * 4) < this->get_code_size(); count++ ) {
 			i = this->expression( info, i, v );
 			if( i == 0 ) {
-				put_error( std::string( "Cannot evaluate the expression(" ) + std::to_string( count + 1 ) + ")" );
+				put_error( "Cannot evaluate the expression(" + std::to_string( count + 1 ) + ")" );
 				data.clear();
 				return false;
 			}
-			if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
+			if( !v.is_integer() || v.is_unknown() ) {
 				put_error( "Illegal expression." );
+				data.clear();
 				return false;
 			}
 			if( i < ( int) words.size() && words[i] != "," ) {
-				put_error( std::string( "Illegal expression." ) );
+				put_error( "Illegal expression." );
 				data.clear();
 				return false;
 			}

@@ -489,7 +489,7 @@ bool CZMA_PARSE::opecode_a_source8( CZMA_INFORMATION& info, unsigned char op1 ) 
 		this->is_data_fixed = true;
 		sss = info.sss_or_ddd_id[words[3]];
 		this->set_code_size( &info, 1 );
-		this->data.push_back( op1 | (unsigned char)sss );
+		this->data.push_back( (unsigned char)(op1 | sss) );
 		return true;
 	}
 	if( words.size() == 4 && words[1] == "A" && words[2] == "," && info.is_ix_hl( words[3] ) ) {
@@ -500,7 +500,7 @@ bool CZMA_PARSE::opecode_a_source8( CZMA_INFORMATION& info, unsigned char op1 ) 
 		sss = info.ix_hl[words[3]];
 		this->set_code_size( &info, 2 );
 		this->data.push_back( 0xDD );
-		this->data.push_back( op1 | (unsigned char)sss );
+		this->data.push_back( (unsigned char)(op1 | sss) );
 		return true;
 	}
 	if( words.size() == 4 && words[1] == "A" && words[2] == "," && info.is_iy_hl( words[3] ) ) {
@@ -511,7 +511,7 @@ bool CZMA_PARSE::opecode_a_source8( CZMA_INFORMATION& info, unsigned char op1 ) 
 		sss = info.iy_hl[words[3]];
 		this->set_code_size( &info, 2 );
 		this->data.push_back( 0xFD );
-		this->data.push_back( op1 | (unsigned char)sss );
+		this->data.push_back( (unsigned char)(op1 | sss) );
 		return true;
 	}
 	return false;
@@ -530,7 +530,7 @@ bool CZMA_PARSE::opecode_destination8_c( CZMA_INFORMATION& info, unsigned char o
 		ddd = info.sss_or_ddd_id[words[1]];
 		this->set_code_size( &info, 2 );
 		this->data.push_back( op1c );
-		this->data.push_back( op2 | (unsigned char)(ddd << 3) );
+		this->data.push_back( (unsigned char)(op2 | (ddd << 3)) );
 		return true;
 	}
 	if( words.size() == 6 && words[ 1 ] == "F" && words[ 2 ] == "," && words[ 3 ] == "[" && words[ 4 ] == "C" && words[ 5 ] == "]" ){
@@ -577,7 +577,7 @@ bool CZMA_PARSE::opecode_c_source8( CZMA_INFORMATION& info, unsigned char op1, u
 		sss = info.sss_or_ddd_id[words[5]];
 		this->set_code_size( &info, 2 );
 		this->data.push_back( op1c );
-		this->data.push_back( op2 | (unsigned char)(sss << 3) );
+		this->data.push_back( (unsigned char)(op2 | (sss << 3)) );
 		return true;
 	}
 	if( words.size() == 6 && words[ 1 ] == "[" && words[ 2 ] == "C" && words[ 3 ] == "]" && words[ 4 ] == "," && words[ 5 ] == "0" ){
@@ -749,7 +749,7 @@ bool CZMA_PARSE::opecode_hl_source16( CZMA_INFORMATION& info, unsigned char op1 
 		this->is_data_fixed = true;
 		rp = info.rp_id[words[3]];
 		this->set_code_size( &info, 1 );
-		this->data.push_back( op1 | (unsigned char)(rp << 4) );
+		this->data.push_back( (unsigned char)(op1 | (rp << 4)) );
 		return true;
 	}
 	if( words.size() == 4 && words[1] == "IX" && words[2] == "," && info.is_ix_rp( words[3] ) ) {
@@ -760,7 +760,7 @@ bool CZMA_PARSE::opecode_hl_source16( CZMA_INFORMATION& info, unsigned char op1 
 		rp = info.ix_rp_id[words[3]];
 		this->set_code_size( &info, 2 );
 		this->data.push_back( 0xDD );
-		this->data.push_back( op1 | (unsigned char)(rp << 4) );
+		this->data.push_back( (unsigned char)(op1 | (rp << 4)) );
 		return true;
 	}
 	if( words.size() == 4 && words[1] == "IY" && words[2] == "," && info.is_iy_rp( words[3] ) ) {
@@ -771,7 +771,7 @@ bool CZMA_PARSE::opecode_hl_source16( CZMA_INFORMATION& info, unsigned char op1 
 		rp = info.iy_rp_id[words[3]];
 		this->set_code_size( &info, 2 );
 		this->data.push_back( 0xFD );
-		this->data.push_back( op1 | (unsigned char)(rp << 4) );
+		this->data.push_back( (unsigned char)(op1 | (rp << 4)) );
 		return true;
 	}
 	return false;
@@ -789,7 +789,7 @@ bool CZMA_PARSE::opecode_hl_source16_witnout_ix( CZMA_INFORMATION& info, unsigne
 		rp = info.rp_id[words[3]];
 		this->set_code_size( &info, 2 );
 		this->data.push_back( op1 );
-		this->data.push_back( op2 | (unsigned char)(rp << 4) );
+		this->data.push_back( (unsigned char)(op2 | (rp << 4)) );
 		return true;
 	}
 	return false;
@@ -836,7 +836,7 @@ bool CZMA_PARSE::opecode_destination8_memory_hl( CZMA_INFORMATION& info, unsigne
 		}
 		this->is_data_fixed = true;
 		this->data.push_back( 0xDD );
-		this->data.push_back( op1 | (unsigned char)(ddd << 3) );
+		this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
 		this->data.push_back( d.i );
 		return true;
 	}
@@ -872,7 +872,7 @@ bool CZMA_PARSE::opecode_destination8_memory_hl( CZMA_INFORMATION& info, unsigne
 		}
 		this->is_data_fixed = true;
 		this->data.push_back( 0xFD );
-		this->data.push_back( op1 | (ddd << 3) );
+		this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
 		this->data.push_back( d.i );
 		return true;
 	}
@@ -882,7 +882,7 @@ bool CZMA_PARSE::opecode_destination8_memory_hl( CZMA_INFORMATION& info, unsigne
 		}
 		this->set_code_size( &info, 1 );
 		this->is_data_fixed = true;
-		this->data.push_back( op1 | (ddd << 3) );
+		this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
 		return true;
 	}
 	return true;
@@ -1087,7 +1087,7 @@ bool CZMA_PARSE::opecode_destination8_n8( CZMA_INFORMATION& info, unsigned char 
 		ddd = info.iy_hl[words[1]];
 		this->data.push_back( 0xFD );
 	}
-	this->data.push_back( op1 | (ddd << 3) );
+	this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
 	this->data.push_back( imm8.i );
 	return true;
 }
@@ -1165,7 +1165,7 @@ bool CZMA_PARSE::opecode_register16( CZMA_INFORMATION& info, unsigned char op1 )
 		rp = info.rp_id[words[1]];
 		this->set_code_size( &info, 1 );
 	}
-	this->data.push_back( op1 | (rp << 4) );
+	this->data.push_back( (unsigned char)(op1 | (rp << 4)) );
 	return true;
 }
 
@@ -1210,7 +1210,7 @@ bool CZMA_PARSE::opecode_destination16_n16( CZMA_INFORMATION& info, unsigned cha
 	else {
 		rp = info.rp_id[words[1]];
 	}
-	this->data.push_back( op1 | (rp << 4) );
+	this->data.push_back( (unsigned char)(op1 | (rp << 4)) );
 	this->data.push_back( nn.i & 255 );
 	this->data.push_back( (nn.i >> 8) & 255 );
 	return true;
@@ -1260,7 +1260,7 @@ bool CZMA_PARSE::opecode_destination16_memory16( CZMA_INFORMATION& info, unsigne
 	else {
 		rp = info.rp_id[words[1]];
 		this->data.push_back( 0xED );
-		this->data.push_back( op1c | (rp << 4) );
+		this->data.push_back( (unsigned char)(op1c | (rp << 4)) );
 	}
 	this->data.push_back( nn.i & 255 );
 	this->data.push_back( (nn.i >> 8) & 255 );
@@ -1290,7 +1290,7 @@ bool CZMA_PARSE::opecode_memory_hl_source8( CZMA_INFORMATION& info, unsigned cha
 		}
 		this->set_code_size( &info, 1 );
 		this->is_data_fixed = true;
-		this->data.push_back( op1 | sss );
+		this->data.push_back( (unsigned char)(op1 | sss) );
 		return true;
 	}
 	if( this->check_location_ix( 1 ) ) {
@@ -1317,7 +1317,7 @@ bool CZMA_PARSE::opecode_memory_hl_source8( CZMA_INFORMATION& info, unsigned cha
 		}
 		this->is_data_fixed = true;
 		this->data.push_back( 0xDD );
-		this->data.push_back( op1 | sss );
+		this->data.push_back( (unsigned char)(op1 | sss) );
 		this->data.push_back( nn.i );
 		return true;
 	}
@@ -1345,7 +1345,7 @@ bool CZMA_PARSE::opecode_memory_hl_source8( CZMA_INFORMATION& info, unsigned cha
 		}
 		this->is_data_fixed = true;
 		this->data.push_back( 0xFD );
-		this->data.push_back( op1 | sss );
+		this->data.push_back( (unsigned char)(op1 | sss) );
 		this->data.push_back( nn.i );
 		return true;
 	}
@@ -1643,7 +1643,7 @@ bool CZMA_PARSE::opecode_memory16_source16( CZMA_INFORMATION& info, unsigned cha
 		}
 		this->is_data_fixed = true;
 		this->data.push_back( op1 );
-		this->data.push_back( op2 | (rp << 4) );
+		this->data.push_back( (unsigned char)(op2 | (rp << 4)) );
 		this->data.push_back( nn.i & 255 );
 		this->data.push_back( (nn.i >> 8) & 255 );
 		return true;
@@ -1762,7 +1762,7 @@ bool CZMA_PARSE::opecode_register16_with_af( CZMA_INFORMATION& info, unsigned ch
 		rp = info.rp_with_af_id[words[1]];
 		this->set_code_size( &info, 1 );
 	}
-	this->data.push_back( op1 | (rp << 4) );
+	this->data.push_back( (unsigned char)(op1 | (rp << 4)) );
 	return true;
 }
 
@@ -1784,7 +1784,7 @@ bool CZMA_PARSE::opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int
 		}
 		else {
 			this->set_code_size( &info, 1 );
-			this->data.push_back( op1 | sss );
+			this->data.push_back( (unsigned char)(op1 | sss) );
 		}
 		return true;
 	}
@@ -1851,7 +1851,7 @@ bool CZMA_PARSE::opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int
 			this->data.push_back( op2 | ddd );
 		}
 		else {
-			this->data.push_back( op1 | ddd );
+			this->data.push_back( (unsigned char)(op1 | ddd) );
 			this->data.push_back( nn.i );
 		}
 		return true;
@@ -1903,7 +1903,7 @@ bool CZMA_PARSE::opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int
 			this->data.push_back( op2 | ddd );
 		}
 		else {
-			this->data.push_back( op1 | ddd );
+			this->data.push_back( (unsigned char)(op1 | ddd) );
 			this->data.push_back( nn.i );
 		}
 		return true;
@@ -1938,7 +1938,7 @@ bool CZMA_PARSE::opecode_condition_address( CZMA_INFORMATION& info, unsigned cha
 			return true;
 		}
 		this->is_data_fixed = true;
-		this->data.push_back( op1c | (ccc << 3) );
+		this->data.push_back( (unsigned char)(op1c | (ccc << 3)) );
 		this->data.push_back( address.i & 255 );
 		this->data.push_back( (address.i >> 8) & 255 );
 		return true;
@@ -1984,7 +1984,7 @@ bool CZMA_PARSE::opecode_condition_offset( CZMA_INFORMATION& info, unsigned char
 			return true;
 		}
 		this->is_data_fixed = true;
-		this->data.push_back( op1c | (ccc << 3) );
+		this->data.push_back( (unsigned char)(op1c | (ccc << 3)) );
 		this->data.push_back( address );
 		return true;
 	}
@@ -2016,7 +2016,7 @@ bool CZMA_PARSE::opecode_condition( CZMA_INFORMATION& info, unsigned char op1, u
 			return true;
 		}
 		this->is_data_fixed = true;
-		this->data.push_back( op1c | (ccc << 3) );
+		this->data.push_back( (unsigned char)(op1c | (ccc << 3)) );
 		return true;
 	}
 	else if( words.size() == 1 ) {
@@ -2105,7 +2105,7 @@ bool CZMA_PARSE::opecode_destination8( CZMA_INFORMATION& info, unsigned char op1
 		}
 		else {
 			this->set_code_size( &info, 1 );
-			this->data.push_back( op1 | (ddd << 3) );
+			this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
 		}
 		return true;
 	}
@@ -2124,7 +2124,7 @@ bool CZMA_PARSE::opecode_destination8( CZMA_INFORMATION& info, unsigned char op1
 		else {
 			this->set_code_size( &info, 2 );
 			this->data.push_back( 0xDD );
-			this->data.push_back( op1 | (ddd << 3) );
+			this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
 		}
 		return true;
 	}
@@ -2138,12 +2138,12 @@ bool CZMA_PARSE::opecode_destination8( CZMA_INFORMATION& info, unsigned char op1
 			this->set_code_size( &info, 3 );
 			this->data.push_back( 0xFD );
 			this->data.push_back( op1 );
-			this->data.push_back( op2 | (ddd << 3) );
+			this->data.push_back( (unsigned char)(op2 | (ddd << 3)) );
 		}
 		else {
 			this->set_code_size( &info, 2 );
 			this->data.push_back( 0xFD );
-			this->data.push_back( op1 | (ddd << 3) );
+			this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
 		}
 		return true;
 	}

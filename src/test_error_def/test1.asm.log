@@ -6,12 +6,13 @@ Programmed by t.hara
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |DEFB "aaa"
-     6|ERROR |    |Illegal expression.: test1.asm(6)
+     6|ERROR |    |Cannot evaluate the expression.: test1.asm(6)
      7|      |    |DEFW "aaa"
      7|ERROR |    |Illegal expression.: test1.asm(7)
      8|      |    |DEFD "aaa"
      8|ERROR |    |Illegal expression.: test1.asm(8)
     11|      |    |DEFB 10 20 30
+    11|ERROR |    |Illegal parameter.: test1.asm(11)
     11|ERROR |    |Illegal expression.: test1.asm(11)
     12|      |    |DEFW 10 20 30
     12|ERROR |    |Illegal expression.: test1.asm(12)
@@ -20,7 +21,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
     14|      |    |DEFS "aaa" "bbb"
     14|ERROR |    |Illegal parameter.: test1.asm(14)
     17|      |    |DEFB INVALID_LABEL1
-    17|ERROR |    |Cannot evaluate the expression(1): test1.asm(17)
+    17|ERROR |    |Cannot evaluate the expression.: test1.asm(17)
     18|      |    |DEFW INVALID_LABEL2
     18|ERROR |    |Cannot evaluate the expression(1): test1.asm(18)
     19|      |    |DEFD INVALID_LABEL3
@@ -28,13 +29,13 @@ LINE# |OFFSET|ADDR|MNEMONIC
     20|      |    |DEFS INVALID_LABEL4
     20|ERROR |    |Illegal expression.: test1.asm(20)
     23|      |    |DEFB 10,
-    23|ERROR |    |Cannot evaluate the expression(2): test1.asm(23)
+    23|ERROR |    |Cannot evaluate the expression.: test1.asm(23)
     24|      |    |DEFW 10,
     24|ERROR |    |Cannot evaluate the expression(2): test1.asm(24)
     25|      |    |DEFD 10,
     25|ERROR |    |Cannot evaluate the expression(2): test1.asm(25)
     28|      |    |DEFB 10,, 20
-    28|ERROR |    |Cannot evaluate the expression(2): test1.asm(28)
+    28|ERROR |    |Cannot evaluate the expression.: test1.asm(28)
     29|      |    |DEFW 10,, 20
     29|ERROR |    |Cannot evaluate the expression(2): test1.asm(29)
     30|      |    |DEFD 10,, 20

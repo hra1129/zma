@@ -10,4 +10,4 @@
         -:    8:
         -:    9:#include "zma_parse_process.hpp"
         -:   10:
-        6:   11:CLASS_CZMA_PARSE( GLOBAL_LABEL );
+    #####:   11:CLASS_CZMA_PARSE( GLOBAL_LABEL );

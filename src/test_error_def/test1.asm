@@ -28,3 +28,20 @@
 	defb	10,,20
 	defw	10,,20
 	defd	10,,20
+
+;	ˆø”‚ª‚È‚¢
+	defb
+	defw
+	defd
+	defs
+
+;	”’l‚ªw’è‚³‚ê‚Ä‚¢‚é
+	defs	100
+
+;	®‚ğ•]‰¿‚Å‚«‚È‚¢
+	defb	ssss
+	defw	ssss
+	defd	ssss
+	defs	ssss
+
+ssss:

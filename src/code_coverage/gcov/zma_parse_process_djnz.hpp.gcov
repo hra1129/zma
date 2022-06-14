@@ -10,4 +10,4 @@
         -:    8:
         -:    9:#include "zma_parse_process.hpp"
         -:   10:
-        5:   11:CLASS_CZMA_PARSE( DJNZ );
+        1:   11:CLASS_CZMA_PARSE( DJNZ );

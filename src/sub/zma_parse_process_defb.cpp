@@ -22,33 +22,73 @@ bool CZMA_PARSE_DEFB::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line )
 	update_flags( &info, p_last_line );
 	if( !this->is_fixed_code_size() ){
 		count = 1;
-		for( i = 1; i < (int)words.size(); i++ ){
-			if( words[ i ] == "," ){
+		i = 1;
+		for( ;; ){
+			i = this->expression( info, i, v );
+			if( v.is_integer() ){
+				//	数値の場合は、値の確定の有無にかかわらず 1byte
 				count++;
 			}
+			else if( v.is_string() ){
+				if( v.is_unknown() ){
+					//	文字列の場合は、値が確定していないとサイズが不明
+					count = -1;
+					break;
+				}
+				//	文字列の場合は、値が確定していると文字長がそのままサイズ
+				count += v.s.size();
+			}
+			else{
+				//	型もわからない場合は、サイズが不明
+				count = -1;
+				break;
+			}
+			if( i >= (int)words.size() ){
+				break;
+			}
+			if( words[ i ] != "," ){
+				put_error( "Illegal parameter." );
+				count = -1;
+				break;
+			}
+			i++;
 		}
-		this->set_code_size( &info, count );
+		if( count >= 0 ){
+			this->set_code_size( &info, count );
+		}
 	}
 	if( !this->is_data_fixed ){
 		i = 1;
-		for( count = 0; count < this->get_code_size(); count++ ){
+		for( ;; ){
 			i = this->expression( info, i, v );
 			if( i == 0 ){
-				put_error( std::string( "Cannot evaluate the expression(" ) + std::to_string( count + 1 ) + ")" );
+				put_error( "Cannot evaluate the expression." );
 				data.clear();
 				return false;
 			}
-			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
-				put_error( "Illegal expression." );
-				return false;
-			}
 			if( i < (int)words.size() && words[ i ] != "," ){
-				put_error( std::string( "Illegal expression." ) );
+				put_error( "Illegal expression." );
 				data.clear();
 				return false;
 			}
 			i++;
-			data.push_back( v.i & 255 );
+			if( v.is_unknown() ){
+				put_error( "Illegal expression." );
+				data.clear();
+				return false;
+			}
+			else if( v.is_integer() ) {
+				data.push_back( v.i & 255 );
+			}
+			else {
+				//	v.is_string()
+				for( char &c : v.s ){
+					data.push_back( (unsigned char) c );
+				}
+			}
+			if( i >= (int)words.size() ){
+				break;
+			}
 		}
 		this->is_data_fixed = true;
 	}

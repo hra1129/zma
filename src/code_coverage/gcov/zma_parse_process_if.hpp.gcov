@@ -10,19 +10,19 @@
         -:    8:
         -:    9:#include "zma_parse_process.hpp"
         -:   10:
-      128:   11:CLASS_CZMA_PARSE( IF );
+    #####:   11:CLASS_CZMA_PARSE( IF );
         -:   12:
         -:   13:// --------------------------------------------------------------------
         -:   14:class CZMA_PARSE_ELSEIF: public CZMA_PARSE_IF {
         -:   15:public:
-       29:   16:	using CZMA_PARSE_IF::CZMA_PARSE_IF;
+    #####:   16:	using CZMA_PARSE_IF::CZMA_PARSE_IF;
         -:   17:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
         -:   18:};
         -:   19:
         -:   20:// --------------------------------------------------------------------
         -:   21:class CZMA_PARSE_ELSE: public CZMA_PARSE_IF {
         -:   22:public:
-       42:   23:	using CZMA_PARSE_IF::CZMA_PARSE_IF;
+    #####:   23:	using CZMA_PARSE_IF::CZMA_PARSE_IF;
         -:   24:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
         -:   25:};
         -:   26:
@@ -32,7 +32,7 @@
         -:   30:	CZMA_IF_T* p_if = nullptr;
         -:   31:	bool is_loaded = false;
         -:   32:
-       59:   33:	using CZMA_PARSE::CZMA_PARSE;
+    #####:   33:	using CZMA_PARSE::CZMA_PARSE;
         -:   34:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
         -:   35:	bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) override;
         -:   36:};
