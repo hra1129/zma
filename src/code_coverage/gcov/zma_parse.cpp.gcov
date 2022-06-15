@@ -16,45 +16,45 @@
         -:   14:#include <algorithm>
         -:   15:
         -:   16:// --------------------------------------------------------------------
-   196075:   17:std::string CZMA_PARSE::get_word( int index ) {
-   392150:   18:	if( index >= (int)words.size() ) {
-    22060:   19:		return "";
+   196229:   17:std::string CZMA_PARSE::get_word( int index ) {
+   392458:   18:	if( index >= (int)words.size() ) {
+    22126:   19:		return "";
         -:   20:	}
-   174015:   21:	return words[index];
+   174103:   21:	return words[index];
         -:   22:}
         -:   23:
         -:   24:// --------------------------------------------------------------------
-    19359:   25:std::string CZMA_PARSE::delete_head_space( std::string s ) {
+    19382:   25:std::string CZMA_PARSE::delete_head_space( std::string s ) {
         -:   26:	int i;
         -:   27:
-    67550:   28:	for( i = 0; isspace( s[i] ); i++ );
-    19359:   29:	return s.substr( i );
+    67628:   28:	for( i = 0; isspace( s[i] ); i++ );
+    19382:   29:	return s.substr( i );
         -:   30:}
         -:   31:
         -:   32:// --------------------------------------------------------------------
         -:   33:static bool is_shift_jis_1st( char c ) {
-      197:   34:	unsigned char cc = (unsigned char) c;
-      197:   35:	if( ((cc >= 0x81) && (cc <= 0x9f)) || ((cc >= 0xe0) && (cc <= 0xfc)) ) {
+      201:   34:	unsigned char cc = (unsigned char) c;
+      201:   35:	if( ((cc >= 0x81) && (cc <= 0x9f)) || ((cc >= 0xe0) && (cc <= 0xfc)) ) {
         -:   36:		return true;
         -:   37:	}
         -:   38:	return false;
         -:   39:}
         -:   40:
         -:   41:// --------------------------------------------------------------------
-     6298:   42:std::vector<std::string> CZMA_PARSE::get_word_split( std::string s ) {
+     6303:   42:std::vector<std::string> CZMA_PARSE::get_word_split( std::string s ) {
         -:   43:	int i;
         -:   44:	std::string word;
         -:   45:	std::vector< std::string > words;
         -:   46:	static std::vector< std::string > operator_list = { 
         -:   47:		"<<", ">>", "!=", "==", "<=", ">=", "::", "&&", "||", ":="
-     6304:   48:	};
+     6309:   48:	};
         -:   49:
         -:   50:	for(;;) {
-    58077:   51:		s = delete_head_space( s );
-    19359:   52:		if( s[0] == ';' || s[0] == '\0' ) {
+    58146:   51:		s = delete_head_space( s );
+    19382:   52:		if( s[0] == ';' || s[0] == '\0' ) {
         -:   53:			break;
         -:   54:		}
-    13061:   55:		else if( s[0] == '\'' ) {
+    13079:   55:		else if( s[0] == '\'' ) {
        15:   56:			if( (int)s.size() < 2 ) {
         -:   57:				break;
         -:   58:			}
@@ -93,10 +93,10 @@
        15:   91:				continue;
         -:   92:			}
         -:   93:		}
-    13070:   94:		else if( s[0] == '\"' ) {
+    13089:   94:		else if( s[0] == '\"' ) {
         -:   95:			word = "\"";
-      418:   96:			for( i = 1; i < (int)s.size(); i++ ) {
-      442:   97:				if( s[i] == '\\' ) {
+      427:   96:			for( i = 1; i < (int)s.size(); i++ ) {
+      452:   97:				if( s[i] == '\\' ) {
     #####:   98:					i++;
     #####:   99:					if( i >= (int)s.size() ) {
         -:  100:						break;
@@ -115,103 +115,103 @@
         -:  113:					}
     #####:  114:					continue;
         -:  115:				}
-      221:  116:				else if( s[i] == '\"' ) {
-       24:  117:					i++;
-       24:  118:					break;
+      226:  116:				else if( s[i] == '\"' ) {
+       25:  117:					i++;
+       25:  118:					break;
         -:  119:				}
-      197:  120:				else if( is_shift_jis_1st( s[i] ) ) {
+      201:  120:				else if( is_shift_jis_1st( s[i] ) ) {
     #####:  121:					word = word + s[i];
     #####:  122:					i++;
     #####:  123:					if( i >= (int)s.size() ) {
         -:  124:						break;
         -:  125:					}
         -:  126:				}
-      591:  127:				word = word + s[i];
+      603:  127:				word = word + s[i];
         -:  128:			}
-       24:  129:			words.push_back( word );
-       48:  130:			s = s.substr( i );
-       24:  131:			continue;
+       25:  129:			words.push_back( word );
+       50:  130:			s = s.substr( i );
+       25:  131:			continue;
         -:  132:		}
-    13022:  133:		else if( isalpha( s[0] ) || isdigit( s[0] ) || s[0] == '_' ) {
+    13039:  133:		else if( isalpha( s[0] ) || isdigit( s[0] ) || s[0] == '_' ) {
         -:  134:			//	symbols or numbers
-    70406:  135:			for( i = 0; isalpha( s[i] ) || isdigit( s[i] ) || s[i] == '_' || s[i] == '\''; i++ );
+    70516:  135:			for( i = 0; isalpha( s[i] ) || isdigit( s[i] ) || s[i] == '_' || s[i] == '\''; i++ );
         -:  136:		}
-     4152:  137:		else if( s[ 0 ] == '$' && s[ 1 ] == '$' ){
+     4157:  137:		else if( s[ 0 ] == '$' && s[ 1 ] == '$' ){
         -:  138:			i = 2;
         -:  139:		}
-     4150:  140:		else if( s[ 0 ] == '$' ){
+     4155:  140:		else if( s[ 0 ] == '$' ){
         -:  141:			//	numbers
         4:  142:			for( i = 1; isxdigit( s[ i ] ) || s[ i ] == '_'; i++ );
         -:  143:		}
         -:  144:		else {
         -:  145:			//	operators
         -:  146:			i = 1;
-    45628:  147:			for( std::string &op : operator_list ) {
-    82960:  148:				if( op == s.substr( 0, op.length() ) ) {
-    #####:  149:					i = (int)op.length();
-    #####:  150:					break;
+    45675:  147:			for( std::string &op : operator_list ) {
+    83048:  148:				if( op == s.substr( 0, op.length() ) ) {
+        2:  149:					i = (int)op.length();
+        2:  150:					break;
         -:  151:				}
         -:  152:			}
         -:  153:		}
-    26044:  154:		word = s.substr( 0, i );
+    26078:  154:		word = s.substr( 0, i );
         -:  155:		std::transform( word.begin(), word.end(), word.begin(), ::toupper );
-    13022:  156:		words.push_back( word );
-    26044:  157:		s = s.substr( i );
+    13039:  156:		words.push_back( word );
+    26078:  157:		s = s.substr( i );
         -:  158:	}
-     6298:  159:	return words;
+     6303:  159:	return words;
         -:  160:}
         -:  161:
         -:  162:// --------------------------------------------------------------------
-    12596:  163:CZMA_PARSE::CZMA_PARSE( std::vector<std::string> words, const char* p_file_name, int line_no ) {
-     6298:  164:	this->code_address = -1;
-     6298:  165:	this->next_code_address = -1;
-     6298:  166:	this->file_address = -1;
-     6298:  167:	this->code_size = -1;
-     6298:  168:	this->is_data_fixed = false;
-     6298:  169:	this->words = words;
-     6298:  170:	this->p_file_name = p_file_name;
-     6298:  171:	this->line_no = line_no;
-     6298:  172:	this->is_analyze_phase = true;
-     6298:  173:	this->is_label_search_state = true;
-     6298:  174:	this->is_structure_error = false;
-     6298:  175:	this->number_of_error_for_this = 0;
-     6298:  176:}
+    12614:  163:CZMA_PARSE::CZMA_PARSE( std::vector<std::string> words, const char* p_file_name, int line_no ) {
+     6307:  164:	this->code_address = -1;
+     6307:  165:	this->next_code_address = -1;
+     6307:  166:	this->file_address = -1;
+     6307:  167:	this->code_size = -1;
+     6307:  168:	this->is_data_fixed = false;
+     6307:  169:	this->words = words;
+     6307:  170:	this->p_file_name = p_file_name;
+     6307:  171:	this->line_no = line_no;
+     6307:  172:	this->is_analyze_phase = true;
+     6307:  173:	this->is_label_search_state = true;
+     6307:  174:	this->is_structure_error = false;
+     6307:  175:	this->number_of_error_for_this = 0;
+     6307:  176:}
         -:  177:
         -:  178:// --------------------------------------------------------------------
-    18915:  179:bool CZMA_PARSE::update_flags( CZMA_INFORMATION* p_info, const CZMA_PARSE* p_last_line ) {
+    18951:  179:bool CZMA_PARSE::update_flags( CZMA_INFORMATION* p_info, const CZMA_PARSE* p_last_line ) {
         -:  180:	bool result = true;
-    18915:  181:	if( p_last_line == nullptr ) {
+    18951:  181:	if( p_last_line == nullptr ) {
         -:  182:		this->set_code_address( p_info, 0 );
         -:  183:		this->set_file_address( p_info, 0 );
         -:  184:	}
         -:  185:	else {
-    18896:  186:		if( p_last_line->is_fixed_next_code_address() ) {
+    18932:  186:		if( p_last_line->is_fixed_next_code_address() ) {
         -:  187:			this->set_code_address( p_info, p_last_line->get_next_code_address() );
         -:  188:		}
         -:  189:		else {
         -:  190:			result = false;
         -:  191:		}
         -:  192:
-    18896:  193:		if( p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
-    18881:  194:			this->set_file_address( p_info, p_last_line->get_file_address() + p_last_line->get_code_size() );
+    18932:  193:		if( p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
+    18908:  194:			this->set_file_address( p_info, p_last_line->get_file_address() + p_last_line->get_code_size() );
         -:  195:		}
         -:  196:		else {
         -:  197:			result = false;
         -:  198:		}
         -:  199:	}
-    18915:  200:	if( !this->is_data_fixed ) {
+    18951:  200:	if( !this->is_data_fixed ) {
         -:  201:		result = false;
         -:  202:	}
-    18915:  203:	if( this->is_fixed_code_address() && this->is_fixed_code_size() ) {
-    12634:  204:		if( this->next_code_address == -1 ) {
-       33:  205:			p_info->is_updated = true;
+    18951:  203:	if( this->is_fixed_code_address() && this->is_fixed_code_size() ) {
+    12661:  204:		if( this->next_code_address == -1 ) {
+       42:  205:			p_info->is_updated = true;
         -:  206:		}
-    12634:  207:		this->next_code_address = this->get_code_address() + this->get_code_size();
+    12661:  207:		this->next_code_address = this->get_code_address() + this->get_code_size();
         -:  208:	}
         -:  209:	else {
         -:  210:		result = false;
         -:  211:	}
-    18915:  212:	return result;
+    18951:  212:	return result;
         -:  213:}
         -:  214:
         -:  215:// --------------------------------------------------------------------
@@ -284,9 +284,9 @@
         -:  282:}
         -:  283:
         -:  284:// --------------------------------------------------------------------
-       26:  285:void CZMA_PARSE::put_error( std::string message ) {
+       32:  285:void CZMA_PARSE::put_error( std::string message ) {
         -:  286:
-       26:  287:	if( this->is_analyze_phase ) {
+       32:  287:	if( this->is_analyze_phase ) {
         -:  288:		return;
         -:  289:	}
     #####:  290:	if( number_of_error_for_this == 0 ){
@@ -372,12 +372,12 @@
         -:  370:}
         -:  371:
         -:  372:// --------------------------------------------------------------------
-      582:  373:bool CZMA_PARSE::opecode_a_i_r( CZMA_INFORMATION& info ) {
+      586:  373:bool CZMA_PARSE::opecode_a_i_r( CZMA_INFORMATION& info ) {
         -:  374:
-     1542:  375:	if( words.size() != 4 || words[2] != "," ) {
+     1554:  375:	if( words.size() != 4 || words[2] != "," ) {
         -:  376:		return false;
         -:  377:	}
-      435:  378:	if( words[1] == "A" && words[3] == "I" ) {
+      443:  378:	if( words[1] == "A" && words[3] == "I" ) {
         3:  379:		if( this->is_data_fixed ) {
         -:  380:			return true;
         -:  381:		}
@@ -387,7 +387,7 @@
         2:  385:		this->data.push_back( 0x57 );
         1:  386:		return true;
         -:  387:	}
-      378:  388:	if( words[1] == "I" && words[3] == "A" ) {
+      382:  388:	if( words[1] == "I" && words[3] == "A" ) {
         3:  389:		if( this->is_data_fixed ) {
         -:  390:			return true;
         -:  391:		}
@@ -397,7 +397,7 @@
         2:  395:		this->data.push_back( 0x47 );
         1:  396:		return true;
         -:  397:	}
-      426:  398:	if( words[1] == "A" && words[3] == "R" ) {
+      434:  398:	if( words[1] == "A" && words[3] == "R" ) {
         3:  399:		if( this->is_data_fixed ) {
         -:  400:			return true;
         -:  401:		}
@@ -407,7 +407,7 @@
         2:  405:		this->data.push_back( 0x5F );
         1:  406:		return true;
         -:  407:	}
-      372:  408:	if( words[1] == "R" && words[3] == "A" ) {
+      376:  408:	if( words[1] == "R" && words[3] == "A" ) {
         3:  409:		if( this->is_data_fixed ) {
         -:  410:			return true;
         -:  411:		}
@@ -422,16 +422,16 @@
         -:  420:
         -:  421:
         -:  422:// --------------------------------------------------------------------
-      570:  423:bool CZMA_PARSE::opecode_destination8_source8( CZMA_INFORMATION& info, unsigned char op1 ) {
+      574:  423:bool CZMA_PARSE::opecode_destination8_source8( CZMA_INFORMATION& info, unsigned char op1 ) {
         -:  424:	int ddd, sss;
         -:  425:	int ixhl = 0;
         -:  426:
-     3753:  427:	if( words.size() != 4 || (!info.is_sss_or_ddd( words[1] ) && !info.is_ix_hl( words[1] ) && !info.is_iy_hl( words[1] )) || 
-     3138:  428:		words[2] != ","   || (!info.is_sss_or_ddd( words[3] ) && !info.is_ix_hl( words[3] ) && !info.is_iy_hl( words[3] )) ) {
+     3781:  427:	if( words.size() != 4 || (!info.is_sss_or_ddd( words[1] ) && !info.is_ix_hl( words[1] ) && !info.is_iy_hl( words[1] )) || 
+     3162:  428:		words[2] != ","   || (!info.is_sss_or_ddd( words[3] ) && !info.is_ix_hl( words[3] ) && !info.is_iy_hl( words[3] )) ) {
         -:  429:		return false;
         -:  430:	}
-      588:  431:	if( info.is_sss_or_ddd( words[1] ) ) {
-      420:  432:		ddd = info.sss_or_ddd_id[words[1]];
+      596:  431:	if( info.is_sss_or_ddd( words[1] ) ) {
+      428:  432:		ddd = info.sss_or_ddd_id[words[1]];
         -:  433:	}
       168:  434:	else if( info.is_ix_hl( words[1] ) ) {
        84:  435:		ddd = info.ix_hl[words[1]];
@@ -441,8 +441,8 @@
        84:  439:		ddd = info.iy_hl[words[1]];
         -:  440:		ixhl = 2;
         -:  441:	}
-      588:  442:	if( info.is_sss_or_ddd( words[3] ) ) {
-      468:  443:		sss = info.sss_or_ddd_id[words[3]];
+      596:  442:	if( info.is_sss_or_ddd( words[3] ) ) {
+      476:  443:		sss = info.sss_or_ddd_id[words[3]];
         -:  444:	}
       120:  445:	else if( info.is_ix_hl( words[3] ) ) {
        60:  446:		sss = info.ix_hl[words[3]];
@@ -460,23 +460,23 @@
         -:  458:		}
         -:  459:		ixhl = 2;
         -:  460:	}
-      294:  461:	if( this->is_data_fixed ) {
+      298:  461:	if( this->is_data_fixed ) {
         -:  462:		return true;
         -:  463:	}
-       98:  464:	this->is_data_fixed = true;
-       98:  465:	if( ixhl == 1 ) {
+       99:  464:	this->is_data_fixed = true;
+       99:  465:	if( ixhl == 1 ) {
         -:  466:		this->set_code_size( &info, 2 );
        48:  467:		this->data.push_back( 0xDD );
         -:  468:	}
-       74:  469:	else if( ixhl == 2 ) {
+       75:  469:	else if( ixhl == 2 ) {
         -:  470:		this->set_code_size( &info, 2 );
        48:  471:		this->data.push_back( 0xFD );
         -:  472:	}
         -:  473:	else {
         -:  474:		this->set_code_size( &info, 1 );
         -:  475:	}
-      196:  476:	this->data.push_back( op1 | (ddd << 3) | sss );
-       98:  477:	return true;
+      198:  476:	this->data.push_back( op1 | (ddd << 3) | sss );
+       99:  477:	return true;
         -:  478:}
         -:  479:
         -:  480:// --------------------------------------------------------------------
@@ -1914,14 +1914,14 @@
         -: 1912:}
         -: 1913:
         -: 1914:// --------------------------------------------------------------------
-       54: 1915:bool CZMA_PARSE::opecode_condition_address( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
+       58: 1915:bool CZMA_PARSE::opecode_condition_address( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
         -: 1916:	int ccc, index;
         -: 1917:	CVALUE address;
         -: 1918:
-      126: 1919:	if( words.size() == 2 && (words[1] == "HL" || words[1] == "IX" || words[1] == "IY") ) {
+      146: 1919:	if( words.size() == 2 && (words[1] == "HL" || words[1] == "IX" || words[1] == "IY") ) {
         -: 1920:		return false;
         -: 1921:	}
-      156: 1922:	if( words.size() >= 4 && info.is_ccc( words[1] ) ) {
+      164: 1922:	if( words.size() >= 4 && info.is_ccc( words[1] ) ) {
         -: 1923:		this->set_code_size( &info, 3 );
        48: 1924:		index = this->expression( info, 3, address );
        48: 1925:		if( index == 0 ) {
@@ -1947,26 +1947,26 @@
         -: 1945:	}
         -: 1946:	else {
         -: 1947:		this->set_code_size( &info, 3 );
-        6: 1948:		index = this->expression( info, 1, address );
-        6: 1949:		if( index == 0 ) {
+       10: 1948:		index = this->expression( info, 1, address );
+       10: 1949:		if( index == 0 ) {
     #####: 1950:			put_error( "Illegal operand." );
     #####: 1951:			return false;
         -: 1952:		}
-        6: 1953:		if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1954:			put_error( "Illegal operand." );
-    #####: 1955:			return false;
+       10: 1953:		if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
+        2: 1954:			put_error( "Illegal operand." );
+        1: 1955:			return false;
         -: 1956:		}
-       12: 1957:		if( index < (int)words.size() ) {
+       18: 1957:		if( index < (int)words.size() ) {
         -: 1958:			return false;
         -: 1959:		}
-        6: 1960:		if( this->is_data_fixed ) {
+        9: 1960:		if( this->is_data_fixed ) {
         -: 1961:			return true;
         -: 1962:		}
-        2: 1963:		this->is_data_fixed = true;
-        2: 1964:		this->data.push_back( op1 );
-        4: 1965:		this->data.push_back( address.i & 255 );
-        4: 1966:		this->data.push_back( (address.i >> 8) & 255 );
-        2: 1967:		return true;
+        3: 1963:		this->is_data_fixed = true;
+        3: 1964:		this->data.push_back( op1 );
+        6: 1965:		this->data.push_back( address.i & 255 );
+        6: 1966:		this->data.push_back( (address.i >> 8) & 255 );
+        3: 1967:		return true;
         -: 1968:	}
         -: 1969:	return false;
         -: 1970:}
@@ -2153,15 +2153,15 @@
         -: 2151:}
         -: 2152:
         -: 2153:// --------------------------------------------------------------------
-     6298: 2154:bool CZMA_PARSE::write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) {
+     6307: 2154:bool CZMA_PARSE::write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) {
         -: 2155:	unsigned char c;
         -: 2156:
-    46346: 2157:	for( auto d: data ) {
-    40048: 2158:		c = d;
-    40048: 2159:		f->write( (const char*) &c, 1 );
+    46364: 2157:	for( auto d: data ) {
+    40057: 2158:		c = d;
+    40057: 2159:		f->write( (const char*) &c, 1 );
         -: 2160:	}
-    18916: 2161:	for( auto line : log ) {
-    12618: 2162:		info.log << line << std::endl;
+    18951: 2161:	for( auto line : log ) {
+    12644: 2162:		info.log << line << std::endl;
         -: 2163:	}
-     6298: 2164:	return true;
+     6307: 2164:	return true;
        12: 2165:}

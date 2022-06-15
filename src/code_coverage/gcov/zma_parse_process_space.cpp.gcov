@@ -74,15 +74,17 @@
         6:   72:	if( !is_analyze_phase ){
         4:   73:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
         2:   74:		if( this->get_code_size() ){
-        8:   75:			log.write_message( "Allocate space: " + std::to_string( this->get_code_size() ) + "byte(s)" );
-        8:   76:			log.write_message( "Fill value    : " + std::to_string( this->data[0] ) );
-        -:   77:		}
-        -:   78:		else{
-    #####:   79:			log.write_message( "No space was allocated." );
-        -:   80:		}
-        2:   81:		log.write_dump( this->code_address, this->file_address, this->data );
-        2:   82:		log.write_separator();
-        -:   83:	}
-        -:   84:	return check_all_fixed();
-       12:   85:}
-        -:   86:
+        4:   75:			std::stringstream ss;
+       10:   76:			log.write_message( "Allocate space: " + std::to_string( this->get_code_size() ) + "byte(s)" );
+        4:   77:			ss << "Fill value    : " << (int)this->data[ 0 ] << "(0x" << std::setw(2) << std::setfill('0') << std::hex << (int)this->data[0] << ")";
+        4:   78:			log.write_message( ss.str() );
+        -:   79:		}
+        -:   80:		else{
+    #####:   81:			log.write_message( "No space was allocated." );
+        -:   82:		}
+        2:   83:		log.write_dump( this->code_address, this->file_address, this->data );
+        2:   84:		log.write_separator();
+        -:   85:	}
+        -:   86:	return check_all_fixed();
+       12:   87:}
+        -:   88:

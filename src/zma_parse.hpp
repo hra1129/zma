@@ -32,7 +32,6 @@ protected:
 	bool is_structure_error;
 	std::string structure_error;
 
-	static std::vector<std::string> get_word_split( std::string s );
 	static std::string delete_head_space( std::string s );
 
 	virtual bool update_flags( CZMA_INFORMATION *p_info, const CZMA_PARSE* p_last_line );
@@ -109,12 +108,13 @@ public:
 	int expression( CZMA_INFORMATION& info, int index, CVALUE& result, bool do_char_map = true );
 	std::string escape( const std::string &s );
 
+	static std::vector<std::string> get_word_split( std::string s );
+
 	// ----------------------------------------------------------------
 	//	Constructor
 	// ----------------------------------------------------------------
 	CZMA_PARSE( std::vector<std::string> words, const char* p_file_name, int line_no );
-	static CZMA_PARSE* create( CZMA_INFORMATION &info, std::vector<std::string> words, const char* p_file_name, int line_no );
-	static CZMA_PARSE* create( CZMA_INFORMATION &info, std::string s, const char *p_file_name, int line_no );
+	static CZMA_PARSE* create( CZMA_INFORMATION &info, std::vector<std::string> &words, const char* p_file_name, int line_no );
 
 	// ----------------------------------------------------------------
 	//	Destructor

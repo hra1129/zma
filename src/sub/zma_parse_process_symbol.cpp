@@ -35,7 +35,7 @@ bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 				if( v.is_unknown() ){
 					s << "Integer symbol [" << label << "] = UNKNOWN";
 				}
-				else{
+				else {
 					s << "Integer symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
 				}
 			}

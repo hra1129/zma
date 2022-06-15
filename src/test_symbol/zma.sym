@@ -1,0 +1,4 @@
+LOCAL:SYMBOL1 equ 064h
+SYMBOL1 equ 0ah
+SYMBOL3 equ 014h
+SYMBOL5 equ 01eh

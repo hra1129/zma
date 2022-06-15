@@ -72,8 +72,10 @@ bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 	if( !is_analyze_phase ){
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		if( this->get_code_size() ){
+			std::stringstream ss;
 			log.write_message( "Allocate space: " + std::to_string( this->get_code_size() ) + "byte(s)" );
-			log.write_message( "Fill value    : " + std::to_string( this->data[0] ) );
+			ss << "Fill value    : " << (int)this->data[ 0 ] << "(0x" << std::setw(2) << std::setfill('0') << std::hex << (int)this->data[0] << ")";
+			log.write_message( ss.str() );
 		}
 		else{
 			log.write_message( "No space was allocated." );

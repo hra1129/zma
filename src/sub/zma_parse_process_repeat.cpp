@@ -22,7 +22,7 @@ bool CZMA_PARSE_ENDR::write_output_and_log( CZMA_INFORMATION& info, std::ofstrea
 	for( auto text : this->text_list ) {
 		result = result && text->write( info, f );
 	}
-	for( auto line : log ) {
+	for( auto &line : log ) {
 		info.log << line << std::endl;
 	}
 	return result;

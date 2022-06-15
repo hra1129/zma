@@ -24,7 +24,7 @@
     #####:   22:	for( auto text : this->text_list ) {
     #####:   23:		result = result && text->write( info, f );
         -:   24:	}
-    #####:   25:	for( auto line : log ) {
+    #####:   25:	for( auto &line : log ) {
     #####:   26:		info.log << line << std::endl;
         -:   27:	}
     #####:   28:	return result;

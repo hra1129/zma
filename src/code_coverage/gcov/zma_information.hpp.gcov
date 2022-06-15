@@ -24,7 +24,7 @@
         -:   22:};
         -:   23:
         -:   24:// --------------------------------------------------------------------
-    94364:   25:class CVALUE {
+    94500:   25:class CVALUE {
         -:   26:public:
         -:   27:	CVALUE_TYPE value_type;
         -:   28:
@@ -32,17 +32,17 @@
         -:   30:	std::string	s;
         -:   31:
         -:   32:	// --------------------------------------------------------------------
-    99590:   33:	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
+    99702:   33:	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
         -:   34:	}
         -:   35:
         -:   36:	// --------------------------------------------------------------------
         -:   37:	bool is_unknown( void ) const{
-     4038:   38:		return ( ( (int)value_type & 0x100 ) == 0x100 );
+     4041:   38:		return ( ( (int)value_type & 0x100 ) == 0x100 );
         -:   39:	}
         -:   40:
         -:   41:	// --------------------------------------------------------------------
         -:   42:	bool is_integer( void ) const{
-    73682:   43:		return ( ( (int)value_type & 0xFF ) == 0x1 );
+    73742:   43:		return ( ( (int)value_type & 0xFF ) == 0x1 );
         -:   44:	}
         -:   45:
         -:   46:	// --------------------------------------------------------------------
@@ -167,27 +167,27 @@
         -:  165:	}
         -:  166:
         -:  167:	// --------------------------------------------------------------------
-       42:  168:	std::string get_scope_path( void ) const {
-       42:  169:		std::string r = "";
-       42:  170:		for( std::string s : scope ) {
+       50:  168:	std::string get_scope_path( void ) const {
+       50:  169:		std::string r = "";
+       50:  170:		for( std::string s : scope ) {
     #####:  171:			r = r + s + ":";
         -:  172:		}
-       42:  173:		return r;
+       50:  173:		return r;
         -:  174:	}
         -:  175:
         -:  176:	// --------------------------------------------------------------------
-       49:  177:	bool get_label_value( CVALUE& result, std::string word ) {
+       53:  177:	bool get_label_value( CVALUE& result, std::string word ) {
         -:  178:		int i, l;
         -:  179:		std::string s;
         -:  180:
-      106:  181:		for( l = (int)scope.size(); l >= 0; l-- ) {
+      114:  181:		for( l = (int)scope.size(); l >= 0; l-- ) {
         -:  182:			s = "";
-       49:  183:			for( i = 0; i < l; i++ ) {
+       53:  183:			for( i = 0; i < l; i++ ) {
     #####:  184:				s = s + scope[i] + ":";
         -:  185:			}
-       98:  186:			s = s + word;
+      106:  186:			s = s + word;
         -:  187:			if( this->dict.count( s ) ) {
-       41:  188:				result = this->dict[s];
+       45:  188:				result = this->dict[s];
         -:  189:				return true;
         -:  190:			}
         -:  191:		}
@@ -197,7 +197,7 @@
         -:  195:
         -:  196:	// --------------------------------------------------------------------
         -:  197:	bool is_sss_or_ddd( std::string word ) const {
-     2979:  198:		int d = (int)sss_or_ddd_id.count( word );
+     2995:  198:		int d = (int)sss_or_ddd_id.count( word );
         -:  199:		return d;
         -:  200:	}
         -:  201:
@@ -257,13 +257,13 @@
        12:  255:	}
         -:  256:
         -:  257:	// --------------------------------------------------------------------
-       12:  258:	std::string dot( std::string s, int max_length ){
-       12:  259:		int length = max_length - s.size();
-       12:  260:		std::string s_result = " ";
-       96:  261:		for( int i = 0; i < length; i++ ){
-       84:  262:			s_result = s_result + ".";
+       16:  258:	std::string dot( std::string s, int max_length ){
+       16:  259:		int length = max_length - s.size();
+       16:  260:		std::string s_result = " ";
+      124:  261:		for( int i = 0; i < length; i++ ){
+      108:  262:			s_result = s_result + ".";
         -:  263:		}
-       12:  264:		return s_result;
+       16:  264:		return s_result;
         -:  265:	}
         -:  266:
         -:  267:	// --------------------------------------------------------------------
@@ -271,16 +271,16 @@
         -:  269:		std::string s;
         6:  270:		log << "<< label >>" << std::endl;
         -:  271:		size_t max_label_length = 0;
-       42:  272:		for( auto item : dict ){
-       12:  273:			if( item.first.size() > max_label_length ){
+       54:  272:		for( auto item : dict ){
+       16:  273:			if( item.first.size() > max_label_length ){
         -:  274:				max_label_length = item.first.size();
         -:  275:			}
         -:  276:		}
         6:  277:		max_label_length += 3;
-       42:  278:		for( auto item : dict ) { 
-       48:  279:			s = dot( item.first, max_label_length );
-       12:  280:			if( item.second.value_type == CVALUE_TYPE::CV_INTEGER ) {
-       24:  281:				log << item.first << s << " " << std::dec << item.second.i << " ( 0x" << std::hex << item.second.i << " )" << std::endl;
+       54:  278:		for( auto item : dict ) { 
+       64:  279:			s = dot( item.first, max_label_length );
+       16:  280:			if( item.second.value_type == CVALUE_TYPE::CV_INTEGER ) {
+       32:  281:				log << item.first << s << " " << std::dec << item.second.i << " ( 0x" << std::hex << item.second.i << " )" << std::endl;
         -:  282:			}
     #####:  283:			else if( item.second.value_type == CVALUE_TYPE::CV_STRING ) {
         -:  284:				log << item.first << s << " \"" << item.second.s << "\"" << std::endl;
@@ -295,11 +295,11 @@
         6:  293:		if( !sym_file ){
     #####:  294:			return;
         -:  295:		}
-       42:  296:		for( auto item : dict ){
-       12:  297:			if( item.second.value_type != CVALUE_TYPE::CV_INTEGER ){
+       54:  296:		for( auto item : dict ){
+       16:  297:			if( item.second.value_type != CVALUE_TYPE::CV_INTEGER ){
     #####:  298:				continue;
         -:  299:			}
-       12:  300:			sym_file << item.first << " equ 0" << std::hex << item.second.i << "h" << std::endl;
+       16:  300:			sym_file << item.first << " equ 0" << std::hex << item.second.i << "h" << std::endl;
         -:  301:		}
         6:  302:		sym_file.close();
         -:  303:	}

@@ -68,12 +68,14 @@ bool CZMA_PARSE_GLOBAL_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_la
 			put_error( "Illegal expression." );
 			return false;
 		}
-		if( info.dict.count( label ) ) {
+		if( info.dict.count( label ) && !info.dict[ label ].is_unknown() ) {
 			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
 			return false;
 		}
 		else {
-			this->is_data_fixed = true;
+			if( !v.is_unknown() ){
+				this->is_data_fixed = true;
+			}
 			info.dict[label] = v;
 			info.is_updated = true;
 		}

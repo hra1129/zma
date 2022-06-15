@@ -1,0 +1,69 @@
+Z80 Macro Assembler ZMA v1.0.16-alpha
+=====================================================
+Programmed by t.hara
+
+  DEFS is DEFINE STRING (default).
+
+<< code >>
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     5|      |    |SYMBOL1 := 10
+      |      |    |  Global integer symbol [SYMBOL1] = 10 (0xa)
+------+------+----+----------------------------------
+     6|      |    |SYMBOL2 := "漢字"
+      |      |    |  Global string symbol [SYMBOL2] = "漢字"
+------+------+----+----------------------------------
+     7|      |    |SYMBOL3 EQU 20
+      |      |    |  Global integer symbol [SYMBOL3] = 20 (0x14)
+------+------+----+----------------------------------
+     8|      |    |SYMBOL4 EQU "文字"
+      |      |    |  Global string symbol [SYMBOL4] = "文字"
+------+------+----+----------------------------------
+     9|      |    |SYMBOL5 = 30
+      |      |    |  Integer symbol [SYMBOL5] = 30 (0x1e)
+------+------+----+----------------------------------
+    10|      |    |SYMBOL6 = "表\示"
+      |      |    |  String symbol [SYMBOL6] = "表示"
+------+------+----+----------------------------------
+      |      |    |  MESSAGE: 外側1: test.asm(12)
+      |      |    |  MESSAGE: SYMBOL1 = 10: test.asm(13)
+      |      |    |  MESSAGE: SYMBOL2 = 漢字: test.asm(14)
+      |      |    |  MESSAGE: SYMBOL3 = 20: test.asm(15)
+      |      |    |  MESSAGE: SYMBOL4 = 文字: test.asm(16)
+      |      |    |  MESSAGE: SYMBOL5 = 30: test.asm(17)
+      |      |    |  MESSAGE: SYMBOL6 = 表示: test.asm(18)
+    20|      |    |SCOPE LOCAL
+      |      |    |  Enter scope: LOCAL:
+------+------+----+----------------------------------
+    21|      |    |SYMBOL1 = 100
+      |      |    |  Integer symbol [LOCAL:SYMBOL1] = 100 (0x64)
+------+------+----+----------------------------------
+    22|      |    |SYMBOL2 = "MSX"
+      |      |    |  String symbol [LOCAL:SYMBOL2] = "MSX"
+------+------+----+----------------------------------
+      |      |    |  MESSAGE: スコープ LOCAL の中: test.asm(24)
+      |      |    |  MESSAGE: SYMBOL1 = 100: test.asm(25)
+      |      |    |  MESSAGE: SYMBOL2 = MSX: test.asm(26)
+      |      |    |  MESSAGE: SYMBOL3 = 20: test.asm(27)
+      |      |    |  MESSAGE: SYMBOL4 = 文字: test.asm(28)
+      |      |    |  MESSAGE: SYMBOL5 = 30: test.asm(29)
+      |      |    |  MESSAGE: SYMBOL6 = 表示: test.asm(30)
+    32|      |    |ENDSCOPE
+      |      |    |  Exit scope: LOCAL:
+------+------+----+----------------------------------
+      |      |    |  MESSAGE: 外側2: test.asm(34)
+      |      |    |  MESSAGE: SYMBOL1 = 10: test.asm(35)
+      |      |    |  MESSAGE: SYMBOL2 = 漢字: test.asm(36)
+      |      |    |  MESSAGE: SYMBOL3 = 20: test.asm(37)
+      |      |    |  MESSAGE: SYMBOL4 = 文字: test.asm(38)
+      |      |    |  MESSAGE: SYMBOL5 = 30: test.asm(39)
+      |      |    |  MESSAGE: SYMBOL6 = 表示: test.asm(40)
+<< label >>
+LOCAL:SYMBOL1 ... 100 ( 0x64 )
+LOCAL:SYMBOL2 ... "MSX"
+SYMBOL1 ......... 10 ( 0xa )
+SYMBOL2 ......... "漢字"
+SYMBOL3 ......... 20 ( 0x14 )
+SYMBOL4 ......... "文字"
+SYMBOL5 ......... 30 ( 0x1e )
+SYMBOL6 ......... "表示"

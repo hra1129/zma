@@ -17,22 +17,22 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-      582:   18:bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      586:   18:bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-      582:   20:	update_flags( &info, p_last_line );
-      582:   21:	if( opecode_a_i_r( info ) ) {						//	ld {A|I|R}, {A|I|R} line
+      586:   20:	update_flags( &info, p_last_line );
+      586:   21:	if( opecode_a_i_r( info ) ) {						//	ld {A|I|R}, {A|I|R} line
         -:   22:		//	log
        12:   23:		if( !is_analyze_phase ) {
         8:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
         8:   25:			log.write_cycle_information( 11, 2 );			//	ld	{A|I|R}, {A|I|R}
         -:   26:		}
         -:   27:	}
-      570:   28:	else if( opecode_destination8_source8( info, 0x40 ) ) {				//	ld <reg8>, <reg8> line
+      574:   28:	else if( opecode_destination8_source8( info, 0x40 ) ) {				//	ld <reg8>, <reg8> line
         -:   29:		//	log
-      294:   30:		if( !is_analyze_phase ) {
-      196:   31:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       98:   32:			if( this->code_size == 1 ) {
-      100:   33:				log.write_cycle_information( 5, 2 );			//	ld <reg8>, reg8>
+      298:   30:		if( !is_analyze_phase ) {
+      198:   31:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       99:   32:			if( this->code_size == 1 ) {
+      102:   33:				log.write_cycle_information( 5, 2 );			//	ld <reg8>, reg8>
         -:   34:			}
         -:   35:			else {
        96:   36:				log.write_cycle_information( 10, 2 );			//	ld <reg8>, ixh
@@ -159,9 +159,9 @@
     #####:  157:		return false;
         -:  158:	}
         -:  159:	//	log
-      582:  160:	if( !is_analyze_phase ) {
-      194:  161:		log.write_dump( this->code_address, this->file_address, this->data );
-      194:  162:		log.write_separator();
+      586:  160:	if( !is_analyze_phase ) {
+      195:  161:		log.write_dump( this->code_address, this->file_address, this->data );
+      195:  162:		log.write_separator();
         -:  163:	}
         -:  164:	return check_all_fixed();
        12:  165:}

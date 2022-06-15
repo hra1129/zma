@@ -37,7 +37,7 @@
     #####:   35:				if( v.is_unknown() ){
     #####:   36:					s << "Integer symbol [" << label << "] = UNKNOWN";
         -:   37:				}
-        -:   38:				else{
+        -:   38:				else {
     #####:   39:					s << "Integer symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
         -:   40:				}
         -:   41:			}

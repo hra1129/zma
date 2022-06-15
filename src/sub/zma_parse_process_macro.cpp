@@ -47,7 +47,7 @@ bool CZMA_PARSE_MACRO::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 				put_error( "Illegal argument." );
 				return false;
 			}
-			for( auto s : p_macro->parameter_name_list ) {
+			for( auto &s : p_macro->parameter_name_list ) {
 				if( s.name == words[i] ) {
 					put_error( "Multiple arguments of the same name '" + words[i] + "' exist." );
 					return false;
@@ -76,7 +76,7 @@ bool CZMA_PARSE_MACRO::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 bool CZMA_PARSE_MACRO_INS::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
 	bool result = true;
 
-	for( auto line : log ) {
+	for( auto &line : log ) {
 		info.log << line << std::endl;
 	}
 	text.write( info, f );
@@ -95,9 +95,10 @@ bool CZMA_PARSE_ENDM::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 
 // --------------------------------------------------------------------
 bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+	CZMA_PARSE *p_parse;
 	CZMA_MACRO* p_macro;
 	std::map< std::string, std::vector< std::string > > argument;
-	std::vector< std::string > parameter, insert_line;
+	std::vector< std::string > parameter, insert_line, label_line;
 	std::string replace_name, arg_name;
 	int i, j, id;
 	unsigned int success_count;
@@ -144,7 +145,7 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 				if( argument.count( replace_name ) ) {
 					//	マクロの仮引数を見つけた場合、指定されている式に置き換える
 					word = insert_line.erase( word );
-					for( auto insert_word : argument[replace_name] ) {
+					for( auto &insert_word : argument[replace_name] ) {
 						word = insert_line.insert( word, insert_word );
 						++word;
 					}
@@ -153,7 +154,21 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 					++word;
 				}
 			}
-			text.m_text.push_back( CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no ) );
+			if( insert_line.size() > 2 && ( (insert_line[ 1 ] == ":") || (insert_line[ 1 ] == "::") ) ){
+				label_line.resize( 2 );
+				label_line[ 0 ] = insert_line[ 0 ];
+				label_line[ 1 ] = insert_line[ 1 ];
+				p_parse = CZMA_PARSE::create( info, label_line, this->p_file_name, this->line_no );
+				text.m_text.push_back( p_parse );
+				insert_line.erase( insert_line.begin() );
+				insert_line.erase( insert_line.begin() );
+				p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
+				text.m_text.push_back( p_parse );
+			}
+			else{
+				p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
+				text.m_text.push_back( p_parse );
+			}
 		}
 		this->is_loaded = true;
 		info.is_updated = true;

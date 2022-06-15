@@ -126,7 +126,7 @@ static std::map< std::string, CZMA_COMMAND_TYPE > command_list = {
 		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_##operation( words, p_file_name, line_no ))
 
 // --------------------------------------------------------------------
-CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string> words, const char* p_file_name, int line_no ) {
+CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string> &words, const char* p_file_name, int line_no ) {
 
 	if( words.size() == 0 ) {
 		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_BLANK( words, p_file_name, line_no ));
@@ -140,7 +140,7 @@ CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string>
 	if( words.size() >= 3 && words[1] == "=" ) {
 		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_SYMBOL( words, p_file_name, line_no ));
 	}
-	if( words.size() >= 3 && words[1] == ":=" ) {
+	if( words.size() >= 3 && (words[1] == ":=" || words[ 1 ] == "EQU") ) {
 		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_GLOBAL_SYMBOL( words, p_file_name, line_no ));
 	}
 	if( words.size() >= 2 && words[1] == "MACRO" ) {
@@ -327,12 +327,4 @@ std::string CZMA_PARSE::get_line( void ) {
 		}
 	}
 	return r;
-}
-
-// --------------------------------------------------------------------
-CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::string s, const char* p_file_name, int line_no ) {
-	std::vector<std::string> words;
-
-	words = CZMA_PARSE::get_word_split( s );
-	return create( info, words, p_file_name, line_no );
 }

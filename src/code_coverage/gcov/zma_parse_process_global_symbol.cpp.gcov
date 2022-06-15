@@ -70,19 +70,21 @@
     #####:   68:			put_error( "Illegal expression." );
     #####:   69:			return false;
         -:   70:		}
-        -:   71:		if( info.dict.count( label ) ) {
+    #####:   71:		if( info.dict.count( label ) && !info.dict[ label ].is_unknown() ) {
     #####:   72:			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
     #####:   73:			return false;
         -:   74:		}
         -:   75:		else {
-    #####:   76:			this->is_data_fixed = true;
-    #####:   77:			info.dict[label] = v;
-    #####:   78:			info.is_updated = true;
-        -:   79:		}
-        -:   80:	}
-        -:   81:	else {
-    #####:   82:		put_error( "Label '" + words[0] + "' is indeterminate." );
-    #####:   83:		return false;
-        -:   84:	}
-        -:   85:	return check_all_fixed();
-       12:   86:}
+    #####:   76:			if( !v.is_unknown() ){
+    #####:   77:				this->is_data_fixed = true;
+        -:   78:			}
+    #####:   79:			info.dict[label] = v;
+    #####:   80:			info.is_updated = true;
+        -:   81:		}
+        -:   82:	}
+        -:   83:	else {
+    #####:   84:		put_error( "Label '" + words[0] + "' is indeterminate." );
+    #####:   85:		return false;
+        -:   86:	}
+        -:   87:	return check_all_fixed();
+       12:   88:}

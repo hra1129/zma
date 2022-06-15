@@ -4,3 +4,7 @@ LABEL2 equ 01eh
 LABEL3 equ 028h
 LABEL4 equ 032h
 LABEL5 equ 046h
+LABEL6 equ 06ch
+LABEL7 equ 071h
+LABEL8 equ 073h
+LABEL9 equ 074h

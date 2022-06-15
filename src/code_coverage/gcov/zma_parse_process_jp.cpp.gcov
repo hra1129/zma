@@ -17,10 +17,10 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       36:   18:bool CZMA_PARSE_JP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       40:   18:bool CZMA_PARSE_JP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-       36:   20:	update_flags( &info, p_last_line );
-      108:   21:	if( (words.size() == 2 && words[1] == "HL") || (words.size() == 4 && words[1] == "(" && words[2] == "HL" && words[3] == ")") ) {
+       40:   20:	update_flags( &info, p_last_line );
+      120:   21:	if( (words.size() == 2 && words[1] == "HL") || (words.size() == 4 && words[1] == "(" && words[2] == "HL" && words[3] == ")") ) {
         3:   22:		if( !this->is_data_fixed ) {
         -:   23:			this->set_code_size( &info, 1 );
         1:   24:			this->is_data_fixed = true;
@@ -35,7 +35,7 @@
         -:   33:		}
         -:   34:		return check_all_fixed();
         -:   35:	}
-       66:   36:	if( (words.size() == 2 && words[1] == "IX") || (words.size() == 4 && words[1] == "(" && words[2] == "IX" && words[3] == ")") ) {
+       74:   36:	if( (words.size() == 2 && words[1] == "IX") || (words.size() == 4 && words[1] == "(" && words[2] == "IX" && words[3] == ")") ) {
         3:   37:		if( !this->is_data_fixed ) {
         -:   38:			this->set_code_size( &info, 2 );
         1:   39:			this->is_data_fixed = true;
@@ -51,7 +51,7 @@
         -:   49:		}
         -:   50:		return check_all_fixed();
         -:   51:	}
-       60:   52:	if( (words.size() == 2 && words[1] == "IY") || (words.size() == 4 && words[1] == "(" && words[2] == "IY" && words[3] == ")") ) {
+       68:   52:	if( (words.size() == 2 && words[1] == "IY") || (words.size() == 4 && words[1] == "(" && words[2] == "IY" && words[3] == ")") ) {
         3:   53:		if( !this->is_data_fixed ) {
         -:   54:			this->set_code_size( &info, 2 );
         1:   55:			this->is_data_fixed = true;
@@ -67,22 +67,22 @@
         -:   65:		}
         -:   66:		return check_all_fixed();
         -:   67:	}
-       27:   68:	if( opecode_condition_address( info, 0xC3, 0xC2 ) ) {
+       31:   68:	if( opecode_condition_address( info, 0xC3, 0xC2 ) ) {
         -:   69:		//	log
-       27:   70:		if( !this->is_analyze_phase ) {
-       18:   71:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        9:   72:			if( data[0] == 0xC3 ) {
-        2:   73:				log.write_cycle_information( 11, 5 );		//	JP nn
+       30:   70:		if( !this->is_analyze_phase ) {
+       20:   71:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       10:   72:			if( data[0] == 0xC3 ) {
+        4:   73:				log.write_cycle_information( 11, 5 );		//	JP nn
         -:   74:			}
         -:   75:			else {
        16:   76:				log.write_cycle_information( 11, 5, -1, 3 );		//	JP cond, nn
         -:   77:			}
-        9:   78:			log.write_dump( this->code_address, this->file_address, this->data );
-        9:   79:			log.write_separator();
+       10:   78:			log.write_dump( this->code_address, this->file_address, this->data );
+       10:   79:			log.write_separator();
         -:   80:		}
         -:   81:		return check_all_fixed();
         -:   82:	}
-    #####:   83:	put_error( "Illegal operand" );
-    #####:   84:	return false;
+        2:   83:	put_error( "Illegal operand" );
+        1:   84:	return false;
        12:   85:}
         -:   86:

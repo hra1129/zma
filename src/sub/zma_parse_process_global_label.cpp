@@ -45,7 +45,7 @@ bool CZMA_PARSE_GLOBAL_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 		return false;
 	}
 	if( this->is_fixed_code_address() ) {
-		if( info.dict.count( label ) && info.dict[ label ].value_type == CVALUE_TYPE::CV_UNKNOWN_INTEGER ) {
+		if( info.dict.count( label ) && info.dict[ label ].value_type != CVALUE_TYPE::CV_UNKNOWN_INTEGER ) {
 			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
 			return false;
 		}
