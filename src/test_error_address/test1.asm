@@ -8,13 +8,13 @@
 		xxx		a, a, a			; ERROR
 
 l1:
-		cp		a
+		cp		l1
 		xor		a
 		or		a
 		and		a
 		ld		a, 1
 		ld		b, 1
-		ret
+		jr		l1
 
 		org		0x200
 

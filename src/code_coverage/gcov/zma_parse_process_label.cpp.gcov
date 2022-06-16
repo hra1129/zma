@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_label.cpp
-        -:    0:Programs:104
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -47,26 +47,31 @@
     #####:   45:		return false;
         -:   46:	}
        21:   47:	if( this->is_fixed_code_address() ) {
-       14:   48:		if( info.dict.count( label ) && info.dict[ label ].value_type != CVALUE_TYPE::CV_UNKNOWN_INTEGER ) {
-    #####:   49:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
-    #####:   50:			return false;
-        -:   51:		}
-        -:   52:		else {
-       14:   53:			this->is_data_fixed = true;
-       14:   54:			v.i = this->get_code_address();
-       14:   55:			v.value_type = CVALUE_TYPE::CV_INTEGER;
-       14:   56:			info.dict[label] = v;
-       14:   57:			info.is_updated = true;
-        -:   58:		}
-        -:   59:	}
-        -:   60:	else {
-        7:   61:		v.i = -1;
-        7:   62:		v.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
-        7:   63:		info.dict[ label ] = v;
-        7:   64:		info.is_updated = true;
-       35:   65:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ) );
-        7:   66:		return false;
-        -:   67:	}
-        -:   68:	return check_all_fixed();
-       12:   69:}
-        -:   70:
+       14:   48:		if( info.dict.count( label ) && info.dict[ label ].value_type != CVALUE_TYPE::CV_UNKNOWN_INTEGER ){
+    #####:   49:			if( !( info.dict[ label ].value_type == CVALUE_TYPE::CV_INTEGER && info.dict[ label ].i == this->get_code_address() ) ){
+    #####:   50:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
+    #####:   51:				return false;
+        -:   52:			}
+        -:   53:		}
+        -:   54:		else{
+       14:   55:			info.is_updated = true;
+       14:   56:			v.i = this->get_code_address();
+       14:   57:			v.value_type = CVALUE_TYPE::CV_INTEGER;
+       14:   58:			info.dict[ label ] = v;
+        -:   59:		}
+       14:   60:		this->is_data_fixed = true;
+        -:   61:	}
+        -:   62:	else {
+        -:   63:		if( info.dict.count( label ) ) {
+        -:   64:			return check_all_fixed();
+        -:   65:		}
+        7:   66:		v.i = -1;
+        7:   67:		v.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
+        7:   68:		info.dict[ label ] = v;
+        7:   69:		info.is_updated = true;
+       35:   70:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ) );
+        7:   71:		return false;
+        -:   72:	}
+        -:   73:	return check_all_fixed();
+       12:   74:}
+        -:   75:

@@ -17,9 +17,10 @@ static void usage( const char* p_name ) {
 	std::cerr << "Usage> " << p_name << " [-options] <input.asm> <output.bin>\n";
 	std::cerr << "This is Z80/R800 Macro Assembler.\n";
 	std::cerr << "[-options]\n";
-	std::cerr << "  -HELP, -H ... Display this message.\n";
-	std::cerr << "  -I{path} .... Add {path} to the include path.\n";
-	std::cerr << "  -DEFS ....... Change the DEFS instruction to an area allocation instruction.\n";
+	std::cerr << "  -HELP, -H ........... Display this message.\n";
+	std::cerr << "  -I{path} ............ Add {path} to the include path.\n";
+	std::cerr << "  -D{name}={value} .... Define symbol. ex) -DSWITCH=1 -DNAME='GAME'\n";
+	std::cerr << "  -DEFS ............... Change the DEFS instruction to an area allocation instruction.\n";
 }
 
 // --------------------------------------------------------------------

@@ -1,5 +1,5 @@
         -:    0:Source:../zma_information.hpp
-        -:    0:Programs:104
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler dictionary
         -:    3:// ====================================================================
@@ -166,177 +166,80 @@
         6:  164:	}
         -:  165:
         -:  166:	// --------------------------------------------------------------------
-        -:  167:	unsigned int get_auto_label_index( void ) {
-    #####:  168:		return auto_label_index++;
-        -:  169:	}
-        -:  170:
-        -:  171:	// --------------------------------------------------------------------
-       50:  172:	std::string get_scope_path( void ) const {
-       50:  173:		std::string r = "";
-       50:  174:		for( std::string s : scope ) {
-    #####:  175:			r = r + s + ":";
-        -:  176:		}
-       50:  177:		return r;
-        -:  178:	}
-        -:  179:
-        -:  180:	// --------------------------------------------------------------------
-       53:  181:	bool get_label_value( CVALUE& result, std::string word ) {
-        -:  182:		int i, l;
-        -:  183:		std::string s;
-        -:  184:
-      114:  185:		for( l = (int)scope.size(); l >= 0; l-- ) {
-        -:  186:			s = "";
-       53:  187:			for( i = 0; i < l; i++ ) {
-    #####:  188:				s = s + scope[i] + ":";
-        -:  189:			}
-      106:  190:			s = s + word;
-        -:  191:			if( this->dict.count( s ) ) {
-       45:  192:				result = this->dict[s];
-        -:  193:				return true;
-        -:  194:			}
-        -:  195:		}
-        8:  196:		result.value_type = CVALUE_TYPE::CV_UNKNOWN;
-        8:  197:		return false;
-        -:  198:	}
-        -:  199:
-        -:  200:	// --------------------------------------------------------------------
-        -:  201:	bool is_sss_or_ddd( std::string word ) const {
-     2995:  202:		int d = (int)sss_or_ddd_id.count( word );
-        -:  203:		return d;
-        -:  204:	}
-        -:  205:
-        -:  206:	// --------------------------------------------------------------------
-        -:  207:	bool is_ix_hl( std::string word ) const {
-      733:  208:		int d = (int)ix_hl.count( word );
-        -:  209:		return d;
-        -:  210:	}
-        -:  211:
-        -:  212:	// --------------------------------------------------------------------
-        -:  213:	bool is_iy_hl( std::string word ) const {
-      429:  214:		int d = (int)iy_hl.count( word );
-        -:  215:		return d;
-        -:  216:	}
-        -:  217:
-        -:  218:	// --------------------------------------------------------------------
-        -:  219:	bool is_rp( std::string word ) const {
-      357:  220:		return (int)rp_id.count( word );
-        -:  221:	}
-        -:  222:
-        -:  223:	// --------------------------------------------------------------------
-        -:  224:	bool is_ix_rp( std::string word ) const{
-       12:  225:		return (int)ix_rp_id.count( word );
-        -:  226:	}
-        -:  227:
-        -:  228:	// --------------------------------------------------------------------
-        -:  229:	bool is_iy_rp( std::string word ) const{
-       12:  230:		return (int)iy_rp_id.count( word );
-        -:  231:	}
-        -:  232:
-        -:  233:	// --------------------------------------------------------------------
-        -:  234:	bool is_rp_with_af( std::string word ) const {
-       36:  235:		return (int)rp_with_af_id.count( word );
-        -:  236:	}
+        -:  167:	void clear( void ){
+        -:  168:		scope.clear();
+        -:  169:		p_char_set = nullptr;
+        -:  170:		s_char_set = "DEFAULT";
+        -:  171:		is_updated = false;
+        -:  172:		is_block_processing = false;
+        -:  173:		auto_label_index = 0;
+        -:  174:	}
+        -:  175:
+        -:  176:	// --------------------------------------------------------------------
+        -:  177:	unsigned int get_auto_label_index( void ) {
+    #####:  178:		return auto_label_index++;
+        -:  179:	}
+        -:  180:
+        -:  181:	// --------------------------------------------------------------------
+        -:  182:	std::string get_scope_path( void );
+        -:  183:
+        -:  184:	// --------------------------------------------------------------------
+        -:  185:	bool get_label_value( CVALUE &result, std::string word );
+        -:  186:
+        -:  187:	// --------------------------------------------------------------------
+        -:  188:	bool is_sss_or_ddd( std::string word ) const {
+     2995:  189:		int d = (int)sss_or_ddd_id.count( word );
+        -:  190:		return d;
+        -:  191:	}
+        -:  192:
+        -:  193:	// --------------------------------------------------------------------
+        -:  194:	bool is_ix_hl( std::string word ) const {
+      733:  195:		int d = (int)ix_hl.count( word );
+        -:  196:		return d;
+        -:  197:	}
+        -:  198:
+        -:  199:	// --------------------------------------------------------------------
+        -:  200:	bool is_iy_hl( std::string word ) const {
+      429:  201:		int d = (int)iy_hl.count( word );
+        -:  202:		return d;
+        -:  203:	}
+        -:  204:
+        -:  205:	// --------------------------------------------------------------------
+        -:  206:	bool is_rp( std::string word ) const {
+      357:  207:		return (int)rp_id.count( word );
+        -:  208:	}
+        -:  209:
+        -:  210:	// --------------------------------------------------------------------
+        -:  211:	bool is_ix_rp( std::string word ) const{
+       12:  212:		return (int)ix_rp_id.count( word );
+        -:  213:	}
+        -:  214:
+        -:  215:	// --------------------------------------------------------------------
+        -:  216:	bool is_iy_rp( std::string word ) const{
+       12:  217:		return (int)iy_rp_id.count( word );
+        -:  218:	}
+        -:  219:
+        -:  220:	// --------------------------------------------------------------------
+        -:  221:	bool is_rp_with_af( std::string word ) const {
+       36:  222:		return (int)rp_with_af_id.count( word );
+        -:  223:	}
+        -:  224:
+        -:  225:	// --------------------------------------------------------------------
+        -:  226:	bool is_ccc( std::string word ) const {
+       72:  227:		return (int)ccc_id.count( word );
+        -:  228:	}
+        -:  229:
+        -:  230:	// --------------------------------------------------------------------
+        -:  231:	bool is_cc2( std::string word ) const {
+       12:  232:		return (int)cc2_id.count( word );
+        -:  233:	}
+        -:  234:
+        -:  235:	// --------------------------------------------------------------------
+        -:  236:	void add_include_path( const char *p_path, const char *p_sub_path = "" );
         -:  237:
         -:  238:	// --------------------------------------------------------------------
-        -:  239:	bool is_ccc( std::string word ) const {
-       72:  240:		return (int)ccc_id.count( word );
-        -:  241:	}
-        -:  242:
-        -:  243:	// --------------------------------------------------------------------
-        -:  244:	bool is_cc2( std::string word ) const {
-       12:  245:		return (int)cc2_id.count( word );
-        -:  246:	}
-        -:  247:
-        -:  248:	// --------------------------------------------------------------------
-       12:  249:	void add_include_path( const char* p_path, const char *p_sub_path = "" ) {
-       12:  250:		std::string s = p_path;
-        -:  251:
-       30:  252:		for( int i = (int)s.size() - 1; i >= 0; i-- ) {
-       60:  253:			if( s[i] == '/' || s[i] == '\\' ) {
-       36:  254:				s = s.substr( 0, i );
-       12:  255:				break;
-        -:  256:			}
-        -:  257:		}
-       36:  258:		include_path.push_back( s + "/" + p_sub_path );
-       12:  259:	}
-        -:  260:
-        -:  261:	// --------------------------------------------------------------------
-       16:  262:	std::string dot( std::string s, int max_length ){
-       16:  263:		int length = max_length - s.size();
-       16:  264:		std::string s_result = " ";
-      124:  265:		for( int i = 0; i < length; i++ ){
-      108:  266:			s_result = s_result + ".";
-        -:  267:		}
-       16:  268:		return s_result;
-        -:  269:	}
-        -:  270:
-        -:  271:	// --------------------------------------------------------------------
-        6:  272:	void write( void ) {
-        -:  273:		int i, j;
-        -:  274:		unsigned char c;
-        -:  275:		std::string s;
-       12:  276:		std::stringstream s_dump;
-        6:  277:		if( dict.size() ){
-        2:  278:			log << "<< label >>" << std::endl;
-        -:  279:			size_t max_label_length = 0;
-       50:  280:			for( auto item : dict ){
-       16:  281:				if( item.first.size() > max_label_length ){
-        -:  282:					max_label_length = item.first.size();
-        -:  283:				}
-        -:  284:			}
-        2:  285:			max_label_length += 3;
-       18:  286:			for( auto &item : dict ){
-       64:  287:				s = dot( item.first, max_label_length );
-       16:  288:				if( item.second.value_type == CVALUE_TYPE::CV_INTEGER ){
-       32:  289:					log << item.first << s << " " << std::dec << item.second.i << " ( 0x" << std::hex << item.second.i << " )" << std::endl;
-        -:  290:				}
-    #####:  291:				else if( item.second.value_type == CVALUE_TYPE::CV_STRING ){
-        -:  292:					log << item.first << s << " \"" << item.second.s << "\"" << std::endl;
-        -:  293:				}
-        -:  294:				else{
-        -:  295:					log << item.first << s << " ????" << std::endl;
-        -:  296:				}
-        -:  297:			}
-        -:  298:		}
-        -:  299:
-        6:  300:		if( char_set_list.size() ){
-        1:  301:			log << "<< character map >>" << std::endl;
-        3:  302:			for( auto &item : char_set_list ){
-        -:  303:				log << "[" << item.first << "]" << std::endl;
-      130:  304:				for( i = 0; i < 256; i += 8 ){
-      128:  305:					s_dump.str( "" );
-     1088:  306:					for( j = 0; j < 8; j++ ){
-        -:  307:						//	ƒ_ƒ“ƒv
-      512:  308:						c = i + j;
-     1024:  309:						c = item.second.ascii_to_map[ c ];
-      512:  310:						s_dump << std::hex << std::setw( 2 ) << std::setfill( '0' ) << (int)c << " ";
-        -:  311:						//	‹L†
-        -:  312:						c = i + j;
-      512:  313:						if( c < 32 ){
-        -:  314:							c = 32;
-        -:  315:						}
-      448:  316:						else if( c >= 0x7F ){
-        -:  317:							c = '?';
-        -:  318:						}
-        -:  319:						log << c;
-        -:  320:					}
-       64:  321:					log << ":" << s_dump.str() << std::endl;
-        -:  322:				}
-        -:  323:				log << std::endl;
-        -:  324:			}
-        -:  325:		}
-        -:  326:
-       12:  327:		std::ofstream sym_file;
-        6:  328:		sym_file.open( "zma.sym", std::ios::out );
-        6:  329:		if( !sym_file ){
-    #####:  330:			return;
-        -:  331:		}
-       54:  332:		for( auto item : dict ){
-       16:  333:			if( item.second.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:  334:				continue;
-        -:  335:			}
-       16:  336:			sym_file << item.first << " equ 0" << std::hex << item.second.i << "h" << std::endl;
-        -:  337:		}
-        6:  338:		sym_file.close();
-        -:  339:	}
-        -:  340:};
+        -:  239:	std::string dot( std::string s, int max_length );
+        -:  240:
+        -:  241:	// --------------------------------------------------------------------
+        -:  242:	void write( void );
+        -:  243:};

@@ -100,14 +100,14 @@
   zma_parse_process_user_message.cpp
   zma_parse_process_xor.cpp
   zma.cpp
+  zma_information.cpp
   zma_parse.cpp
-  zma_parse_expression.cpp
   コンパイル中...
+  zma_parse_expression.cpp
   zma_parse_process.cpp
   zma_text.cpp
   コード生成しています。
-  6 of 1960 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    41 functions had inline decision re-evaluated but remain unchanged
+  Compiler switch has changed, fall back to full compilation.
+  All 1958 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   コード生成が終了しました。
   zma.vcxproj -> C:\Users\hra\Documents\github\zma\src\Release\zma.exe

@@ -45,19 +45,24 @@ bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 		return false;
 	}
 	if( this->is_fixed_code_address() ) {
-		if( info.dict.count( label ) && info.dict[ label ].value_type != CVALUE_TYPE::CV_UNKNOWN_INTEGER ) {
-			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
-			return false;
+		if( info.dict.count( label ) && info.dict[ label ].value_type != CVALUE_TYPE::CV_UNKNOWN_INTEGER ){
+			if( !( info.dict[ label ].value_type == CVALUE_TYPE::CV_INTEGER && info.dict[ label ].i == this->get_code_address() ) ){
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
+				return false;
+			}
 		}
-		else {
-			this->is_data_fixed = true;
+		else{
+			info.is_updated = true;
 			v.i = this->get_code_address();
 			v.value_type = CVALUE_TYPE::CV_INTEGER;
-			info.dict[label] = v;
-			info.is_updated = true;
+			info.dict[ label ] = v;
 		}
+		this->is_data_fixed = true;
 	}
 	else {
+		if( info.dict.count( label ) ) {
+			return check_all_fixed();
+		}
 		v.i = -1;
 		v.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
 		info.dict[ label ] = v;

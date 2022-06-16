@@ -2,6 +2,8 @@ Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
+  DEFS is DEFINE STRING (default).
+
 << code >>
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
@@ -12,16 +14,12 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000000|0100|  B7
 ------+------+----+----------------------------------
      8|      |    |XXX A, A, A
-     8|ERROR |    |Invalid command: test1.asm(8)
+     8|ERROR |    |Invalid command.: test1.asm(8)
     10|      |    |L1 :
       |      |    |  label address: 0xXXXXXX
 ------+------+----+----------------------------------
-    10|      |    |L1 :
-    10|ERROR |    |Label 'L1' is indeterminate.: test1.asm(10)
-    11|      |    |CP A
-      |      |    |  Z80:5cyc R800:1cyc
-      |XXXXXX|XXXX|  BF
-------+------+----+----------------------------------
+    11|      |    |CP L1
+    11|ERROR |    |Illegal operand.: test1.asm(11)
     12|      |    |XOR A
       |      |    |  Z80:5cyc R800:1cyc
       |XXXXXX|XXXX|  AF
@@ -42,17 +40,13 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  Z80:8cyc R800:2cyc
       |XXXXXX|XXXX|  06 01
 ------+------+----+----------------------------------
-    17|      |    |RET
-      |      |    |  Z80:11cyc R800:5cyc
-      |XXXXXX|XXXX|  C9
-------+------+----+----------------------------------
+    17|      |    |JR L1
+    17|ERROR |    |Illegal operand.: test1.asm(17)
     19|      |    |ORG 0x200
 ------+------+----+----------------------------------
     21|      |    |L2 :
       |      |    |  label [L2] address: 0x000200
 ------+------+----+----------------------------------
-    21|      |    |L2 :
-    21|ERROR |    |There are declarations of the same label 'L2' in multiple places.: test1.asm(21)
     22|      |    |CP A
       |      |    |  Z80:5cyc R800:1cyc
       |XXXXXX|0200|  BF
@@ -82,4 +76,5 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |XXXXXX|0208|  C9
 ------+------+----+----------------------------------
 << label >>
+L1 ... ????
 L2 ... 512 ( 0x200 )
