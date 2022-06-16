@@ -6,10 +6,12 @@
 
 #pragma once
 
+#include "zma_error.hpp"
 #include <string>
 #include <map>
 #include <vector>
 #include <fstream>
+#include <sstream>
 #include <iomanip>
 
 // --------------------------------------------------------------------
@@ -121,7 +123,6 @@ public:
 	std::map< std::string, int >	ccc_id{ { "NZ", 0 }, { "Z", 1 }, { "NC", 2 }, { "C", 3 }, { "PO", 4 }, { "PE", 5 }, { "P", 6 }, { "M", 7 }, };
 	std::map< std::string, int >	cc2_id{ { "NZ", 0 }, { "Z", 1 }, { "NC", 2 }, { "C", 3 }, };
 	std::vector< std::string >		scope;
-	std::ofstream					log;
 	std::vector< std::string >		include_path;
 
 	unsigned int auto_label_index;
@@ -154,6 +155,9 @@ public:
 	std::map< std::string, CZMA_CHAR_SET >	char_set_list;
 	CZMA_CHAR_SET*							p_char_set;
 	std::string								s_char_set;
+
+	CZMA_ERROR								error;
+	std::ofstream							log;
 
 	// --------------------------------------------------------------------
 	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ), p_char_set( nullptr ), defs_is_space(false) {
@@ -266,25 +270,57 @@ public:
 
 	// --------------------------------------------------------------------
 	void write( void ) {
+		int i, j;
+		unsigned char c;
 		std::string s;
-		log << "<< label >>" << std::endl;
-		size_t max_label_length = 0;
-		for( auto item : dict ){
-			if( item.first.size() > max_label_length ){
-				max_label_length = item.first.size();
+		std::stringstream s_dump;
+		if( dict.size() ){
+			log << "<< label >>" << std::endl;
+			size_t max_label_length = 0;
+			for( auto item : dict ){
+				if( item.first.size() > max_label_length ){
+					max_label_length = item.first.size();
+				}
+			}
+			max_label_length += 3;
+			for( auto &item : dict ){
+				s = dot( item.first, max_label_length );
+				if( item.second.value_type == CVALUE_TYPE::CV_INTEGER ){
+					log << item.first << s << " " << std::dec << item.second.i << " ( 0x" << std::hex << item.second.i << " )" << std::endl;
+				}
+				else if( item.second.value_type == CVALUE_TYPE::CV_STRING ){
+					log << item.first << s << " \"" << item.second.s << "\"" << std::endl;
+				}
+				else{
+					log << item.first << s << " ????" << std::endl;
+				}
 			}
 		}
-		max_label_length += 3;
-		for( auto item : dict ) { 
-			s = dot( item.first, max_label_length );
-			if( item.second.value_type == CVALUE_TYPE::CV_INTEGER ) {
-				log << item.first << s << " " << std::dec << item.second.i << " ( 0x" << std::hex << item.second.i << " )" << std::endl;
-			}
-			else if( item.second.value_type == CVALUE_TYPE::CV_STRING ) {
-				log << item.first << s << " \"" << item.second.s << "\"" << std::endl;
-			}
-			else {
-				log << item.first << s << " ????" << std::endl;
+
+		if( char_set_list.size() ){
+			log << "<< character map >>" << std::endl;
+			for( auto &item : char_set_list ){
+				log << "[" << item.first << "]" << std::endl;
+				for( i = 0; i < 256; i += 8 ){
+					s_dump.str( "" );
+					for( j = 0; j < 8; j++ ){
+						//	ƒ_ƒ“ƒv
+						c = i + j;
+						c = item.second.ascii_to_map[ c ];
+						s_dump << std::hex << std::setw( 2 ) << std::setfill( '0' ) << (int)c << " ";
+						//	‹L†
+						c = i + j;
+						if( c < 32 ){
+							c = 32;
+						}
+						else if( c >= 0x7F ){
+							c = '?';
+						}
+						log << c;
+					}
+					log << ":" << s_dump.str() << std::endl;
+				}
+				log << std::endl;
 			}
 		}
 

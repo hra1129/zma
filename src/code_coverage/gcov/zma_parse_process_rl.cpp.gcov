@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_rl.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -40,6 +40,6 @@
         -:   38:		}
         -:   39:		return check_all_fixed();
         -:   40:	}
-    #####:   41:	put_error( "Illegal operand" );
+    #####:   41:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:   42:	return false;
        12:   43:}

@@ -47,7 +47,7 @@ bool CZMA_PARSE_DEFB::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line )
 				break;
 			}
 			if( words[ i ] != "," ){
-				put_error( "Illegal parameter." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 				count = -1;
 				break;
 			}
@@ -62,18 +62,18 @@ bool CZMA_PARSE_DEFB::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line )
 		for( ;; ){
 			i = this->expression( info, i, v );
 			if( i == 0 ){
-				put_error( "Cannot evaluate the expression." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_EVALUATE_THE_EXPRESSION ) );
 				data.clear();
 				return false;
 			}
 			if( i < (int)words.size() && words[ i ] != "," ){
-				put_error( "Illegal expression." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				data.clear();
 				return false;
 			}
 			i++;
 			if( v.is_unknown() ){
-				put_error( "Illegal expression." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				data.clear();
 				return false;
 			}

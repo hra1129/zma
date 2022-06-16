@@ -16,6 +16,7 @@ enum class CZMA_ERROR_CODE {
 	ILLEGAL_PARAMETER,
 	ILLEGAL_EXPRESSION,
 	ILLEGAL_CONDITION,
+	ILLEGAL_ARGUMENT,
 	TOO_MANY_PARAMETERS,
 	DEFAULT_CHAR_SET_CANNOT_BE_MAPPED_AND_CHANGED,
 	CANNOT_OPEN_THE_FILE,
@@ -24,10 +25,16 @@ enum class CZMA_ERROR_CODE {
 	LABEL_IS_INDETERMINATE,
 	REPEAT_COUNTER_IS_NO_FIXED,
 	MUST_BE_SET_NAME,
+	BLOCK_PROCESSING_IS_NOT_CLOSED,
+	SCOPE_IS_NOT_CLOSED,
+	OUT_OF_RANGE_RELATIVE_ADDRESS,
+	OUT_OF_RANGE_BIT_NUMBER,
+	THE_NUMERICAL_VALUE_IS_INCORRECT,
+	DIVIDED_BY_ZERO,
 };
 
 class CZMA_ERROR {
 public:
-	void put_error( CZMA_ERROR_CODE code, std::string message );
-	void put_structure_error( CZMA_ERROR_CODE code, std::string message );
+	// --------------------------------------------------------------------
+	static std::string get( CZMA_ERROR_CODE code, std::string message1 = "", std::string message2 = "", std::string message3 = "" );
 };

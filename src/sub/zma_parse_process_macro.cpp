@@ -25,7 +25,7 @@ bool CZMA_PARSE_MACRO::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 	if( !this->is_data_fixed ) {
 		if( info.macro_list.count( words[0] ) && info.macro_list[words[0]] != nullptr ) {
 			//	同じ名前のマクロを宣言することはできない
-			put_error( "There are declarations of the same macro '" + words[0] + "' in multiple places." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
 			return false;
 		}
 		//	引数抽出処理
@@ -39,17 +39,17 @@ bool CZMA_PARSE_MACRO::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 				arg.is_through = false;
 			}
 			if( i >= (int)words.size() ) {
-				put_error( "Illegal argument." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_ARGUMENT ) );
 				return false;
 			}
 			arg.name = words[i];
 			if( (i + 1) < (int)words.size() && words[ i + 1 ] != "," ) {
-				put_error( "Illegal argument." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_ARGUMENT ) );
 				return false;
 			}
 			for( auto &s : p_macro->parameter_name_list ) {
 				if( s.name == words[i] ) {
-					put_error( "Multiple arguments of the same name '" + words[i] + "' exist." );
+					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
 					return false;
 				}
 			}
@@ -111,7 +111,7 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 		for( i = 1; i < (int)words.size(); i++ ) {
 			parameter.clear();
 			if( id >= (int)p_macro->parameter_name_list.size() ) {
-				put_error( "Too many arguments for " + words[0] + "." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
 				return false;
 			}
 			if( p_macro->parameter_name_list[id].is_through ) {
@@ -134,7 +134,7 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 			id++;
 		}
 		if( id != (int)p_macro->parameter_name_list.size() ) {
-			put_error( "Mismatched number of arguments." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
 			return false;
 		}
 		//	m_text に macro の展開内容をコピーする

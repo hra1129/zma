@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_endscope.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -22,17 +22,17 @@
         -:   20:
     #####:   21:	update_flags( &info, p_last_line );
     #####:   22:	if( words.size() > 1 ) {
-    #####:   23:		put_error( "Too many parameters." );
+    #####:   23:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:   24:		return false;
         -:   25:	}
     #####:   26:	this->is_data_fixed = true;
         -:   27:	this->set_code_size( &info, 0 );
     #####:   28:	if( info.scope.size() < 1 ) {
-    #####:   29:		put_error( "Invalid command." );
+    #####:   29:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
     #####:   30:		return false;
         -:   31:	}
     #####:   32:	if( info.scope[ info.scope.size() - 1 ][0] == '@' ) {
-    #####:   33:		put_error( "Invalid command." );
+    #####:   33:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
     #####:   34:		return false;
         -:   35:	}
     #####:   36:	s_scope = info.get_scope_path();

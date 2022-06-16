@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_space.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -27,16 +27,16 @@
         -:   25:			//	ƒTƒCƒY
         2:   26:			i = this->expression( info, 1, v );
         2:   27:			if( i == 0 ){
-    #####:   28:				put_error( "Illegal expression." );
+    #####:   28:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   29:				data.clear();
     #####:   30:				return false;
         -:   31:			}
         2:   32:			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:   33:				put_error( "Illegal expression." );
+    #####:   33:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   34:				return false;
         -:   35:			}
         2:   36:			if( v.i < 0 || v.i > 65536 ){
-    #####:   37:				put_error( "Illegal parameter." );
+    #####:   37:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   38:				return false;
         -:   39:			}
         -:   40:			space_size = v.i;
@@ -44,16 +44,16 @@
         5:   42:			if( i < (int)this->words.size() && this->words[ i ] == "," ){
         1:   43:				i = this->expression( info, i + 1, v );
         1:   44:				if( i == 0 ){
-    #####:   45:					put_error( "Illegal expression." );
+    #####:   45:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   46:					data.clear();
     #####:   47:					return false;
         -:   48:				}
         1:   49:				if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:   50:					put_error( "Illegal expression." );
+    #####:   50:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   51:					return false;
         -:   52:				}
         1:   53:				if( v.i < 0 || v.i > 65536 ){
-    #####:   54:					put_error( "Illegal parameter." );
+    #####:   54:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   55:					return false;
         -:   56:				}
         -:   57:				value = v.i;

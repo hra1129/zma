@@ -23,15 +23,15 @@ bool CZMA_PARSE_ORG::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 	index = this->expression( info, 1, address );
 	this->code_size = 0;
 	if( index == 0 ) {
-		put_error( "Illegal expression." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 		return false;
 	}
 	if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
-		put_error( "Illegal parameter." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 		return false;
 	}
 	if( index < (int)words.size() ) {
-		put_error( "Illegal parameter." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 		return false;
 	}
 	this->is_data_fixed = true;

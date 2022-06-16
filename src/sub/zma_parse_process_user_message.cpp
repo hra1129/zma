@@ -21,15 +21,15 @@ bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 	set_code_size( &info, 0 );
 	update_flags( &info, p_last_line );
 	if( words.size() == 1 ) {
-		put_error( "Too many parameters." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
 		return false;
 	}
 	if( this->expression( info, 1, v, false ) == 0 ) {
-		put_error( "Illegal parameter." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 		return false;
 	}
 	else if( v.is_unknown() ){
-		put_error( "Illegal parameter." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 		return false;
 	}
 	if( v.is_integer() ) {

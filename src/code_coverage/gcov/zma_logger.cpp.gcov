@@ -1,5 +1,5 @@
         -:    0:Source:../zma_logger.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	ZMA: CZMA_TEXT
         -:    3:// ====================================================================
@@ -89,31 +89,31 @@
     #####:   87:}
         -:   88:
         -:   89:// --------------------------------------------------------------------
-     2378:   90:void CZMA_LOG::write_cycle_information( int z80_cycle, int r800_cycle, int z80_cycle2, int r800_cycle2, const std::string s_comment ){
-     4756:   91:	std::stringstream s;
+     2382:   90:void CZMA_LOG::write_cycle_information( int z80_cycle, int r800_cycle, int z80_cycle2, int r800_cycle2, const std::string s_comment ){
+     4764:   91:	std::stringstream s;
         -:   92:
-     2378:   93:	s << "      |      |    |  ";
-     2378:   94:	if( z80_cycle2 >= 0 ){
-       54:   95:		s << "Z80:" << ((z80_cycle == 0) ? '?' : z80_cycle) << "cyc/" << (( z80_cycle2 == 0) ? '?' : z80_cycle2) << "cyc ";
+     2382:   93:	s << "      |      |    |  ";
+     2382:   94:	if( z80_cycle2 >= 0 ){
+       58:   95:		s << "Z80:" << ((z80_cycle == 0) ? '?' : z80_cycle) << "cyc/" << (( z80_cycle2 == 0) ? '?' : z80_cycle2) << "cyc ";
         -:   96:	}
-     2351:   97:	else if( z80_cycle >= 0 ){
-     2345:   98:		s << "Z80:" << ( ( z80_cycle == 0 ) ? '?' : z80_cycle ) << "cyc ";
+     2353:   97:	else if( z80_cycle >= 0 ){
+     2347:   98:		s << "Z80:" << ( ( z80_cycle == 0 ) ? '?' : z80_cycle ) << "cyc ";
         -:   99:	}
         -:  100:	else{
         6:  101:		s << "Z80:--- ";
         -:  102:	}
-     2378:  103:	if( r800_cycle2 >= 0 ){
+     2382:  103:	if( r800_cycle2 >= 0 ){
       126:  104:		s << "R800:" << ((r800_cycle == 0) ? '?' : r800_cycle) << "cyc/" << ((r800_cycle2 == 0) ? '?' : r800_cycle2) << "cyc";
         -:  105:	}
-     2315:  106:	else if( r800_cycle >= 0 ){
-     2315:  107:		s << "R800:" << ( ( r800_cycle == 0 ) ? '?' : r800_cycle ) << "cyc";
+     2319:  106:	else if( r800_cycle >= 0 ){
+     2319:  107:		s << "R800:" << ( ( r800_cycle == 0 ) ? '?' : r800_cycle ) << "cyc";
         -:  108:	}
         -:  109:	else{
     #####:  110:		s << "R800:---";
         -:  111:	}
         -:  112:	s << s_comment;
-     4756:  113:	this->push_back( s.str() );
-     2378:  114:}
+     4764:  113:	this->push_back( s.str() );
+     2382:  114:}
         -:  115:
         -:  116:// --------------------------------------------------------------------
      3389:  117:void CZMA_LOG::write_dump( int address, int offset, std::vector<unsigned char> &data ){

@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_in.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -26,18 +26,16 @@
        16:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
         8:   25:			if( data[0] == 0xDB ) {
         2:   26:				log.write_cycle_information( 12, 10, -1, 9 );	//	IN A, [n]
-        4:   27:				log.push_back( "[\t" + get_line() + "] Z80:12cyc, R800:10 or 9cyc" );
-        -:   28:			}
-        -:   29:			else {
-       14:   30:				log.write_cycle_information( 14, 10, -1, 9 );	//	IN A, [C]
-       28:   31:				log.push_back( "[\t" + get_line() + "] Z80:14cyc, R800:10 or 9cyc" );
-        -:   32:			}
-        8:   33:			log.write_dump( this->code_address, this->file_address, this->data );
-        8:   34:			log.write_separator();
-        -:   35:		}
-        -:   36:		return check_all_fixed();
-        -:   37:	}
-    #####:   38:	put_error( "Illegal operand" );
-    #####:   39:	return false;
-       12:   40:}
-        -:   41:
+        -:   27:			}
+        -:   28:			else {
+       14:   29:				log.write_cycle_information( 14, 10, -1, 9 );	//	IN A, [C]
+        -:   30:			}
+        8:   31:			log.write_dump( this->code_address, this->file_address, this->data );
+        8:   32:			log.write_separator();
+        -:   33:		}
+        -:   34:		return check_all_fixed();
+        -:   35:	}
+    #####:   36:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+    #####:   37:	return false;
+       12:   38:}
+        -:   39:

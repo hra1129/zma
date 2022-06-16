@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_global_symbol.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -62,16 +62,16 @@
         -:   60:		}
         -:   61:	}
     #####:   62:	if( words[0][0] == '\"' ) {
-    #####:   63:		put_error( "Invalid command." );
+    #####:   63:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
     #####:   64:		return false;
         -:   65:	}
     #####:   66:	if( this->expression( info, 2, v ) ) {
     #####:   67:		if( v.value_type == CVALUE_TYPE::CV_UNKNOWN ) {
-    #####:   68:			put_error( "Illegal expression." );
+    #####:   68:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   69:			return false;
         -:   70:		}
     #####:   71:		if( info.dict.count( label ) && !info.dict[ label ].is_unknown() ) {
-    #####:   72:			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
+    #####:   72:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
     #####:   73:			return false;
         -:   74:		}
         -:   75:		else {
@@ -83,7 +83,7 @@
         -:   81:		}
         -:   82:	}
         -:   83:	else {
-    #####:   84:		put_error( "Label '" + words[0] + "' is indeterminate." );
+    #####:   84:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ) );
     #####:   85:		return false;
         -:   86:	}
         -:   87:	return check_all_fixed();

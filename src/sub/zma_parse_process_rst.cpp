@@ -22,19 +22,19 @@ bool CZMA_PARSE_RST::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 	if( words.size() >= 2 ) {
 		index = this->expression( info, 1, p );
 		if( index == 0 ) {
-			put_error( "Illegal expression." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		if( p.value_type != CVALUE_TYPE::CV_INTEGER ) {
-			put_error( "Illegal expression." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		if( index < (int)words.size() ) {
-			put_error( "Illegal operand." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 			return false;
 		}
 		if( (p.i & ~0x38) != 0 ) {
-			put_error( std::string("Illegal restart address (") + std::to_string(p.i) + ")" );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 			return false;
 		}
 		if( !this->is_data_fixed ) {
@@ -51,7 +51,7 @@ bool CZMA_PARSE_RST::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		}
 		return check_all_fixed();
 	}
-	put_error( "Illegal operand" );
+	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 	return false;
 }
 

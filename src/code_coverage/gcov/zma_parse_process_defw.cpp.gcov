@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_defw.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -36,17 +36,17 @@
        45:   34:		for( count = 0; (count * 2) < this->get_code_size(); count++ ) {
        23:   35:			i = this->expression( info, i, v );
        23:   36:			if( i == 0 ) {
-    #####:   37:				put_error( "Cannot evaluate the expression(" + std::to_string( count + 1 ) + ")" );
+    #####:   37:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_EVALUATE_THE_EXPRESSION ) );
         -:   38:				data.clear();
     #####:   39:				return false;
         -:   40:			}
        69:   41:			if( !v.is_integer() || v.is_unknown() ){
-        9:   42:				put_error( "Illegal expression." );
+       18:   42:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   43:				data.clear();
         3:   44:				return false;
         -:   45:			}
        76:   46:			if( i < (int)words.size() && words[i] != "," ) {
-    #####:   47:				put_error( "Illegal expression." );
+    #####:   47:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   48:				data.clear();
     #####:   49:				return false;
         -:   50:			}

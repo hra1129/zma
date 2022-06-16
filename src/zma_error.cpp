@@ -4,135 +4,64 @@
 //	2019/05/02	t.hara
 // --------------------------------------------------------------------
 
-#include "zma_logger.hpp"
+#include "zma_error.hpp"
 #include <iostream>
 #include <fstream>
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <map>
+
+static std::map< CZMA_ERROR_CODE, const std::string > error_message = {
+	{ CZMA_ERROR_CODE::INVALID_COMMAND, "Invalid command." },
+	{ CZMA_ERROR_CODE::ILLEGAL_OPERAND, "Illegal operand." },
+	{ CZMA_ERROR_CODE::ILLEGAL_PARAMETER, "Illegal parameter." },
+	{ CZMA_ERROR_CODE::ILLEGAL_EXPRESSION, "Illegal expression." },
+	{ CZMA_ERROR_CODE::ILLEGAL_CONDITION, "Illegal condition." },
+	{ CZMA_ERROR_CODE::ILLEGAL_ARGUMENT, "Illegal argument." },
+	{ CZMA_ERROR_CODE::TOO_MANY_PARAMETERS, "Too many parameters." },
+	{ CZMA_ERROR_CODE::DEFAULT_CHAR_SET_CANNOT_BE_MAPPED_AND_CHANGED, "Default character set cannot be mapped and changed." },
+	{ CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE, "Cannot open the file." },
+	{ CZMA_ERROR_CODE::CANNOT_EVALUATE_THE_EXPRESSION, "Cannot evaluate the expression." },
+	{ CZMA_ERROR_CODE::MULTIPLE_DEFINITION, "Multiple definition." },
+	{ CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE, "Label is indeterminate." },
+	{ CZMA_ERROR_CODE::REPEAT_COUNTER_IS_NO_FIXED, "Repeat counter is no fixed." },
+	{ CZMA_ERROR_CODE::MUST_BE_SET_NAME, "Must be set name." },
+	{ CZMA_ERROR_CODE::BLOCK_PROCESSING_IS_NOT_CLOSED, "Block processing is not closed." },
+	{ CZMA_ERROR_CODE::SCOPE_IS_NOT_CLOSED, "Scope is not closed." },
+	{ CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS, "Out of range relative address." },
+	{ CZMA_ERROR_CODE::OUT_OF_RANGE_BIT_NUMBER, "Out of range bit number." },
+	{ CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT, "The numerical value is incorrect." },
+	{ CZMA_ERROR_CODE::DIVIDED_BY_ZERO, "Divided by zero." },
+};
 
 // --------------------------------------------------------------------
-std::string CZMA_LOG::convert_to_hex( int value, int columns ){
-	std::stringstream s;
+std::string CZMA_ERROR::get( CZMA_ERROR_CODE code, std::string message1, std::string message2, std::string message3 ){
+	std::string base_message;
+	std::string result( "" );
+	bool b_insert_message = false;
 
-	if( value == -1 ){
-		s << std::setw( columns ) << std::setfill( 'X' ) << "X";
-	}
-	else{
-		s << std::setw( columns ) << std::hex << std::right << std::setfill( '0' ) << std::uppercase << value;
-	}
-	return s.str();
-}
-
-
-// --------------------------------------------------------------------
-void CZMA_LOG::write_separator( void ) {
-	this->push_back( "------+------+----+----------------------------------" );
-}
-
-// --------------------------------------------------------------------
-std::string CZMA_LOG::get_line_infomation( int line_no, int address, int offset, const std::string &s_line_image ){
-	std::stringstream s;
-
-	if( line_no < 0 ){
-		s << "      |";
-	}
-	else{
-		s << std::dec << std::setw( 6 ) << std::right << line_no << "|";
-	}
-	if( offset < 0 ){
-		s << "      |";
-	}
-	else{
-		s << std::hex << std::setw( 6 ) << std::setfill('0') << std::uppercase << std::right << offset << "|";
-	}
-	if( address < 0 ){
-		s << "    |";
-	}
-	else{
-		s << std::hex << std::setw( 4 ) << std::setfill( '0' ) << std::uppercase << std::right << address << "|";
-	}
-	s << s_line_image;
-	return s.str();
-}
-
-// --------------------------------------------------------------------
-void CZMA_LOG::write_line_infomation( int line_no, int address, int offset, const std::string &s_line_image ){
-
-	this->push_back( get_line_infomation( line_no, -1, -1, s_line_image ) );
-}
-
-// --------------------------------------------------------------------
-void CZMA_LOG::write_message( const std::string &s_message ){
-	std::stringstream s;
-
-	s << "      |      |    |  " << s_message;
-	this->push_back( s.str() );
-}
-
-// --------------------------------------------------------------------
-void CZMA_LOG::write_error_message( const char *p_file_name, int line_no, const std::string &s_message ){
-	std::stringstream s, ss;
-
-	if( line_no < 0 ){
-		ss << s_message << ": " << p_file_name;
-		s << "      |ERROR |    |" << ss.str();
-	}
-	else{
-		ss << s_message << ": " << p_file_name << "(" << line_no << ")";
-		s << std::dec << std::setw( 6 ) << std::right << line_no << "|ERROR |    |" << ss.str();
-	}
-	std::cerr << "ERROR:" << ss.str() << "\n";
-	this->push_back( s.str() );
-}
-
-// --------------------------------------------------------------------
-void CZMA_LOG::write_cycle_information( int z80_cycle, int r800_cycle, int z80_cycle2, int r800_cycle2, const std::string s_comment ){
-	std::stringstream s;
-
-	s << "      |      |    |  ";
-	if( z80_cycle2 >= 0 ){
-		s << "Z80:" << ((z80_cycle == 0) ? '?' : z80_cycle) << "cyc/" << (( z80_cycle2 == 0) ? '?' : z80_cycle2) << "cyc ";
-	}
-	else if( z80_cycle >= 0 ){
-		s << "Z80:" << ( ( z80_cycle == 0 ) ? '?' : z80_cycle ) << "cyc ";
-	}
-	else{
-		s << "Z80:--- ";
-	}
-	if( r800_cycle2 >= 0 ){
-		s << "R800:" << ((r800_cycle == 0) ? '?' : r800_cycle) << "cyc/" << ((r800_cycle2 == 0) ? '?' : r800_cycle2) << "cyc";
-	}
-	else if( r800_cycle >= 0 ){
-		s << "R800:" << ( ( r800_cycle == 0 ) ? '?' : r800_cycle ) << "cyc";
-	}
-	else{
-		s << "R800:---";
-	}
-	s << s_comment;
-	this->push_back( s.str() );
-}
-
-// --------------------------------------------------------------------
-void CZMA_LOG::write_dump( int address, int offset, std::vector<unsigned char> &data ){
-	int count;
-	std::stringstream line;
-	count = 0;
-	for( auto d : data ){
-		if( count == 0 ){
-			line << "      |" << convert_to_hex( offset, 6 ) << "|" << convert_to_hex( address, 4 ) << "| ";
+	base_message = error_message[ code ];
+	for( auto &c : base_message ){
+		if( c == '$' ){
+			b_insert_message = true;
+			continue;
 		}
-		line << " " << std::right << std::setw( 2 ) << std::hex << std::uppercase << std::setfill( '0' ) << (int)(d & 255);
-		address++;
-		offset++;
-		count++;
-		if( count == 8 ){
-			push_back( line.str() );
-			line.str( "" );
-			count = 0;
+		if( b_insert_message ){
+			b_insert_message = false;
+			if( c == '1' ){
+				result = result + message1;
+			}
+			else if( c == '2' ){
+				result = result + message2;
+			}
+			else{
+				result = result + message3;
+			}
+		}
+		else{
+			result = result + c;
 		}
 	}
-	if( count != 0 ){
-		push_back( line.str() );
-	}
+	return result;
 }

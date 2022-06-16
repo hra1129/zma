@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_macro.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -27,7 +27,7 @@
     #####:   25:	if( !this->is_data_fixed ) {
     #####:   26:		if( info.macro_list.count( words[0] ) && info.macro_list[words[0]] != nullptr ) {
         -:   27:			//	同じ名前のマクロを宣言することはできない
-    #####:   28:			put_error( "There are declarations of the same macro '" + words[0] + "' in multiple places." );
+    #####:   28:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
     #####:   29:			return false;
         -:   30:		}
         -:   31:		//	引数抽出処理
@@ -41,17 +41,17 @@
     #####:   39:				arg.is_through = false;
         -:   40:			}
     #####:   41:			if( i >= (int)words.size() ) {
-    #####:   42:				put_error( "Illegal argument." );
+    #####:   42:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_ARGUMENT ) );
     #####:   43:				return false;
         -:   44:			}
     #####:   45:			arg.name = words[i];
     #####:   46:			if( (i + 1) < (int)words.size() && words[ i + 1 ] != "," ) {
-    #####:   47:				put_error( "Illegal argument." );
+    #####:   47:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_ARGUMENT ) );
     #####:   48:				return false;
         -:   49:			}
     #####:   50:			for( auto &s : p_macro->parameter_name_list ) {
         -:   51:				if( s.name == words[i] ) {
-    #####:   52:					put_error( "Multiple arguments of the same name '" + words[i] + "' exist." );
+    #####:   52:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
         -:   53:					return false;
         -:   54:				}
         -:   55:			}
@@ -113,7 +113,7 @@
     #####:  111:		for( i = 1; i < (int)words.size(); i++ ) {
     #####:  112:			parameter.clear();
     #####:  113:			if( id >= (int)p_macro->parameter_name_list.size() ) {
-    #####:  114:				put_error( "Too many arguments for " + words[0] + "." );
+    #####:  114:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:  115:				return false;
         -:  116:			}
     #####:  117:			if( p_macro->parameter_name_list[id].is_through ) {
@@ -136,7 +136,7 @@
     #####:  134:			id++;
         -:  135:		}
     #####:  136:		if( id != (int)p_macro->parameter_name_list.size() ) {
-    #####:  137:			put_error( "Mismatched number of arguments." );
+    #####:  137:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:  138:			return false;
         -:  139:		}
         -:  140:		//	m_text に macro の展開内容をコピーする

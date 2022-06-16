@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_scope.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -21,11 +21,11 @@
         -:   19:
     #####:   20:	update_flags( &info, p_last_line );
     #####:   21:	if( words.size() < 2 ) {
-    #####:   22:		put_error( "Must be set name." );
+    #####:   22:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MUST_BE_SET_NAME ) );
     #####:   23:		return false;
         -:   24:	}
     #####:   25:	if( words.size() > 2 ) {
-    #####:   26:		put_error( "Too many parameters." );
+    #####:   26:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:   27:		return false;
         -:   28:	}
     #####:   29:	this->is_data_fixed = true;

@@ -25,16 +25,16 @@ bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 			//	ƒTƒCƒY
 			i = this->expression( info, 1, v );
 			if( i == 0 ){
-				put_error( "Illegal expression." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				data.clear();
 				return false;
 			}
 			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
-				put_error( "Illegal expression." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			if( v.i < 0 || v.i > 65536 ){
-				put_error( "Illegal parameter." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 				return false;
 			}
 			space_size = v.i;
@@ -42,16 +42,16 @@ bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 			if( i < (int)this->words.size() && this->words[ i ] == "," ){
 				i = this->expression( info, i + 1, v );
 				if( i == 0 ){
-					put_error( "Illegal expression." );
+					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 					data.clear();
 					return false;
 				}
 				if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
-					put_error( "Illegal expression." );
+					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 					return false;
 				}
 				if( v.i < 0 || v.i > 65536 ){
-					put_error( "Illegal parameter." );
+					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 					return false;
 				}
 				value = v.i;

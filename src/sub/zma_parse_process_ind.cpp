@@ -23,13 +23,12 @@ bool CZMA_PARSE_IND::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) 
 		if( !this->is_analyze_phase ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			log.write_cycle_information( 18, 12, -1, 11 );
-			log.push_back( "[\t" + get_line() + "] Z80:18cyc, R800:12 or 11cyc" );
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
 		}
 		return check_all_fixed();
 	}
-	put_error( "Illegal operand" );
+	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 	return false;
 }
 

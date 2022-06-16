@@ -11,4 +11,5 @@ g++ -O2 -std=c++17 -W -c -I.. -I../sub ../zma_parse_expression.cpp -o zma_parse_
 g++ -O2 -std=c++17 -W -c -I.. -I../sub ../zma_parse_process.cpp    -o zma_parse_process.o   
 g++ -O2 -std=c++17 -W -c -I.. -I../sub ../zma_text.cpp             -o zma_text.o            
 g++ -O2 -std=c++17 -W -c -I.. -I../sub ../zma_logger.cpp           -o zma_logger.o          
+g++ -O2 -std=c++17 -W -c -I.. -I../sub ../zma_error.cpp            -o zma_error.o           
 g++ -O2 *.o -o zma

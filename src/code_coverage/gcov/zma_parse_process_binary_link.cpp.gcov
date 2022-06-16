@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_binary_link.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -24,27 +24,27 @@
         -:   22:
         3:   23:	update_flags( &info, p_last_line );
         6:   24:	if( words.size() < 2 ){
-    #####:   25:		put_error( "Illegal expression." );
+    #####:   25:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   26:		return false;
         -:   27:	}
         3:   28:	i = this->expression( info, 1, path, false );
         3:   29:	if( i == 0 ){
-    #####:   30:		put_error( "Illegal expression." );
+    #####:   30:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   31:		return false;
         -:   32:	}
         3:   33:	if( path.value_type != CVALUE_TYPE::CV_STRING ){
-    #####:   34:		put_error( "Illegal parameter." );
+    #####:   34:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   35:		return false;
         -:   36:	}
         6:   37:	if( i < (int)words.size() ){
-    #####:   38:		put_error( "Too many parameters." );
+    #####:   38:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:   39:		return false;
         -:   40:	}
         3:   41:	if( !this->is_fixed_code_size() ) {
         2:   42:		std::ifstream file;
         1:   43:		file.open( path.s, std::ios::binary );
         1:   44:		if( !file ){
-    #####:   45:			put_error( "Too many parameters." );
+    #####:   45:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:   46:			return false;
         -:   47:		}
         1:   48:		file.seekg( 0, std::ifstream::end );

@@ -38,20 +38,20 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 
 	update_flags( &info, p_last_line );
 	if( words.size() < 2 ) {
-		put_error( "Must be set include file name." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MUST_BE_SET_NAME ) );
 		return false;
 	}
 	i = this->expression( info, 1, path, false );
 	if( i == 0 ) {
-		put_error( "Invalid expression." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 		return false;
 	}
 	if( path.value_type != CVALUE_TYPE::CV_STRING ) {
-		put_error( "Invalid parameter." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 		return false;
 	}
 	if( i < (int)words.size() ) {
-		put_error( "INCLUDE command has only one parameter." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
 		return false;
 	}
 	if( !this->is_loaded ) {
@@ -70,7 +70,7 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 			}
 		}
 		if( !is_open ) {
-			put_error( std::string( "Cannot open the file '" ) + path.s + "'." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE ) );
 			return false;
 		}
 		info.is_updated = true;

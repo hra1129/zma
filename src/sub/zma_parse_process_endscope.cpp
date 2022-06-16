@@ -20,17 +20,17 @@ bool CZMA_PARSE_ENDSCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_li
 
 	update_flags( &info, p_last_line );
 	if( words.size() > 1 ) {
-		put_error( "Too many parameters." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
 		return false;
 	}
 	this->is_data_fixed = true;
 	this->set_code_size( &info, 0 );
 	if( info.scope.size() < 1 ) {
-		put_error( "Invalid command." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
 		return false;
 	}
 	if( info.scope[ info.scope.size() - 1 ][0] == '@' ) {
-		put_error( "Invalid command." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
 		return false;
 	}
 	s_scope = info.get_scope_path();

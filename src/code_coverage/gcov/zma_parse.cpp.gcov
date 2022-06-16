@@ -1,5 +1,5 @@
         -:    0:Source:../zma_parse.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -264,20 +264,20 @@
         -:  262:	CVALUE imm;
        17:  263:	index = this->expression( info, index, imm );
        17:  264:	if( index == 0 ) {
-       12:  265:		put_error( "Illegal expression." );
+       30:  265:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         6:  266:		return -9999;
         -:  267:	}
        11:  268:	if( imm.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  269:		put_error( "Illegal operand." );
+    #####:  269:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  270:		return -9999;
         -:  271:	}
        22:  272:	if( index < ( int) words.size() ) {
-    #####:  273:		put_error( "Illegal operand." );
+    #####:  273:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  274:		return -9999;
         -:  275:	}
        11:  276:	relative = imm.i - (this->code_address + this->get_code_size() );
        11:  277:	if( relative < -128 || relative > 127 ) {
-    #####:  278:		put_error( "Out of range relative address" );
+    #####:  278:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####:  279:		return -9999;
         -:  280:	}
         -:  281:	return relative;
@@ -447,7 +447,7 @@
       120:  445:	else if( info.is_ix_hl( words[3] ) ) {
        60:  446:		sss = info.ix_hl[words[3]];
        90:  447:		if( ixhl || words[1] == "H" || words[1] == "L" ) {
-    #####:  448:			put_error( "Illegal operand." );
+    #####:  448:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  449:			return false;
         -:  450:		}
         -:  451:		ixhl = 1;
@@ -455,7 +455,7 @@
         -:  453:	else {
        60:  454:		sss = info.iy_hl[words[3]];
        90:  455:		if( ixhl || words[1] == "H" || words[1] == "L" ) {
-    #####:  456:			put_error( "Illegal operand." );
+    #####:  456:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  457:			return false;
         -:  458:		}
         -:  459:		ixhl = 2;
@@ -552,7 +552,7 @@
         -:  550:			return false;
         -:  551:		}
         3:  552:		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  553:			put_error( "Illegal operand." );
+    #####:  553:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  554:			return false;
         -:  555:		}
         3:  556:		if( this->is_data_fixed ) {
@@ -604,7 +604,7 @@
         -:  602:			return false;
         -:  603:		}
         3:  604:		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  605:			put_error( "Illegal operand." );
+    #####:  605:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  606:			return false;
         -:  607:		}
         3:  608:		if( this->is_data_fixed ) {
@@ -632,11 +632,11 @@
         -:  630:		return false;
         -:  631:	}
       720:  632:	if( b.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  633:		put_error( "Illegal operand." );
+    #####:  633:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  634:		return false;
         -:  635:	}
       720:  636:	if( b.i < 0 || b.i > 7 ) {
-    #####:  637:		put_error( "Bit number is out of range." );
+    #####:  637:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_BIT_NUMBER ) );
     #####:  638:		b.i &= 7;
         -:  639:	}
       720:  640:	n++;
@@ -669,15 +669,15 @@
         -:  667:				return false;
         -:  668:			}
       144:  669:			if( words[ n ] != "]" ){
-    #####:  670:				put_error( "Illegal operand." );
+    #####:  670:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  671:				return false;
         -:  672:			}
        72:  673:			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  674:				put_error( "Illegal operand." );
+    #####:  674:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  675:				return false;
         -:  676:			}
        72:  677:			if( d.i < -128 || d.i > 127 ) {
-    #####:  678:				put_error( "Offset value is out of range (" + std::to_string( d.i ) + ")." );
+    #####:  678:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####:  679:				return false;
         -:  680:			}
       192:  681:			if( !no_3operand && words.size() > (unsigned)(n + 2) && words[ n + 1 ] == "," && info.is_sss_or_ddd( words[ n + 2 ] ) ){
@@ -709,11 +709,11 @@
         -:  707:				return false;
         -:  708:			}
        72:  709:			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  710:				put_error( "Illegal operand." );
+    #####:  710:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  711:				return false;
         -:  712:			}
        72:  713:			if( d.i < -128 || d.i > 127 ) {
-    #####:  714:				put_error( "Offset value is out of range (" + std::to_string( d.i ) + ")." );
+    #####:  714:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####:  715:				return false;
         -:  716:			}
       192:  717:			if( !no_3operand && words.size() > (unsigned)( n + 2 ) && words[ n + 1 ] == "," && info.is_sss_or_ddd( words[ n + 2 ] ) ){
@@ -814,21 +814,21 @@
         -:  812:				return false;
         -:  813:			}
        21:  814:			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  815:				put_error( "Illegal operand." );
+    #####:  815:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  816:				return false;
         -:  817:			}
        21:  818:			if( d.i < -128 || d.i > 127 ) {
-    #####:  819:				put_error( "Offset value is out of range (" + std::to_string( d.i ) + ")." );
+    #####:  819:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####:  820:				return false;
         -:  821:			}
        42:  822:			if( (int)words.size() > (index + 1) ) {
-    #####:  823:				put_error( "There is an extra account that can not be interpreted." );
+    #####:  823:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:  824:				return false;
         -:  825:			}
         -:  826:		}
         -:  827:		else {
         3:  828:			if( words.size() > 6 ) {
-    #####:  829:				put_error( "There is an extra account that can not be interpreted." );
+    #####:  829:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:  830:				return false;
         -:  831:			}
         3:  832:			d.i = 0;
@@ -850,21 +850,21 @@
         -:  848:				return false;
         -:  849:			}
        21:  850:			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  851:				put_error( "Illegal operand." );
+    #####:  851:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  852:				return false;
         -:  853:			}
        21:  854:			if( d.i < -128 || d.i > 127 ) {
-    #####:  855:				put_error( "Offset value is out of range (" + std::to_string( d.i ) + ")." );
+    #####:  855:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####:  856:				return false;
         -:  857:			}
        42:  858:			if( (int)words.size() > (index + 1) ) {
-    #####:  859:				put_error( "There is an extra account that can not be interpreted." );
+    #####:  859:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:  860:				return false;
         -:  861:			}
         -:  862:		}
         -:  863:		else {
         3:  864:			if( words.size() > 6 ) {
-    #####:  865:				put_error( "There is an extra account that can not be interpreted." );
+    #####:  865:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:  866:				return false;
         -:  867:			}
         3:  868:			d.i = 0;
@@ -904,11 +904,11 @@
         -:  902:				return false;
         -:  903:			}
        24:  904:			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  905:				put_error( "Illegal operand." );
+    #####:  905:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  906:				return false;
         -:  907:			}
        24:  908:			if( d.i < -128 || d.i > 127 ) {
-    #####:  909:				put_error( "Offset value is out of range (" + std::to_string( d.i ) + ")." );
+    #####:  909:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####:  910:				return false;
         -:  911:			}
         -:  912:		}
@@ -931,11 +931,11 @@
         -:  929:				return false;
         -:  930:			}
        24:  931:			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  932:				put_error( "Illegal operand." );
+    #####:  932:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  933:				return false;
         -:  934:			}
        24:  935:			if( d.i < -128 || d.i > 127 ) {
-    #####:  936:				put_error( "Offset value is out of range (" + std::to_string( d.i ) + ")." );
+    #####:  936:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####:  937:				return false;
         -:  938:			}
         -:  939:		}
@@ -976,19 +976,19 @@
        12:  974:		if( words[3] == "+" || words[3] == "-" ) {
         6:  975:			index = this->expression( info, 3, d );
         6:  976:			if( index == 0 ) {
-    #####:  977:				put_error( "Illegal operand." );
+    #####:  977:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  978:				return false;
         -:  979:			}
         6:  980:			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  981:				put_error( "Illegal operand." );
+    #####:  981:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  982:				return false;
         -:  983:			}
        12:  984:			if( (index + 1) < (int) words.size() ) {
-    #####:  985:				put_error( "Illegal operand." );
+    #####:  985:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:  986:				return false;
         -:  987:			}
         6:  988:			if( d.i < -128 || d.i > 127 ) {
-    #####:  989:				put_error( "Offset value is out of range (" + std::to_string( d.i ) + ")." );
+    #####:  989:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####:  990:				return false;
         -:  991:			}
         -:  992:		}
@@ -1008,19 +1008,19 @@
        12: 1006:		if( words[3] == "+" || words[3] == "-" ) {
         6: 1007:			index = this->expression( info, 3, d );
         6: 1008:			if( index == 0 ) {
-    #####: 1009:				put_error( "Illegal operand." );
+    #####: 1009:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1010:				return false;
         -: 1011:			}
         6: 1012:			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1013:				put_error( "Illegal operand." );
+    #####: 1013:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1014:				return false;
         -: 1015:			}
        12: 1016:			if( (index + 1) < (int) words.size() ) {
-    #####: 1017:				put_error( "Illegal operand." );
+    #####: 1017:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1018:				return false;
         -: 1019:			}
         6: 1020:			if( d.i < -128 || d.i > 127 ) {
-    #####: 1021:				put_error( "Offset value is out of range (" + std::to_string( d.i ) + ")." );
+    #####: 1021:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1022:				return false;
         -: 1023:			}
         -: 1024:		}
@@ -1067,11 +1067,11 @@
         -: 1065:		return false;
         -: 1066:	}
        45: 1067:	if( imm8.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1068:		put_error( "Illegal operand." );
+    #####: 1068:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1069:		return false;
         -: 1070:	}
        45: 1071:	if( imm8.i < -128 || imm8.i > 255) {
-    #####: 1072:		put_error( "Operand is out of range." );
+    #####: 1072:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1073:		return false;
         -: 1074:	}
        45: 1075:	if( this->is_data_fixed ) {
@@ -1106,7 +1106,7 @@
         -: 1104:		return false;
         -: 1105:	}
        24: 1106:	if( imm8.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1107:		put_error( "Illegal operand." );
+    #####: 1107:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1108:		return false;
         -: 1109:	}
        24: 1110:	if( this->is_data_fixed ) {
@@ -1130,7 +1130,7 @@
         -: 1128:		return false;
         -: 1129:	}
     #####: 1130:	if( imm8.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####: 1131:		put_error( "Illegal operand." );
+    #####: 1131:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1132:		return false;
         -: 1133:	}
     #####: 1134:	if( this->is_data_fixed ){
@@ -1186,15 +1186,15 @@
         -: 1184:		this->set_code_size( &info, 3 );
         -: 1185:	}
        18: 1186:	if( !this->expression( info, 3, nn ) ) {
-    #####: 1187:		put_error( "Illegal operand." );
+    #####: 1187:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1188:		return false;
         -: 1189:	}
        18: 1190:	if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1191:		put_error( "Illegal operand." );
+    #####: 1191:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1192:		return false;
         -: 1193:	}
        18: 1194:	if( nn.i < -32768 || nn.i > 65535 ) {
-    #####: 1195:		put_error( "Operand is out of range." );
+    #####: 1195:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1196:		return false;
         -: 1197:	}
        18: 1198:	if( this->is_data_fixed ) {
@@ -1233,15 +1233,15 @@
         -: 1231:		this->set_code_size( &info, 4 );
         -: 1232:	}
        24: 1233:	if( !this->expression( info, 4, nn ) ) {
-    #####: 1234:		put_error( "Illegal operand." );
+    #####: 1234:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1235:		return false;
         -: 1236:	}
        24: 1237:	if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1238:		put_error( "Illegal operand." );
+    #####: 1238:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1239:		return false;
         -: 1240:	}
        24: 1241:	if( nn.i < -32768 || nn.i > 65535 ) {
-    #####: 1242:		put_error( "Operand is out of range." );
+    #####: 1242:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1243:		return false;
         -: 1244:	}
        24: 1245:	if( this->is_data_fixed ) {
@@ -1299,15 +1299,15 @@
         -: 1297:		this->set_code_size( &info, 3 );
        51: 1298:		if( words[3] == "+" || words[3] == "-" ) {
        21: 1299:			if( !this->expression( info, 3, nn ) ) {
-    #####: 1300:				put_error( "Illegal operand." );
+    #####: 1300:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1301:				return false;
         -: 1302:			}
        21: 1303:			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1304:				put_error( "Illegal operand." );
+    #####: 1304:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1305:				return false;
         -: 1306:			}
        21: 1307:			if( nn.i < -128 || nn.i > 127 ) {
-    #####: 1308:				put_error( "Offset value is out of range (" + std::to_string(nn.i) + ")." );
+    #####: 1308:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1309:				return false;
         -: 1310:			}
         -: 1311:		}
@@ -1327,15 +1327,15 @@
         -: 1325:		this->set_code_size( &info, 3 );
        51: 1326:		if( words[3] == "+" || words[3] == "-" ) {
        21: 1327:			if( !this->expression( info, 3, nn ) ) {
-    #####: 1328:				put_error( "Illegal operand." );
+    #####: 1328:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1329:				return false;
         -: 1330:			}
        21: 1331:			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1332:				put_error( "Illegal operand." );
+    #####: 1332:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1333:				return false;
         -: 1334:			}
        21: 1335:			if( nn.i < -128 || nn.i > 127 ) {
-    #####: 1336:				put_error( "Offset value is out of range (" + std::to_string( nn.i ) + ")." );
+    #####: 1336:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1337:				return false;
         -: 1338:			}
         -: 1339:		}
@@ -1372,15 +1372,15 @@
         -: 1370:	}
        27: 1371:	if( this->check_location_hl( 1 ) ) {
         3: 1372:		if( !this->expression( info, i + 2, n ) ) {
-    #####: 1373:			put_error( "Illegal operand." );
+    #####: 1373:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1374:			return false;
         -: 1375:		}
         3: 1376:		if( n.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1377:			put_error( "Illegal operand." );
+    #####: 1377:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1378:			return false;
         -: 1379:		}
         3: 1380:		if( n.i < -128 || n.i > 255 ) {
-    #####: 1381:			put_error( "Operand is out of range." );
+    #####: 1381:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1382:			return false;
         -: 1383:		}
         -: 1384:		this->set_code_size( &info, 2 );
@@ -1395,15 +1395,15 @@
        24: 1393:	if( this->check_location_ix( 1 ) ) {
         6: 1394:		if( words[3] == "+" || words[3] == "-" ) {
         3: 1395:			if( !this->expression( info, 3, d ) ) {
-    #####: 1396:				put_error( "Illegal operand." );
+    #####: 1396:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1397:				return false;
         -: 1398:			}
         3: 1399:			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1400:				put_error( "Illegal operand." );
+    #####: 1400:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1401:				return false;
         -: 1402:			}
         3: 1403:			if( d.i < -128 || d.i > 127 ) {
-    #####: 1404:				put_error( "Offset value is out of range (" + std::to_string( d.i ) + ")." );
+    #####: 1404:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1405:				return false;
         -: 1406:			}
         -: 1407:		}
@@ -1411,15 +1411,15 @@
     #####: 1409:			d.i = 0;
         -: 1410:		}
         3: 1411:		if( !this->expression( info, i + 2, n ) ) {
-    #####: 1412:			put_error( "Illegal operand." );
+    #####: 1412:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1413:			return false;
         -: 1414:		}
         3: 1415:		if( n.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1416:			put_error( "Illegal operand." );
+    #####: 1416:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1417:			return false;
         -: 1418:		}
         3: 1419:		if( n.i < -128 || n.i > 255 ) {
-    #####: 1420:			put_error( "Operand is out of range." );
+    #####: 1420:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1421:			return false;
         -: 1422:		}
         -: 1423:		this->set_code_size( &info, 4 );
@@ -1436,15 +1436,15 @@
        21: 1434:	if( this->check_location_iy( 1 ) ) {
         6: 1435:		if( words[3] == "+" || words[3] == "-" ) {
         3: 1436:			if( !this->expression( info, 3, d ) ) {
-    #####: 1437:				put_error( "Illegal operand." );
+    #####: 1437:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1438:				return false;
         -: 1439:			}
         3: 1440:			if( d.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1441:				put_error( "Illegal operand." );
+    #####: 1441:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1442:				return false;
         -: 1443:			}
         3: 1444:			if( d.i < -128 || d.i > 127 ) {
-    #####: 1445:				put_error( "Offset value is out of range (" + std::to_string( d.i ) + ")." );
+    #####: 1445:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1446:				return false;
         -: 1447:			}
         -: 1448:		}
@@ -1452,15 +1452,15 @@
     #####: 1450:			d.i = 0;
         -: 1451:		}
         3: 1452:		if( !this->expression( info, i + 2, n ) ) {
-    #####: 1453:			put_error( "Illegal operand." );
+    #####: 1453:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1454:			return false;
         -: 1455:		}
         3: 1456:		if( n.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1457:			put_error( "Illegal operand." );
+    #####: 1457:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1458:			return false;
         -: 1459:		}
         3: 1460:		if( n.i < -128 || n.i > 255 ) {
-    #####: 1461:			put_error( "Operand is out of range." );
+    #####: 1461:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1462:			return false;
         -: 1463:		}
         -: 1464:		this->set_code_size( &info, 4 );
@@ -1508,19 +1508,19 @@
         -: 1506:			return false;	//	‚±‚Ì–½—ß‚É‚Íƒ}ƒbƒ`‚µ‚È‚©‚Á‚½‚Æ‚¢‚¤ˆÓ–¡‚Å false
         -: 1507:		}
         6: 1508:		if( words[index] != "]" ) {
-    #####: 1509:			put_error( "Illegal operand." );
+    #####: 1509:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1510:			return false;
         -: 1511:		}
         6: 1512:		if( (index + 1) < (int)words.size() ) {
-    #####: 1513:			put_error( "Illegal operand." );
+    #####: 1513:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1514:			return false;
         -: 1515:		}
         3: 1516:		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1517:			put_error( "Illegal operand." );
+    #####: 1517:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1518:			return false;
         -: 1519:		}
         3: 1520:		if( nn.i < -32768 || nn.i > 65535 ) {
-    #####: 1521:			put_error( "Operand is out of range." );
+    #####: 1521:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1522:			return false;
         -: 1523:		}
         3: 1524:		if( this->is_data_fixed ) {
@@ -1566,15 +1566,15 @@
       105: 1564:	if( (int)words.size() == (i + 3) && words[1] == "[" && words[i] == "]" && words[i + 1] == "," && words[i + 2] == "A" ) {
         -: 1565:		this->set_code_size( &info, 3 );
         3: 1566:		if( !this->expression( info, 2, nn ) ) {
-    #####: 1567:			put_error( "Illegal operand." );
+    #####: 1567:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1568:			return false;
         -: 1569:		}
         3: 1570:		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1571:			put_error( "Illegal operand." );
+    #####: 1571:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1572:			return false;
         -: 1573:		}
         3: 1574:		if( nn.i < -32768 || nn.i > 65535 ) {
-    #####: 1575:			put_error( "Operand is out of range." );
+    #####: 1575:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1576:			return false;
         -: 1577:		}
         3: 1578:		if( this->is_data_fixed ) {
@@ -1605,15 +1605,15 @@
        36: 1603:	if(  words[i + 2] == "HL" ) {
         -: 1604:		this->set_code_size( &info, 3 );
         3: 1605:		if( !this->expression( info, 2, nn ) ) {
-    #####: 1606:			put_error( "Illegal operand." );
+    #####: 1606:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1607:			return false;
         -: 1608:		}
         3: 1609:		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1610:			put_error( "Illegal operand." );
+    #####: 1610:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1611:			return false;
         -: 1612:		}
         3: 1613:		if( nn.i < -32768 || nn.i > 65535 ) {
-    #####: 1614:			put_error( "Operand is out of range." );
+    #####: 1614:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1615:			return false;
         -: 1616:		}
         3: 1617:		if( this->is_data_fixed ) {
@@ -1628,15 +1628,15 @@
        15: 1626:	if( info.is_rp(words[i+2]) ) {
         -: 1627:		this->set_code_size( &info, 4 );
         9: 1628:		if( !this->expression( info, 2, nn ) ) {
-    #####: 1629:			put_error( "Illegal operand." );
+    #####: 1629:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1630:			return false;
         -: 1631:		}
         9: 1632:		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1633:			put_error( "Illegal operand." );
+    #####: 1633:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1634:			return false;
         -: 1635:		}
         9: 1636:		if(nn.i < -32768 || nn.i > 65535) {
-    #####: 1637:			put_error( "Operand is out of range." );
+    #####: 1637:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1638:			return false;
         -: 1639:		}
        18: 1640:		rp = info.rp_id[words[i + 2]];
@@ -1653,15 +1653,15 @@
        12: 1651:	if( words[i + 2] == "IX" ) {
         -: 1652:		this->set_code_size( &info, 4 );
         3: 1653:		if( !this->expression( info, 2, nn ) ) {
-    #####: 1654:			put_error( "Illegal operand." );
+    #####: 1654:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1655:			return false;
         -: 1656:		}
         3: 1657:		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1658:			put_error( "Illegal operand." );
+    #####: 1658:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1659:			return false;
         -: 1660:		}
         3: 1661:		if(nn.i < -32768 || nn.i > 65535) {
-    #####: 1662:			put_error( "Operand is out of range." );
+    #####: 1662:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1663:			return false;
         -: 1664:		}
         3: 1665:		if( this->is_data_fixed ) {
@@ -1677,15 +1677,15 @@
         3: 1675:	if( words[i + 2] == "IY" ) {
         -: 1676:		this->set_code_size( &info, 4 );
         3: 1677:		if( !this->expression( info, 2, nn ) ) {
-    #####: 1678:			put_error( "Illegal operand." );
+    #####: 1678:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1679:			return false;
         -: 1680:		}
         3: 1681:		if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1682:			put_error( "Illegal operand." );
+    #####: 1682:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1683:			return false;
         -: 1684:		}
         3: 1685:		if(nn.i < -32768 || nn.i > 65535) {
-    #####: 1686:			put_error( "Operand is out of range." );
+    #####: 1686:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1687:			return false;
         -: 1688:		}
         3: 1689:		if( this->is_data_fixed ) {
@@ -1816,19 +1816,19 @@
        42: 1814:		if( words[3] == "+" || words[3] == "-" ) {
        21: 1815:			n = this->expression( info, 3, nn );
        21: 1816:			if( n == 0 ) {
-    #####: 1817:				put_error( "Illegal operand." );
+    #####: 1817:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1818:				return false;
         -: 1819:			}
        42: 1820:			if( words[ n ] != "]" ){
-    #####: 1821:				put_error( "Illegal operand." );
+    #####: 1821:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1822:				return false;
         -: 1823:			}
        21: 1824:			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1825:				put_error( "Illegal operand." );
+    #####: 1825:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1826:				return false;
         -: 1827:			}
        21: 1828:			if( nn.i < -128 || nn.i > 127 ) {
-    #####: 1829:				put_error( "Offset value is out of range (" + std::to_string( nn.i ) + ")." );
+    #####: 1829:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1830:				return false;
         -: 1831:			}
        63: 1832:			if( words.size() > (unsigned)(n + 2) && words[ n + 1 ] == "," && info.is_sss_or_ddd( words[ n + 2 ] ) ){
@@ -1868,19 +1868,19 @@
        42: 1866:		if( words[3] == "+" || words[3] == "-" ) {
        21: 1867:			n = this->expression( info, 3, nn );
        21: 1868:			if( n == 0 ){
-    #####: 1869:				put_error( "Illegal operand." );
+    #####: 1869:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1870:				return false;
         -: 1871:			}
        42: 1872:			if( words[ n ] != "]" ){
-    #####: 1873:				put_error( "Illegal operand." );
+    #####: 1873:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1874:				return false;
         -: 1875:			}
        21: 1876:			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1877:				put_error( "Illegal operand." );
+    #####: 1877:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1878:				return false;
         -: 1879:			}
        21: 1880:			if( nn.i < -128 || nn.i > 127 ) {
-    #####: 1881:				put_error( "Offset value is out of range (" + std::to_string( nn.i ) + ")." );
+    #####: 1881:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
     #####: 1882:				return false;
         -: 1883:			}
        63: 1884:			if( words.size() > (unsigned)(n + 2) && words[ n + 1 ] == "," && info.is_sss_or_ddd( words[ n + 2 ] ) ){
@@ -1925,11 +1925,11 @@
         -: 1923:		this->set_code_size( &info, 3 );
        48: 1924:		index = this->expression( info, 3, address );
        48: 1925:		if( index == 0 ) {
-    #####: 1926:			put_error( "Illegal operand." );
+    #####: 1926:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1927:			return false;
         -: 1928:		}
        48: 1929:		if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1930:			put_error( "Illegal operand." );
+    #####: 1930:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1931:			return false;
         -: 1932:		}
        96: 1933:		if( index < (int)words.size() ) {
@@ -1949,11 +1949,11 @@
         -: 1947:		this->set_code_size( &info, 3 );
        10: 1948:		index = this->expression( info, 1, address );
        10: 1949:		if( index == 0 ) {
-    #####: 1950:			put_error( "Illegal operand." );
+    #####: 1950:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####: 1951:			return false;
         -: 1952:		}
        10: 1953:		if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
-        2: 1954:			put_error( "Illegal operand." );
+        5: 1954:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
         1: 1955:			return false;
         -: 1956:		}
        18: 1957:		if( index < (int)words.size() ) {
@@ -2160,8 +2160,8 @@
     40057: 2158:		c = d;
     40057: 2159:		f->write( (const char*) &c, 1 );
         -: 2160:	}
-    18951: 2161:	for( auto line : log ) {
-    12644: 2162:		info.log << line << std::endl;
+    18942: 2161:	for( auto line : log ) {
+    12635: 2162:		info.log << line << std::endl;
         -: 2163:	}
      6307: 2164:	return true;
        12: 2165:}

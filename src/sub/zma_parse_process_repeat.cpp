@@ -42,11 +42,11 @@ bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 	if( !p_repeat->is_counter_end_fixed ) {
 		if( words.size() < 4 ) {
 			//	REPEAT •Ï”–¼ , ’l ‚ÅA­‚È‚­‚Æ‚à 4[word] ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
-			put_error( "Illegal parameter." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 			return false;
 		}
 		if( words[2] != "," ) {
-			put_error( "Illegal parameter." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 			return false;
 		}
 
@@ -57,15 +57,15 @@ bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 
 		index = this->expression( info, 3, v );
 		if( index == 0 ) {
-			put_error( "Illegal expression." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		if( index < ( int) words.size() ) {
-			put_error( "Illegal expression." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
-			put_error( "Illegal parameter." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 			return false;
 		}
 		p_repeat->counter_end = v.i;
@@ -106,11 +106,11 @@ bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	if( !this->is_loaded ) {
 		p_repeat = info.p_repeat;
 		if( p_repeat == nullptr ) {
-			put_error( "Illegal command." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
 			return false;
 		}
 		if( !p_repeat->is_counter_end_fixed ) {
-			put_error( "REPEAT counter is not fixed." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::REPEAT_COUNTER_IS_NO_FIXED ) );
 			return false;
 		}
 		for( i = 0; i < p_repeat->counter_end; i++ ) {
@@ -156,18 +156,18 @@ bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 		}
 	}
 	if( info.scope.size() == 0 ) {
-		put_error( "Invalid command." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
 		return false;
 	}
 	if( info.scope[info.scope.size() - 1] != p_repeat->scope_name ) {
-		put_error( "Invalid command." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
 		return false;
 	}
 	s_scope = info.get_scope_path();
 	info.scope.pop_back();
 
 	if( words.size() != 1 ) {
-		put_error( "Too many parameters." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
 		return false;
 	}
 	//	log

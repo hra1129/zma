@@ -24,18 +24,16 @@ bool CZMA_PARSE_IN::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 			if( data[0] == 0xDB ) {
 				log.write_cycle_information( 12, 10, -1, 9 );	//	IN A, [n]
-				log.push_back( "[\t" + get_line() + "] Z80:12cyc, R800:10 or 9cyc" );
 			}
 			else {
 				log.write_cycle_information( 14, 10, -1, 9 );	//	IN A, [C]
-				log.push_back( "[\t" + get_line() + "] Z80:14cyc, R800:10 or 9cyc" );
 			}
 			log.write_dump( this->code_address, this->file_address, this->data );
 			log.write_separator();
 		}
 		return check_all_fixed();
 	}
-	put_error( "Illegal operand" );
+	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 	return false;
 }
 

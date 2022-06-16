@@ -23,11 +23,11 @@ bool CZMA_PARSE_CHG_CHAR_SET::process( CZMA_INFORMATION &info, CZMA_PARSE *p_las
 	update_flags( &info, p_last_line );
 	index = this->expression( info, 1, v, false );
 	if( index == 0 ){
-		put_error( "Illegal expression." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 		return false;
 	}
 	if( index < (int)words.size() ){
-		put_error( "Illegal parameter." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 		return false;
 	}
 	if( v.value_type == CVALUE_TYPE::CV_INTEGER ){
@@ -68,26 +68,26 @@ bool CZMA_PARSE_MAPPING_CHAR::process( CZMA_INFORMATION &info, CZMA_PARSE *p_las
 	update_flags( &info, p_last_line );
 	if( info.p_char_set == nullptr ){
 		//	デフォルトキャラセットはマッピング変更できない
-		put_error( "Default character sets cannot be mapped and changed." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::DEFAULT_CHAR_SET_CANNOT_BE_MAPPED_AND_CHANGED ) );
 		return false;
 	}
 	//	第1引数
 	index = this->expression( info, 1, v );
 	if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-		put_error( "Illegal expression." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 		return false;
 	}
 	start_char_ascii = v.i;
 	end_char_ascii = v.i;
 	//	カンマ
 	if( index == (int)words.size() || words[index] != "," ){
-		put_error( "Illegal expression." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 		return false;
 	}
 	//	第2引数
 	index = this->expression( info, index + 1, v );
 	if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-		put_error( "Illegal expression." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 		return false;
 	}
 	start_char_map = v.i;
@@ -97,7 +97,7 @@ bool CZMA_PARSE_MAPPING_CHAR::process( CZMA_INFORMATION &info, CZMA_PARSE *p_las
 		//	第3引数
 		index = this->expression( info, index + 1, v );
 		if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-			put_error( "Illegal expression." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		end_char_ascii = v.i;
@@ -107,7 +107,7 @@ bool CZMA_PARSE_MAPPING_CHAR::process( CZMA_INFORMATION &info, CZMA_PARSE *p_las
 		//	第4引数
 		index = this->expression( info, index + 1, v );
 		if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-			put_error( "Illegal expression." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		step_char_map = v.i;

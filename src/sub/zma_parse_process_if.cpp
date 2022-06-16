@@ -36,10 +36,10 @@ bool CZMA_PARSE_IF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		this->set_code_size( &info, 0 );
 	}
 	//	log
-	if( !is_analyze_phase ) {
-		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-		log.write_separator();
-	}
+	//if( !is_analyze_phase ) {
+	//	log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+	//	log.write_separator();
+	//}
 	return check_all_fixed();
 }
 
@@ -52,7 +52,7 @@ bool CZMA_PARSE_ELSEIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 	update_flags( &info, p_last_line );
 	if( !this->is_data_fixed ) {
 		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
-			put_error( "Invalid command." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
 			return false;
 		}
 		//	条件式を取り込む
@@ -66,10 +66,10 @@ bool CZMA_PARSE_ELSEIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 		this->set_code_size( &info, 0 );
 	}
 	//	log
-	if( !is_analyze_phase ) {
-		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-		log.write_separator();
-	}
+	//if( !is_analyze_phase ) {
+	//	log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+	//	log.write_separator();
+	//}
 	return check_all_fixed();
 }
 
@@ -82,7 +82,7 @@ bool CZMA_PARSE_ELSE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	update_flags( &info, p_last_line );
 	if( !this->is_data_fixed ) {
 		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
-			put_error( "Invalid command." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
 			return false;
 		}
 		//	条件式を取り込む
@@ -96,14 +96,14 @@ bool CZMA_PARSE_ELSE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 		this->set_code_size( &info, 0 );
 	}
 	if( words.size() != 1 ) {
-		put_error( "Too many parameters." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
 		return false;
 	}
 	//	log
-	if( !is_analyze_phase ) {
-		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-		log.write_separator();
-	}
+	//if( !is_analyze_phase ) {
+	//	log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+	//	log.write_separator();
+	//}
 	return check_all_fixed();
 }
 
@@ -126,12 +126,12 @@ bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 		info.is_updated = true;
 	}
 	if( p_if == nullptr ) {
-		put_error( "Invalid command." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
 		return false;
 	}
 	info.is_block_processing = false;
 	if( words.size() != 1 ) {
-		put_error( "Too many parameters." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
 		return false;
 	}
 	//	コードサイズを求める処理
@@ -180,12 +180,12 @@ bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 			//	IF 又は ELSEIF なら、条件式を評価
 			index = i->p_if->expression( info, 1, v );
 			if( index != 0 && index < (int)i->p_if->words.size() ) {
-				i->p_if->put_error( "Illegal expression." );
+				i->p_if->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 		}
 		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
-			put_error( "Illegal condition." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_CONDITION ) );
 			return false;
 		}
 		i->is_condition_fixed = true;
@@ -211,18 +211,18 @@ bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 		info.is_updated = true;
 	}
 
-	if( !is_analyze_phase ) {
-		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-		if( do_process ) {
-			std::stringstream s;
-			s << "Selected {" << p_selected_if->get_line() + "} block.";
-			log.write_message( s.str() );
-		}
-		else {
-			log.write_message( "All condition is not selected." );
-		}
-		log.write_separator();
-	}
+	//if( !is_analyze_phase ) {
+	//	log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+	//	if( do_process ) {
+	//		std::stringstream s;
+	//		s << "Selected {" << p_selected_if->get_line() + "} block.";
+	//		log.write_message( s.str() );
+	//	}
+	//	else {
+	//		log.write_message( "All condition is not selected." );
+	//	}
+	//	log.write_separator();
+	//}
 	return check_all_fixed();
 }
 
@@ -245,7 +245,7 @@ bool CZMA_PARSE_ENDIF::write_output_and_log( CZMA_INFORMATION& info, std::ofstre
 	for( auto line : log ) {
 		log.push_back( line );
 	}
-	log.write_separator();
+	//log.write_separator();
 	return result;
 }
 

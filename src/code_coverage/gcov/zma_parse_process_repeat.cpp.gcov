@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_repeat.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -44,11 +44,11 @@
     #####:   42:	if( !p_repeat->is_counter_end_fixed ) {
     #####:   43:		if( words.size() < 4 ) {
         -:   44:			//	REPEAT •Ï”–¼ , ’l ‚ÅA­‚È‚­‚Æ‚à 4[word] ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
-    #####:   45:			put_error( "Illegal parameter." );
+    #####:   45:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   46:			return false;
         -:   47:		}
     #####:   48:		if( words[2] != "," ) {
-    #####:   49:			put_error( "Illegal parameter." );
+    #####:   49:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   50:			return false;
         -:   51:		}
         -:   52:
@@ -59,15 +59,15 @@
         -:   57:
     #####:   58:		index = this->expression( info, 3, v );
     #####:   59:		if( index == 0 ) {
-    #####:   60:			put_error( "Illegal expression." );
+    #####:   60:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   61:			return false;
         -:   62:		}
     #####:   63:		if( index < ( int) words.size() ) {
-    #####:   64:			put_error( "Illegal expression." );
+    #####:   64:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   65:			return false;
         -:   66:		}
     #####:   67:		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:   68:			put_error( "Illegal parameter." );
+    #####:   68:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   69:			return false;
         -:   70:		}
     #####:   71:		p_repeat->counter_end = v.i;
@@ -108,11 +108,11 @@
     #####:  106:	if( !this->is_loaded ) {
     #####:  107:		p_repeat = info.p_repeat;
     #####:  108:		if( p_repeat == nullptr ) {
-    #####:  109:			put_error( "Illegal command." );
+    #####:  109:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
     #####:  110:			return false;
         -:  111:		}
     #####:  112:		if( !p_repeat->is_counter_end_fixed ) {
-    #####:  113:			put_error( "REPEAT counter is not fixed." );
+    #####:  113:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::REPEAT_COUNTER_IS_NO_FIXED ) );
     #####:  114:			return false;
         -:  115:		}
     #####:  116:		for( i = 0; i < p_repeat->counter_end; i++ ) {
@@ -158,18 +158,18 @@
         -:  156:		}
         -:  157:	}
     #####:  158:	if( info.scope.size() == 0 ) {
-    #####:  159:		put_error( "Invalid command." );
+    #####:  159:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
     #####:  160:		return false;
         -:  161:	}
     #####:  162:	if( info.scope[info.scope.size() - 1] != p_repeat->scope_name ) {
-    #####:  163:		put_error( "Invalid command." );
+    #####:  163:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
     #####:  164:		return false;
         -:  165:	}
     #####:  166:	s_scope = info.get_scope_path();
         -:  167:	info.scope.pop_back();
         -:  168:
     #####:  169:	if( words.size() != 1 ) {
-    #####:  170:		put_error( "Too many parameters." );
+    #####:  170:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:  171:		return false;
         -:  172:	}
         -:  173:	//	log

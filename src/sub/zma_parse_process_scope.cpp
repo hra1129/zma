@@ -19,11 +19,11 @@ bool CZMA_PARSE_SCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line 
 
 	update_flags( &info, p_last_line );
 	if( words.size() < 2 ) {
-		put_error( "Must be set name." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MUST_BE_SET_NAME ) );
 		return false;
 	}
 	if( words.size() > 2 ) {
-		put_error( "Too many parameters." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
 		return false;
 	}
 	this->is_data_fixed = true;

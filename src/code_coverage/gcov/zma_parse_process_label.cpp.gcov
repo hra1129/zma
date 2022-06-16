@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_label.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -43,12 +43,12 @@
         -:   41:		}
         -:   42:	}
        42:   43:	if( words[0][0] == '\"' ) {
-    #####:   44:		put_error( "Label name cannot be string." );
+    #####:   44:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
     #####:   45:		return false;
         -:   46:	}
        21:   47:	if( this->is_fixed_code_address() ) {
        14:   48:		if( info.dict.count( label ) && info.dict[ label ].value_type != CVALUE_TYPE::CV_UNKNOWN_INTEGER ) {
-    #####:   49:			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
+    #####:   49:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
     #####:   50:			return false;
         -:   51:		}
         -:   52:		else {
@@ -64,7 +64,7 @@
         7:   62:		v.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
         7:   63:		info.dict[ label ] = v;
         7:   64:		info.is_updated = true;
-       21:   65:		put_error( "Label '" + words[0] + "' is indeterminate." );
+       35:   65:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ) );
         7:   66:		return false;
         -:   67:	}
         -:   68:	return check_all_fixed();

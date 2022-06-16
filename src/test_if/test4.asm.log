@@ -2,6 +2,8 @@ Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
+  DEFS is DEFINE STRING (default).
+
 << code >>
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
@@ -9,9 +11,5 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |USE_HOGE 1
       |      |    |  Intra-macro scope: @MACRO0:
-    14|      |    |IF 1
-------+------+----+----------------------------------
-    14|      |    |ELSE
-------+------+----+----------------------------------
       |      |    |  MESSAGE: aaaaaaaa: test4.asm(14)
 << label >>

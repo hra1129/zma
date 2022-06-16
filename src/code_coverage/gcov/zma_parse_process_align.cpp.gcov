@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_align.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -26,16 +26,16 @@
         2:   24:		if( this->is_fixed_code_address() ){
         2:   25:			i = this->expression( info, 1, v );
         2:   26:			if( i == 0 ){
-    #####:   27:				put_error( "Illegal expression." );
+    #####:   27:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   28:				data.clear();
     #####:   29:				return false;
         -:   30:			}
         2:   31:			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:   32:				put_error( "Illegal expression." );
+    #####:   32:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   33:				return false;
         -:   34:			}
         2:   35:			if( v.i < 1 ){
-    #####:   36:				put_error( "Illegal parameter." );
+    #####:   36:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   37:				return false;
         -:   38:			}
         -:   39:			//	パディングの量を計算する

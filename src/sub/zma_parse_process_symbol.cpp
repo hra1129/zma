@@ -60,16 +60,16 @@ bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 		}
 	}
 	if( words[0][0] == '\"' ) {
-		put_error( "Invalid command." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
 		return false;
 	}
 	if( this->expression( info, 2, v ) ) {
 		if( v.value_type == CVALUE_TYPE::CV_UNKNOWN ) {
-			put_error( "Illegal expression." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		if( info.dict.count( label ) && !info.dict[ label ].is_unknown() ) {
-			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
 			return false;
 		}
 		else {
@@ -81,7 +81,7 @@ bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 		}
 	}
 	else {
-		put_error( "Label '" + words[0] + "' is indeterminate." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ) );
 		return false;
 	}
 	return check_all_fixed();

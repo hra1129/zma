@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_if.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -38,10 +38,10 @@
         -:   36:		this->set_code_size( &info, 0 );
         -:   37:	}
         -:   38:	//	log
-    #####:   39:	if( !is_analyze_phase ) {
-    #####:   40:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-    #####:   41:		log.write_separator();
-        -:   42:	}
+        -:   39:	//if( !is_analyze_phase ) {
+        -:   40:	//	log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        -:   41:	//	log.write_separator();
+        -:   42:	//}
     #####:   43:	return check_all_fixed();
         -:   44:}
         -:   45:
@@ -54,7 +54,7 @@
     #####:   52:	update_flags( &info, p_last_line );
     #####:   53:	if( !this->is_data_fixed ) {
     #####:   54:		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
-    #####:   55:			put_error( "Invalid command." );
+    #####:   55:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
     #####:   56:			return false;
         -:   57:		}
         -:   58:		//	条件式を取り込む
@@ -68,10 +68,10 @@
         -:   66:		this->set_code_size( &info, 0 );
         -:   67:	}
         -:   68:	//	log
-    #####:   69:	if( !is_analyze_phase ) {
-    #####:   70:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-    #####:   71:		log.write_separator();
-        -:   72:	}
+        -:   69:	//if( !is_analyze_phase ) {
+        -:   70:	//	log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        -:   71:	//	log.write_separator();
+        -:   72:	//}
         -:   73:	return check_all_fixed();
         -:   74:}
         -:   75:
@@ -84,7 +84,7 @@
     #####:   82:	update_flags( &info, p_last_line );
     #####:   83:	if( !this->is_data_fixed ) {
     #####:   84:		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
-    #####:   85:			put_error( "Invalid command." );
+    #####:   85:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
     #####:   86:			return false;
         -:   87:		}
         -:   88:		//	条件式を取り込む
@@ -98,14 +98,14 @@
         -:   96:		this->set_code_size( &info, 0 );
         -:   97:	}
     #####:   98:	if( words.size() != 1 ) {
-    #####:   99:		put_error( "Too many parameters." );
+    #####:   99:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:  100:		return false;
         -:  101:	}
         -:  102:	//	log
-    #####:  103:	if( !is_analyze_phase ) {
-    #####:  104:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-    #####:  105:		log.write_separator();
-        -:  106:	}
+        -:  103:	//if( !is_analyze_phase ) {
+        -:  104:	//	log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        -:  105:	//	log.write_separator();
+        -:  106:	//}
         -:  107:	return check_all_fixed();
         -:  108:}
         -:  109:
@@ -128,12 +128,12 @@
     #####:  126:		info.is_updated = true;
         -:  127:	}
     #####:  128:	if( p_if == nullptr ) {
-    #####:  129:		put_error( "Invalid command." );
+    #####:  129:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
     #####:  130:		return false;
         -:  131:	}
     #####:  132:	info.is_block_processing = false;
     #####:  133:	if( words.size() != 1 ) {
-    #####:  134:		put_error( "Too many parameters." );
+    #####:  134:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:  135:		return false;
         -:  136:	}
         -:  137:	//	コードサイズを求める処理
@@ -182,12 +182,12 @@
         -:  180:			//	IF 又は ELSEIF なら、条件式を評価
     #####:  181:			index = i->p_if->expression( info, 1, v );
     #####:  182:			if( index != 0 && index < (int)i->p_if->words.size() ) {
-    #####:  183:				i->p_if->put_error( "Illegal expression." );
+    #####:  183:				i->p_if->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:  184:				return false;
         -:  185:			}
         -:  186:		}
     #####:  187:		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  188:			put_error( "Illegal condition." );
+    #####:  188:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_CONDITION ) );
     #####:  189:			return false;
         -:  190:		}
     #####:  191:		i->is_condition_fixed = true;
@@ -199,9 +199,9 @@
     #####:  197:		if( sub_success_count != i->p_text->m_text.size() ) {
         -:  198:			return false;
         -:  199:		}
-    #####:  200:		p_selected_if = i->p_if;
+        -:  200:		p_selected_if = i->p_if;
         -:  201:		do_process = true;
-    #####:  202:		break;
+        -:  202:		break;
         -:  203:	}
     #####:  204:	if( !this->is_data_fixed ) {
     #####:  205:		this->is_data_fixed = true;
@@ -213,18 +213,18 @@
     #####:  211:		info.is_updated = true;
         -:  212:	}
         -:  213:
-    #####:  214:	if( !is_analyze_phase ) {
-    #####:  215:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-    #####:  216:		if( do_process ) {
-    #####:  217:			std::stringstream s;
-    #####:  218:			s << "Selected {" << p_selected_if->get_line() + "} block.";
-    #####:  219:			log.write_message( s.str() );
-        -:  220:		}
-        -:  221:		else {
-    #####:  222:			log.write_message( "All condition is not selected." );
-        -:  223:		}
-    #####:  224:		log.write_separator();
-        -:  225:	}
+        -:  214:	//if( !is_analyze_phase ) {
+        -:  215:	//	log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        -:  216:	//	if( do_process ) {
+        -:  217:	//		std::stringstream s;
+        -:  218:	//		s << "Selected {" << p_selected_if->get_line() + "} block.";
+        -:  219:	//		log.write_message( s.str() );
+        -:  220:	//	}
+        -:  221:	//	else {
+        -:  222:	//		log.write_message( "All condition is not selected." );
+        -:  223:	//	}
+        -:  224:	//	log.write_separator();
+        -:  225:	//}
         -:  226:	return check_all_fixed();
         -:  227:}
         -:  228:
@@ -247,7 +247,7 @@
     #####:  245:	for( auto line : log ) {
     #####:  246:		log.push_back( line );
         -:  247:	}
-    #####:  248:	log.write_separator();
-        -:  249:	return result;
+        -:  248:	//log.write_separator();
+    #####:  249:	return result;
        12:  250:}
         -:  251:

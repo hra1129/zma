@@ -1,0 +1,69 @@
+        -:    0:Source:../zma_error.cpp
+        -:    0:Programs:104
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	ZMA: CZMA_TEXT
+        -:    3:// ====================================================================
+        -:    4://	2019/05/02	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_error.hpp"
+        -:    8:#include <iostream>
+        -:    9:#include <fstream>
+        -:   10:#include <iostream>
+        -:   11:#include <iomanip>
+        -:   12:#include <sstream>
+        -:   13:#include <map>
+        -:   14:
+       12:   15:static std::map< CZMA_ERROR_CODE, const std::string > error_message = {
+        -:   16:	{ CZMA_ERROR_CODE::INVALID_COMMAND, "Invalid command." },
+        -:   17:	{ CZMA_ERROR_CODE::ILLEGAL_OPERAND, "Illegal operand." },
+        -:   18:	{ CZMA_ERROR_CODE::ILLEGAL_PARAMETER, "Illegal parameter." },
+        -:   19:	{ CZMA_ERROR_CODE::ILLEGAL_EXPRESSION, "Illegal expression." },
+        -:   20:	{ CZMA_ERROR_CODE::ILLEGAL_CONDITION, "Illegal condition." },
+        -:   21:	{ CZMA_ERROR_CODE::ILLEGAL_ARGUMENT, "Illegal argument." },
+        -:   22:	{ CZMA_ERROR_CODE::TOO_MANY_PARAMETERS, "Too many parameters." },
+        -:   23:	{ CZMA_ERROR_CODE::DEFAULT_CHAR_SET_CANNOT_BE_MAPPED_AND_CHANGED, "Default character set cannot be mapped and changed." },
+        -:   24:	{ CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE, "Cannot open the file." },
+        -:   25:	{ CZMA_ERROR_CODE::CANNOT_EVALUATE_THE_EXPRESSION, "Cannot evaluate the expression." },
+        -:   26:	{ CZMA_ERROR_CODE::MULTIPLE_DEFINITION, "Multiple definition." },
+        -:   27:	{ CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE, "Label is indeterminate." },
+        -:   28:	{ CZMA_ERROR_CODE::REPEAT_COUNTER_IS_NO_FIXED, "Repeat counter is no fixed." },
+        -:   29:	{ CZMA_ERROR_CODE::MUST_BE_SET_NAME, "Must be set name." },
+        -:   30:	{ CZMA_ERROR_CODE::BLOCK_PROCESSING_IS_NOT_CLOSED, "Block processing is not closed." },
+        -:   31:	{ CZMA_ERROR_CODE::SCOPE_IS_NOT_CLOSED, "Scope is not closed." },
+        -:   32:	{ CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS, "Out of range relative address." },
+        -:   33:	{ CZMA_ERROR_CODE::OUT_OF_RANGE_BIT_NUMBER, "Out of range bit number." },
+        -:   34:	{ CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT, "The numerical value is incorrect." },
+        -:   35:	{ CZMA_ERROR_CODE::DIVIDED_BY_ZERO, "Divided by zero." },
+        -:   36:};
+        -:   37:
+        -:   38:// --------------------------------------------------------------------
+       32:   39:std::string CZMA_ERROR::get( CZMA_ERROR_CODE code, std::string message1, std::string message2, std::string message3 ){
+        -:   40:	std::string base_message;
+       32:   41:	std::string result( "" );
+        -:   42:	bool b_insert_message = false;
+        -:   43:
+       32:   44:	base_message = error_message[ code ];
+      664:   45:	for( auto &c : base_message ){
+      632:   46:		if( c == '$' ){
+        -:   47:			b_insert_message = true;
+    #####:   48:			continue;
+        -:   49:		}
+      632:   50:		if( b_insert_message ){
+        -:   51:			b_insert_message = false;
+    #####:   52:			if( c == '1' ){
+    #####:   53:				result = result + message1;
+        -:   54:			}
+    #####:   55:			else if( c == '2' ){
+    #####:   56:				result = result + message2;
+        -:   57:			}
+        -:   58:			else{
+    #####:   59:				result = result + message3;
+        -:   60:			}
+        -:   61:		}
+        -:   62:		else{
+     1264:   63:			result = result + c;
+        -:   64:		}
+        -:   65:	}
+       32:   66:	return result;
+       18:   67:}

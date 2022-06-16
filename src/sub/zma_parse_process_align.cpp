@@ -24,16 +24,16 @@ bool CZMA_PARSE_ALIGN::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line 
 		if( this->is_fixed_code_address() ){
 			i = this->expression( info, 1, v );
 			if( i == 0 ){
-				put_error( "Illegal expression." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				data.clear();
 				return false;
 			}
 			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
-				put_error( "Illegal expression." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			if( v.i < 1 ){
-				put_error( "Illegal parameter." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
 				return false;
 			}
 			//	パディングの量を計算する

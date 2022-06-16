@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_add_include_path.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -24,11 +24,11 @@
     #####:   22:	set_code_size( &info, 0 );
     #####:   23:	update_flags( &info, p_last_line );
     #####:   24:	if( words.size() == 1 ) {
-    #####:   25:		put_error( "Illegal parameter." );
+    #####:   25:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   26:		return false;
         -:   27:	}
     #####:   28:	if( this->expression( info, 1, v, false ) == 0 ) {
-    #####:   29:		put_error( "Illegal parameter." );
+    #####:   29:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   30:		return false;
         -:   31:	}
     #####:   32:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {

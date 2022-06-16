@@ -153,7 +153,7 @@ bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		}
 	}
 	else {
-		put_error( "Illegal operand." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 		return false;
 	}
 	//	log

@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_djnz.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -22,14 +22,14 @@
         -:   20:
         3:   21:	update_flags( &info, p_last_line );
         6:   22:	if( words.size() != 2 ) {
-    #####:   23:		put_error( "Illegal operand" );
+    #####:   23:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
     #####:   24:		return false;
         -:   25:	}
         3:   26:	if( !this->is_data_fixed ) {
         -:   27:		this->set_code_size( &info, 2 );
         2:   28:		relative = this->relative_address( info, 1 );
         2:   29:		if( relative == -9999 ) {
-        2:   30:			put_error( "Illegal operand" );
+        5:   30:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
         1:   31:			return false;
         -:   32:		}
         1:   33:		this->is_data_fixed = true;

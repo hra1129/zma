@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_defb.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -49,7 +49,7 @@
         -:   47:				break;
         -:   48:			}
      5896:   49:			if( words[ i ] != "," ){
-    #####:   50:				put_error( "Illegal parameter." );
+    #####:   50:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
         -:   51:				count = -1;
         -:   52:				break;
         -:   53:			}
@@ -64,18 +64,18 @@
         -:   62:		for( ;; ){
      3949:   63:			i = this->expression( info, i, v );
      3949:   64:			if( i == 0 ){
-        2:   65:				put_error( "Cannot evaluate the expression." );
+        5:   65:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_EVALUATE_THE_EXPRESSION ) );
         -:   66:				data.clear();
         1:   67:				return false;
         -:   68:			}
     10854:   69:			if( i < (int)words.size() && words[ i ] != "," ){
-    #####:   70:				put_error( "Illegal expression." );
+    #####:   70:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   71:				data.clear();
     #####:   72:				return false;
         -:   73:			}
      3948:   74:			i++;
      7896:   75:			if( v.is_unknown() ){
-        4:   76:				put_error( "Illegal expression." );
+       10:   76:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   77:				data.clear();
         2:   78:				return false;
         -:   79:			}

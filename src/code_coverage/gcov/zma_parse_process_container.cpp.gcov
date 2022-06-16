@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_container.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -46,20 +46,20 @@
         -:   44:
     #####:   45:	update_flags( &info, p_last_line );
     #####:   46:	if( words.size() < 2 ) {
-    #####:   47:		put_error( "Illegal parameter." );
+    #####:   47:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   48:		return false;
         -:   49:	}
     #####:   50:	i = this->expression( info, 1, path );
     #####:   51:	if( i == 0 ) {
-    #####:   52:		put_error( "Illegal expression." );
+    #####:   52:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   53:		return false;
         -:   54:	}
     #####:   55:	if( path.value_type != CVALUE_TYPE::CV_STRING ) {
-    #####:   56:		put_error( "Illegal parameter." );
+    #####:   56:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   57:		return false;
         -:   58:	}
     #####:   59:	if( i < (int)words.size() ) {
-    #####:   60:		put_error( "Too many parameters." );
+    #####:   60:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:   61:		return false;
         -:   62:	}
     #####:   63:	if( !this->is_loaded ) {
@@ -78,7 +78,7 @@
         -:   76:			}
         -:   77:		}
         -:   78:		if( !is_open ) {
-    #####:   79:			put_error( std::string( "Cannot open the file '" ) + path.s + "'." );
+    #####:   79:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE ) );
     #####:   80:			return false;
         -:   81:		}
     #####:   82:		info.is_updated = true;

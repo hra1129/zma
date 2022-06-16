@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_chg_char_set.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -25,11 +25,11 @@
         9:   23:	update_flags( &info, p_last_line );
         9:   24:	index = this->expression( info, 1, v, false );
         9:   25:	if( index == 0 ){
-    #####:   26:		put_error( "Illegal expression." );
+    #####:   26:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   27:		return false;
         -:   28:	}
        18:   29:	if( index < (int)words.size() ){
-    #####:   30:		put_error( "Illegal parameter." );
+    #####:   30:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   31:		return false;
         -:   32:	}
         9:   33:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ){
@@ -70,26 +70,26 @@
        12:   68:	update_flags( &info, p_last_line );
        12:   69:	if( info.p_char_set == nullptr ){
         -:   70:		//	デフォルトキャラセットはマッピング変更できない
-    #####:   71:		put_error( "Default character sets cannot be mapped and changed." );
+    #####:   71:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::DEFAULT_CHAR_SET_CANNOT_BE_MAPPED_AND_CHANGED ) );
     #####:   72:		return false;
         -:   73:	}
         -:   74:	//	第1引数
        12:   75:	index = this->expression( info, 1, v );
        12:   76:	if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:   77:		put_error( "Illegal expression." );
+    #####:   77:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   78:		return false;
         -:   79:	}
        12:   80:	start_char_ascii = v.i;
         -:   81:	end_char_ascii = v.i;
         -:   82:	//	カンマ
        36:   83:	if( index == (int)words.size() || words[index] != "," ){
-    #####:   84:		put_error( "Illegal expression." );
+    #####:   84:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   85:		return false;
         -:   86:	}
         -:   87:	//	第2引数
        12:   88:	index = this->expression( info, index + 1, v );
        12:   89:	if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:   90:		put_error( "Illegal expression." );
+    #####:   90:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   91:		return false;
         -:   92:	}
        12:   93:	start_char_map = v.i;
@@ -99,7 +99,7 @@
         -:   97:		//	第3引数
         9:   98:		index = this->expression( info, index + 1, v );
         9:   99:		if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:  100:			put_error( "Illegal expression." );
+    #####:  100:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:  101:			return false;
         -:  102:		}
         9:  103:		end_char_ascii = v.i;
@@ -109,7 +109,7 @@
         -:  107:		//	第4引数
         6:  108:		index = this->expression( info, index + 1, v );
         6:  109:		if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:  110:			put_error( "Illegal expression." );
+    #####:  110:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:  111:			return false;
         -:  112:		}
         6:  113:		step_char_map = v.i;

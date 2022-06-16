@@ -2,13 +2,13 @@ Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
+  DEFS is DEFINE STRING (default).
+
 << code >>
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      5|      |    |TITLE_COLOR = 0
-      |      |    |  Symbol [TITLE_COLOR] = 0 (0x0)
-------+------+----+----------------------------------
-     7|      |    |IF TITLE_COLOR == 0
+      |      |    |  Integer symbol [TITLE_COLOR] = 0 (0x0)
 ------+------+----+----------------------------------
      8|      |    |LD A, 0
       |      |    |  Z80:8cyc R800:2cyc

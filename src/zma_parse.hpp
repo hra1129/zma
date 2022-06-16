@@ -11,6 +11,7 @@
 #include <map>
 #include "zma_information.hpp"
 #include "zma_logger.hpp"
+#include "zma_error.hpp"
 
 class CZMA_PARSE {
 protected:

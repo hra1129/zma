@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_include.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -40,20 +40,20 @@
         -:   38:
     #####:   39:	update_flags( &info, p_last_line );
     #####:   40:	if( words.size() < 2 ) {
-    #####:   41:		put_error( "Must be set include file name." );
+    #####:   41:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MUST_BE_SET_NAME ) );
     #####:   42:		return false;
         -:   43:	}
     #####:   44:	i = this->expression( info, 1, path, false );
     #####:   45:	if( i == 0 ) {
-    #####:   46:		put_error( "Invalid expression." );
+    #####:   46:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   47:		return false;
         -:   48:	}
     #####:   49:	if( path.value_type != CVALUE_TYPE::CV_STRING ) {
-    #####:   50:		put_error( "Invalid parameter." );
+    #####:   50:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   51:		return false;
         -:   52:	}
     #####:   53:	if( i < (int)words.size() ) {
-    #####:   54:		put_error( "INCLUDE command has only one parameter." );
+    #####:   54:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:   55:		return false;
         -:   56:	}
     #####:   57:	if( !this->is_loaded ) {
@@ -72,7 +72,7 @@
         -:   70:			}
         -:   71:		}
         -:   72:		if( !is_open ) {
-    #####:   73:			put_error( std::string( "Cannot open the file '" ) + path.s + "'." );
+    #####:   73:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE ) );
     #####:   74:			return false;
         -:   75:		}
     #####:   76:		info.is_updated = true;

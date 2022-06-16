@@ -176,7 +176,7 @@ bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
 		p_last_line = this->process( info, success_count, nullptr, false );
 		if( info.is_block_processing ) {
 			p_last_line->set_output_mode();
-			p_last_line->put_error( "Block processing is not close." );
+			p_last_line->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::BLOCK_PROCESSING_IS_NOT_CLOSED ) );
 			break;
 		}
 		if( !info.is_updated ) {
@@ -194,7 +194,7 @@ bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
 		return false;
 	}
 	if( info.scope.size() > 0 ) {
-		p_last_line->put_error( "Scope is not closed." );
+		p_last_line->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SCOPE_IS_NOT_CLOSED ) );
 		return false;
 	}
 	if( CZMA_PARSE::get_number_of_errors() ) {

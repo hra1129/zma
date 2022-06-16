@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_defs.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -24,15 +24,15 @@
        32:   22:	update_flags( &info, p_last_line );
        32:   23:	index = this->expression( info, 1, v );
        32:   24:	if( index == 0 ) {
-    #####:   25:		put_error( "Illegal expression." );
+    #####:   25:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   26:		return false;
         -:   27:	}
        64:   28:	if( index < ( int) words.size() ) {
-    #####:   29:		put_error( "Illegal parameter." );
+    #####:   29:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   30:		return false;
         -:   31:	}
        64:   32:	if( v.is_unknown() ){
-    #####:   33:		put_error( "Illegal parameter." );
+    #####:   33:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   34:		return false;
         -:   35:	}
        32:   36:	if( v.is_integer() ) {

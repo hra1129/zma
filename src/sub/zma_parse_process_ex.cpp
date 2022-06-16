@@ -45,13 +45,13 @@ bool CZMA_PARSE_EX::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 			}
 			else {
 				this->is_data_fixed = false;
-				put_error( "Illegal operand" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 				return false;
 			}
 		}
 		else {
 			this->is_data_fixed = false;
-			put_error( "Illegal operand" );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 			return false;
 		}
 	}

@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_ind.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -25,13 +25,12 @@
         3:   23:		if( !this->is_analyze_phase ) {
         2:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
         2:   25:			log.write_cycle_information( 18, 12, -1, 11 );
-        4:   26:			log.push_back( "[\t" + get_line() + "] Z80:18cyc, R800:12 or 11cyc" );
-        1:   27:			log.write_dump( this->code_address, this->file_address, this->data );
-        1:   28:			log.write_separator();
-        -:   29:		}
-        -:   30:		return check_all_fixed();
-        -:   31:	}
-    #####:   32:	put_error( "Illegal operand" );
-    #####:   33:	return false;
-       12:   34:}
-        -:   35:
+        1:   26:			log.write_dump( this->code_address, this->file_address, this->data );
+        1:   27:			log.write_separator();
+        -:   28:		}
+        -:   29:		return check_all_fixed();
+        -:   30:	}
+    #####:   31:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+    #####:   32:	return false;
+       12:   33:}
+        -:   34:

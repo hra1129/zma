@@ -58,7 +58,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			if( c == '_' || c == '$' ){
 				continue;
 			}
-			put_error( "Description of numerical value '" + s + "' is abnormal." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 			return false;
 		}
 		result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -66,7 +66,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			result.i = (int)std::stoll( num, nullptr, 16 );
 		}
 		catch( ... ){
-			put_error( "Numerical descriptions '" + num + "' are unusual." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 			result.i = 0;
 		}
 		return true;
@@ -75,7 +75,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 		index++;
 		is_success = operator_single( info, index, result, do_char_map );
 		if( !result.is_integer() ) {
-			put_error( "Invalid operator '+'." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		return is_success;
@@ -84,7 +84,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 		index++;
 		is_success = operator_single( info, index, result, do_char_map );
 		if( !result.is_integer() ) {
-			put_error( "Invalid operator '-'." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		result.i = -result.i;
@@ -94,12 +94,12 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 		index++;
 		is_success = operator_logical_or( info, index, result, do_char_map );
 		if( !is_success ) {
-			put_error( "Invalid expression." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		s = get_word( index );
 		if( s != ")" ) {
-			put_error( "'(' are not closed." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		index++;
@@ -109,7 +109,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 		index++;
 		is_success = operator_single( info, index, result, do_char_map );
 		if( !result.is_integer() ) {
-			put_error( "Invalid operator '!'." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		result.i = (int) !((bool)result.i);
@@ -119,7 +119,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 		index++;
 		is_success = operator_single( info, index, result, do_char_map );
 		if( !result.is_integer() ) {
-			put_error( "Invalid operator '~'." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		result.i = ~result.i;
@@ -145,7 +145,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				if( c == '_' || c == 'H' ) {
 					continue;
 				}
-				put_error( "Description of numerical value '" + s + "' is abnormal." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 				return false;
 			}
 			result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -153,7 +153,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				result.i = (int)std::stoll( num, nullptr, 16 );
 			}
 			catch( ... ){
-				put_error( "Numerical descriptions '" + num + "' are unusual." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 				result.i = 0;
 			}
 			return true;
@@ -168,7 +168,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				if( c == '_' ) {
 					continue;
 				}
-				put_error( "Description of numerical value '" + s + "' is abnormal." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 				return false;
 			}
 			result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -176,7 +176,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				result.i = (int)std::stoll( num, nullptr, 16 );
 			}
 			catch(...) {
-				put_error( "Numerical descriptions '" + num + "' are unusual." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 				result.i = 0;
 			}
 			return true;
@@ -191,7 +191,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				if( c == '_' ) {
 					continue;
 				}
-				put_error( "Description of numerical value '" + s + "' is abnormal." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 				return false;
 			}
 			result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -199,7 +199,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				result.i = (int)std::stoll( num, nullptr, 2 );
 			}
 			catch( ... ){
-				put_error( "Numerical descriptions '" + num + "' are unusual." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 				result.i = 0;
 			}
 			return true;
@@ -213,7 +213,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			if( c == '_' ) {
 				continue;
 			}
-			put_error( "Description of numerical value '" + s + "' is abnormal." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 			return false;
 		}
 		result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -221,7 +221,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			result.i = (int)std::stoll( num, nullptr, 8 );
 		}
 		catch( ... ){
-			put_error( "Numerical descriptions '" + num + "' are unusual." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 			result.i = 0;
 		}
 		return true;
@@ -251,7 +251,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				if( c == '_' || c == 'H' ){
 					continue;
 				}
-				put_error( "Description of numerical value '" + s + "' is abnormal." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 				return false;
 			}
 			result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -259,7 +259,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 				result.i = (int)std::stoll( num, nullptr, 16 );
 			}
 			catch( ... ){
-				put_error( "Numerical descriptions '" + num + "' are unusual." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 				result.i = 0;
 			}
 			return true;
@@ -273,7 +273,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			if( c == '_' ) {
 				continue;
 			}
-			put_error( "Description of numerical value '" + s + "' is abnormal." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 			return false;
 		}
 		result.value_type = CVALUE_TYPE::CV_INTEGER;
@@ -281,7 +281,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			result.i = (int)std::stoll( num, nullptr );
 		}
 		catch( ... ){
-			put_error( "Numerical descriptions '" + num + "' are unusual." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
 			result.i = 0;
 		}
 		return true;
@@ -354,7 +354,7 @@ bool CZMA_PARSE::operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& r
 				result.s = s;
 				continue;
 			}
-			put_error( "Invalid operator '*'" );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 			return false;
 		}
 		if( s == "/" ) {
@@ -364,11 +364,11 @@ bool CZMA_PARSE::operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& r
 				return false;
 			}
 			if( !result.is_integer() || !term.is_integer() ) {
-				put_error( "Invalid operator '/'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			if( term.i == 0 ) {
-				put_error( "Divided by zero." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::DIVIDED_BY_ZERO ) );
 				return false;
 			}
 			else {
@@ -384,11 +384,11 @@ bool CZMA_PARSE::operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& r
 				return false;
 			}
 			if( !result.is_integer() || !term.is_integer() ) {
-				put_error( "Invalid operator '%'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			if( term.i == 0 ) {
-				put_error( "Divided by zero." );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::DIVIDED_BY_ZERO ) );
 				return false;
 			}
 			else {
@@ -446,7 +446,7 @@ bool CZMA_PARSE::operator_add_sub( CZMA_INFORMATION& info, int& index, CVALUE& r
 				return false;
 			}
 			if( !result.is_integer() || !term.is_integer() ) {
-				put_error( "Invalid operator '-'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
@@ -482,7 +482,7 @@ bool CZMA_PARSE::operator_shift( CZMA_INFORMATION& info, int& index, CVALUE& res
 				return false;
 			}
 			if( !term.is_integer() ) {
-				put_error( "Invalid operator '<<'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
@@ -496,7 +496,7 @@ bool CZMA_PARSE::operator_shift( CZMA_INFORMATION& info, int& index, CVALUE& res
 				return false;
 			}
 			if( !term.is_integer() ) {
-				put_error( "Invalid operator '>>'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
@@ -531,7 +531,7 @@ bool CZMA_PARSE::operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& r
 				return false;
 			}
 			if( !term.is_integer() ) {
-				put_error( "Invalid operator '<'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
@@ -545,7 +545,7 @@ bool CZMA_PARSE::operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& r
 				return false;
 			}
 			if( !term.is_integer() ) {
-				put_error( "Invalid operator '>'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
@@ -559,7 +559,7 @@ bool CZMA_PARSE::operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& r
 				return false;
 			}
 			if( !term.is_integer() ) {
-				put_error( "Invalid operator '<='" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
@@ -573,7 +573,7 @@ bool CZMA_PARSE::operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& r
 				return false;
 			}
 			if( !term.is_integer() ) {
-				put_error( "Invalid operator '>='" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( CVALUE_TYPE::CV_INTEGER, result.value_type, term.value_type );
@@ -665,7 +665,7 @@ bool CZMA_PARSE::operator_bit_and( CZMA_INFORMATION& info, int& index, CVALUE& r
 				return false;
 			}
 			if( !term.is_integer() ) {
-				put_error( "Invalid operator '&'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( result.value_type, result.value_type, term.value_type );
@@ -700,7 +700,7 @@ bool CZMA_PARSE::operator_bit_xor( CZMA_INFORMATION& info, int& index, CVALUE& r
 				return false;
 			}
 			if( !term.is_integer() ) {
-				put_error( "Invalid operator '^'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( result.value_type, result.value_type, term.value_type );
@@ -735,7 +735,7 @@ bool CZMA_PARSE::operator_bit_or( CZMA_INFORMATION& info, int& index, CVALUE& re
 				return false;
 			}
 			if( !term.is_integer() ) {
-				put_error( "Invalid operator '|'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( result.value_type, result.value_type, term.value_type );
@@ -770,7 +770,7 @@ bool CZMA_PARSE::operator_logical_and( CZMA_INFORMATION& info, int& index, CVALU
 				return false;
 			}
 			if( !term.is_integer() ) {
-				put_error( "Invalid operator '&&'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( result.value_type, result.value_type, term.value_type );
@@ -805,7 +805,7 @@ bool CZMA_PARSE::operator_logical_or( CZMA_INFORMATION& info, int& index, CVALUE
 				return false;
 			}
 			if( !term.is_integer() ) {
-				put_error( "Invalid operator '||'" );
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
 				return false;
 			}
 			result.inherit( result.value_type, result.value_type, term.value_type );

@@ -41,12 +41,12 @@ bool CZMA_PARSE_GLOBAL_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 		}
 	}
 	if( words[0][0] == '\"' ) {
-		put_error( "Invalid command." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
 		return false;
 	}
 	if( this->is_fixed_code_address() ) {
 		if( info.dict.count( label ) && info.dict[ label ].value_type != CVALUE_TYPE::CV_UNKNOWN_INTEGER ) {
-			put_error( "There are declarations of the same label '" + label + "' in multiple places." );
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
 			return false;
 		}
 		else {
@@ -62,7 +62,7 @@ bool CZMA_PARSE_GLOBAL_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 		v.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
 		info.dict[ label ] = v;
 		info.is_updated = true;
-		put_error( "Label '" + words[0] + "' is indeterminate." );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ) );
 		return false;
 	}
 	return check_all_fixed();

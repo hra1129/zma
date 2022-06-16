@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_user_message.cpp
-        -:    0:Programs:103
+        -:    0:Programs:104
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -23,15 +23,15 @@
        12:   21:	set_code_size( &info, 0 );
        12:   22:	update_flags( &info, p_last_line );
        24:   23:	if( words.size() == 1 ) {
-    #####:   24:		put_error( "Too many parameters." );
+    #####:   24:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
     #####:   25:		return false;
         -:   26:	}
        12:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
-    #####:   28:		put_error( "Illegal parameter." );
+    #####:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   29:		return false;
         -:   30:	}
        24:   31:	else if( v.is_unknown() ){
-    #####:   32:		put_error( "Illegal parameter." );
+    #####:   32:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   33:		return false;
         -:   34:	}
        12:   35:	if( v.is_integer() ) {
