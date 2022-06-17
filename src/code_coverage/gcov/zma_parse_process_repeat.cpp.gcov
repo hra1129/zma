@@ -17,165 +17,165 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-    #####:   18:bool CZMA_PARSE_ENDR::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
+       21:   18:bool CZMA_PARSE_ENDR::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
         -:   19:	bool result;
         -:   20:
         -:   21:	result = true;
-    #####:   22:	for( auto text : this->text_list ) {
-    #####:   23:		result = result && text->write( info, f );
+      352:   22:	for( auto text : this->text_list ) {
+      331:   23:		result = result && text->write( info, f );
         -:   24:	}
-    #####:   25:	for( auto &line : log ) {
-    #####:   26:		info.log << line << std::endl;
+       68:   25:	for( auto &line : log ) {
+       47:   26:		info.log << line << std::endl;
         -:   27:	}
-    #####:   28:	return result;
+       21:   28:	return result;
         -:   29:}
         -:   30:
         -:   31:// --------------------------------------------------------------------
-    #####:   32:bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       78:   32:bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   33:	std::string label;
         -:   34:	CVALUE v;
         -:   35:	int index;
         -:   36:
-    #####:   37:	update_flags( &info, p_last_line );
+       78:   37:	update_flags( &info, p_last_line );
         -:   38:	this->set_code_size( &info, 0 );
-    #####:   39:	if( p_repeat == nullptr ) {
-    #####:   40:		p_repeat = new CZMA_REPEAT_T;
+       78:   39:	if( p_repeat == nullptr ) {
+       21:   40:		p_repeat = new CZMA_REPEAT_T;
         -:   41:	}
-    #####:   42:	if( !p_repeat->is_counter_end_fixed ) {
-    #####:   43:		if( words.size() < 4 ) {
+       78:   42:	if( !p_repeat->is_counter_end_fixed ) {
+       56:   43:		if( words.size() < 4 ) {
         -:   44:			//	REPEAT •Ï”–¼ , ’l ‚ÅA­‚È‚­‚Æ‚à 4[word] ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
-    #####:   45:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-    #####:   46:			return false;
+       15:   45:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        3:   46:			return false;
         -:   47:		}
-    #####:   48:		if( words[2] != "," ) {
-    #####:   49:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-    #####:   50:			return false;
+       25:   48:		if( words[2] != "," ) {
+       15:   49:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        3:   50:			return false;
         -:   51:		}
         -:   52:
-    #####:   53:		info.block_type = CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK;
-    #####:   54:		info.p_repeat = p_repeat;
-    #####:   55:		info.is_block_processing = true;
-    #####:   56:		info.p_text = &(info.p_repeat->m_text);
+       22:   53:		info.block_type = CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK;
+       22:   54:		info.p_repeat = p_repeat;
+       22:   55:		info.is_block_processing = true;
+       22:   56:		info.p_text = &(info.p_repeat->m_text);
         -:   57:
-    #####:   58:		index = this->expression( info, 3, v );
-    #####:   59:		if( index == 0 ) {
-    #####:   60:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:   61:			return false;
+       22:   58:		index = this->expression( info, 3, v );
+       22:   59:		if( index == 0 ) {
+       10:   60:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        2:   61:			return false;
         -:   62:		}
-    #####:   63:		if( index < ( int) words.size() ) {
-    #####:   64:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:   65:			return false;
+       40:   63:		if( index < ( int) words.size() ) {
+       10:   64:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        2:   65:			return false;
         -:   66:		}
-    #####:   67:		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:   68:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-    #####:   69:			return false;
+       18:   67:		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
+       10:   68:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        2:   69:			return false;
         -:   70:		}
-    #####:   71:		p_repeat->counter_end = v.i;
-    #####:   72:		p_repeat->is_counter_end_fixed = true;
-    #####:   73:		p_repeat->scope_name = "@REPEAT" + std::to_string( info.get_auto_label_index() );
-    #####:   74:		info.scope.push_back( p_repeat->scope_name );
-    #####:   75:		p_repeat->counter_symbol = info.get_scope_path() + words[1];
-    #####:   76:		v.value_type = CVALUE_TYPE::CV_INTEGER;
-    #####:   77:		v.i = 0;
-    #####:   78:		info.dict[p_repeat->counter_symbol] = v;
+       16:   71:		p_repeat->counter_end = v.i;
+       16:   72:		p_repeat->is_counter_end_fixed = true;
+       48:   73:		p_repeat->scope_name = "@REPEAT" + std::to_string( info.get_auto_label_index() );
+       16:   74:		info.scope.push_back( p_repeat->scope_name );
+       64:   75:		p_repeat->counter_symbol = info.get_scope_path() + words[1];
+       16:   76:		v.value_type = CVALUE_TYPE::CV_INTEGER;
+       16:   77:		v.i = 0;
+       16:   78:		info.dict[p_repeat->counter_symbol] = v;
         -:   79:
-    #####:   80:		this->is_data_fixed = true;
-    #####:   81:		info.is_updated = true;
+       16:   80:		this->is_data_fixed = true;
+       16:   81:		info.is_updated = true;
         -:   82:	}
         -:   83:	else {
-    #####:   84:		info.scope.push_back( p_repeat->scope_name );
+       50:   84:		info.scope.push_back( p_repeat->scope_name );
         -:   85:
-    #####:   86:		p_repeat->counter_symbol = info.get_scope_path() + words[1];
+      200:   86:		p_repeat->counter_symbol = info.get_scope_path() + words[1];
         -:   87:	}
         -:   88:
         -:   89:	//	log
-    #####:   90:	if( !is_analyze_phase ) {
-    #####:   91:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-    #####:   92:		log.write_message( "Enter scope: " + info.get_scope_path() );
-    #####:   93:		log.write_separator();
+       66:   90:	if( !is_analyze_phase ) {
+       32:   91:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       48:   92:		log.write_message( "Enter scope: " + info.get_scope_path() );
+       16:   93:		log.write_separator();
         -:   94:	}
         -:   95:	return check_all_fixed();
         -:   96:}
         -:   97:
         -:   98:// --------------------------------------------------------------------
-    #####:   99:bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       78:   99:bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:  100:	CZMA_TEXT* p_text;
         -:  101:	int i;
         -:  102:	unsigned int sub_success_count;
         -:  103:	std::string s_scope;
         -:  104:
-    #####:  105:	update_flags( &info, p_last_line );
-    #####:  106:	if( !this->is_loaded ) {
-    #####:  107:		p_repeat = info.p_repeat;
-    #####:  108:		if( p_repeat == nullptr ) {
-    #####:  109:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
-    #####:  110:			return false;
+       78:  105:	update_flags( &info, p_last_line );
+       78:  106:	if( !this->is_loaded ) {
+       30:  107:		p_repeat = info.p_repeat;
+       30:  108:		if( p_repeat == nullptr ) {
+       45:  109:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
+        9:  110:			return false;
         -:  111:		}
-    #####:  112:		if( !p_repeat->is_counter_end_fixed ) {
-    #####:  113:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::REPEAT_COUNTER_IS_NO_FIXED ) );
-    #####:  114:			return false;
+       21:  112:		if( !p_repeat->is_counter_end_fixed ) {
+       30:  113:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::REPEAT_COUNTER_IS_NO_FIXED ) );
+        6:  114:			return false;
         -:  115:		}
-    #####:  116:		for( i = 0; i < p_repeat->counter_end; i++ ) {
-    #####:  117:			info.dict[p_repeat->counter_symbol].i = i;
-    #####:  118:			p_text = new CZMA_TEXT;
-    #####:  119:			for( auto ins_p : p_repeat->m_text ) {
-    #####:  120:				p_text->m_text.push_back( CZMA_PARSE::create( info, ins_p->words, ins_p->get_file_name(), ins_p->get_line_no() ) );
+      677:  116:		for( i = 0; i < p_repeat->counter_end; i++ ) {
+      331:  117:			info.dict[p_repeat->counter_symbol].i = i;
+      331:  118:			p_text = new CZMA_TEXT;
+     1013:  119:			for( auto ins_p : p_repeat->m_text ) {
+      702:  120:				p_text->m_text.push_back( CZMA_PARSE::create( info, ins_p->words, ins_p->get_file_name(), ins_p->get_line_no() ) );
         -:  121:			}
-    #####:  122:			this->text_list.push_back( p_text );
+      331:  122:			this->text_list.push_back( p_text );
         -:  123:		}
-    #####:  124:		this->is_loaded = true;
-    #####:  125:		info.is_updated = true;
+       15:  124:		this->is_loaded = true;
+       15:  125:		info.is_updated = true;
         -:  126:	}
-    #####:  127:	info.is_block_processing = false;
-    #####:  128:	for( i = 0; i < p_repeat->counter_end; i++ ) {
-    #####:  129:		info.dict[p_repeat->counter_symbol].i = i;
-    #####:  130:		p_last_line = this->text_list[i]->process( info, sub_success_count, p_last_line, !is_analyze_phase );
+       63:  127:	info.is_block_processing = false;
+     3703:  128:	for( i = 0; i < p_repeat->counter_end; i++ ) {
+     1820:  129:		info.dict[p_repeat->counter_symbol].i = i;
+     3640:  130:		p_last_line = this->text_list[i]->process( info, sub_success_count, p_last_line, !is_analyze_phase );
         -:  131:	}
-    #####:  132:	if( !this->is_data_fixed ) {
-    #####:  133:		for( auto p_text : this->text_list ) {
-    #####:  134:			for( auto p : p_text->m_text ) {
-    #####:  135:				this->is_data_fixed = this->is_data_fixed && p->is_fixed_code_size();
+       63:  132:	if( !this->is_data_fixed ) {
+     1883:  133:		for( auto p_text : this->text_list ) {
+     3690:  134:			for( auto p : p_text->m_text ) {
+     1870:  135:				this->is_data_fixed = this->is_data_fixed && p->is_fixed_code_size();
         -:  136:			}
         -:  137:		}
-    #####:  138:		if( this->is_data_fixed ) {
+       63:  138:		if( this->is_data_fixed ) {
     #####:  139:			info.is_updated = true;
         -:  140:		}
         -:  141:	}
-    #####:  142:	if( this->code_size == -1 ) {
-    #####:  143:		this->code_size = 0;
-    #####:  144:		for( auto p_text : this->text_list ) {
-    #####:  145:			for( auto p : p_text->m_text ) {
-    #####:  146:				if( this->code_size != -1 && p->is_fixed_code_size() ) {
-    #####:  147:					this->code_size = this->code_size + p->get_code_size();
+       63:  142:	if( this->code_size == -1 ) {
+       20:  143:		this->code_size = 0;
+      366:  144:		for( auto p_text : this->text_list ) {
+      712:  145:			for( auto p : p_text->m_text ) {
+      366:  146:				if( this->code_size != -1 && p->is_fixed_code_size() ) {
+      349:  147:					this->code_size = this->code_size + p->get_code_size();
         -:  148:				}
         -:  149:				else {
-    #####:  150:					this->code_size = -1;
+       17:  150:					this->code_size = -1;
         -:  151:				}
         -:  152:			}
         -:  153:		}
-    #####:  154:		if( this->code_size != -1 ) {
-    #####:  155:			info.is_updated = true;
+       20:  154:		if( this->code_size != -1 ) {
+       15:  155:			info.is_updated = true;
         -:  156:		}
         -:  157:	}
-    #####:  158:	if( info.scope.size() == 0 ) {
-    #####:  159:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
-    #####:  160:		return false;
+      126:  158:	if( info.scope.size() == 0 ) {
+        5:  159:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
+        1:  160:		return false;
         -:  161:	}
-    #####:  162:	if( info.scope[info.scope.size() - 1] != p_repeat->scope_name ) {
-    #####:  163:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
-    #####:  164:		return false;
+      124:  162:	if( info.scope[info.scope.size() - 1] != p_repeat->scope_name ) {
+       20:  163:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
+        4:  164:		return false;
         -:  165:	}
-    #####:  166:	s_scope = info.get_scope_path();
+      116:  166:	s_scope = info.get_scope_path();
         -:  167:	info.scope.pop_back();
         -:  168:
-    #####:  169:	if( words.size() != 1 ) {
-    #####:  170:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
-    #####:  171:		return false;
+      116:  169:	if( words.size() != 1 ) {
+       10:  170:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
+        2:  171:		return false;
         -:  172:	}
         -:  173:	//	log
-    #####:  174:	if( !is_analyze_phase ) {
-    #####:  175:		log.write_message( "Exit scope: " + s_scope );
-    #####:  176:		log.write_separator();
+       56:  174:	if( !is_analyze_phase ) {
+       24:  175:		log.write_message( "Exit scope: " + s_scope );
+       12:  176:		log.write_separator();
         -:  177:	}
         -:  178:	return check_all_fixed();
-       12:  179:}
+      142:  179:}

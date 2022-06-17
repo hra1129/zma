@@ -17,24 +17,24 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-    #####:   18:bool CZMA_PARSE_IF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      138:   18:bool CZMA_PARSE_IF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	std::string label;
         -:   20:	CZMA_IF_T* p_if;
         -:   21:	CZMA_IF_SUB_T* p_if_sub;
         -:   22:
-    #####:   23:	update_flags( &info, p_last_line );
-    #####:   24:	if( !this->is_data_fixed ) {
+      138:   23:	update_flags( &info, p_last_line );
+      138:   24:	if( !this->is_data_fixed ) {
         -:   25:		//	条件式を取り込む
-    #####:   26:		p_if				= new CZMA_IF_T;
-    #####:   27:		p_if_sub			= new CZMA_IF_SUB_T;
-    #####:   28:		p_if_sub->p_if		= this;
-    #####:   29:		p_if->m_sub.push_back( p_if_sub );
-    #####:   30:		p_if_sub->p_text	= new CZMA_TEXT;
-    #####:   31:		info.block_type				= CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK;
-    #####:   32:		info.is_block_processing	= true;
-    #####:   33:		info.p_if					= p_if;
-    #####:   34:		info.p_text					= &(p_if_sub->p_text->m_text);
-    #####:   35:		this->is_data_fixed			= true;
+       47:   26:		p_if				= new CZMA_IF_T;
+       94:   27:		p_if_sub			= new CZMA_IF_SUB_T;
+       47:   28:		p_if_sub->p_if		= this;
+       47:   29:		p_if->m_sub.push_back( p_if_sub );
+       47:   30:		p_if_sub->p_text	= new CZMA_TEXT;
+       47:   31:		info.block_type				= CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK;
+       47:   32:		info.is_block_processing	= true;
+       47:   33:		info.p_if					= p_if;
+       47:   34:		info.p_text					= &(p_if_sub->p_text->m_text);
+       47:   35:		this->is_data_fixed			= true;
         -:   36:		this->set_code_size( &info, 0 );
         -:   37:	}
         -:   38:	//	log
@@ -42,29 +42,29 @@
         -:   40:	//	log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
         -:   41:	//	log.write_separator();
         -:   42:	//}
-    #####:   43:	return check_all_fixed();
+      138:   43:	return check_all_fixed();
         -:   44:}
         -:   45:
         -:   46:// --------------------------------------------------------------------
-    #####:   47:bool CZMA_PARSE_ELSEIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       60:   47:bool CZMA_PARSE_ELSEIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   48:	std::string label;
         -:   49:	CZMA_IF_T* p_if;
         -:   50:	CZMA_IF_SUB_T* p_if_sub;
         -:   51:
-    #####:   52:	update_flags( &info, p_last_line );
-    #####:   53:	if( !this->is_data_fixed ) {
-    #####:   54:		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
-    #####:   55:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
-    #####:   56:			return false;
+       60:   52:	update_flags( &info, p_last_line );
+       60:   53:	if( !this->is_data_fixed ) {
+       24:   54:		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
+       15:   55:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
+        3:   56:			return false;
         -:   57:		}
         -:   58:		//	条件式を取り込む
-    #####:   59:		p_if = info.p_if;
-    #####:   60:		p_if_sub = new CZMA_IF_SUB_T;
-    #####:   61:		p_if_sub->p_if = this;
-    #####:   62:		p_if->m_sub.push_back( p_if_sub );
-    #####:   63:		p_if_sub->p_text = new CZMA_TEXT;
-    #####:   64:		info.p_text = &(p_if_sub->p_text->m_text);
-    #####:   65:		this->is_data_fixed = true;
+       21:   59:		p_if = info.p_if;
+       42:   60:		p_if_sub = new CZMA_IF_SUB_T;
+       21:   61:		p_if_sub->p_if = this;
+       21:   62:		p_if->m_sub.push_back( p_if_sub );
+       21:   63:		p_if_sub->p_text = new CZMA_TEXT;
+       21:   64:		info.p_text = &(p_if_sub->p_text->m_text);
+       21:   65:		this->is_data_fixed = true;
         -:   66:		this->set_code_size( &info, 0 );
         -:   67:	}
         -:   68:	//	log
@@ -76,30 +76,30 @@
         -:   74:}
         -:   75:
         -:   76:// --------------------------------------------------------------------
-    #####:   77:bool CZMA_PARSE_ELSE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       98:   77:bool CZMA_PARSE_ELSE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   78:	std::string label;
         -:   79:	CZMA_IF_T* p_if;
         -:   80:	CZMA_IF_SUB_T* p_if_sub;
         -:   81:
-    #####:   82:	update_flags( &info, p_last_line );
-    #####:   83:	if( !this->is_data_fixed ) {
-    #####:   84:		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
-    #####:   85:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
-    #####:   86:			return false;
+       98:   82:	update_flags( &info, p_last_line );
+       98:   83:	if( !this->is_data_fixed ) {
+       36:   84:		if( !info.is_block_processing || info.block_type != CZMA_INFORMATION::BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK ) {
+       15:   85:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
+        3:   86:			return false;
         -:   87:		}
         -:   88:		//	条件式を取り込む
-    #####:   89:		p_if = info.p_if;
-    #####:   90:		p_if_sub = new CZMA_IF_SUB_T;
-    #####:   91:		p_if_sub->p_if = this;
-    #####:   92:		p_if->m_sub.push_back( p_if_sub );
-    #####:   93:		p_if_sub->p_text = new CZMA_TEXT;
-    #####:   94:		info.p_text = &(p_if_sub->p_text->m_text);
-    #####:   95:		this->is_data_fixed = true;
+       33:   89:		p_if = info.p_if;
+       66:   90:		p_if_sub = new CZMA_IF_SUB_T;
+       33:   91:		p_if_sub->p_if = this;
+       33:   92:		p_if->m_sub.push_back( p_if_sub );
+       33:   93:		p_if_sub->p_text = new CZMA_TEXT;
+       33:   94:		info.p_text = &(p_if_sub->p_text->m_text);
+       33:   95:		this->is_data_fixed = true;
         -:   96:		this->set_code_size( &info, 0 );
         -:   97:	}
-    #####:   98:	if( words.size() != 1 ) {
-    #####:   99:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
-    #####:  100:		return false;
+      190:   98:	if( words.size() != 1 ) {
+       15:   99:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
+        3:  100:		return false;
         -:  101:	}
         -:  102:	//	log
         -:  103:	//if( !is_analyze_phase ) {
@@ -110,7 +110,7 @@
         -:  108:}
         -:  109:
         -:  110:// --------------------------------------------------------------------
-    #####:  111:bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      143:  111:bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:  112:	CVALUE v;
         -:  113:	unsigned int sub_success_count;
         -:  114:	bool result;
@@ -120,97 +120,97 @@
         -:  118:	int index, current_next_code_address;
         -:  119:	CZMA_PARSE* p_last_line_backup;
         -:  120:
-    #####:  121:	update_flags( &info, p_last_line );
-    #####:  122:	if( !this->is_loaded ) {
-    #####:  123:		p_if = info.p_if;
-    #####:  124:		info.p_if = nullptr;
-    #####:  125:		this->is_loaded = true;
-    #####:  126:		info.is_updated = true;
+      143:  121:	update_flags( &info, p_last_line );
+      143:  122:	if( !this->is_loaded ) {
+       49:  123:		p_if = info.p_if;
+       49:  124:		info.p_if = nullptr;
+       49:  125:		this->is_loaded = true;
+       49:  126:		info.is_updated = true;
         -:  127:	}
-    #####:  128:	if( p_if == nullptr ) {
-    #####:  129:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
-    #####:  130:		return false;
+      143:  128:	if( p_if == nullptr ) {
+       35:  129:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
+        7:  130:		return false;
         -:  131:	}
-    #####:  132:	info.is_block_processing = false;
-    #####:  133:	if( words.size() != 1 ) {
-    #####:  134:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
-    #####:  135:		return false;
+      136:  132:	info.is_block_processing = false;
+      272:  133:	if( words.size() != 1 ) {
+       15:  134:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
+        3:  135:		return false;
         -:  136:	}
         -:  137:	//	コードサイズを求める処理
-    #####:  138:	if( this->next_code_address == -1 ) {
+      133:  138:	if( this->next_code_address == -1 ) {
         -:  139:		current_next_code_address = -1;
         -:  140:		p_last_line_backup = p_last_line;
         -:  141:		has_else = false;
         -:  142:		no_fixed = false;
-    #####:  143:		for( auto i : p_if->m_sub ) {
-    #####:  144:			if( i->p_if->words[0] == "ELSE" ) {
+      125:  143:		for( auto i : p_if->m_sub ) {
+      198:  144:			if( i->p_if->words[0] == "ELSE" ) {
         -:  145:				has_else = true;
         -:  146:			}
-    #####:  147:			p_last_line = i->p_text->process( info, sub_success_count, p_last_line_backup, false );
-    #####:  148:			if( current_next_code_address == -1 ) {
-    #####:  149:				if( p_last_line->get_next_code_address() == -1 ) {
+       99:  147:			p_last_line = i->p_text->process( info, sub_success_count, p_last_line_backup, false );
+       99:  148:			if( current_next_code_address == -1 ) {
+       64:  149:				if( p_last_line->get_next_code_address() == -1 ) {
         -:  150:					no_fixed = true;
         -:  151:					break;
         -:  152:				}
         -:  153:				current_next_code_address = p_last_line->get_next_code_address();
         -:  154:			}
         -:  155:			else {
-    #####:  156:				if( p_last_line->get_next_code_address() != current_next_code_address ) {
+       35:  156:				if( p_last_line->get_next_code_address() != current_next_code_address ) {
         -:  157:					no_fixed = true;
         -:  158:					break;
         -:  159:				}
         -:  160:			}
         -:  161:		}
         -:  162:		//	else句を持っており、かつすべての句の中身のサイズが同じであれば、中身のコードが確定していなくても、サイズを確定させる
-    #####:  163:		if( current_next_code_address != -1 && has_else && !no_fixed ) {
-    #####:  164:			this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
-    #####:  165:			this->next_code_address = current_next_code_address;
-    #####:  166:			info.is_updated = true;
+       64:  163:		if( current_next_code_address != -1 && has_else && !no_fixed ) {
+       11:  164:			this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
+       11:  165:			this->next_code_address = current_next_code_address;
+       11:  166:			info.is_updated = true;
         -:  167:		}
         -:  168:		p_last_line = p_last_line_backup;
         -:  169:	}
         -:  170:	//	実際に条件分岐を判断する
         -:  171:	result = true;
         -:  172:	do_process = false;
-    #####:  173:	for( auto i : p_if->m_sub ) {
-    #####:  174:		if( i->p_if->words[0] == "ELSE" ) {
+      325:  173:	for( auto i : p_if->m_sub ) {
+      378:  174:		if( i->p_if->words[0] == "ELSE" ) {
         -:  175:			//	ELSE なら 常に条件は true
-    #####:  176:			v.value_type = CVALUE_TYPE::CV_INTEGER;
-    #####:  177:			v.i = 1;
+       21:  176:			v.value_type = CVALUE_TYPE::CV_INTEGER;
+       21:  177:			v.i = 1;
         -:  178:		}
         -:  179:		else {
         -:  180:			//	IF 又は ELSEIF なら、条件式を評価
-    #####:  181:			index = i->p_if->expression( info, 1, v );
-    #####:  182:			if( index != 0 && index < (int)i->p_if->words.size() ) {
-    #####:  183:				i->p_if->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:  184:				return false;
+      168:  181:			index = i->p_if->expression( info, 1, v );
+      333:  182:			if( index != 0 && index < (int)i->p_if->words.size() ) {
+       60:  183:				i->p_if->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+       12:  184:				return false;
         -:  185:			}
         -:  186:		}
-    #####:  187:		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####:  188:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_CONDITION ) );
-    #####:  189:			return false;
+      177:  187:		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
+       25:  188:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_CONDITION ) );
+        5:  189:			return false;
         -:  190:		}
-    #####:  191:		i->is_condition_fixed = true;
-    #####:  192:		if( !v.i ) {
+      172:  191:		i->is_condition_fixed = true;
+      172:  192:		if( !v.i ) {
         -:  193:			continue;
         -:  194:		}
-    #####:  195:		i->is_condition = true;
-    #####:  196:		p_last_line = i->p_text->process( info, sub_success_count, p_last_line, !is_analyze_phase );
-    #####:  197:		if( sub_success_count != i->p_text->m_text.size() ) {
+      113:  195:		i->is_condition = true;
+      113:  196:		p_last_line = i->p_text->process( info, sub_success_count, p_last_line, !is_analyze_phase );
+      226:  197:		if( sub_success_count != i->p_text->m_text.size() ) {
         -:  198:			return false;
         -:  199:		}
         -:  200:		p_selected_if = i->p_if;
         -:  201:		do_process = true;
         -:  202:		break;
         -:  203:	}
-    #####:  204:	if( !this->is_data_fixed ) {
-    #####:  205:		this->is_data_fixed = true;
-    #####:  206:		info.is_updated = true;
+      100:  204:	if( !this->is_data_fixed ) {
+       33:  205:		this->is_data_fixed = true;
+       33:  206:		info.is_updated = true;
         -:  207:	}
-    #####:  208:	if( this->next_code_address == -1 && p_last_line->get_next_code_address() != -1 ) {
-    #####:  209:		this->next_code_address = p_last_line->get_next_code_address();
-    #####:  210:		this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
-    #####:  211:		info.is_updated = true;
+      100:  208:	if( this->next_code_address == -1 && p_last_line->get_next_code_address() != -1 ) {
+       22:  209:		this->next_code_address = p_last_line->get_next_code_address();
+       22:  210:		this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
+       22:  211:		info.is_updated = true;
         -:  212:	}
         -:  213:
         -:  214:	//if( !is_analyze_phase ) {
@@ -229,25 +229,25 @@
         -:  227:}
         -:  228:
         -:  229:// --------------------------------------------------------------------
-    #####:  230:bool CZMA_PARSE_ENDIF::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
+       36:  230:bool CZMA_PARSE_ENDIF::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
         -:  231:	bool result;
         -:  232:	CVALUE v;
         -:  233:
-    #####:  234:	if( p_if == nullptr ) {
+       36:  234:	if( p_if == nullptr ) {
         -:  235:		return false;
         -:  236:	}
         -:  237:	result = true;
-    #####:  238:	for( auto i : p_if->m_sub ) {
-    #####:  239:		if( !i->is_condition_fixed || !i->is_condition ) {
+       47:  238:	for( auto i : p_if->m_sub ) {
+       46:  239:		if( !i->is_condition_fixed || !i->is_condition ) {
         -:  240:			continue;
         -:  241:		}
-    #####:  242:		result = i->p_text->write( info, f );
+       33:  242:		result = i->p_text->write( info, f );
         -:  243:		break;
         -:  244:	}
-    #####:  245:	for( auto line : log ) {
+       34:  245:	for( auto line : log ) {
     #####:  246:		log.push_back( line );
         -:  247:	}
         -:  248:	//log.write_separator();
-    #####:  249:	return result;
-       12:  250:}
+       34:  249:	return result;
+      142:  250:}
         -:  251:

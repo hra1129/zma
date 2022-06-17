@@ -1,0 +1,11 @@
+Z80 Macro Assembler ZMA v1.0.16-alpha
+=====================================================
+Programmed by t.hara
+
+  DEFS is DEFINE STRING (default).
+
+<< code >>
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     7|      |    |IF 1
+     7|ERROR |    |Block processing is not closed.: test4.asm(7)

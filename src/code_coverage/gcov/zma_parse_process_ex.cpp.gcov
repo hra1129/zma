@@ -17,44 +17,44 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       15:   18:bool CZMA_PARSE_EX::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       21:   18:bool CZMA_PARSE_EX::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-       15:   20:	update_flags( &info, p_last_line );
-       15:   21:	if( !this->is_data_fixed ) {
-        5:   22:		this->is_data_fixed = true;
-       14:   23:		if( words.size() == 4 && words[1] == "DE" && words[2] == "," && words[3] == "HL" ) {
+       21:   20:	update_flags( &info, p_last_line );
+       21:   21:	if( !this->is_data_fixed ) {
+       11:   22:		this->is_data_fixed = true;
+       26:   23:		if( words.size() == 4 && words[1] == "DE" && words[2] == "," && words[3] == "HL" ) {
         -:   24:			this->set_code_size( &info, 1 );
         2:   25:			this->data.push_back( 0xEB );
         -:   26:		}
-        7:   27:		else if( words.size() == 4 && words[1] == "AF" && words[2] == "," && words[3] == "AF'" ) {
+       13:   27:		else if( words.size() == 4 && words[1] == "AF" && words[2] == "," && words[3] == "AF'" ) {
         -:   28:			this->set_code_size( &info, 1 );
         2:   29:			this->data.push_back( 0x08 );
         -:   30:		}
-       15:   31:		else if( words.size() == 6 && words[1] == "[" && words[2] == "SP" && words[3] == "]" && words[4] == "," ) {
-        3:   32:			if( words[5] == "HL" ) {
+       33:   31:		else if( words.size() == 6 && words[1] == "[" && words[2] == "SP" && words[3] == "]" && words[4] == "," ) {
+        6:   32:			if( words[5] == "HL" ) {
         -:   33:				this->set_code_size( &info, 1 );
         2:   34:				this->data.push_back( 0xE3 );
         -:   35:			}
-        2:   36:			else if( words[5] == "IX" ) {
+        5:   36:			else if( words[5] == "IX" ) {
         -:   37:				this->set_code_size( &info, 2 );
         2:   38:				this->data.push_back( 0xDD );
         2:   39:				this->data.push_back( 0xE3 );
         -:   40:			}
-        1:   41:			else if( words[5] == "IY" ) {
+        4:   41:			else if( words[5] == "IY" ) {
         -:   42:				this->set_code_size( &info, 2 );
         2:   43:				this->data.push_back( 0xFD );
         2:   44:				this->data.push_back( 0xE3 );
         -:   45:			}
         -:   46:			else {
-    #####:   47:				this->is_data_fixed = false;
-    #####:   48:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####:   49:				return false;
+        3:   47:				this->is_data_fixed = false;
+       15:   48:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        3:   49:				return false;
         -:   50:			}
         -:   51:		}
         -:   52:		else {
-    #####:   53:			this->is_data_fixed = false;
-    #####:   54:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####:   55:			return false;
+        3:   53:			this->is_data_fixed = false;
+       18:   54:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        3:   55:			return false;
         -:   56:		}
         -:   57:	}
         -:   58:	//	log
@@ -75,5 +75,5 @@
         5:   73:		log.write_separator();
         -:   74:	}
         -:   75:	return check_all_fixed();
-       12:   76:}
+      142:   76:}
         -:   77:

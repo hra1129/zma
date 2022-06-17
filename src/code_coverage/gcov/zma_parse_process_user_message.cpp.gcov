@@ -17,29 +17,29 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       12:   18:bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      282:   18:bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	CVALUE v;
         -:   20:
-       12:   21:	set_code_size( &info, 0 );
-       12:   22:	update_flags( &info, p_last_line );
-       24:   23:	if( words.size() == 1 ) {
-    #####:   24:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
-    #####:   25:		return false;
+      282:   21:	set_code_size( &info, 0 );
+      282:   22:	update_flags( &info, p_last_line );
+      564:   23:	if( words.size() == 1 ) {
+       15:   24:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
+        3:   25:		return false;
         -:   26:	}
-       12:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
-    #####:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-    #####:   29:		return false;
+      279:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
+      330:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+       66:   29:		return false;
         -:   30:	}
-       24:   31:	else if( v.is_unknown() ){
-    #####:   32:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-    #####:   33:		return false;
+      426:   31:	else if( v.is_unknown() ){
+       10:   32:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        2:   33:		return false;
         -:   34:	}
-       12:   35:	if( v.is_integer() ) {
-    #####:   36:		v.s = std::to_string( v.i );
+      211:   35:	if( v.is_integer() ) {
+        9:   36:		v.s = std::to_string( v.i );
         -:   37:	}
         -:   38:	//	log
-       12:   39:	if( !this->is_analyze_phase ) {
-        8:   40:		put_message( v.s );
+      211:   39:	if( !this->is_analyze_phase ) {
+      128:   40:		put_message( v.s );
         -:   41:	}
         -:   42:	return true;
-       12:   43:}
+      142:   43:}

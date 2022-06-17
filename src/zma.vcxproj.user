@@ -2,7 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommandArguments>.\test1.asm .\test1.asmbin</LocalDebuggerCommandArguments>
-    <LocalDebuggerWorkingDirectory>.\test_error_address</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>.\test_pattern\test_error_label</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

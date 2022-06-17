@@ -1,0 +1,36 @@
+Z80 Macro Assembler ZMA v1.0.16-alpha
+=====================================================
+Programmed by t.hara
+
+  DEFS is DEFINE STRING (default).
+
+<< code >>
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     7|      |    |REPEAT I, 5
+      |      |    |  Enter scope: @REPEAT0:
+------+------+----+----------------------------------
+     8|      |    |DEFB 1
+      |000000|0000|  01
+------+------+----+----------------------------------
+     8|      |    |DEFB 1
+      |000002|0002|  01
+------+------+----+----------------------------------
+     8|      |    |DEFB 1
+      |000004|0004|  01
+------+------+----+----------------------------------
+     8|      |    |DEFB 1
+      |000006|0006|  01
+------+------+----+----------------------------------
+     8|      |    |DEFB 1
+      |000008|0008|  01
+------+------+----+----------------------------------
+     9|      |    |ENDR AAA
+     9|ERROR |    |Too many parameters.: test5.asm(9)
+    11|      |    |REPEAT I, 5 AAA
+    11|ERROR |    |Illegal expression.: test5.asm(11)
+    13|      |    |ENDR
+    13|ERROR |    |Block processing is not closed.: test5.asm(13)
+    13|ERROR |    |Repeat counter is no fixed.: test5.asm(13)
+<< label >>
+@REPEAT0:I ... 4 ( 0x4 )

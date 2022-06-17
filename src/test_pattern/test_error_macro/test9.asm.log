@@ -1,0 +1,13 @@
+Z80 Macro Assembler ZMA v1.0.16-alpha
+=====================================================
+Programmed by t.hara
+
+  DEFS is DEFINE STRING (default).
+
+<< code >>
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     6|      |    |HOGE MACRO A, A
+     6|ERROR |    |Multiple definition.: test9.asm(6)
+     7|      |    |DEFB A, B
+     7|ERROR |    |Cannot evaluate the expression.: test9.asm(7)

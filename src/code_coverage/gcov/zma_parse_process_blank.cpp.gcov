@@ -17,11 +17,11 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-     8666:   18:bool CZMA_PARSE_BLANK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+    10613:   18:bool CZMA_PARSE_BLANK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-     8666:   20:	this->is_data_fixed = true;
-     8666:   21:	update_flags( &info, p_last_line );
+    10613:   20:	this->is_data_fixed = true;
+    10613:   21:	update_flags( &info, p_last_line );
         -:   22:	this->set_code_size( &info, 0 );
-     8666:   23:	return this->check_all_fixed();
-       12:   24:}
+    10613:   23:	return this->check_all_fixed();
+      142:   24:}
         -:   25:

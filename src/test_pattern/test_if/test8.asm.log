@@ -1,0 +1,27 @@
+Z80 Macro Assembler ZMA v1.0.16-alpha
+=====================================================
+Programmed by t.hara
+
+  DEFS is DEFINE STRING (default).
+
+<< code >>
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     5|      |    |INCLUDE "inc_test.asm" begin
+     5|      |    |INCLUDE "inc_test.asm" end
+     7|      |    |DEFW END_OF_PROGRAM
+      |000000|0000|  04 00
+------+------+----+----------------------------------
+     9|      |    |TITLE_COLOR = 0
+      |      |    |  Integer symbol [TITLE_COLOR] = 0 (0x0)
+------+------+----+----------------------------------
+    12|      |    |LD A, 0
+      |      |    |  Z80:8cyc R800:2cyc
+      |000002|0002|  3E 00
+------+------+----+----------------------------------
+    15|      |    |END_OF_PROGRAM :
+      |      |    |  label [END_OF_PROGRAM] address: 0x000004
+------+------+----+----------------------------------
+<< label >>
+END_OF_PROGRAM ... 4 ( 0x4 )
+TITLE_COLOR ...... 0 ( 0x0 )

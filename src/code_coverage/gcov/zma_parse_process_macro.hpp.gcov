@@ -10,7 +10,7 @@
         -:    8:
         -:    9:#include "zma_parse_process.hpp"
         -:   10:
-    #####:   11:CLASS_CZMA_PARSE( MACRO );
+       31:   11:CLASS_CZMA_PARSE( MACRO );
         -:   12:
         -:   13:// --------------------------------------------------------------------
         -:   14:class CZMA_PARSE_ENDM: public CZMA_PARSE {
@@ -18,7 +18,7 @@
         -:   16:	CZMA_MACRO* p_macro = nullptr;
         -:   17:	bool is_loaded = false;
         -:   18:
-    #####:   19:	using CZMA_PARSE::CZMA_PARSE;
+       30:   19:	using CZMA_PARSE::CZMA_PARSE;
         -:   20:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
         -:   21:};
         -:   22:
@@ -28,7 +28,7 @@
         -:   26:	CZMA_TEXT text;
         -:   27:	bool is_loaded = false;
         -:   28:
-    #####:   29:	using CZMA_PARSE::CZMA_PARSE;
+       76:   29:	using CZMA_PARSE::CZMA_PARSE;
         -:   30:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
         -:   31:	bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) override;
         -:   32:};

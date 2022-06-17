@@ -17,14 +17,14 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       30:   18:bool CZMA_PARSE_SRA::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       36:   18:bool CZMA_PARSE_SRA::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-       30:   20:	update_flags( &info, p_last_line );
-       30:   21:	if( this->opecode_source8( info, 0xCB, 0x28 ) ) {
+       36:   20:	update_flags( &info, p_last_line );
+       36:   21:	if( this->opecode_source8( info, 0xCB, 0x28 ) ) {
         -:   22:		//	log
-       30:   23:		if( !this->is_analyze_phase ) {
-       20:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       20:   25:			if( data.size() == 2 ) {
+       33:   23:		if( !this->is_analyze_phase ) {
+       22:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       22:   25:			if( data.size() == 2 ) {
         8:   26:				if( this->data[1] == 0x2E ) {
         2:   27:					log.write_cycle_information( 17, 8 );		//	SRA [HL]
         -:   28:				}
@@ -33,14 +33,14 @@
         -:   31:				}
         -:   32:			}
         -:   33:			else {
-        4:   34:				log.write_cycle_information( 25, 10 );		//	SRA [IX+d]
+        6:   34:				log.write_cycle_information( 25, 10 );		//	SRA [IX+d]
         -:   35:			}
-       10:   36:			log.write_dump( this->code_address, this->file_address, this->data );
-       10:   37:			log.write_separator();
+       11:   36:			log.write_dump( this->code_address, this->file_address, this->data );
+       11:   37:			log.write_separator();
         -:   38:		}
         -:   39:		return check_all_fixed();
         -:   40:	}
-    #####:   41:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####:   42:	return false;
-       12:   43:}
+       15:   41:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        3:   42:	return false;
+      142:   43:}
         -:   44:

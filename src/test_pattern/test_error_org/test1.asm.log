@@ -1,0 +1,17 @@
+Z80 Macro Assembler ZMA v1.0.16-alpha
+=====================================================
+Programmed by t.hara
+
+  DEFS is DEFINE STRING (default).
+
+<< code >>
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     6|      |    |ORG
+     6|ERROR |    |Illegal expression.: test1.asm(6)
+     9|      |    |ORG "hoge"
+     9|ERROR |    |Illegal parameter.: test1.asm(9)
+    12|      |    |ORG INVALID_LABEL
+    12|ERROR |    |Illegal expression.: test1.asm(12)
+    15|      |    |ORG 0x100 AAAA
+    15|ERROR |    |Illegal parameter.: test1.asm(15)

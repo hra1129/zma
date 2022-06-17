@@ -12,7 +12,7 @@
         -:   10:#include <string>
         -:   11:#include <vector>
         -:   12:
-     6307:   13:class CZMA_LOG: public std::vector< std::string > {
+     7779:   13:class CZMA_LOG: public std::vector< std::string > {
         -:   14:public:
         -:   15:
         -:   16:	// --------------------------------------------------------------------

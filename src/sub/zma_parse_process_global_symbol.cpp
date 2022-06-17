@@ -76,8 +76,10 @@ bool CZMA_PARSE_GLOBAL_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_la
 			if( !v.is_unknown() ){
 				this->is_data_fixed = true;
 			}
+			if( !info.dict.count( label ) ){
+				info.is_updated = true;
+			}
 			info.dict[label] = v;
-			info.is_updated = true;
 		}
 	}
 	else {
