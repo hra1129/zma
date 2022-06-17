@@ -26,7 +26,7 @@
         -:   24:};
         -:   25:
         -:   26:// --------------------------------------------------------------------
-   127732:   27:class CVALUE {
+   128764:   27:class CVALUE {
         -:   28:public:
         -:   29:	CVALUE_TYPE value_type;
         -:   30:
@@ -34,17 +34,17 @@
         -:   32:	std::string	s;
         -:   33:
         -:   34:	// --------------------------------------------------------------------
-   140608:   35:	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
+   142370:   35:	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
         -:   36:	}
         -:   37:
         -:   38:	// --------------------------------------------------------------------
         -:   39:	bool is_unknown( void ) const{
-     5105:   40:		return ( ( (int)value_type & 0x100 ) == 0x100 );
+     5108:   40:		return ( ( (int)value_type & 0x100 ) == 0x100 );
         -:   41:	}
         -:   42:
         -:   43:	// --------------------------------------------------------------------
         -:   44:	bool is_integer( void ) const{
-    94531:   45:		return ( ( (int)value_type & 0xFF ) == 0x1 );
+    94828:   45:		return ( ( (int)value_type & 0xFF ) == 0x1 );
         -:   46:	}
         -:   47:
         -:   48:	// --------------------------------------------------------------------
@@ -188,19 +188,19 @@
         -:  186:
         -:  187:	// --------------------------------------------------------------------
         -:  188:	bool is_sss_or_ddd( std::string word ) const {
-     5333:  189:		int d = (int)sss_or_ddd_id.count( word );
+     5549:  189:		int d = (int)sss_or_ddd_id.count( word );
         -:  190:		return d;
         -:  191:	}
         -:  192:
         -:  193:	// --------------------------------------------------------------------
         -:  194:	bool is_ix_hl( std::string word ) const {
-     1741:  195:		int d = (int)ix_hl.count( word );
+     1807:  195:		int d = (int)ix_hl.count( word );
         -:  196:		return d;
         -:  197:	}
         -:  198:
         -:  199:	// --------------------------------------------------------------------
         -:  200:	bool is_iy_hl( std::string word ) const {
-     1185:  201:		int d = (int)iy_hl.count( word );
+     1221:  201:		int d = (int)iy_hl.count( word );
         -:  202:		return d;
         -:  203:	}
         -:  204:

@@ -33,11 +33,9 @@ bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_
 	else if( v.is_string() ){
 		put_error( v.s );
 	}
-	else if( v.is_integer() ) {
-		put_error( std::to_string( v.i ) );
-	}
 	else {
-		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+		//	v.is_integer()
+		put_error( std::to_string( v.i ) );
 	}
 	return false;
 }

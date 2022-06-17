@@ -17,29 +17,27 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       31:   18:bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       37:   18:bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	CVALUE v;
         -:   20:
-       31:   21:	set_code_size( &info, 0 );
-       31:   22:	update_flags( &info, p_last_line );
-       62:   23:	if( words.size() == 1 ) {
+       37:   21:	set_code_size( &info, 0 );
+       37:   22:	update_flags( &info, p_last_line );
+       74:   23:	if( words.size() == 1 ) {
        15:   24:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
         3:   25:		return false;
         -:   26:	}
-       28:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
-       30:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+       34:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
+       45:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
         -:   29:	}
-       44:   30:	else if( v.is_unknown() ){
-    #####:   31:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+       50:   30:	else if( v.is_unknown() ){
+       15:   31:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
         -:   32:	}
        22:   33:	else if( v.is_string() ){
        38:   34:		put_error( v.s );
         -:   35:	}
-        3:   36:	else if( v.is_integer() ) {
-        9:   37:		put_error( std::to_string( v.i ) );
-        -:   38:	}
-        -:   39:	else {
-    #####:   40:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        -:   41:	}
-        -:   42:	return false;
-      142:   43:}
+        -:   36:	else {
+        -:   37:		//	v.is_integer()
+        9:   38:		put_error( std::to_string( v.i ) );
+        -:   39:	}
+        -:   40:	return false;
+      142:   41:}

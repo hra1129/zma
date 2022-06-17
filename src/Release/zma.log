@@ -1,9 +1,7 @@
-﻿  zma_parse_process_global_symbol.cpp
-  zma_parse_process_label.cpp
-  zma_parse_process_symbol.cpp
+﻿  zma_parse_process_user_error.cpp
   コード生成しています。
-  2 of 1958 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  1 of 1958 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    29 functions had inline decision re-evaluated but remain unchanged
+    26 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   zma.vcxproj -> C:\Users\hra\Documents\github\zma\src\Release\zma.exe

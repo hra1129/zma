@@ -128,31 +128,31 @@
         -:  126:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_##operation( words, p_file_name, line_no ))
         -:  127:
         -:  128:// --------------------------------------------------------------------
-     8863:  129:CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string> &words, const char* p_file_name, int line_no ) {
+     9000:  129:CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string> &words, const char* p_file_name, int line_no ) {
         -:  130:
-    17726:  131:	if( words.size() == 0 ) {
-     7034:  132:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_BLANK( words, p_file_name, line_no ));
+    18000:  131:	if( words.size() == 0 ) {
+     7126:  132:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_BLANK( words, p_file_name, line_no ));
         -:  133:	}
-     6494:  134:	if( words.size() == 2 && words[1] == ":" ) {
-       94:  135:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_LABEL( words, p_file_name, line_no ));
+     6624:  134:	if( words.size() == 2 && words[1] == ":" ) {
+       96:  135:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_LABEL( words, p_file_name, line_no ));
         -:  136:	}
-     6400:  137:	if( words.size() == 2 && words[1] == "::" ) {
+     6528:  137:	if( words.size() == 2 && words[1] == "::" ) {
        18:  138:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_GLOBAL_LABEL( words, p_file_name, line_no ));
         -:  139:	}
-     7631:  140:	if( words.size() >= 3 && words[1] == "=" ) {
+     7769:  140:	if( words.size() >= 3 && words[1] == "=" ) {
        36:  141:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_SYMBOL( words, p_file_name, line_no ));
         -:  142:	}
-     9908:  143:	if( words.size() >= 3 && (words[1] == ":=" || words[ 1 ] == "EQU") ) {
+    10094:  143:	if( words.size() >= 3 && (words[1] == ":=" || words[ 1 ] == "EQU") ) {
        24:  144:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_GLOBAL_SYMBOL( words, p_file_name, line_no ));
         -:  145:	}
-     8663:  146:	if( words.size() >= 2 && words[1] == "MACRO" ) {
+     8839:  146:	if( words.size() >= 2 && words[1] == "MACRO" ) {
        31:  147:		info.macro_list[words[0]] = nullptr;
        62:  148:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_MACRO( words, p_file_name, line_no ));
         -:  149:	}
         -:  150:	if( words.size() >= 1 && info.macro_list.count( words[0] ) ) {
       152:  151:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_MACRO_INS( words, p_file_name, line_no ));
         -:  152:	}
-     5153:  153:	switch( command_list[words[0]] ) {
+     5243:  153:	switch( command_list[words[0]] ) {
        58:  154:		OPE_CASE( ORG );
        20:  155:		OPE_CASE( INCLUDE );
        10:  156:		OPE_CASE( ADD_INCLUDE_PATH );
@@ -165,7 +165,7 @@
        58:  163:		OPE_CASE( ELSEIF );
        84:  164:		OPE_CASE( ELSE );
       118:  165:		OPE_CASE( ENDIF );
-       54:  166:		OPE_CASE( USER_ERROR );
+       58:  166:		OPE_CASE( USER_ERROR );
       186:  167:		OPE_CASE( USER_MESSAGE );
        42:  168:		OPE_CASE( SCOPE );
        30:  169:		OPE_CASE( ENDSCOPE );
@@ -202,12 +202,12 @@
        88:  200:		OPE_CASE( ADD );
        40:  201:		OPE_CASE( ADC );
        88:  202:		OPE_CASE( INC );
-       32:  203:		OPE_CASE( SUB );
+       92:  203:		OPE_CASE( SUB );
        40:  204:		OPE_CASE( SBC );
        42:  205:		OPE_CASE( DEC );
-      124:  206:		OPE_CASE( AND );
-       38:  207:		OPE_CASE( OR );
-       36:  208:		OPE_CASE( XOR );
+       96:  206:		OPE_CASE( AND );
+       98:  207:		OPE_CASE( OR );
+       96:  208:		OPE_CASE( XOR );
         4:  209:		OPE_CASE( CPL );
         4:  210:		OPE_CASE( NEG );
         4:  211:		OPE_CASE( CCF );
@@ -219,7 +219,7 @@
         4:  217:		OPE_CASE( CPIR );
         4:  218:		OPE_CASE( CPD );
         4:  219:		OPE_CASE( CPDR );
-       88:  220:		OPE_CASE( CP );
+      104:  220:		OPE_CASE( CP );
        54:  221:		OPE_CASE( JP );
        42:  222:		OPE_CASE( JR );
        10:  223:		OPE_CASE( DJNZ );
@@ -255,7 +255,7 @@
         -:  253:	default:
         -:  254:		break;
         -:  255:	}
-       44:  256:	return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_ERROR( words, p_file_name, line_no ));
+       52:  256:	return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_ERROR( words, p_file_name, line_no ));
         -:  257:}
         -:  258:
         -:  259:// --------------------------------------------------------------------
@@ -284,12 +284,12 @@
     #####:  282:}
         -:  283:
         -:  284:// --------------------------------------------------------------------
-     4892:  285:std::string CZMA_PARSE::get_line( void ) {
+     4986:  285:std::string CZMA_PARSE::get_line( void ) {
         -:  286:	std::string r, ss;
         -:  287:
         -:  288:	r = "";
-    22283:  289:	for( auto &s : words ) {
-    34782:  290:		if( s.size() > 0 && (s[0] == '\"' || s[0] == '\'') ){
+    22701:  289:	for( auto &s : words ) {
+    35430:  290:		if( s.size() > 0 && (s[0] == '\"' || s[0] == '\'') ){
       115:  291:			ss = s[ 0 ];
      1213:  292:			for( int i = 1; i < (int)s.size(); i++ ) {
      1098:  293:				switch( s[i] ) {
@@ -310,23 +310,23 @@
         -:  308:		else {
         -:  309:			ss = s;
         -:  310:		}
-    17391:  311:		if( r == "" ) {
+    17715:  311:		if( r == "" ) {
         -:  312:			r = ss;
         -:  313:		}
-    12499:  314:		else if( ss == "," ){
-     8034:  315:			r = r + ss;
+    12729:  314:		else if( ss == "," ){
+     8124:  315:			r = r + ss;
         -:  316:		}
-     8482:  317:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'X' ){
+     8667:  317:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'X' ){
      3035:  318:			ss[ 1 ] = 'x';
      9105:  319:			r = r + " " + ss;
         -:  320:		}
-     7213:  321:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'B' ){
+     7398:  321:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'B' ){
         3:  322:			ss[ 1 ] = 'b';
         9:  323:			r = r + " " + ss;
         -:  324:		}
         -:  325:		else {
-    21776:  326:			r = r + " " + ss;
+    22516:  326:			r = r + " " + ss;
         -:  327:		}
         -:  328:	}
-     4892:  329:	return r;
+     4986:  329:	return r;
       213:  330:}

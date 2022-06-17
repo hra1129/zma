@@ -139,11 +139,11 @@
         -:  137:	int return_code = 0;
        71:  138:	if( src.all_process( info ) ) {
         -:  139:		return_code = 0;
-       38:  140:		std::cout << "Success.\n";
+       37:  140:		std::cout << "Success.\n";
         -:  141:	}
         -:  142:	else {
         -:  143:		return_code = 1;
-       33:  144:		std::cout << "Failed.\n";
+       34:  144:		std::cout << "Failed.\n";
         -:  145:	}
       142:  146:	if( !src.save( info, sa_options[1].c_str() ) ){
         -:  147:		return_code = 1;

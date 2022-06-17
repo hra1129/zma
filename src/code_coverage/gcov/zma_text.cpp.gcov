@@ -22,8 +22,8 @@
         -:   20://	Destructor
         -:   21:// ----------------------------------------------------------------
       142:   22:CZMA_TEXT::~CZMA_TEXT() {
-     7835:   23:	for( auto p: m_text ) { 
-     7764:   24:		delete p; 
+     7969:   23:	for( auto p: m_text ) { 
+     7898:   24:		delete p; 
         -:   25:	}
        71:   26:}
         -:   27:
@@ -43,15 +43,15 @@
         -:   41:		return false;
         -:   42:	}
         -:   43:	line_no = 1;
-     8006:   44:	for( ;; line_no++) {
-    16097:   45:		if(file.bad()) {
+     8140:   44:	for( ;; line_no++) {
+    16365:   45:		if(file.bad()) {
         -:   46:			break;
         -:   47:		}
-    16182:   48:		if(!std::getline( file, s )) {
+    16450:   48:		if(!std::getline( file, s )) {
         -:   49:			break;
         -:   50:		}
-    24018:   51:		words = CZMA_PARSE::get_word_split( s );
-    20415:   52:		if( words.size() > 2 && ( (words[ 1 ] == ":") || (words[ 1 ] == "::") ) ){
+    24420:   51:		words = CZMA_PARSE::get_word_split( s );
+    20779:   52:		if( words.size() > 2 && ( (words[ 1 ] == ":") || (words[ 1 ] == "::") ) ){
         6:   53:			labels.resize( 2 );
         6:   54:			labels[ 0 ] = words[ 0 ];
        12:   55:			labels[ 1 ] = words[ 1 ];
@@ -63,8 +63,8 @@
         6:   61:			m_text.push_back( p_parse );
         -:   62:		}
         -:   63:		else{
-    16000:   64:			p_parse = CZMA_PARSE::create( info, words, p_file_name, line_no );
-     8000:   65:			m_text.push_back( p_parse );
+    16268:   64:			p_parse = CZMA_PARSE::create( info, words, p_file_name, line_no );
+     8134:   65:			m_text.push_back( p_parse );
         -:   66:		}
         -:   67:	}
        85:   68:	file.close();
@@ -81,11 +81,11 @@
      2537:   79:	success_count = 0;
      2537:   80:	std::vector<std::string> words;
         -:   81:
-    30147:   82:	for( auto p = m_text.begin(); p != m_text.end(); ) {
-    27610:   83:		if( output_mode ) {
-     8617:   84:			(*p)->set_output_mode();
+    30549:   82:	for( auto p = m_text.begin(); p != m_text.end(); ) {
+    28012:   83:		if( output_mode ) {
+     8751:   84:			(*p)->set_output_mode();
         -:   85:		}
-    27610:   86:		if( info.is_block_processing ) {
+    28012:   86:		if( info.is_block_processing ) {
         -:   87:			//	ブロックの中の処理
       930:   88:			if( (*p)->words.size() >= 1 && info.block_end_table.count( (*p)->words[0] ) ) {
         -:   89:				//	ブロックを閉じる記号を発見
@@ -140,22 +140,22 @@
         -:  138:		}
         -:  139:		else {
         -:  140:			//	パースエラーを起こした行の場合、再パースを試みる
-    27145:  141:			if( (*p)->is_parse_error() ) {
-       51:  142:				words = CZMA_PARSE::get_word_split( ( *p )->get_line() );
-       17:  143:				CZMA_PARSE *p_parse = CZMA_PARSE::create( info, words, (*p)->get_file_name(), (*p)->get_line_no() );
-       17:  144:				if( !(p_parse->is_parse_error()) ) {
+    27547:  141:			if( (*p)->is_parse_error() ) {
+       60:  142:				words = CZMA_PARSE::get_word_split( ( *p )->get_line() );
+       20:  143:				CZMA_PARSE *p_parse = CZMA_PARSE::create( info, words, (*p)->get_file_name(), (*p)->get_line_no() );
+       20:  144:				if( !(p_parse->is_parse_error()) ) {
         2:  145:					p = m_text.erase( p );
         2:  146:					p = m_text.insert( p, p_parse );
         -:  147:				}
         -:  148:				else {
-       15:  149:					delete p_parse;
+       18:  149:					delete p_parse;
         -:  150:				}
         -:  151:			}
         -:  152:			//	ブロックの外側の処理
-    27145:  153:			if( (*p)->process( info, p_prev ) ) {
-    25270:  154:				success_count++;
+    27547:  153:			if( (*p)->process( info, p_prev ) ) {
+    25600:  154:				success_count++;
         -:  155:			}
-    27145:  156:			p_prev = (*p);
+    27547:  156:			p_prev = (*p);
         -:  157:			p++;
         -:  158:		}
         -:  159:	}
@@ -200,7 +200,7 @@
         5:  198:		return false;
         -:  199:	}
        66:  200:	if( CZMA_PARSE::get_number_of_errors() ) {
-       28:  201:		std::cerr << "Found " << CZMA_PARSE::get_number_of_errors() << " error(s).\n";
+       29:  201:		std::cerr << "Found " << CZMA_PARSE::get_number_of_errors() << " error(s).\n";
         -:  202:		return false;
         -:  203:	}
         -:  204:	return true;
@@ -211,8 +211,8 @@
         -:  209:	bool result;
         -:  210:
         -:  211:	result = true;
-     9143:  212:	for( auto &p: m_text ) {
-     8615:  213:		result = result && p->write_output_and_log( info, f );
+     9277:  212:	for( auto &p: m_text ) {
+     8749:  213:		result = result && p->write_output_and_log( info, f );
         -:  214:	}
       457:  215:	return result;
         -:  216:}

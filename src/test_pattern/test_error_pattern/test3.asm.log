@@ -29,3 +29,14 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     15|      |    |LD A, A0H
     15|ERROR |    |Illegal operand.: test3.asm(15)
+    18|      |    |ERROR AAA
+    18|ERROR |    |Illegal parameter.: test3.asm(18)
+    21|      |    |XXX
+    21|ERROR |    |Invalid command.: test3.asm(21)
+    22|      |    |L1 :
+      |      |    |  label address: 0xXXXXXX
+------+------+----+----------------------------------
+    23|      |    |ERROR L1
+    23|ERROR |    |Illegal parameter.: test3.asm(23)
+<< label >>
+L1 ... ????

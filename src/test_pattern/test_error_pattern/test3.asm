@@ -13,3 +13,11 @@
 	ld		a, 10h
 	ld		a, 20h
 	ld		a, A0h
+
+; 未定義ラベル
+	error	aaa
+
+; 値が確定しないラベル
+	xxx					; 不正な命令
+l1:
+	error	l1
