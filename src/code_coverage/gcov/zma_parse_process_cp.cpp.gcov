@@ -62,20 +62,20 @@
         -:   60:	}
        57:   61:	if( this->opecode_source8( info, 0xB8 ) ){
         -:   62:		//	log
-       33:   63:		if( !this->is_analyze_phase ){
-       22:   64:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       22:   65:			if( data.size() == 2 ){
-    #####:   66:				log.write_cycle_information( 10, 2 );	//	CP IXh
+       45:   63:		if( !this->is_analyze_phase ){
+       30:   64:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       30:   65:			if( data.size() == 2 ){
+        8:   66:				log.write_cycle_information( 10, 2 );	//	CP IXh
         -:   67:			}
         -:   68:			else{
        22:   69:				log.write_cycle_information( 5, 1 );	//	CP r
         -:   70:			}
-       11:   71:			log.write_dump( this->code_address, this->file_address, this->data );
-       11:   72:			log.write_separator();
+       15:   71:			log.write_dump( this->code_address, this->file_address, this->data );
+       15:   72:			log.write_separator();
         -:   73:		}
         -:   74:		return check_all_fixed();
         -:   75:	}
-       24:   76:	if( this->opecode_n8( info, 0xFE ) ){
+       12:   76:	if( this->opecode_n8( info, 0xFE ) ){
         -:   77:		//	log
         3:   78:		if( !this->is_analyze_phase ){
         2:   79:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -85,7 +85,7 @@
         -:   83:		}
         -:   84:		return check_all_fixed();
         -:   85:	}
-      105:   86:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-       21:   87:	return false;
-      142:   88:}
+       45:   86:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        9:   87:	return false;
+      150:   88:}
         -:   89:

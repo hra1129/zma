@@ -15,38 +15,38 @@
         -:   13:static const char* p_version = "v1.0.16-alpha";
         -:   14:
         -:   15:// --------------------------------------------------------------------
-    #####:   16:static void usage( const char* p_name ) {
-    #####:   17:	std::cerr << "Usage> " << p_name << " [-options] <input.asm> <output.bin>\n";
-    #####:   18:	std::cerr << "This is Z80/R800 Macro Assembler.\n";
-    #####:   19:	std::cerr << "[-options]\n";
-    #####:   20:	std::cerr << "  -HELP, -H ........... Display this message.\n";
-    #####:   21:	std::cerr << "  -I{path} ............ Add {path} to the include path.\n";
-    #####:   22:	std::cerr << "  -D{name}={value} .... Define symbol. ex) -DSWITCH=1 -DNAME='GAME'\n";
-    #####:   23:	std::cerr << "  -DEFS ............... Change the DEFS instruction to an area allocation instruction.\n";
-    #####:   24:}
+        3:   16:static void usage( const char* p_name ) {
+        3:   17:	std::cerr << "Usage> " << p_name << " [-options] <input.asm> <output.bin>\n";
+        3:   18:	std::cerr << "This is Z80/R800 Macro Assembler.\n";
+        3:   19:	std::cerr << "[-options]\n";
+        3:   20:	std::cerr << "  -HELP, -H ........... Display this message.\n";
+        3:   21:	std::cerr << "  -I{path} ............ Add {path} to the include path.\n";
+        3:   22:	std::cerr << "  -D{name}={value} .... Define symbol. ex) -DSWITCH=1 -DNAME='GAME'\n";
+        3:   23:	std::cerr << "  -DEFS ............... Change the DEFS instruction to an area allocation instruction.\n";
+        3:   24:}
         -:   25:
         -:   26:// --------------------------------------------------------------------
-    #####:   27:static void option_d( CZMA_INFORMATION &info, std::string s_argument ){
+        2:   27:static void option_d( CZMA_INFORMATION &info, std::string s_argument ){
         -:   28:	std::string s_name;
         -:   29:	std::string s_value;
         -:   30:	CVALUE value;
         -:   31:	size_t i;
         -:   32:
-    #####:   33:	for( i = 2; i < s_argument.size(); i++ ){
-    #####:   34:		if( s_argument[ i ] == '=' ){
+       30:   33:	for( i = 2; i < s_argument.size(); i++ ){
+       16:   34:		if( s_argument[ i ] == '=' ){
         -:   35:			break;
         -:   36:		}
-    #####:   37:		s_name = s_name + s_argument[ i ];
+       28:   37:		s_name = s_name + s_argument[ i ];
         -:   38:	}
-    #####:   39:	i++;
-    #####:   40:	for( ; i < s_argument.size(); i++ ){
-    #####:   41:		s_value = s_value + s_argument[ i ];
+        2:   39:	i++;
+       14:   40:	for( ; i < s_argument.size(); i++ ){
+       12:   41:		s_value = s_value + s_argument[ i ];
         -:   42:	}
-    #####:   43:	if( s_name == "" || s_value == "" ){
+        4:   43:	if( s_name == "" || s_value == "" ){
     #####:   44:		std::cerr << "Invalid command line option [" << s_argument << "].\n";
         -:   45:		return;
         -:   46:	}
-    #####:   47:	if( s_value.size() > 0 && s_value[ 0 ] == '\'' ){
+        4:   47:	if( s_value.size() > 0 && s_value[ 0 ] == '\'' ){
     #####:   48:		if( s_value[ s_value.size() - 1 ] != '\'' ){
     #####:   49:			std::cerr << "Invalid command line option [" << s_argument << "].\n";
         -:   50:			return;
@@ -57,97 +57,97 @@
     #####:   55:		info.log << "  String : " << s_name << " = \"" << value.s << "\"\n";
         -:   56:	}
         -:   57:	else{
-    #####:   58:		value.value_type = CVALUE_TYPE::CV_INTEGER;
+        2:   58:		value.value_type = CVALUE_TYPE::CV_INTEGER;
         -:   59:		try{
-    #####:   60:			value.i = std::stoi( s_value );
+        1:   60:			value.i = std::stoi( s_value );
         -:   61:		}
-    =====:   62:		catch( ... ){
-    =====:   63:			value.i = 0;
+        2:   62:		catch( ... ){
+        1:   63:			value.i = 0;
         -:   64:		}
-    #####:   65:		info.log << "  Integer: " << s_name << " = " << value.i << "\n";
+        4:   65:		info.log << "  Integer: " << s_name << " = " << value.i << "\n";
         -:   66:	}
-    #####:   67:	info.dict[ s_name ] = value;
+        2:   67:	info.dict[ s_name ] = value;
         -:   68:}
         -:   69:
         -:   70:// --------------------------------------------------------------------
-       71:   71:static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
+       75:   71:static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
         -:   72:	int i;
         -:   73:	std::string s_argument;
         -:   74:	std::vector<std::string> sa_options;
         -:   75:
-      355:   76:	for( i = 1; i < argc; i++ ){
-      142:   77:		s_argument = argv[ i ];
-      142:   78:		if( s_argument[ 0 ] == '-' || s_argument[ 0 ] == '/' ){
-    #####:   79:			s_argument[ 0 ] = '-';
+      371:   76:	for( i = 1; i < argc; i++ ){
+      150:   77:		s_argument = argv[ i ];
+      150:   78:		if( s_argument[ 0 ] == '-' || s_argument[ 0 ] == '/' ){
+        6:   79:			s_argument[ 0 ] = '-';
         -:   80:			std::transform( s_argument.begin(), s_argument.end(), s_argument.begin(), toupper );
-    #####:   81:			if( s_argument == "-H" || s_argument == "-HELP" ){
-    #####:   82:				usage( argv[ 0 ] );
-    #####:   83:				exit( 1 );
+       11:   81:			if( s_argument == "-H" || s_argument == "-HELP" ){
+        2:   82:				usage( argv[ 0 ] );
+        2:   83:				exit( 1 );
         -:   84:			}
-    #####:   85:			else if( s_argument == "-DEFS" ){
-    #####:   86:				info.defs_is_space = true;
+        4:   85:			else if( s_argument == "-DEFS" ){
+        1:   86:				info.defs_is_space = true;
         -:   87:			}
-    #####:   88:			else if( s_argument[ 1 ] == 'I' ){
-    #####:   89:				info.add_include_path( s_argument.substr( 2 ).c_str() );
+        3:   88:			else if( s_argument[ 1 ] == 'I' ){
+        3:   89:				info.add_include_path( s_argument.substr( 2 ).c_str() );
         -:   90:			}
-    #####:   91:			else if( s_argument[ 1 ] == 'D' ){
-    #####:   92:				option_d( info, s_argument );
+        2:   91:			else if( s_argument[ 1 ] == 'D' ){
+        4:   92:				option_d( info, s_argument );
         -:   93:			}
         -:   94:		}
         -:   95:		else{
-      142:   96:			sa_options.push_back( s_argument );
+      144:   96:			sa_options.push_back( s_argument );
         -:   97:		}
         -:   98:	}
         -:   99:
-       71:  100:	if( info.defs_is_space ){
-    #####:  101:		info.log << "  DEFS is DEFINE SPACE.\n\n";
+       73:  100:	if( info.defs_is_space ){
+        1:  101:		info.log << "  DEFS is DEFINE SPACE.\n\n";
         -:  102:	}
         -:  103:	else{
-       71:  104:		info.log << "  DEFS is DEFINE STRING (default).\n\n";
+       72:  104:		info.log << "  DEFS is DEFINE STRING (default).\n\n";
         -:  105:	}
-       71:  106:	return sa_options;
+       73:  106:	return sa_options;
         -:  107:}
         -:  108:
         -:  109:// --------------------------------------------------------------------
-       71:  110:int main( int argc, char *argv[] ) {
-       71:  111:    std::cout << "Z80 Macro Assembler ZMA " << p_version << "\n";
-       71:  112:	std::cout << "=====================================================\n";
-       71:  113:	std::cout << "Programmed by t.hara\n";
+       75:  110:int main( int argc, char *argv[] ) {
+       75:  111:    std::cout << "Z80 Macro Assembler ZMA " << p_version << "\n";
+       75:  112:	std::cout << "=====================================================\n";
+       75:  113:	std::cout << "Programmed by t.hara\n";
         -:  114:
-      142:  115:	CZMA_TEXT src;
-      142:  116:	CZMA_INFORMATION info;
-       71:  117:	std::vector< std::string > sa_options;
+      148:  115:	CZMA_TEXT src;
+      148:  116:	CZMA_INFORMATION info;
+       73:  117:	std::vector< std::string > sa_options;
         -:  118:
-       71:  119:	info.log.open( "zma.log", std::ios::out );
-       71:  120:	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
-       71:  121:	info.log << "=====================================================\n";
-       71:  122:	info.log << "Programmed by t.hara\n\n";
+       75:  119:	info.log.open( "zma.log", std::ios::out );
+       75:  120:	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
+       75:  121:	info.log << "=====================================================\n";
+       75:  122:	info.log << "Programmed by t.hara\n\n";
         -:  123:
-      142:  124:	sa_options = get_command_line_options( argc, argv, info );
-      142:  125:	if( sa_options.size() < 2 ) {
-    #####:  126:		usage( argv[0] );
+      148:  124:	sa_options = get_command_line_options( argc, argv, info );
+      146:  125:	if( sa_options.size() < 2 ) {
+        1:  126:		usage( argv[0] );
         -:  127:		return 1;
         -:  128:	}
         -:  129:
-       71:  130:	info.log << "<< code >>\n";
-       71:  131:	info.log << "LINE# |OFFSET|ADDR|MNEMONIC\n";
-       71:  132:	info.log << "======+======+====+==================================\n";
-       71:  133:	info.add_include_path( "./" );
-       71:  134:	info.add_include_path( argv[0], "include/" );
-      142:  135:	src.load( info, sa_options[0].c_str() );
+       72:  130:	info.log << "<< code >>\n";
+       72:  131:	info.log << "LINE# |OFFSET|ADDR|MNEMONIC\n";
+       72:  132:	info.log << "======+======+====+==================================\n";
+       72:  133:	info.add_include_path( "./" );
+       72:  134:	info.add_include_path( argv[0], "include/" );
+      144:  135:	src.load( info, sa_options[0].c_str() );
         -:  136:
         -:  137:	int return_code = 0;
-       71:  138:	if( src.all_process( info ) ) {
+       72:  138:	if( src.all_process( info ) ) {
         -:  139:		return_code = 0;
-       37:  140:		std::cout << "Success.\n";
+       41:  140:		std::cout << "Success.\n";
         -:  141:	}
         -:  142:	else {
         -:  143:		return_code = 1;
-       34:  144:		std::cout << "Failed.\n";
+       31:  144:		std::cout << "Failed.\n";
         -:  145:	}
-      142:  146:	if( !src.save( info, sa_options[1].c_str() ) ){
+      144:  146:	if( !src.save( info, sa_options[1].c_str() ) ){
         -:  147:		return_code = 1;
         2:  148:		std::cout << "Save error.\n";
         -:  149:	}
         -:  150:	return return_code;
-      142:  151:}
+      150:  151:}

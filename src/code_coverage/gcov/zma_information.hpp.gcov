@@ -26,7 +26,7 @@
         -:   24:};
         -:   25:
         -:   26:// --------------------------------------------------------------------
-   128764:   27:class CVALUE {
+   128144:   27:class CVALUE {
         -:   28:public:
         -:   29:	CVALUE_TYPE value_type;
         -:   30:
@@ -34,17 +34,17 @@
         -:   32:	std::string	s;
         -:   33:
         -:   34:	// --------------------------------------------------------------------
-   142370:   35:	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
+   141674:   35:	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
         -:   36:	}
         -:   37:
         -:   38:	// --------------------------------------------------------------------
         -:   39:	bool is_unknown( void ) const{
-     5108:   40:		return ( ( (int)value_type & 0x100 ) == 0x100 );
+     5111:   40:		return ( ( (int)value_type & 0x100 ) == 0x100 );
         -:   41:	}
         -:   42:
         -:   43:	// --------------------------------------------------------------------
         -:   44:	bool is_integer( void ) const{
-    94828:   45:		return ( ( (int)value_type & 0xFF ) == 0x1 );
+    94845:   45:		return ( ( (int)value_type & 0xFF ) == 0x1 );
         -:   46:	}
         -:   47:
         -:   48:	// --------------------------------------------------------------------
@@ -112,7 +112,7 @@
         -:  110:};
         -:  111:
         -:  112:// --------------------------------------------------------------------
-      213:  113:class CZMA_INFORMATION {
+      219:  113:class CZMA_INFORMATION {
         -:  114:public:
         -:  115:	std::map< std::string, CVALUE >	dict;
         -:  116:	std::map< std::string, int >	sss_or_ddd_id { { "B", 0 }, { "C", 1 }, { "D", 2 }, { "E", 3 }, { "H", 4 }, { "L", 5 }, { "A", 7 }, };
@@ -162,8 +162,8 @@
         -:  160:	std::ofstream							log;
         -:  161:
         -:  162:	// --------------------------------------------------------------------
-     2059:  163:	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ), p_char_set( nullptr ), defs_is_space(false) {
-       71:  164:	}
+     2175:  163:	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ), p_char_set( nullptr ), defs_is_space(false) {
+       75:  164:	}
         -:  165:
         -:  166:	// --------------------------------------------------------------------
         -:  167:	void clear( void ){
@@ -194,13 +194,13 @@
         -:  192:
         -:  193:	// --------------------------------------------------------------------
         -:  194:	bool is_ix_hl( std::string word ) const {
-     1807:  195:		int d = (int)ix_hl.count( word );
+     1885:  195:		int d = (int)ix_hl.count( word );
         -:  196:		return d;
         -:  197:	}
         -:  198:
         -:  199:	// --------------------------------------------------------------------
         -:  200:	bool is_iy_hl( std::string word ) const {
-     1221:  201:		int d = (int)iy_hl.count( word );
+     1269:  201:		int d = (int)iy_hl.count( word );
         -:  202:		return d;
         -:  203:	}
         -:  204:

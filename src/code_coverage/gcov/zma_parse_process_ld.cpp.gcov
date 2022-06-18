@@ -164,5 +164,5 @@
       338:  162:		log.write_separator();
         -:  163:	}
         -:  164:	return check_all_fixed();
-      142:  165:}
+      150:  165:}
         -:  166:

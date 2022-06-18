@@ -1788,6 +1788,28 @@ bool CZMA_PARSE::opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int
 		}
 		return true;
 	}
+	if( words.size() == 2 && info.is_ix_hl( words[ 1 ] ) ){
+		if( this->is_data_fixed ){
+			return true;
+		}
+		this->is_data_fixed = true;
+		sss = info.ix_hl[ words[ 1 ] ];
+		this->set_code_size( &info, 2 );
+		this->data.push_back( 0xDD );
+		this->data.push_back( (unsigned char)( op1 | sss ) );
+		return true;
+	}
+	if( words.size() == 2 && info.is_iy_hl( words[ 1 ] ) ){
+		if( this->is_data_fixed ){
+			return true;
+		}
+		this->is_data_fixed = true;
+		sss = info.iy_hl[ words[ 1 ] ];
+		this->set_code_size( &info, 2 );
+		this->data.push_back( 0xFD );
+		this->data.push_back( (unsigned char)( op1 | sss ) );
+		return true;
+	}
 	if( words.size() == 4 && this->check_location_hl( 1 ) ) {
 		if( this->is_data_fixed ) {
 			return true;

@@ -14,7 +14,7 @@
         -:   12:#include <sstream>
         -:   13:#include <map>
         -:   14:
-      142:   15:static std::map< CZMA_ERROR_CODE, const std::string > error_message = {
+      150:   15:static std::map< CZMA_ERROR_CODE, const std::string > error_message = {
         -:   16:	{ CZMA_ERROR_CODE::INVALID_COMMAND, "Invalid command." },
         -:   17:	{ CZMA_ERROR_CODE::ILLEGAL_OPERAND, "Illegal operand." },
         -:   18:	{ CZMA_ERROR_CODE::ILLEGAL_PARAMETER, "Illegal parameter." },
@@ -38,18 +38,18 @@
         -:   36:};
         -:   37:
         -:   38:// --------------------------------------------------------------------
-     1504:   39:std::string CZMA_ERROR::get( CZMA_ERROR_CODE code, std::string message1, std::string message2, std::string message3 ){
+     1432:   39:std::string CZMA_ERROR::get( CZMA_ERROR_CODE code, std::string message1, std::string message2, std::string message3 ){
         -:   40:	std::string base_message;
-     1504:   41:	std::string result( "" );
+     1432:   41:	std::string result( "" );
         -:   42:	bool b_insert_message = false;
         -:   43:
-     1504:   44:	base_message = error_message[ code ];
-    28994:   45:	for( auto &c : base_message ){
-    27490:   46:		if( c == '$' ){
+     1432:   44:	base_message = error_message[ code ];
+    27746:   45:	for( auto &c : base_message ){
+    26314:   46:		if( c == '$' ){
         -:   47:			b_insert_message = true;
     #####:   48:			continue;
         -:   49:		}
-    27490:   50:		if( b_insert_message ){
+    26314:   50:		if( b_insert_message ){
         -:   51:			b_insert_message = false;
     #####:   52:			if( c == '1' ){
     #####:   53:				result = result + message1;
@@ -62,8 +62,8 @@
         -:   60:			}
         -:   61:		}
         -:   62:		else{
-    54980:   63:			result = result + c;
+    52628:   63:			result = result + c;
         -:   64:		}
         -:   65:	}
-     1504:   66:	return result;
-      213:   67:}
+     1432:   66:	return result;
+      225:   67:}

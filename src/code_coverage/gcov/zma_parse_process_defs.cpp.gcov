@@ -17,41 +17,41 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       95:   18:bool CZMA_PARSE_DEFS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       86:   18:bool CZMA_PARSE_DEFS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	CVALUE v;
         -:   20:	int index;
         -:   21:
-       95:   22:	update_flags( &info, p_last_line );
-       95:   23:	index = this->expression( info, 1, v );
-       95:   24:	if( index == 0 ) {
+       86:   22:	update_flags( &info, p_last_line );
+       86:   23:	index = this->expression( info, 1, v );
+       86:   24:	if( index == 0 ) {
        50:   25:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
        10:   26:		return false;
         -:   27:	}
-      170:   28:	if( index < ( int) words.size() ) {
-       50:   29:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-       10:   30:		return false;
+      152:   28:	if( index < ( int) words.size() ) {
+       20:   29:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        4:   30:		return false;
         -:   31:	}
-      150:   32:	if( v.is_unknown() ){
+      144:   32:	if( v.is_unknown() ){
        55:   33:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
        11:   34:		return false;
         -:   35:	}
-       64:   36:	if( v.is_integer() ) {
-        7:   37:		v.value_type = CVALUE_TYPE::CV_STRING;
-       21:   38:		v.s = std::to_string( v.i );
+       61:   36:	if( v.is_integer() ) {
+        4:   37:		v.value_type = CVALUE_TYPE::CV_STRING;
+       12:   38:		v.s = std::to_string( v.i );
         -:   39:	}
-       64:   40:	this->set_code_size( &info, (unsigned int)v.s.size() );
-       64:   41:	if( !this->is_data_fixed ) {
-    16534:   42:		for( auto c : v.s ) {
-    33028:   43:			data.push_back( c );
+       61:   40:	this->set_code_size( &info, (unsigned int)v.s.size() );
+       61:   41:	if( !this->is_data_fixed ) {
+    16531:   42:		for( auto c : v.s ) {
+    33024:   43:			data.push_back( c );
         -:   44:		}
-       20:   45:		this->is_data_fixed = true;
+       19:   45:		this->is_data_fixed = true;
         -:   46:	}
         -:   47:	//	log
-       64:   48:	if( !this->is_analyze_phase ) {
-       40:   49:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       20:   50:		log.write_dump( this->code_address, this->file_address, this->data );
-       20:   51:		log.write_separator();
+       61:   48:	if( !this->is_analyze_phase ) {
+       38:   49:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       19:   50:		log.write_dump( this->code_address, this->file_address, this->data );
+       19:   51:		log.write_separator();
         -:   52:	}
         -:   53:	return check_all_fixed();
-      142:   54:}
+      150:   54:}
         -:   55:

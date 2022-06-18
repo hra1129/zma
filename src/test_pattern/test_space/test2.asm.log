@@ -2,7 +2,7 @@ Z80 Macro Assembler ZMA v1.0.16-alpha
 =====================================================
 Programmed by t.hara
 
-  DEFS is DEFINE STRING (default).
+  DEFS is DEFINE SPACE.
 
 << code >>
 LINE# |OFFSET|ADDR|MNEMONIC
@@ -10,9 +10,20 @@ LINE# |OFFSET|ADDR|MNEMONIC
      5|      |    |ORG 0x100
 ------+------+----+----------------------------------
      6|      |    |DEFS 16
-      |000000|0100|  31 36
+      |      |    |  Allocate space: 16byte(s)
+      |      |    |  Fill value    : 0(0x00)
+      |000000|0100|  00 00 00 00 00 00 00 00
+      |000008|0108|  00 00 00 00 00 00 00 00
 ------+------+----+----------------------------------
      7|      |    |DEFS 16, 'X'
-     7|ERROR |    |Illegal parameter.: test2.asm(7)
+      |      |    |  Allocate space: 16byte(s)
+      |      |    |  Fill value    : 88(0x58)
+      |000010|0110|  58 58 58 58 58 58 58 58
+      |000018|0118|  58 58 58 58 58 58 58 58
+------+------+----+----------------------------------
      8|      |    |DEFS 16, 32
-     8|ERROR |    |Illegal parameter.: test2.asm(8)
+      |      |    |  Allocate space: 16byte(s)
+      |      |    |  Fill value    : 32(0x20)
+      |000020|0120|  20 20 20 20 20 20 20 20
+      |000028|0128|  20 20 20 20 20 20 20 20
+------+------+----+----------------------------------

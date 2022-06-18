@@ -101,5 +101,5 @@
      1379:   99:		log.write_separator();
         -:  100:	}
         -:  101:	return check_all_fixed();
-      142:  102:}
+      150:  102:}
         -:  103:

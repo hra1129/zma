@@ -16,19 +16,19 @@
         -:   14:#include <algorithm>
         -:   15:
         -:   16:// --------------------------------------------------------------------
-   258413:   17:std::string CZMA_PARSE::get_word( int index ) {
-   516826:   18:	if( index >= (int)words.size() ) {
-    41669:   19:		return "";
+   257729:   17:std::string CZMA_PARSE::get_word( int index ) {
+   515458:   18:	if( index >= (int)words.size() ) {
+    41729:   19:		return "";
         -:   20:	}
-   216744:   21:	return words[index];
+   216000:   21:	return words[index];
         -:   22:}
         -:   23:
         -:   24:// --------------------------------------------------------------------
-    25134:   25:std::string CZMA_PARSE::delete_head_space( std::string s ) {
+    25135:   25:std::string CZMA_PARSE::delete_head_space( std::string s ) {
         -:   26:	int i;
         -:   27:
-    90574:   28:	for( i = 0; isspace( s[i] ); i++ );
-    25134:   29:	return s.substr( i );
+    90576:   28:	for( i = 0; isspace( s[i] ); i++ );
+    25135:   29:	return s.substr( i );
         -:   30:}
         -:   31:
         -:   32:// --------------------------------------------------------------------
@@ -41,17 +41,17 @@
         -:   39:}
         -:   40:
         -:   41:// --------------------------------------------------------------------
-     8160:   42:std::vector<std::string> CZMA_PARSE::get_word_split( std::string s ) {
+     8161:   42:std::vector<std::string> CZMA_PARSE::get_word_split( std::string s ) {
         -:   43:	int i;
         -:   44:	std::string word;
         -:   45:	std::vector< std::string > words;
         -:   46:	static std::vector< std::string > operator_list = { 
         -:   47:		"<<", ">>", "!=", "==", "<=", ">=", "::", "&&", "||", ":="
-     8231:   48:	};
+     8233:   48:	};
         -:   49:
         -:   50:	for(;;) {
-    75402:   51:		s = delete_head_space( s );
-    25134:   52:		if( s[0] == ';' || s[0] == '\0' ) {
+    75405:   51:		s = delete_head_space( s );
+    25135:   52:		if( s[0] == ';' || s[0] == '\0' ) {
         -:   53:			break;
         -:   54:		}
     16974:   55:		else if( s[0] == '\'' ) {
@@ -158,29 +158,29 @@
     16761:  156:		words.push_back( word );
     33522:  157:		s = s.substr( i );
         -:  158:	}
-     8160:  159:	return words;
+     8161:  159:	return words;
         -:  160:}
         -:  161:
         -:  162:// --------------------------------------------------------------------
-    18000:  163:CZMA_PARSE::CZMA_PARSE( std::vector<std::string> words, const char* p_file_name, int line_no ) {
-     9000:  164:	this->code_address = -1;
-     9000:  165:	this->next_code_address = -1;
-     9000:  166:	this->file_address = -1;
-     9000:  167:	this->code_size = -1;
-     9000:  168:	this->is_data_fixed = false;
-     9000:  169:	this->words = words;
-     9000:  170:	this->p_file_name = p_file_name;
-     9000:  171:	this->line_no = line_no;
-     9000:  172:	this->is_analyze_phase = true;
-     9000:  173:	this->is_label_search_state = true;
-     9000:  174:	this->is_structure_error = false;
-     9000:  175:	this->number_of_error_for_this = 0;
-     9000:  176:}
+    18002:  163:CZMA_PARSE::CZMA_PARSE( std::vector<std::string> words, const char* p_file_name, int line_no ) {
+     9001:  164:	this->code_address = -1;
+     9001:  165:	this->next_code_address = -1;
+     9001:  166:	this->file_address = -1;
+     9001:  167:	this->code_size = -1;
+     9001:  168:	this->is_data_fixed = false;
+     9001:  169:	this->words = words;
+     9001:  170:	this->p_file_name = p_file_name;
+     9001:  171:	this->line_no = line_no;
+     9001:  172:	this->is_analyze_phase = true;
+     9001:  173:	this->is_label_search_state = true;
+     9001:  174:	this->is_structure_error = false;
+     9001:  175:	this->number_of_error_for_this = 0;
+     9001:  176:}
         -:  177:
         -:  178:// --------------------------------------------------------------------
-    27675:  179:bool CZMA_PARSE::update_flags( CZMA_INFORMATION* p_info, const CZMA_PARSE* p_last_line ) {
+    27678:  179:bool CZMA_PARSE::update_flags( CZMA_INFORMATION* p_info, const CZMA_PARSE* p_last_line ) {
         -:  180:	bool result = true;
-    27675:  181:	if( p_last_line == nullptr ) {
+    27678:  181:	if( p_last_line == nullptr ) {
         -:  182:		this->set_code_address( p_info, 0 );
         -:  183:		this->set_file_address( p_info, 0 );
         -:  184:	}
@@ -193,25 +193,25 @@
         -:  191:		}
         -:  192:
     27458:  193:		if( p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
-    26332:  194:			this->set_file_address( p_info, p_last_line->get_file_address() + p_last_line->get_code_size() );
+    26335:  194:			this->set_file_address( p_info, p_last_line->get_file_address() + p_last_line->get_code_size() );
         -:  195:		}
         -:  196:		else {
         -:  197:			result = false;
         -:  198:		}
         -:  199:	}
-    27675:  200:	if( !this->is_data_fixed ) {
+    27678:  200:	if( !this->is_data_fixed ) {
         -:  201:		result = false;
         -:  202:	}
-    27675:  203:	if( this->is_fixed_code_address() && this->is_fixed_code_size() ) {
-    18353:  204:		if( this->next_code_address == -1 ) {
+    27678:  203:	if( this->is_fixed_code_address() && this->is_fixed_code_size() ) {
+    18359:  204:		if( this->next_code_address == -1 ) {
       287:  205:			p_info->is_updated = true;
         -:  206:		}
-    18353:  207:		this->next_code_address = this->get_code_address() + this->get_code_size();
+    18359:  207:		this->next_code_address = this->get_code_address() + this->get_code_size();
         -:  208:	}
         -:  209:	else {
         -:  210:		result = false;
         -:  211:	}
-    27675:  212:	return result;
+    27678:  212:	return result;
         -:  213:}
         -:  214:
         -:  215:// --------------------------------------------------------------------
@@ -284,52 +284,52 @@
         -:  282:}
         -:  283:
         -:  284:// --------------------------------------------------------------------
-     1526:  285:void CZMA_PARSE::put_error( std::string message ) {
+     1454:  285:void CZMA_PARSE::put_error( std::string message ) {
         -:  286:
-     1526:  287:	if( this->is_analyze_phase ) {
+     1454:  287:	if( this->is_analyze_phase ) {
         -:  288:		return;
         -:  289:	}
-      469:  290:	if( number_of_error_for_this == 0 ){
-      674:  291:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, this->get_line() );
+      445:  290:	if( number_of_error_for_this == 0 ){
+      626:  291:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, this->get_line() );
         -:  292:	}
-      469:  293:	if( message != last_error ){
-      397:  294:		log.write_error_message( p_file_name, this->line_no, message );
-      397:  295:		number_of_error++;
-      397:  296:		number_of_error_for_this++;
+      445:  293:	if( message != last_error ){
+      373:  294:		log.write_error_message( p_file_name, this->line_no, message );
+      373:  295:		number_of_error++;
+      373:  296:		number_of_error_for_this++;
         -:  297:		last_error = message;
         -:  298:	}
         -:  299:}
         -:  300:
         -:  301:// --------------------------------------------------------------------
-       64:  302:std::string CZMA_PARSE::escape( const std::string &s ){
+       66:  302:std::string CZMA_PARSE::escape( const std::string &s ){
         -:  303:	std::string ss;
         -:  304:
-      968:  305:	for( auto c : s ){
-      904:  306:		switch( c ) {
+      973:  305:	for( auto c : s ){
+      907:  306:		switch( c ) {
         2:  307:		case '\a': ss = ss + "\\a";	break;
         2:  308:		case '\b': ss = ss + "\\b";	break;
         2:  309:		case '\f': ss = ss + "\\f";	break;
         2:  310:		case '\n': ss = ss + "\\n";	break;
         2:  311:		case '\r': ss = ss + "\\r";	break;
         2:  312:		case '\t': ss = ss + "\\t";	break;
-     1796:  313:		default:   ss = ss + c;     break;
+     1802:  313:		default:   ss = ss + c;     break;
         -:  314:		}
         -:  315:	}
-       64:  316:	return ss;
+       66:  316:	return ss;
         -:  317:}
         -:  318:
         -:  319:// --------------------------------------------------------------------
-       64:  320:void CZMA_PARSE::put_message( std::string message ) {
-      128:  321:	std::stringstream ss;
+       66:  320:void CZMA_PARSE::put_message( std::string message ) {
+      132:  321:	std::stringstream ss;
         -:  322:	std::string s;
         -:  323:
-       64:  324:	if(this->is_analyze_phase) {
+       66:  324:	if(this->is_analyze_phase) {
         -:  325:		return;
         -:  326:	}
-      256:  327:	ss << "MESSAGE: " << this->escape( message ) << ": " << p_file_name << "(" << line_no << ")";
-      128:  328:	s = ss.str();
-       64:  329:	std::cout << s << "\n";
-       64:  330:	log.write_message( s );
+      264:  327:	ss << "MESSAGE: " << this->escape( message ) << ": " << p_file_name << "(" << line_no << ")";
+      132:  328:	s = ss.str();
+       66:  329:	std::cout << s << "\n";
+       66:  330:	log.write_message( s );
         -:  331:}
         -:  332:
         -:  333:// --------------------------------------------------------------------
@@ -1119,14 +1119,14 @@
         -: 1117:}
         -: 1118:
         -: 1119:// --------------------------------------------------------------------
-       96: 1120:bool CZMA_PARSE::opecode_n8( CZMA_INFORMATION &info, unsigned char op1 ){
+       36: 1120:bool CZMA_PARSE::opecode_n8( CZMA_INFORMATION &info, unsigned char op1 ){
         -: 1121:	CVALUE imm8;
         -: 1122:
-      288: 1123:	if( words.size() < 2 || words[ 1 ] == "[" ){
+      108: 1123:	if( words.size() < 2 || words[ 1 ] == "[" ){
         -: 1124:		return false;
         -: 1125:	}
         -: 1126:	this->set_code_size( &info, 2 );
-       96: 1127:	if( !this->expression( info, 1, imm8 ) ){
+       36: 1127:	if( !this->expression( info, 1, imm8 ) ){
         -: 1128:		return false;
         -: 1129:	}
        18: 1130:	if( imm8.value_type != CVALUE_TYPE::CV_INTEGER ){
@@ -1790,378 +1790,400 @@
         -: 1788:		}
         -: 1789:		return true;
         -: 1790:	}
-      480: 1791:	if( words.size() == 4 && this->check_location_hl( 1 ) ) {
-       36: 1792:		if( this->is_data_fixed ) {
+      798: 1791:	if( words.size() == 2 && info.is_ix_hl( words[ 1 ] ) ){
+       30: 1792:		if( this->is_data_fixed ){
         -: 1793:			return true;
         -: 1794:		}
-       12: 1795:		this->is_data_fixed = true;
-       12: 1796:		if( op2 != -1 ) {
-        -: 1797:			this->set_code_size( &info, 2 );
-        7: 1798:			this->data.push_back( op1 );
-       14: 1799:			this->data.push_back( op2 | 0x06 );
-        -: 1800:		}
-        -: 1801:		else {
-        -: 1802:			this->set_code_size( &info, 1 );
-       10: 1803:			this->data.push_back( op1 | 0x06 );
-        -: 1804:		}
-        -: 1805:		return true;
-        -: 1806:	}
-      294: 1807:	if( words.size() >= 6 && this->check_location_ix( 1 ) ) {
-       51: 1808:		if( op2 != -1 ) {
-        -: 1809:			this->set_code_size( &info, 4 );
-        -: 1810:		}
-        -: 1811:		else {
-        -: 1812:			this->set_code_size( &info, 3 );
-        -: 1813:		}
-      102: 1814:		if( words[3] == "+" || words[3] == "-" ) {
-       51: 1815:			n = this->expression( info, 3, nn );
-       51: 1816:			if( n == 0 ) {
-    #####: 1817:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####: 1818:				return false;
-        -: 1819:			}
-      102: 1820:			if( words[ n ] != "]" ){
-    #####: 1821:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####: 1822:				return false;
-        -: 1823:			}
-       51: 1824:			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1825:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####: 1826:				return false;
-        -: 1827:			}
-       51: 1828:			if( nn.i < -128 || nn.i > 127 ) {
-    #####: 1829:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
-    #####: 1830:				return false;
-        -: 1831:			}
-      183: 1832:			if( words.size() > (unsigned)(n + 2) && words[ n + 1 ] == "," && info.is_sss_or_ddd( words[ n + 2 ] ) ){
-       30: 1833:				ddd = info.sss_or_ddd_id[ words[ n + 2 ] ];
-        -: 1834:			}
-        -: 1835:			else{
-        -: 1836:				ddd = 6;
-        -: 1837:			}
-        -: 1838:		}
-        -: 1839:		else {
-    #####: 1840:			nn.i = 0;
-        -: 1841:			ddd = 6;
-        -: 1842:		}
-       51: 1843:		if( this->is_data_fixed ) {
-        -: 1844:			return true;
-        -: 1845:		}
-       17: 1846:		this->is_data_fixed = true;
-       34: 1847:		this->data.push_back( 0xDD );
-       17: 1848:		if( op2 != -1 ) {
-       12: 1849:			this->data.push_back( op1 );
-       24: 1850:			this->data.push_back( nn.i );
-       24: 1851:			this->data.push_back( op2 | ddd );
-        -: 1852:		}
-        -: 1853:		else {
-       10: 1854:			this->data.push_back( (unsigned char)(op1 | ddd) );
-       10: 1855:			this->data.push_back( nn.i );
-        -: 1856:		}
-        -: 1857:		return true;
-        -: 1858:	}
-      192: 1859:	if( words.size() >= 6 && this->check_location_iy( 1 ) ) {
-       36: 1860:		if( op2 != -1 ) {
-        -: 1861:			this->set_code_size( &info, 4 );
-        -: 1862:		}
-        -: 1863:		else {
-        -: 1864:			this->set_code_size( &info, 3 );
-        -: 1865:		}
-       72: 1866:		if( words[3] == "+" || words[3] == "-" ) {
-       36: 1867:			n = this->expression( info, 3, nn );
-       36: 1868:			if( n == 0 ){
-    #####: 1869:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####: 1870:				return false;
-        -: 1871:			}
-       72: 1872:			if( words[ n ] != "]" ){
-    #####: 1873:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####: 1874:				return false;
-        -: 1875:			}
-       36: 1876:			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1877:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####: 1878:				return false;
-        -: 1879:			}
-       36: 1880:			if( nn.i < -128 || nn.i > 127 ) {
-    #####: 1881:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
-    #####: 1882:				return false;
-        -: 1883:			}
-      108: 1884:			if( words.size() > (unsigned)(n + 2) && words[ n + 1 ] == "," && info.is_sss_or_ddd( words[ n + 2 ] ) ){
-    #####: 1885:				ddd = info.sss_or_ddd_id[ words[ n + 2 ] ];
-        -: 1886:			}
-        -: 1887:			else{
-        -: 1888:				ddd = 6;
-        -: 1889:			}
-        -: 1890:		}
-        -: 1891:		else{
-    #####: 1892:			nn.i = 0;
-        -: 1893:			ddd = 6;
-        -: 1894:		}
-       36: 1895:		if( this->is_data_fixed ) {
-        -: 1896:			return true;
-        -: 1897:		}
-       12: 1898:		this->is_data_fixed = true;
-       24: 1899:		this->data.push_back( 0xFD );
-       12: 1900:		if( op2 != -1 ) {
-        7: 1901:			this->data.push_back( op1 );
-       14: 1902:			this->data.push_back( nn.i );
-       14: 1903:			this->data.push_back( op2 | ddd );
-        -: 1904:		}
-        -: 1905:		else {
-       10: 1906:			this->data.push_back( (unsigned char)(op1 | ddd) );
-       10: 1907:			this->data.push_back( nn.i );
-        -: 1908:		}
-        -: 1909:		return true;
-        -: 1910:	}
-        -: 1911:	return false;
-        -: 1912:}
-        -: 1913:
-        -: 1914:// --------------------------------------------------------------------
-       86: 1915:bool CZMA_PARSE::opecode_condition_address( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
-        -: 1916:	int ccc, index;
-        -: 1917:	CVALUE address;
-        -: 1918:
-      250: 1919:	if( words.size() == 2 && (words[1] == "HL" || words[1] == "IX" || words[1] == "IY") ) {
-        -: 1920:		return false;
-        -: 1921:	}
-      226: 1922:	if( words.size() >= 4 && info.is_ccc( words[1] ) ) {
-        -: 1923:		this->set_code_size( &info, 3 );
-       54: 1924:		index = this->expression( info, 3, address );
-       54: 1925:		if( index == 0 ) {
-    #####: 1926:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####: 1927:			return false;
-        -: 1928:		}
-       54: 1929:		if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
-    #####: 1930:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####: 1931:			return false;
-        -: 1932:		}
-      108: 1933:		if( index < (int)words.size() ) {
-        -: 1934:			return false;
-        -: 1935:		}
-       96: 1936:		ccc = info.ccc_id[words[1]];
-       48: 1937:		if( this->is_data_fixed ) {
-        -: 1938:			return true;
-        -: 1939:		}
-       16: 1940:		this->is_data_fixed = true;
-       32: 1941:		this->data.push_back( (unsigned char)(op1c | (ccc << 3)) );
-       32: 1942:		this->data.push_back( address.i & 255 );
-       32: 1943:		this->data.push_back( (address.i >> 8) & 255 );
-       16: 1944:		return true;
-        -: 1945:	}
-        -: 1946:	else {
-        -: 1947:		this->set_code_size( &info, 3 );
-       32: 1948:		index = this->expression( info, 1, address );
-       32: 1949:		if( index == 0 ) {
-    #####: 1950:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####: 1951:			return false;
-        -: 1952:		}
-       32: 1953:		if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
-       35: 1954:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-        7: 1955:			return false;
-        -: 1956:		}
-       50: 1957:		if( index < (int)words.size() ) {
-        -: 1958:			return false;
-        -: 1959:		}
-       19: 1960:		if( this->is_data_fixed ) {
-        -: 1961:			return true;
-        -: 1962:		}
-        7: 1963:		this->is_data_fixed = true;
-        7: 1964:		this->data.push_back( op1 );
-       14: 1965:		this->data.push_back( address.i & 255 );
-       14: 1966:		this->data.push_back( (address.i >> 8) & 255 );
-        7: 1967:		return true;
-        -: 1968:	}
-        -: 1969:	return false;
-        -: 1970:}
-        -: 1971:
-        -: 1972:// --------------------------------------------------------------------
-       55: 1973:bool CZMA_PARSE::opecode_condition_offset( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
-        -: 1974:	int address, ccc;
-        -: 1975:
-      192: 1976:	if( words.size() >= 4 && info.is_cc2( words[1] ) ) {
-        -: 1977:		this->set_code_size( &info, 2 );
-       27: 1978:		address = this->relative_address( info, 3 );
-       27: 1979:		if( address == -9999 ) {
+       10: 1795:		this->is_data_fixed = true;
+       20: 1796:		sss = info.ix_hl[ words[ 1 ] ];
+        -: 1797:		this->set_code_size( &info, 2 );
+       20: 1798:		this->data.push_back( 0xDD );
+       20: 1799:		this->data.push_back( (unsigned char)( op1 | sss ) );
+       10: 1800:		return true;
+        -: 1801:	}
+      678: 1802:	if( words.size() == 2 && info.is_iy_hl( words[ 1 ] ) ){
+       30: 1803:		if( this->is_data_fixed ){
+        -: 1804:			return true;
+        -: 1805:		}
+       10: 1806:		this->is_data_fixed = true;
+       20: 1807:		sss = info.iy_hl[ words[ 1 ] ];
+        -: 1808:		this->set_code_size( &info, 2 );
+       20: 1809:		this->data.push_back( 0xFD );
+       20: 1810:		this->data.push_back( (unsigned char)( op1 | sss ) );
+       10: 1811:		return true;
+        -: 1812:	}
+      360: 1813:	if( words.size() == 4 && this->check_location_hl( 1 ) ) {
+       36: 1814:		if( this->is_data_fixed ) {
+        -: 1815:			return true;
+        -: 1816:		}
+       12: 1817:		this->is_data_fixed = true;
+       12: 1818:		if( op2 != -1 ) {
+        -: 1819:			this->set_code_size( &info, 2 );
+        7: 1820:			this->data.push_back( op1 );
+       14: 1821:			this->data.push_back( op2 | 0x06 );
+        -: 1822:		}
+        -: 1823:		else {
+        -: 1824:			this->set_code_size( &info, 1 );
+       10: 1825:			this->data.push_back( op1 | 0x06 );
+        -: 1826:		}
+        -: 1827:		return true;
+        -: 1828:	}
+      234: 1829:	if( words.size() >= 6 && this->check_location_ix( 1 ) ) {
+       51: 1830:		if( op2 != -1 ) {
+        -: 1831:			this->set_code_size( &info, 4 );
+        -: 1832:		}
+        -: 1833:		else {
+        -: 1834:			this->set_code_size( &info, 3 );
+        -: 1835:		}
+      102: 1836:		if( words[3] == "+" || words[3] == "-" ) {
+       51: 1837:			n = this->expression( info, 3, nn );
+       51: 1838:			if( n == 0 ) {
+    #####: 1839:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+    #####: 1840:				return false;
+        -: 1841:			}
+      102: 1842:			if( words[ n ] != "]" ){
+    #####: 1843:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+    #####: 1844:				return false;
+        -: 1845:			}
+       51: 1846:			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
+    #####: 1847:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+    #####: 1848:				return false;
+        -: 1849:			}
+       51: 1850:			if( nn.i < -128 || nn.i > 127 ) {
+    #####: 1851:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
+    #####: 1852:				return false;
+        -: 1853:			}
+      183: 1854:			if( words.size() > (unsigned)(n + 2) && words[ n + 1 ] == "," && info.is_sss_or_ddd( words[ n + 2 ] ) ){
+       30: 1855:				ddd = info.sss_or_ddd_id[ words[ n + 2 ] ];
+        -: 1856:			}
+        -: 1857:			else{
+        -: 1858:				ddd = 6;
+        -: 1859:			}
+        -: 1860:		}
+        -: 1861:		else {
+    #####: 1862:			nn.i = 0;
+        -: 1863:			ddd = 6;
+        -: 1864:		}
+       51: 1865:		if( this->is_data_fixed ) {
+        -: 1866:			return true;
+        -: 1867:		}
+       17: 1868:		this->is_data_fixed = true;
+       34: 1869:		this->data.push_back( 0xDD );
+       17: 1870:		if( op2 != -1 ) {
+       12: 1871:			this->data.push_back( op1 );
+       24: 1872:			this->data.push_back( nn.i );
+       24: 1873:			this->data.push_back( op2 | ddd );
+        -: 1874:		}
+        -: 1875:		else {
+       10: 1876:			this->data.push_back( (unsigned char)(op1 | ddd) );
+       10: 1877:			this->data.push_back( nn.i );
+        -: 1878:		}
+        -: 1879:		return true;
+        -: 1880:	}
+      132: 1881:	if( words.size() >= 6 && this->check_location_iy( 1 ) ) {
+       36: 1882:		if( op2 != -1 ) {
+        -: 1883:			this->set_code_size( &info, 4 );
+        -: 1884:		}
+        -: 1885:		else {
+        -: 1886:			this->set_code_size( &info, 3 );
+        -: 1887:		}
+       72: 1888:		if( words[3] == "+" || words[3] == "-" ) {
+       36: 1889:			n = this->expression( info, 3, nn );
+       36: 1890:			if( n == 0 ){
+    #####: 1891:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+    #####: 1892:				return false;
+        -: 1893:			}
+       72: 1894:			if( words[ n ] != "]" ){
+    #####: 1895:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+    #####: 1896:				return false;
+        -: 1897:			}
+       36: 1898:			if( nn.value_type != CVALUE_TYPE::CV_INTEGER ) {
+    #####: 1899:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+    #####: 1900:				return false;
+        -: 1901:			}
+       36: 1902:			if( nn.i < -128 || nn.i > 127 ) {
+    #####: 1903:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ) );
+    #####: 1904:				return false;
+        -: 1905:			}
+      108: 1906:			if( words.size() > (unsigned)(n + 2) && words[ n + 1 ] == "," && info.is_sss_or_ddd( words[ n + 2 ] ) ){
+    #####: 1907:				ddd = info.sss_or_ddd_id[ words[ n + 2 ] ];
+        -: 1908:			}
+        -: 1909:			else{
+        -: 1910:				ddd = 6;
+        -: 1911:			}
+        -: 1912:		}
+        -: 1913:		else{
+    #####: 1914:			nn.i = 0;
+        -: 1915:			ddd = 6;
+        -: 1916:		}
+       36: 1917:		if( this->is_data_fixed ) {
+        -: 1918:			return true;
+        -: 1919:		}
+       12: 1920:		this->is_data_fixed = true;
+       24: 1921:		this->data.push_back( 0xFD );
+       12: 1922:		if( op2 != -1 ) {
+        7: 1923:			this->data.push_back( op1 );
+       14: 1924:			this->data.push_back( nn.i );
+       14: 1925:			this->data.push_back( op2 | ddd );
+        -: 1926:		}
+        -: 1927:		else {
+       10: 1928:			this->data.push_back( (unsigned char)(op1 | ddd) );
+       10: 1929:			this->data.push_back( nn.i );
+        -: 1930:		}
+        -: 1931:		return true;
+        -: 1932:	}
+        -: 1933:	return false;
+        -: 1934:}
+        -: 1935:
+        -: 1936:// --------------------------------------------------------------------
+       86: 1937:bool CZMA_PARSE::opecode_condition_address( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
+        -: 1938:	int ccc, index;
+        -: 1939:	CVALUE address;
+        -: 1940:
+      250: 1941:	if( words.size() == 2 && (words[1] == "HL" || words[1] == "IX" || words[1] == "IY") ) {
+        -: 1942:		return false;
+        -: 1943:	}
+      226: 1944:	if( words.size() >= 4 && info.is_ccc( words[1] ) ) {
+        -: 1945:		this->set_code_size( &info, 3 );
+       54: 1946:		index = this->expression( info, 3, address );
+       54: 1947:		if( index == 0 ) {
+    #####: 1948:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+    #####: 1949:			return false;
+        -: 1950:		}
+       54: 1951:		if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
+    #####: 1952:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+    #####: 1953:			return false;
+        -: 1954:		}
+      108: 1955:		if( index < (int)words.size() ) {
+        -: 1956:			return false;
+        -: 1957:		}
+       96: 1958:		ccc = info.ccc_id[words[1]];
+       48: 1959:		if( this->is_data_fixed ) {
+        -: 1960:			return true;
+        -: 1961:		}
+       16: 1962:		this->is_data_fixed = true;
+       32: 1963:		this->data.push_back( (unsigned char)(op1c | (ccc << 3)) );
+       32: 1964:		this->data.push_back( address.i & 255 );
+       32: 1965:		this->data.push_back( (address.i >> 8) & 255 );
+       16: 1966:		return true;
+        -: 1967:	}
+        -: 1968:	else {
+        -: 1969:		this->set_code_size( &info, 3 );
+       32: 1970:		index = this->expression( info, 1, address );
+       32: 1971:		if( index == 0 ) {
+    #####: 1972:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+    #####: 1973:			return false;
+        -: 1974:		}
+       32: 1975:		if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
+       35: 1976:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        7: 1977:			return false;
+        -: 1978:		}
+       50: 1979:		if( index < (int)words.size() ) {
         -: 1980:			return false;
         -: 1981:		}
-       32: 1982:		ccc = info.cc2_id[words[1]];
-       16: 1983:		if( this->is_data_fixed ) {
-        -: 1984:			return true;
-        -: 1985:		}
-        8: 1986:		this->is_data_fixed = true;
-       16: 1987:		this->data.push_back( (unsigned char)(op1c | (ccc << 3)) );
-       16: 1988:		this->data.push_back( address );
-        8: 1989:		return true;
+       19: 1982:		if( this->is_data_fixed ) {
+        -: 1983:			return true;
+        -: 1984:		}
+        7: 1985:		this->is_data_fixed = true;
+        7: 1986:		this->data.push_back( op1 );
+       14: 1987:		this->data.push_back( address.i & 255 );
+       14: 1988:		this->data.push_back( (address.i >> 8) & 255 );
+        7: 1989:		return true;
         -: 1990:	}
-       56: 1991:	if( words.size() >= 2 ) {
-        -: 1992:		this->set_code_size( &info, 2 );
-       28: 1993:		address = this->relative_address( info, 1 );
-       28: 1994:		if( address == -9999 ) {
-        -: 1995:			return false;
-        -: 1996:		}
-       10: 1997:		if( this->is_data_fixed ) {
-        -: 1998:			return true;
-        -: 1999:		}
-        3: 2000:		this->is_data_fixed = true;
-        3: 2001:		this->data.push_back( op1 );
-        6: 2002:		this->data.push_back( address );
-        3: 2003:		return true;
-        -: 2004:	}
-        -: 2005:	return false;
-        -: 2006:}
-        -: 2007:
-        -: 2008:// --------------------------------------------------------------------
-       42: 2009:bool CZMA_PARSE::opecode_condition( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
-        -: 2010:	int ccc;
-        -: 2011:
-      153: 2012:	if( words.size() == 2 && info.is_ccc( words[1] ) ) {
-       48: 2013:		ccc = info.ccc_id[words[1]];
-        -: 2014:		this->set_code_size( &info, 1 );
-       24: 2015:		if( this->is_data_fixed ) {
-        -: 2016:			return true;
-        -: 2017:		}
-        8: 2018:		this->is_data_fixed = true;
-       16: 2019:		this->data.push_back( (unsigned char)(op1c | (ccc << 3)) );
-        8: 2020:		return true;
-        -: 2021:	}
-       36: 2022:	else if( words.size() == 1 ) {
-        -: 2023:		this->set_code_size( &info, 1 );
-       15: 2024:		if( this->is_data_fixed ) {
-        -: 2025:			return true;
-        -: 2026:		}
-        5: 2027:		this->is_data_fixed = true;
-        5: 2028:		this->data.push_back( op1 );
-        5: 2029:		return true;
-        -: 2030:	}
-        -: 2031:	return false;
-        -: 2032:}
+        -: 1991:	return false;
+        -: 1992:}
+        -: 1993:
+        -: 1994:// --------------------------------------------------------------------
+       55: 1995:bool CZMA_PARSE::opecode_condition_offset( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
+        -: 1996:	int address, ccc;
+        -: 1997:
+      192: 1998:	if( words.size() >= 4 && info.is_cc2( words[1] ) ) {
+        -: 1999:		this->set_code_size( &info, 2 );
+       27: 2000:		address = this->relative_address( info, 3 );
+       27: 2001:		if( address == -9999 ) {
+        -: 2002:			return false;
+        -: 2003:		}
+       32: 2004:		ccc = info.cc2_id[words[1]];
+       16: 2005:		if( this->is_data_fixed ) {
+        -: 2006:			return true;
+        -: 2007:		}
+        8: 2008:		this->is_data_fixed = true;
+       16: 2009:		this->data.push_back( (unsigned char)(op1c | (ccc << 3)) );
+       16: 2010:		this->data.push_back( address );
+        8: 2011:		return true;
+        -: 2012:	}
+       56: 2013:	if( words.size() >= 2 ) {
+        -: 2014:		this->set_code_size( &info, 2 );
+       28: 2015:		address = this->relative_address( info, 1 );
+       28: 2016:		if( address == -9999 ) {
+        -: 2017:			return false;
+        -: 2018:		}
+       10: 2019:		if( this->is_data_fixed ) {
+        -: 2020:			return true;
+        -: 2021:		}
+        3: 2022:		this->is_data_fixed = true;
+        3: 2023:		this->data.push_back( op1 );
+        6: 2024:		this->data.push_back( address );
+        3: 2025:		return true;
+        -: 2026:	}
+        -: 2027:	return false;
+        -: 2028:}
+        -: 2029:
+        -: 2030:// --------------------------------------------------------------------
+       42: 2031:bool CZMA_PARSE::opecode_condition( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c ) {
+        -: 2032:	int ccc;
         -: 2033:
-        -: 2034:// --------------------------------------------------------------------
-       15: 2035:bool CZMA_PARSE::opecode_mulub( CZMA_INFORMATION& info, unsigned char op1, int op2 ) {
-        -: 2036:	int ddd;
-        -: 2037:
-       30: 2038:	if( words.size() != 4 ) {
-        -: 2039:		return false;
-        -: 2040:	}
-       24: 2041:	if( words[1] != "A" || words[2] != "," ) {
-        -: 2042:		return false;
+      153: 2034:	if( words.size() == 2 && info.is_ccc( words[1] ) ) {
+       48: 2035:		ccc = info.ccc_id[words[1]];
+        -: 2036:		this->set_code_size( &info, 1 );
+       24: 2037:		if( this->is_data_fixed ) {
+        -: 2038:			return true;
+        -: 2039:		}
+        8: 2040:		this->is_data_fixed = true;
+       16: 2041:		this->data.push_back( (unsigned char)(op1c | (ccc << 3)) );
+        8: 2042:		return true;
         -: 2043:	}
-       30: 2044:	if( words[3] != "B" && words[3] != "C" && words[3] != "D" && words[3] != "E" ) {
-        -: 2045:		return false;
-        -: 2046:	}
-       12: 2047:	if( this->is_data_fixed ) {
-        -: 2048:		return true;
-        -: 2049:	}
-        4: 2050:	this->is_data_fixed = true;
-        -: 2051:	this->set_code_size( &info, 2 );
-        4: 2052:	ddd = info.sss_or_ddd_id[words[3]];
-        4: 2053:	this->data.push_back( op1 );
-        8: 2054:	this->data.push_back( op2 | (ddd << 3) );
-        4: 2055:	return true;
-        -: 2056:}
-        -: 2057:
-        -: 2058:// --------------------------------------------------------------------
-        9: 2059:bool CZMA_PARSE::opecode_muluw( CZMA_INFORMATION& info ) {
-        -: 2060:
-       18: 2061:	if( words.size() != 4 ) {
-        -: 2062:		return false;
-        -: 2063:	}
-       12: 2064:	if( words[1] != "HL" || words[2] != "," ) {
-        -: 2065:		return false;
-        -: 2066:	}
-        6: 2067:	if( words[3] == "BC" ) {
-        3: 2068:		if( this->is_data_fixed ) {
-        -: 2069:			return true;
-        -: 2070:		}
-        1: 2071:		this->is_data_fixed = true;
-        -: 2072:		this->set_code_size( &info, 2 );
-        2: 2073:		this->data.push_back( 0xED );
-        2: 2074:		this->data.push_back( 0xC3 );
-        1: 2075:		return true;
-        -: 2076:	}
-        3: 2077:	if( words[3] == "SP" ) {
-        3: 2078:		if( this->is_data_fixed ) {
-        -: 2079:			return true;
-        -: 2080:		}
-        1: 2081:		this->is_data_fixed = true;
-        -: 2082:		this->set_code_size( &info, 2 );
-        2: 2083:		this->data.push_back( 0xED );
-        2: 2084:		this->data.push_back( 0xC5 );
-        1: 2085:		return true;
-        -: 2086:	}
-        -: 2087:	return false;
-        -: 2088:}
-        -: 2089:
-        -: 2090:// --------------------------------------------------------------------
-      192: 2091:bool CZMA_PARSE::opecode_destination8( CZMA_INFORMATION& info, unsigned char op1, int op2 ) {
-        -: 2092:	int ddd;
-        -: 2093:	CVALUE nn;
-        -: 2094:
-      693: 2095:	if( words.size() == 2 && info.is_sss_or_ddd( words[1] ) ) {
-      108: 2096:		ddd = info.sss_or_ddd_id[words[1]];
-       54: 2097:		if( this->is_data_fixed ) {
-        -: 2098:			return true;
-        -: 2099:		}
-       18: 2100:		this->is_data_fixed = true;
-       18: 2101:		if( op2 != -1 ) {
-        -: 2102:			this->set_code_size( &info, 2 );
-    #####: 2103:			this->data.push_back( op1 );
-    #####: 2104:			this->data.push_back( op2 | (ddd << 3) );
-        -: 2105:		}
-        -: 2106:		else {
-        -: 2107:			this->set_code_size( &info, 1 );
-       36: 2108:			this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
-        -: 2109:		}
-        -: 2110:		return true;
-        -: 2111:	}
-      477: 2112:	if( words.size() == 2 && info.is_ix_hl( words[1] ) ) {
-       24: 2113:		ddd = info.ix_hl[words[1]];
-       12: 2114:		if( this->is_data_fixed ) {
-        -: 2115:			return true;
-        -: 2116:		}
-        4: 2117:		this->is_data_fixed = true;
-        4: 2118:		if( op2 != -1 ) {
-        -: 2119:			this->set_code_size( &info, 3 );
-    #####: 2120:			this->data.push_back( 0xDD );
-    #####: 2121:			this->data.push_back( op1 );
-    #####: 2122:			this->data.push_back( op2 | (ddd << 3) );
-        -: 2123:		}
-        -: 2124:		else {
-        -: 2125:			this->set_code_size( &info, 2 );
-        8: 2126:			this->data.push_back( 0xDD );
-        8: 2127:			this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
-        -: 2128:		}
-        -: 2129:		return true;
-        -: 2130:	}
-      429: 2131:	if( words.size() == 2 && info.is_iy_hl( words[1] ) ) {
-       24: 2132:		ddd = info.iy_hl[words[1]];
-       12: 2133:		if( this->is_data_fixed ) {
-        -: 2134:			return true;
-        -: 2135:		}
-        4: 2136:		this->is_data_fixed = true;
-        4: 2137:		if( op2 != -1 ) {
-        -: 2138:			this->set_code_size( &info, 3 );
-    #####: 2139:			this->data.push_back( 0xFD );
-    #####: 2140:			this->data.push_back( op1 );
-    #####: 2141:			this->data.push_back( (unsigned char)(op2 | (ddd << 3)) );
-        -: 2142:		}
-        -: 2143:		else {
-        -: 2144:			this->set_code_size( &info, 2 );
-        8: 2145:			this->data.push_back( 0xFD );
-        8: 2146:			this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
-        -: 2147:		}
-        -: 2148:		return true;
-        -: 2149:	}
-        -: 2150:	return false;
-        -: 2151:}
-        -: 2152:
-        -: 2153:// --------------------------------------------------------------------
-     8554: 2154:bool CZMA_PARSE::write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) {
-        -: 2155:	unsigned char c;
-        -: 2156:
-    67231: 2157:	for( auto d: data ) {
-    58677: 2158:		c = d;
-    58677: 2159:		f->write( (const char*) &c, 1 );
-        -: 2160:	}
-    27730: 2161:	for( auto line : log ) {
-    19176: 2162:		info.log << line << std::endl;
-        -: 2163:	}
-     8554: 2164:	return true;
-      142: 2165:}
+       36: 2044:	else if( words.size() == 1 ) {
+        -: 2045:		this->set_code_size( &info, 1 );
+       15: 2046:		if( this->is_data_fixed ) {
+        -: 2047:			return true;
+        -: 2048:		}
+        5: 2049:		this->is_data_fixed = true;
+        5: 2050:		this->data.push_back( op1 );
+        5: 2051:		return true;
+        -: 2052:	}
+        -: 2053:	return false;
+        -: 2054:}
+        -: 2055:
+        -: 2056:// --------------------------------------------------------------------
+       15: 2057:bool CZMA_PARSE::opecode_mulub( CZMA_INFORMATION& info, unsigned char op1, int op2 ) {
+        -: 2058:	int ddd;
+        -: 2059:
+       30: 2060:	if( words.size() != 4 ) {
+        -: 2061:		return false;
+        -: 2062:	}
+       24: 2063:	if( words[1] != "A" || words[2] != "," ) {
+        -: 2064:		return false;
+        -: 2065:	}
+       30: 2066:	if( words[3] != "B" && words[3] != "C" && words[3] != "D" && words[3] != "E" ) {
+        -: 2067:		return false;
+        -: 2068:	}
+       12: 2069:	if( this->is_data_fixed ) {
+        -: 2070:		return true;
+        -: 2071:	}
+        4: 2072:	this->is_data_fixed = true;
+        -: 2073:	this->set_code_size( &info, 2 );
+        4: 2074:	ddd = info.sss_or_ddd_id[words[3]];
+        4: 2075:	this->data.push_back( op1 );
+        8: 2076:	this->data.push_back( op2 | (ddd << 3) );
+        4: 2077:	return true;
+        -: 2078:}
+        -: 2079:
+        -: 2080:// --------------------------------------------------------------------
+        9: 2081:bool CZMA_PARSE::opecode_muluw( CZMA_INFORMATION& info ) {
+        -: 2082:
+       18: 2083:	if( words.size() != 4 ) {
+        -: 2084:		return false;
+        -: 2085:	}
+       12: 2086:	if( words[1] != "HL" || words[2] != "," ) {
+        -: 2087:		return false;
+        -: 2088:	}
+        6: 2089:	if( words[3] == "BC" ) {
+        3: 2090:		if( this->is_data_fixed ) {
+        -: 2091:			return true;
+        -: 2092:		}
+        1: 2093:		this->is_data_fixed = true;
+        -: 2094:		this->set_code_size( &info, 2 );
+        2: 2095:		this->data.push_back( 0xED );
+        2: 2096:		this->data.push_back( 0xC3 );
+        1: 2097:		return true;
+        -: 2098:	}
+        3: 2099:	if( words[3] == "SP" ) {
+        3: 2100:		if( this->is_data_fixed ) {
+        -: 2101:			return true;
+        -: 2102:		}
+        1: 2103:		this->is_data_fixed = true;
+        -: 2104:		this->set_code_size( &info, 2 );
+        2: 2105:		this->data.push_back( 0xED );
+        2: 2106:		this->data.push_back( 0xC5 );
+        1: 2107:		return true;
+        -: 2108:	}
+        -: 2109:	return false;
+        -: 2110:}
+        -: 2111:
+        -: 2112:// --------------------------------------------------------------------
+      192: 2113:bool CZMA_PARSE::opecode_destination8( CZMA_INFORMATION& info, unsigned char op1, int op2 ) {
+        -: 2114:	int ddd;
+        -: 2115:	CVALUE nn;
+        -: 2116:
+      693: 2117:	if( words.size() == 2 && info.is_sss_or_ddd( words[1] ) ) {
+      108: 2118:		ddd = info.sss_or_ddd_id[words[1]];
+       54: 2119:		if( this->is_data_fixed ) {
+        -: 2120:			return true;
+        -: 2121:		}
+       18: 2122:		this->is_data_fixed = true;
+       18: 2123:		if( op2 != -1 ) {
+        -: 2124:			this->set_code_size( &info, 2 );
+    #####: 2125:			this->data.push_back( op1 );
+    #####: 2126:			this->data.push_back( op2 | (ddd << 3) );
+        -: 2127:		}
+        -: 2128:		else {
+        -: 2129:			this->set_code_size( &info, 1 );
+       36: 2130:			this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
+        -: 2131:		}
+        -: 2132:		return true;
+        -: 2133:	}
+      477: 2134:	if( words.size() == 2 && info.is_ix_hl( words[1] ) ) {
+       24: 2135:		ddd = info.ix_hl[words[1]];
+       12: 2136:		if( this->is_data_fixed ) {
+        -: 2137:			return true;
+        -: 2138:		}
+        4: 2139:		this->is_data_fixed = true;
+        4: 2140:		if( op2 != -1 ) {
+        -: 2141:			this->set_code_size( &info, 3 );
+    #####: 2142:			this->data.push_back( 0xDD );
+    #####: 2143:			this->data.push_back( op1 );
+    #####: 2144:			this->data.push_back( op2 | (ddd << 3) );
+        -: 2145:		}
+        -: 2146:		else {
+        -: 2147:			this->set_code_size( &info, 2 );
+        8: 2148:			this->data.push_back( 0xDD );
+        8: 2149:			this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
+        -: 2150:		}
+        -: 2151:		return true;
+        -: 2152:	}
+      429: 2153:	if( words.size() == 2 && info.is_iy_hl( words[1] ) ) {
+       24: 2154:		ddd = info.iy_hl[words[1]];
+       12: 2155:		if( this->is_data_fixed ) {
+        -: 2156:			return true;
+        -: 2157:		}
+        4: 2158:		this->is_data_fixed = true;
+        4: 2159:		if( op2 != -1 ) {
+        -: 2160:			this->set_code_size( &info, 3 );
+    #####: 2161:			this->data.push_back( 0xFD );
+    #####: 2162:			this->data.push_back( op1 );
+    #####: 2163:			this->data.push_back( (unsigned char)(op2 | (ddd << 3)) );
+        -: 2164:		}
+        -: 2165:		else {
+        -: 2166:			this->set_code_size( &info, 2 );
+        8: 2167:			this->data.push_back( 0xFD );
+        8: 2168:			this->data.push_back( (unsigned char)(op1 | (ddd << 3)) );
+        -: 2169:		}
+        -: 2170:		return true;
+        -: 2171:	}
+        -: 2172:	return false;
+        -: 2173:}
+        -: 2174:
+        -: 2175:// --------------------------------------------------------------------
+     8555: 2176:bool CZMA_PARSE::write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) {
+        -: 2177:	unsigned char c;
+        -: 2178:
+    67318: 2179:	for( auto d: data ) {
+    58763: 2180:		c = d;
+    58763: 2181:		f->write( (const char*) &c, 1 );
+        -: 2182:	}
+    27780: 2183:	for( auto line : log ) {
+    19225: 2184:		info.log << line << std::endl;
+        -: 2185:	}
+     8555: 2186:	return true;
+      150: 2187:}

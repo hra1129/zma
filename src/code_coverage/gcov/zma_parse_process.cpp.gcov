@@ -20,7 +20,7 @@
         -:   18:int CZMA_PARSE::number_of_error = 0;
         -:   19:
         -:   20:// --------------------------------------------------------------------
-      142:   21:static std::map< std::string, CZMA_COMMAND_TYPE > command_list = {
+      150:   21:static std::map< std::string, CZMA_COMMAND_TYPE > command_list = {
         -:   22:	{ "ALIGN", CZMA_COMMAND_TYPE::CZMA_ALIGN },
         -:   23:	{ "SPACE", CZMA_COMMAND_TYPE::CZMA_SPACE },
         -:   24:	{ "REPEAT", CZMA_COMMAND_TYPE::CZMA_REPEAT },
@@ -128,10 +128,10 @@
         -:  126:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_##operation( words, p_file_name, line_no ))
         -:  127:
         -:  128:// --------------------------------------------------------------------
-     9000:  129:CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string> &words, const char* p_file_name, int line_no ) {
+     9001:  129:CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string> &words, const char* p_file_name, int line_no ) {
         -:  130:
-    18000:  131:	if( words.size() == 0 ) {
-     7126:  132:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_BLANK( words, p_file_name, line_no ));
+    18002:  131:	if( words.size() == 0 ) {
+     7128:  132:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_BLANK( words, p_file_name, line_no ));
         -:  133:	}
      6624:  134:	if( words.size() == 2 && words[1] == ":" ) {
        96:  135:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_LABEL( words, p_file_name, line_no ));
@@ -175,9 +175,9 @@
        20:  173:		OPE_CASE( DEFD );
        32:  174:		case CZMA_COMMAND_TYPE::CZMA_DEFS:
        32:  175:			if( info.defs_is_space ){
-    #####:  176:				return reinterpret_cast<CZMA_PARSE *> ( new CZMA_PARSE_SPACE( words, p_file_name, line_no ) );
+        6:  176:				return reinterpret_cast<CZMA_PARSE *> ( new CZMA_PARSE_SPACE( words, p_file_name, line_no ) );
         -:  177:			}
-       64:  178:			return reinterpret_cast<CZMA_PARSE *> ( new CZMA_PARSE_DEFS( words, p_file_name, line_no ) );
+       58:  178:			return reinterpret_cast<CZMA_PARSE *> ( new CZMA_PARSE_DEFS( words, p_file_name, line_no ) );
       952:  179:		OPE_CASE( LD );
        14:  180:		OPE_CASE( PUSH );
        14:  181:		OPE_CASE( POP );
@@ -284,12 +284,12 @@
     #####:  282:}
         -:  283:
         -:  284:// --------------------------------------------------------------------
-     4986:  285:std::string CZMA_PARSE::get_line( void ) {
+     4984:  285:std::string CZMA_PARSE::get_line( void ) {
         -:  286:	std::string r, ss;
         -:  287:
         -:  288:	r = "";
-    22701:  289:	for( auto &s : words ) {
-    35430:  290:		if( s.size() > 0 && (s[0] == '\"' || s[0] == '\'') ){
+    22695:  289:	for( auto &s : words ) {
+    35422:  290:		if( s.size() > 0 && (s[0] == '\"' || s[0] == '\'') ){
       115:  291:			ss = s[ 0 ];
      1213:  292:			for( int i = 1; i < (int)s.size(); i++ ) {
      1098:  293:				switch( s[i] ) {
@@ -310,23 +310,23 @@
         -:  308:		else {
         -:  309:			ss = s;
         -:  310:		}
-    17715:  311:		if( r == "" ) {
+    17711:  311:		if( r == "" ) {
         -:  312:			r = ss;
         -:  313:		}
-    12729:  314:		else if( ss == "," ){
+    12727:  314:		else if( ss == "," ){
      8124:  315:			r = r + ss;
         -:  316:		}
-     8667:  317:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'X' ){
+     8665:  317:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'X' ){
      3035:  318:			ss[ 1 ] = 'x';
      9105:  319:			r = r + " " + ss;
         -:  320:		}
-     7398:  321:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'B' ){
+     7396:  321:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'B' ){
         3:  322:			ss[ 1 ] = 'b';
         9:  323:			r = r + " " + ss;
         -:  324:		}
         -:  325:		else {
-    22516:  326:			r = r + " " + ss;
+    22508:  326:			r = r + " " + ss;
         -:  327:		}
         -:  328:	}
-     4986:  329:	return r;
-      213:  330:}
+     4984:  329:	return r;
+      225:  330:}

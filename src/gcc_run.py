@@ -9,7 +9,10 @@ import re
 
 # -----------------------------------------------------------------------------
 def execute_test( file_name ):
-	subprocess.run( ['../../code_coverage/zma', file_name, file_name + '.bin'], capture_output=True )
+	if os.path.exists( 'run_' + file_name + '.sh' ):
+		subprocess.run( ['bash', 'run_' + file_name + '.sh'], capture_output=True )
+	else:
+		subprocess.run( ['../../code_coverage/zma', file_name, file_name + '.bin'], capture_output=True )
 	if os.path.exists( 'zma.log' ):
 		os.rename( 'zma.log', file_name + '.log' )
 

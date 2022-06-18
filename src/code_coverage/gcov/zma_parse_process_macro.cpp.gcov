@@ -209,4 +209,4 @@
         -:  207:	}
       241:  208:	this->next_code_address = p_last_line->get_next_code_address();
         -:  209:	return result && check_all_fixed();
-      142:  210:}
+      150:  210:}

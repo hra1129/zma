@@ -178,4 +178,4 @@
        12:  176:		log.write_separator();
         -:  177:	}
         -:  178:	return check_all_fixed();
-      142:  179:}
+      150:  179:}

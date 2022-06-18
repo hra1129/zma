@@ -27,19 +27,19 @@
         3:   25:		return false;
         -:   26:	}
       279:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
-      330:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-       66:   29:		return false;
+      300:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+       60:   29:		return false;
         -:   30:	}
-      426:   31:	else if( v.is_unknown() ){
+      438:   31:	else if( v.is_unknown() ){
        10:   32:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
         2:   33:		return false;
         -:   34:	}
-      211:   35:	if( v.is_integer() ) {
-        9:   36:		v.s = std::to_string( v.i );
+      217:   35:	if( v.is_integer() ) {
+       27:   36:		v.s = std::to_string( v.i );
         -:   37:	}
         -:   38:	//	log
-      211:   39:	if( !this->is_analyze_phase ) {
-      128:   40:		put_message( v.s );
+      217:   39:	if( !this->is_analyze_phase ) {
+      132:   40:		put_message( v.s );
         -:   41:	}
         -:   42:	return true;
-      142:   43:}
+      150:   43:}

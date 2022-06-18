@@ -17,42 +17,42 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       21:   18:bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
+       30:   18:bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
         -:   19:	int i, space_size, value;
         -:   20:	CVALUE v;
         -:   21:
-       21:   22:	update_flags( &info, p_last_line );
-       21:   23:	if( !this->is_data_fixed ){
-        7:   24:		if( !this->is_fixed_code_size() ){
+       30:   22:	update_flags( &info, p_last_line );
+       30:   23:	if( !this->is_data_fixed ){
+       10:   24:		if( !this->is_fixed_code_size() ){
         -:   25:			//	サイズ
-        7:   26:			i = this->expression( info, 1, v );
-        7:   27:			if( i == 0 ){
+       10:   26:			i = this->expression( info, 1, v );
+       10:   27:			if( i == 0 ){
     #####:   28:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   29:				data.clear();
     #####:   30:				return false;
         -:   31:			}
-        7:   32:			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
+       10:   32:			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
     #####:   33:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   34:				return false;
         -:   35:			}
-        7:   36:			if( v.i < 0 || v.i > 65536 ){
+       10:   36:			if( v.i < 0 || v.i > 65536 ){
     #####:   37:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   38:				return false;
         -:   39:			}
         -:   40:			space_size = v.i;
         -:   41:			//	, があるか？
-       17:   42:			if( i < (int)this->words.size() && this->words[ i ] == "," ){
-        3:   43:				i = this->expression( info, i + 1, v );
-        3:   44:				if( i == 0 ){
+       25:   42:			if( i < (int)this->words.size() && this->words[ i ] == "," ){
+        5:   43:				i = this->expression( info, i + 1, v );
+        5:   44:				if( i == 0 ){
     #####:   45:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   46:					data.clear();
     #####:   47:					return false;
         -:   48:				}
-        3:   49:				if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
+        5:   49:				if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
     #####:   50:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
     #####:   51:					return false;
         -:   52:				}
-        3:   53:				if( v.i < 0 || v.i > 65536 ){
+        5:   53:				if( v.i < 0 || v.i > 65536 ){
     #####:   54:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   55:					return false;
         -:   56:				}
@@ -63,28 +63,28 @@
         -:   61:			}
         -:   62:			//	スペースを確保する
         -:   63:			this->set_code_size( &info, space_size );
-     1167:   64:			for( i = 0; i < space_size; i++ ){
-     1160:   65:				this->data.push_back( value );
+     1266:   64:			for( i = 0; i < space_size; i++ ){
+     1256:   65:				this->data.push_back( value );
         -:   66:			}
-        7:   67:			this->is_data_fixed = true;
-        7:   68:			info.is_updated = true;
+       10:   67:			this->is_data_fixed = true;
+       10:   68:			info.is_updated = true;
         -:   69:		}
         -:   70:	}
         -:   71:
-       21:   72:	if( !is_analyze_phase ){
-       14:   73:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        7:   74:		if( this->get_code_size() ){
-       14:   75:			std::stringstream ss;
-       35:   76:			log.write_message( "Allocate space: " + std::to_string( this->get_code_size() ) + "byte(s)" );
-       14:   77:			ss << "Fill value    : " << (int)this->data[ 0 ] << "(0x" << std::setw(2) << std::setfill('0') << std::hex << (int)this->data[0] << ")";
-       14:   78:			log.write_message( ss.str() );
+       30:   72:	if( !is_analyze_phase ){
+       20:   73:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       10:   74:		if( this->get_code_size() ){
+       20:   75:			std::stringstream ss;
+       50:   76:			log.write_message( "Allocate space: " + std::to_string( this->get_code_size() ) + "byte(s)" );
+       20:   77:			ss << "Fill value    : " << (int)this->data[ 0 ] << "(0x" << std::setw(2) << std::setfill('0') << std::hex << (int)this->data[0] << ")";
+       20:   78:			log.write_message( ss.str() );
         -:   79:		}
         -:   80:		else{
     #####:   81:			log.write_message( "No space was allocated." );
         -:   82:		}
-        7:   83:		log.write_dump( this->code_address, this->file_address, this->data );
-        7:   84:		log.write_separator();
+       10:   83:		log.write_dump( this->code_address, this->file_address, this->data );
+       10:   84:		log.write_separator();
         -:   85:	}
         -:   86:	return check_all_fixed();
-      142:   87:}
+      150:   87:}
         -:   88:
