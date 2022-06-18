@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_label.cpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -17,15 +17,15 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-      153:   18:bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      154:   18:bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	std::string label;
         -:   20:	CVALUE v;
         -:   21:
-      153:   22:	this->set_code_size( &info, 0 );
-      153:   23:	update_flags( &info, p_last_line );
+      154:   22:	this->set_code_size( &info, 0 );
+      154:   23:	update_flags( &info, p_last_line );
         -:   24:	//	log
-      459:   25:	label = info.get_scope_path() + words[ 0 ];
-      153:   26:	if( !this->is_analyze_phase ) {
+      462:   25:	label = info.get_scope_path() + words[ 0 ];
+      154:   26:	if( !this->is_analyze_phase ) {
        92:   27:		std::stringstream s;
        92:   28:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
        46:   29:		if( this->get_code_address() == -1 ){
@@ -37,16 +37,16 @@
        92:   35:		log.write_message( s.str() );
        46:   36:		log.write_separator();
         -:   37:	}
-      153:   38:	if( this->is_data_fixed ) {
+      154:   38:	if( this->is_data_fixed ) {
         -:   39:		if( check_all_fixed() && info.dict.count( label ) ){
         -:   40:			return true;
         -:   41:		}
         -:   42:	}
-      150:   43:	if( words[0][0] == '\"' ) {
+      152:   43:	if( words[0][0] == '\"' ) {
        15:   44:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
         3:   45:		return false;
         -:   46:	}
-       72:   47:	if( this->is_fixed_code_address() ) {
+       73:   47:	if( this->is_fixed_code_address() ) {
        28:   48:		if( info.dict.count( label ) && info.dict[ label ].value_type != CVALUE_TYPE::CV_UNKNOWN_INTEGER ){
         5:   49:			if( !( info.dict[ label ].value_type == CVALUE_TYPE::CV_INTEGER && info.dict[ label ].i == this->get_code_address() ) ){
     #####:   50:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
@@ -54,12 +54,12 @@
         -:   52:			}
         -:   53:		}
         -:   54:		else{
-       38:   55:			info.is_updated = true;
-       38:   56:			v.i = this->get_code_address();
-       38:   57:			v.value_type = CVALUE_TYPE::CV_INTEGER;
-       38:   58:			info.dict[ label ] = v;
+       39:   55:			info.is_updated = true;
+       39:   56:			v.i = this->get_code_address();
+       39:   57:			v.value_type = CVALUE_TYPE::CV_INTEGER;
+       39:   58:			info.dict[ label ] = v;
         -:   59:		}
-       43:   60:		this->is_data_fixed = true;
+       44:   60:		this->is_data_fixed = true;
         -:   61:	}
         -:   62:	else {
         -:   63:		if( info.dict.count( label ) ) {
@@ -73,5 +73,5 @@
        15:   71:		return false;
         -:   72:	}
         -:   73:	return check_all_fixed();
-      150:   74:}
+      154:   74:}
         -:   75:

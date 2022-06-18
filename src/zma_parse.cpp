@@ -2176,9 +2176,18 @@ bool CZMA_PARSE::opecode_destination8( CZMA_INFORMATION& info, unsigned char op1
 bool CZMA_PARSE::write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) {
 	unsigned char c;
 
-	for( auto d: data ) {
-		c = d;
-		f->write( (const char*) &c, 1 );
+	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_BINARY ){
+		for( auto d : data ){
+			c = d;
+			f->write( (const char *)&c, 1 );
+		}
+	}
+	else{
+		//	CZMA_INFORMATION::OUTPUT_TYPE::CZMA_INTELHEX
+		for( auto d : data ){
+			c = d;
+			info.hexfile.write( *f, c );
+		}
 	}
 	for( auto line : log ) {
 		info.log << line << std::endl;

@@ -1,5 +1,5 @@
         -:    0:Source:../zma.cpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:﻿// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler ZMA
         -:    3:// ====================================================================
@@ -23,131 +23,142 @@
         3:   21:	std::cerr << "  -I{path} ............ Add {path} to the include path.\n";
         3:   22:	std::cerr << "  -D{name}={value} .... Define symbol. ex) -DSWITCH=1 -DNAME='GAME'\n";
         3:   23:	std::cerr << "  -DEFS ............... Change the DEFS instruction to an area allocation instruction.\n";
-        3:   24:}
-        -:   25:
-        -:   26:// --------------------------------------------------------------------
-        2:   27:static void option_d( CZMA_INFORMATION &info, std::string s_argument ){
-        -:   28:	std::string s_name;
-        -:   29:	std::string s_value;
-        -:   30:	CVALUE value;
-        -:   31:	size_t i;
-        -:   32:
-       30:   33:	for( i = 2; i < s_argument.size(); i++ ){
-       16:   34:		if( s_argument[ i ] == '=' ){
-        -:   35:			break;
-        -:   36:		}
-       28:   37:		s_name = s_name + s_argument[ i ];
-        -:   38:	}
-        2:   39:	i++;
-       14:   40:	for( ; i < s_argument.size(); i++ ){
-       12:   41:		s_value = s_value + s_argument[ i ];
-        -:   42:	}
-        4:   43:	if( s_name == "" || s_value == "" ){
-    #####:   44:		std::cerr << "Invalid command line option [" << s_argument << "].\n";
-        -:   45:		return;
-        -:   46:	}
-        4:   47:	if( s_value.size() > 0 && s_value[ 0 ] == '\'' ){
-    #####:   48:		if( s_value[ s_value.size() - 1 ] != '\'' ){
-    #####:   49:			std::cerr << "Invalid command line option [" << s_argument << "].\n";
-        -:   50:			return;
-        -:   51:		}
-    #####:   52:		s_value = s_value.substr( 1, s_value.size() - 2 );
-    #####:   53:		value.value_type = CVALUE_TYPE::CV_STRING;
-        -:   54:		value.s = s_value;
-    #####:   55:		info.log << "  String : " << s_name << " = \"" << value.s << "\"\n";
-        -:   56:	}
-        -:   57:	else{
-        2:   58:		value.value_type = CVALUE_TYPE::CV_INTEGER;
-        -:   59:		try{
-        1:   60:			value.i = std::stoi( s_value );
-        -:   61:		}
-        2:   62:		catch( ... ){
-        1:   63:			value.i = 0;
-        -:   64:		}
-        4:   65:		info.log << "  Integer: " << s_name << " = " << value.i << "\n";
-        -:   66:	}
-        2:   67:	info.dict[ s_name ] = value;
-        -:   68:}
-        -:   69:
-        -:   70:// --------------------------------------------------------------------
-       75:   71:static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
-        -:   72:	int i;
-        -:   73:	std::string s_argument;
-        -:   74:	std::vector<std::string> sa_options;
-        -:   75:
-      371:   76:	for( i = 1; i < argc; i++ ){
-      150:   77:		s_argument = argv[ i ];
-      150:   78:		if( s_argument[ 0 ] == '-' || s_argument[ 0 ] == '/' ){
-        6:   79:			s_argument[ 0 ] = '-';
-        -:   80:			std::transform( s_argument.begin(), s_argument.end(), s_argument.begin(), toupper );
-       11:   81:			if( s_argument == "-H" || s_argument == "-HELP" ){
-        2:   82:				usage( argv[ 0 ] );
-        2:   83:				exit( 1 );
-        -:   84:			}
-        4:   85:			else if( s_argument == "-DEFS" ){
-        1:   86:				info.defs_is_space = true;
-        -:   87:			}
-        3:   88:			else if( s_argument[ 1 ] == 'I' ){
-        3:   89:				info.add_include_path( s_argument.substr( 2 ).c_str() );
-        -:   90:			}
-        2:   91:			else if( s_argument[ 1 ] == 'D' ){
-        4:   92:				option_d( info, s_argument );
-        -:   93:			}
-        -:   94:		}
-        -:   95:		else{
-      144:   96:			sa_options.push_back( s_argument );
-        -:   97:		}
-        -:   98:	}
-        -:   99:
-       73:  100:	if( info.defs_is_space ){
-        1:  101:		info.log << "  DEFS is DEFINE SPACE.\n\n";
+        3:   24:	std::cerr << "  -HEX ................ Output file is a HEX file.\n";
+        3:   25:}
+        -:   26:
+        -:   27:// --------------------------------------------------------------------
+        2:   28:static void option_d( CZMA_INFORMATION &info, std::string s_argument ){
+        -:   29:	std::string s_name;
+        -:   30:	std::string s_value;
+        -:   31:	CVALUE value;
+        -:   32:	size_t i;
+        -:   33:
+       30:   34:	for( i = 2; i < s_argument.size(); i++ ){
+       16:   35:		if( s_argument[ i ] == '=' ){
+        -:   36:			break;
+        -:   37:		}
+       28:   38:		s_name = s_name + s_argument[ i ];
+        -:   39:	}
+        2:   40:	i++;
+       14:   41:	for( ; i < s_argument.size(); i++ ){
+       12:   42:		s_value = s_value + s_argument[ i ];
+        -:   43:	}
+        4:   44:	if( s_name == "" || s_value == "" ){
+    #####:   45:		std::cerr << "Invalid command line option [" << s_argument << "].\n";
+        -:   46:		return;
+        -:   47:	}
+        4:   48:	if( s_value.size() > 0 && s_value[ 0 ] == '\'' ){
+    #####:   49:		if( s_value[ s_value.size() - 1 ] != '\'' ){
+    #####:   50:			std::cerr << "Invalid command line option [" << s_argument << "].\n";
+        -:   51:			return;
+        -:   52:		}
+    #####:   53:		s_value = s_value.substr( 1, s_value.size() - 2 );
+    #####:   54:		value.value_type = CVALUE_TYPE::CV_STRING;
+        -:   55:		value.s = s_value;
+    #####:   56:		info.log << "  String : " << s_name << " = \"" << value.s << "\"\n";
+        -:   57:	}
+        -:   58:	else{
+        2:   59:		value.value_type = CVALUE_TYPE::CV_INTEGER;
+        -:   60:		try{
+        1:   61:			value.i = std::stoi( s_value );
+        -:   62:		}
+        2:   63:		catch( ... ){
+        1:   64:			value.i = 0;
+        -:   65:		}
+        4:   66:		info.log << "  Integer: " << s_name << " = " << value.i << "\n";
+        -:   67:	}
+        2:   68:	info.dict[ s_name ] = value;
+        -:   69:}
+        -:   70:
+        -:   71:// --------------------------------------------------------------------
+       77:   72:static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
+        -:   73:	int i;
+        -:   74:	std::string s_argument;
+        -:   75:	std::vector<std::string> sa_options;
+        -:   76:
+      383:   77:	for( i = 1; i < argc; i++ ){
+      155:   78:		s_argument = argv[ i ];
+      155:   79:		if( s_argument[ 0 ] == '-' || s_argument[ 0 ] == '/' ){
+        7:   80:			s_argument[ 0 ] = '-';
+        -:   81:			std::transform( s_argument.begin(), s_argument.end(), s_argument.begin(), toupper );
+       13:   82:			if( s_argument == "-H" || s_argument == "-HELP" ){
+        2:   83:				usage( argv[ 0 ] );
+        2:   84:				exit( 1 );
+        -:   85:			}
+        5:   86:			else if( s_argument == "-DEFS" ){
+        1:   87:				info.defs_is_space = true;
+        -:   88:			}
+        4:   89:			else if( s_argument[ 1 ] == 'I' ){
+        3:   90:				info.add_include_path( s_argument.substr( 2 ).c_str() );
+        -:   91:			}
+        3:   92:			else if( s_argument[ 1 ] == 'D' ){
+        4:   93:				option_d( info, s_argument );
+        -:   94:			}
+        1:   95:			else if( s_argument == "-HEX" ){
+        1:   96:				info.output_type = CZMA_INFORMATION::OUTPUT_TYPE::CZMA_INTELHEX;
+        -:   97:			}
+        -:   98:		}
+        -:   99:		else{
+      148:  100:			sa_options.push_back( s_argument );
+        -:  101:		}
         -:  102:	}
-        -:  103:	else{
-       72:  104:		info.log << "  DEFS is DEFINE STRING (default).\n\n";
-        -:  105:	}
-       73:  106:	return sa_options;
-        -:  107:}
-        -:  108:
-        -:  109:// --------------------------------------------------------------------
-       75:  110:int main( int argc, char *argv[] ) {
-       75:  111:    std::cout << "Z80 Macro Assembler ZMA " << p_version << "\n";
-       75:  112:	std::cout << "=====================================================\n";
-       75:  113:	std::cout << "Programmed by t.hara\n";
-        -:  114:
-      148:  115:	CZMA_TEXT src;
-      148:  116:	CZMA_INFORMATION info;
-       73:  117:	std::vector< std::string > sa_options;
-        -:  118:
-       75:  119:	info.log.open( "zma.log", std::ios::out );
-       75:  120:	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
-       75:  121:	info.log << "=====================================================\n";
-       75:  122:	info.log << "Programmed by t.hara\n\n";
-        -:  123:
-      148:  124:	sa_options = get_command_line_options( argc, argv, info );
-      146:  125:	if( sa_options.size() < 2 ) {
-        1:  126:		usage( argv[0] );
-        -:  127:		return 1;
-        -:  128:	}
+        -:  103:
+       75:  104:	if( info.defs_is_space ){
+        1:  105:		info.log << "  DEFS is DEFINE SPACE.\n";
+        -:  106:	}
+        -:  107:	else{
+       74:  108:		info.log << "  DEFS is DEFINE STRING (default).\n";
+        -:  109:	}
+        -:  110:
+       75:  111:	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_BINARY ){
+       74:  112:		info.log << "  OUTPUT TYPE: BINARY\n\n";
+        -:  113:	}
+        -:  114:	else{
+        1:  115:		info.log << "  OUTPUT TYPE: INTEL HEX\n\n";
+        -:  116:	}
+       75:  117:	return sa_options;
+        -:  118:}
+        -:  119:
+        -:  120:// --------------------------------------------------------------------
+       77:  121:int main( int argc, char *argv[] ) {
+       77:  122:    std::cout << "Z80 Macro Assembler ZMA " << p_version << "\n";
+       77:  123:	std::cout << "=====================================================\n";
+       77:  124:	std::cout << "Programmed by t.hara\n";
+        -:  125:
+      152:  126:	CZMA_TEXT src;
+      152:  127:	CZMA_INFORMATION info;
+       75:  128:	std::vector< std::string > sa_options;
         -:  129:
-       72:  130:	info.log << "<< code >>\n";
-       72:  131:	info.log << "LINE# |OFFSET|ADDR|MNEMONIC\n";
-       72:  132:	info.log << "======+======+====+==================================\n";
-       72:  133:	info.add_include_path( "./" );
-       72:  134:	info.add_include_path( argv[0], "include/" );
-      144:  135:	src.load( info, sa_options[0].c_str() );
-        -:  136:
-        -:  137:	int return_code = 0;
-       72:  138:	if( src.all_process( info ) ) {
-        -:  139:		return_code = 0;
-       41:  140:		std::cout << "Success.\n";
-        -:  141:	}
-        -:  142:	else {
-        -:  143:		return_code = 1;
-       31:  144:		std::cout << "Failed.\n";
-        -:  145:	}
-      144:  146:	if( !src.save( info, sa_options[1].c_str() ) ){
-        -:  147:		return_code = 1;
-        2:  148:		std::cout << "Save error.\n";
-        -:  149:	}
-        -:  150:	return return_code;
-      150:  151:}
+       77:  130:	info.log.open( "zma.log", std::ios::out );
+       77:  131:	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
+       77:  132:	info.log << "=====================================================\n";
+       77:  133:	info.log << "Programmed by t.hara\n\n";
+        -:  134:
+      152:  135:	sa_options = get_command_line_options( argc, argv, info );
+      150:  136:	if( sa_options.size() < 2 ) {
+        1:  137:		usage( argv[0] );
+        -:  138:		return 1;
+        -:  139:	}
+        -:  140:
+       74:  141:	info.log << "<< code >>\n";
+       74:  142:	info.log << "LINE# |OFFSET|ADDR|MNEMONIC\n";
+       74:  143:	info.log << "======+======+====+==================================\n";
+       74:  144:	info.add_include_path( "./" );
+       74:  145:	info.add_include_path( argv[0], "include/" );
+      148:  146:	src.load( info, sa_options[0].c_str() );
+        -:  147:
+        -:  148:	int return_code = 0;
+       74:  149:	if( src.all_process( info ) ) {
+        -:  150:		return_code = 0;
+       39:  151:		std::cout << "Success.\n";
+        -:  152:	}
+        -:  153:	else {
+        -:  154:		return_code = 1;
+       35:  155:		std::cout << "Failed.\n";
+        -:  156:	}
+      148:  157:	if( !src.save( info, sa_options[1].c_str() ) ){
+        -:  158:		return_code = 1;
+        2:  159:		std::cout << "Save error.\n";
+        -:  160:	}
+        -:  161:	return return_code;
+      154:  162:}

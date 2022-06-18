@@ -254,6 +254,7 @@
     <ClCompile Include="sub\zma_parse_process_xor.cpp" />
     <ClCompile Include="zma.cpp" />
     <ClCompile Include="zma_error.cpp" />
+    <ClCompile Include="zma_hexfile.cpp" />
     <ClCompile Include="zma_information.cpp" />
     <ClCompile Include="zma_logger.cpp" />
     <ClCompile Include="zma_parse.cpp" />
@@ -360,6 +361,7 @@
     <ClInclude Include="sub\zma_parse_process_user_message.hpp" />
     <ClInclude Include="sub\zma_parse_process_xor.hpp" />
     <ClInclude Include="zma_error.hpp" />
+    <ClInclude Include="zma_hexfile.hpp" />
     <ClInclude Include="zma_information.hpp" />
     <ClInclude Include="zma_logger.hpp" />
     <ClInclude Include="zma_parse.hpp" />

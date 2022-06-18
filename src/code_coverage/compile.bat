@@ -8,6 +8,7 @@ wsl g++ -O2 -std=c++17 -fprofile-arcs -ftest-coverage -W -c -I.. -I../sub ../zma
 wsl g++ -O2 -std=c++17 -fprofile-arcs -ftest-coverage -W -c -I.. -I../sub ../zma_parse_process.cpp    -o zma_parse_process.o   
 wsl g++ -O2 -std=c++17 -fprofile-arcs -ftest-coverage -W -c -I.. -I../sub ../zma_text.cpp             -o zma_text.o            
 wsl g++ -O2 -std=c++17 -fprofile-arcs -ftest-coverage -W -c -I.. -I../sub ../zma_logger.cpp           -o zma_logger.o          
-wsl g++ -O2 -std=c++17 -fprofile-arcs -ftest-coverage -W -c -I.. -I../sub ../zma_error.cpp            -o zma_error.o          
+wsl g++ -O2 -std=c++17 -fprofile-arcs -ftest-coverage -W -c -I.. -I../sub ../zma_error.cpp            -o zma_error.o           
+wsl g++ -O2 -std=c++17 -fprofile-arcs -ftest-coverage -W -c -I.. -I../sub ../zma_hexfile.cpp          -o zma_hexfile.o         
 wsl g++ -O2 -fprofile-arcs -ftest-coverage *.o -o zma
 pause

@@ -7,6 +7,7 @@
 #pragma once
 
 #include "zma_error.hpp"
+#include "zma_hexfile.hpp"
 #include <string>
 #include <map>
 #include <vector>
@@ -129,6 +130,13 @@ public:
 
 	bool		defs_is_space;	//	false: DEFS‹^Ž—–½—ß‚Í•¶Žš—ñ”z’u(default), true: DEFS‹^Ž—–½—ß‚Í—ÌˆæŠm•Û
 
+	enum class OUTPUT_TYPE{
+		CZMA_BINARY,
+		CZMA_INTELHEX,
+	};
+	OUTPUT_TYPE	output_type;
+	CZMA_HEXFILE_WRITER hexfile;
+
 	enum class BLOCK_TYPE_T {
 		CZMA_INFO_UNKNOWN,
 		CZMA_INFO_MACRO_BLOCK,
@@ -160,7 +168,11 @@ public:
 	std::ofstream							log;
 
 	// --------------------------------------------------------------------
-	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ), p_char_set( nullptr ), defs_is_space(false) {
+	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), 
+			block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), 
+			p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ), 
+			p_char_set( nullptr ), defs_is_space(false),
+			output_type( OUTPUT_TYPE::CZMA_BINARY ) {
 	}
 
 	// --------------------------------------------------------------------

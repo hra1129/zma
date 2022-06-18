@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_jp.cpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -17,10 +17,10 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       77:   18:bool CZMA_PARSE_JP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       80:   18:bool CZMA_PARSE_JP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-       77:   20:	update_flags( &info, p_last_line );
-      237:   21:	if( (words.size() == 2 && words[1] == "HL") || (words.size() == 4 && words[1] == "(" && words[2] == "HL" && words[3] == ")") ) {
+       80:   20:	update_flags( &info, p_last_line );
+      246:   21:	if( (words.size() == 2 && words[1] == "HL") || (words.size() == 4 && words[1] == "(" && words[2] == "HL" && words[3] == ")") ) {
         9:   22:		if( !this->is_data_fixed ) {
         -:   23:			this->set_code_size( &info, 1 );
         3:   24:			this->is_data_fixed = true;
@@ -35,7 +35,7 @@
         -:   33:		}
         -:   34:		return check_all_fixed();
         -:   35:	}
-      139:   36:	if( (words.size() == 2 && words[1] == "IX") || (words.size() == 4 && words[1] == "(" && words[2] == "IX" && words[3] == ")") ) {
+      145:   36:	if( (words.size() == 2 && words[1] == "IX") || (words.size() == 4 && words[1] == "(" && words[2] == "IX" && words[3] == ")") ) {
         9:   37:		if( !this->is_data_fixed ) {
         -:   38:			this->set_code_size( &info, 2 );
         3:   39:			this->is_data_fixed = true;
@@ -51,7 +51,7 @@
         -:   49:		}
         -:   50:		return check_all_fixed();
         -:   51:	}
-      118:   52:	if( (words.size() == 2 && words[1] == "IY") || (words.size() == 4 && words[1] == "(" && words[2] == "IY" && words[3] == ")") ) {
+      124:   52:	if( (words.size() == 2 && words[1] == "IY") || (words.size() == 4 && words[1] == "(" && words[2] == "IY" && words[3] == ")") ) {
         9:   53:		if( !this->is_data_fixed ) {
         -:   54:			this->set_code_size( &info, 2 );
         3:   55:			this->is_data_fixed = true;
@@ -67,22 +67,22 @@
         -:   65:		}
         -:   66:		return check_all_fixed();
         -:   67:	}
-       50:   68:	if( opecode_condition_address( info, 0xC3, 0xC2 ) ) {
+       53:   68:	if( opecode_condition_address( info, 0xC3, 0xC2 ) ) {
         -:   69:		//	log
-       40:   70:		if( !this->is_analyze_phase ) {
-       24:   71:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       12:   72:			if( data[0] == 0xC3 ) {
-        8:   73:				log.write_cycle_information( 11, 5 );		//	JP nn
+       43:   70:		if( !this->is_analyze_phase ) {
+       26:   71:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       13:   72:			if( data[0] == 0xC3 ) {
+       10:   73:				log.write_cycle_information( 11, 5 );		//	JP nn
         -:   74:			}
         -:   75:			else {
        16:   76:				log.write_cycle_information( 11, 5, -1, 3 );		//	JP cond, nn
         -:   77:			}
-       12:   78:			log.write_dump( this->code_address, this->file_address, this->data );
-       12:   79:			log.write_separator();
+       13:   78:			log.write_dump( this->code_address, this->file_address, this->data );
+       13:   79:			log.write_separator();
         -:   80:		}
         -:   81:		return check_all_fixed();
         -:   82:	}
        50:   83:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
        10:   84:	return false;
-      150:   85:}
+      154:   85:}
         -:   86:

@@ -21,6 +21,7 @@ static void usage( const char* p_name ) {
 	std::cerr << "  -I{path} ............ Add {path} to the include path.\n";
 	std::cerr << "  -D{name}={value} .... Define symbol. ex) -DSWITCH=1 -DNAME='GAME'\n";
 	std::cerr << "  -DEFS ............... Change the DEFS instruction to an area allocation instruction.\n";
+	std::cerr << "  -HEX ................ Output file is a HEX file.\n";
 }
 
 // --------------------------------------------------------------------
@@ -91,6 +92,9 @@ static std::vector<std::string> get_command_line_options( int argc, char *argv[]
 			else if( s_argument[ 1 ] == 'D' ){
 				option_d( info, s_argument );
 			}
+			else if( s_argument == "-HEX" ){
+				info.output_type = CZMA_INFORMATION::OUTPUT_TYPE::CZMA_INTELHEX;
+			}
 		}
 		else{
 			sa_options.push_back( s_argument );
@@ -98,10 +102,17 @@ static std::vector<std::string> get_command_line_options( int argc, char *argv[]
 	}
 
 	if( info.defs_is_space ){
-		info.log << "  DEFS is DEFINE SPACE.\n\n";
+		info.log << "  DEFS is DEFINE SPACE.\n";
 	}
 	else{
-		info.log << "  DEFS is DEFINE STRING (default).\n\n";
+		info.log << "  DEFS is DEFINE STRING (default).\n";
+	}
+
+	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_BINARY ){
+		info.log << "  OUTPUT TYPE: BINARY\n\n";
+	}
+	else{
+		info.log << "  OUTPUT TYPE: INTEL HEX\n\n";
 	}
 	return sa_options;
 }

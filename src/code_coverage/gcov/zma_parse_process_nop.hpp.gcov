@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_nop.hpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -10,4 +10,4 @@
         -:    8:
         -:    9:#include "zma_parse_process.hpp"
         -:   10:
-     1574:   11:CLASS_CZMA_PARSE( NOP );
+     1575:   11:CLASS_CZMA_PARSE( NOP );

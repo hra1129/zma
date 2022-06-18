@@ -5,6 +5,7 @@ Programmed by t.hara
   Integer: SYMBOL1 = 10
   Integer: SYMBOL2 = 0
   DEFS is DEFINE STRING (default).
+  OUTPUT TYPE: BINARY
 
 << code >>
 LINE# |OFFSET|ADDR|MNEMONIC

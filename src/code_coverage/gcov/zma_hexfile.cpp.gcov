@@ -1,0 +1,90 @@
+        -:    0:Source:../zma_hexfile.cpp
+        -:    0:Programs:106
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	HEX FILE WRITER
+        -:    3:// ====================================================================
+        -:    4://	2022/06/19	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include "zma_hexfile.hpp"
+        -:    8:#include <iomanip>
+        -:    9:
+        -:   10:using namespace std;
+        -:   11:
+        -:   12:// --------------------------------------------------------------------
+       36:   13:unsigned char CZMA_HEXFILE_WRITER::write_byte( std::ofstream &f, unsigned char c, unsigned char check_sum ) {
+        -:   14:
+       72:   15:	f << setw(2) << setfill('0') << hex << uppercase << (int)c;
+       36:   16:	return check_sum + c;
+        -:   17:}
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+        1:   20:void CZMA_HEXFILE_WRITER::flush( ofstream &f ) {
+        -:   21:	unsigned char check_sum;
+        -:   22:	size_t i;
+        -:   23:
+        2:   24:	if( data.size() == 0 ) {
+        -:   25:		return;
+        -:   26:	}
+        -:   27:
+        1:   28:	update_segment( f );
+        1:   29:	f << ':';
+        2:   30:	check_sum = write_byte( f, (unsigned char)data.size(), 0 );
+        1:   31:	check_sum = write_byte( f, (unsigned char)(address >> 8), check_sum );
+        1:   32:	check_sum = write_byte( f, (unsigned char)(address & 255), check_sum );
+        1:   33:	check_sum = write_byte( f, 0, check_sum );
+       95:   34:	for( i = 0; i < data.size(); i++ ) {
+       62:   35:		check_sum = write_byte( f, data[i], check_sum );
+       31:   36:		address++;
+       31:   37:		if( (address & 0x0FFFF) == 0 ) {
+        -:   38:			break;
+        -:   39:		}
+        -:   40:	}
+        1:   41:	write_byte( f, (unsigned char)(0x100 - check_sum), 0 );
+        -:   42:	f << endl;
+        -:   43:
+        2:   44:	if( i == data.size() ) {
+        -:   45:		data.clear();
+        -:   46:	}
+        -:   47:	else {
+    #####:   48:		data.erase( data.begin(), data.begin()  + i );
+    #####:   49:		flush( f );
+        -:   50:	}
+        -:   51:}
+        -:   52:
+        -:   53:// --------------------------------------------------------------------
+        1:   54:void CZMA_HEXFILE_WRITER::update_segment( std::ofstream &f ) {
+        -:   55:	unsigned char check_sum;
+        -:   56:
+        1:   57:	int current_segment = (address >> 16);
+        1:   58:	if( current_segment == last_segment ) {
+        -:   59:		return;
+        -:   60:	}
+        -:   61:	//	: 02 0000 04 XXXX CC
+    #####:   62:	f << ':';
+    #####:   63:	check_sum = write_byte( f, 2, 0 );
+    #####:   64:	check_sum = write_byte( f, 0, check_sum );
+    #####:   65:	check_sum = write_byte( f, 0, check_sum );
+    #####:   66:	check_sum = write_byte( f, 4, check_sum );
+    #####:   67:	check_sum = write_byte( f, (unsigned char)(current_segment >> 8), check_sum );
+    #####:   68:	check_sum = write_byte( f, (unsigned char)(current_segment & 255), check_sum );
+    #####:   69:	check_sum = write_byte( f, (unsigned char)(0x100 - check_sum), 0 );
+        -:   70:	f << endl;
+    #####:   71:	last_segment = current_segment;
+        -:   72:}
+        -:   73:
+        -:   74:// --------------------------------------------------------------------
+    #####:   75:void CZMA_HEXFILE_WRITER::set_address( ofstream &f, int new_address ) {
+        -:   76:
+    #####:   77:	flush( f );
+    #####:   78:	address = new_address;
+    #####:   79:}
+        -:   80:
+        -:   81:// --------------------------------------------------------------------
+       31:   82:void CZMA_HEXFILE_WRITER::write( ofstream &f, unsigned char c ) {
+        -:   83:
+       31:   84:	data.push_back( c );
+       62:   85:	if( data.size() >= 32 ) {
+    #####:   86:		flush( f );
+        -:   87:	}
+       31:   88:}

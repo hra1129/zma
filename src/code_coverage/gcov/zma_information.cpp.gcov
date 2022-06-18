@@ -1,5 +1,5 @@
         -:    0:Source:../zma_information.cpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler dictionary
         -:    3:// ====================================================================
@@ -9,18 +9,18 @@
         -:    7:#include "zma_information.hpp"
         -:    8:
         -:    9:// --------------------------------------------------------------------
-      660:   10:bool CZMA_INFORMATION::get_label_value( CVALUE &result, std::string word ){
+      663:   10:bool CZMA_INFORMATION::get_label_value( CVALUE &result, std::string word ){
         -:   11:	int i, l;
         -:   12:	std::string s;
         -:   13:
-     1768:   14:	for( l = (int)scope.size(); l >= 0; l-- ){
+     1774:   14:	for( l = (int)scope.size(); l >= 0; l-- ){
         -:   15:		s = "";
-     1631:   16:		for( i = 0; i < l; i++ ){
+     1634:   16:		for( i = 0; i < l; i++ ){
      1624:   17:			s = s + scope[ i ] + ":";
         -:   18:		}
-     1638:   19:		s = s + word;
+     1644:   19:		s = s + word;
         -:   20:		if( this->dict.count( s ) ){
-      371:   21:			result = this->dict[ s ];
+      374:   21:			result = this->dict[ s ];
         -:   22:			return true;
         -:   23:		}
         -:   24:	}
@@ -29,56 +29,56 @@
         -:   27:}
         -:   28:
         -:   29:// --------------------------------------------------------------------
-      471:   30:std::string CZMA_INFORMATION::get_scope_path( void ) {
-      471:   31:	std::string r = "";
-      928:   32:	for( std::string s : scope ){
+      472:   30:std::string CZMA_INFORMATION::get_scope_path( void ) {
+      472:   31:	std::string r = "";
+      929:   32:	for( std::string s : scope ){
      1371:   33:		r = r + s + ":";
         -:   34:	}
-      471:   35:	return r;
+      472:   35:	return r;
         -:   36:}
         -:   37:
         -:   38:// --------------------------------------------------------------------
-      145:   39:void CZMA_INFORMATION::add_include_path( const char *p_path, const char *p_sub_path ){
-      145:   40:	std::string s = p_path;
+      149:   39:void CZMA_INFORMATION::add_include_path( const char *p_path, const char *p_sub_path ){
+      149:   40:	std::string s = p_path;
         -:   41:
-      365:   42:	for( int i = (int)s.size() - 1; i >= 0; i-- ){
-      728:   43:		if( s[ i ] == '/' || s[ i ] == '\\' ){
-      432:   44:			s = s.substr( 0, i );
-      144:   45:			break;
+      375:   42:	for( int i = (int)s.size() - 1; i >= 0; i-- ){
+      748:   43:		if( s[ i ] == '/' || s[ i ] == '\\' ){
+      444:   44:			s = s.substr( 0, i );
+      148:   45:			break;
         -:   46:		}
         -:   47:	}
-      435:   48:	include_path.push_back( s + "/" + p_sub_path );
-      145:   49:}
+      447:   48:	include_path.push_back( s + "/" + p_sub_path );
+      149:   49:}
         -:   50:
         -:   51:// --------------------------------------------------------------------
-       93:   52:std::string CZMA_INFORMATION::dot( std::string s, int max_length ){
-       93:   53:	int length = max_length - (int)s.size();
-       93:   54:	std::string s_result = " ";
-     1053:   55:	for( int i = 0; i < length; i++ ){
-      960:   56:		s_result = s_result + ".";
+       94:   52:std::string CZMA_INFORMATION::dot( std::string s, int max_length ){
+       94:   53:	int length = max_length - (int)s.size();
+       94:   54:	std::string s_result = " ";
+     1060:   55:	for( int i = 0; i < length; i++ ){
+      966:   56:		s_result = s_result + ".";
         -:   57:	}
-       93:   58:	return s_result;
+       94:   58:	return s_result;
         -:   59:}
         -:   60:
         -:   61:// --------------------------------------------------------------------
-       72:   62:void CZMA_INFORMATION::write( void ){
+       74:   62:void CZMA_INFORMATION::write( void ){
         -:   63:	int i, j;
         -:   64:	unsigned char c;
         -:   65:	std::string s;
-      144:   66:	std::stringstream s_dump;
-       72:   67:	if( dict.size() ){
-       27:   68:		log << "<< label >>" << std::endl;
+      148:   66:	std::stringstream s_dump;
+       74:   67:	if( dict.size() ){
+       28:   68:		log << "<< label >>" << std::endl;
         -:   69:		size_t max_label_length = 0;
-      306:   70:		for( auto item : dict ){
-       93:   71:			if( item.first.size() > max_label_length ){
+      310:   70:		for( auto item : dict ){
+       94:   71:			if( item.first.size() > max_label_length ){
         -:   72:				max_label_length = item.first.size();
         -:   73:			}
         -:   74:		}
-       27:   75:		max_label_length += 3;
-      120:   76:		for( auto &item : dict ){
-      372:   77:			s = dot( item.first, (int)max_label_length );
-       93:   78:			if( item.second.value_type == CVALUE_TYPE::CV_INTEGER ){
-      148:   79:				log << item.first << s << " " << std::dec << item.second.i << " ( 0x" << std::hex << item.second.i << " )" << std::endl;
+       28:   75:		max_label_length += 3;
+      122:   76:		for( auto &item : dict ){
+      376:   77:			s = dot( item.first, (int)max_label_length );
+       94:   78:			if( item.second.value_type == CVALUE_TYPE::CV_INTEGER ){
+      150:   79:				log << item.first << s << " " << std::dec << item.second.i << " ( 0x" << std::hex << item.second.i << " )" << std::endl;
         -:   80:			}
        19:   81:			else if( item.second.value_type == CVALUE_TYPE::CV_STRING ){
         -:   82:				log << item.first << s << " \"" << item.second.s << "\"" << std::endl;
@@ -89,7 +89,7 @@
         -:   87:		}
         -:   88:	}
         -:   89:
-       72:   90:	if( char_set_list.size() ){
+       74:   90:	if( char_set_list.size() ){
         1:   91:		log << "<< character map >>" << std::endl;
         3:   92:		for( auto &item : char_set_list ){
         -:   93:			log << "[" << item.first << "]" << std::endl;
@@ -116,16 +116,16 @@
         -:  114:		}
         -:  115:	}
         -:  116:
-      144:  117:	std::ofstream sym_file;
-       72:  118:	sym_file.open( "zma.sym", std::ios::out );
-       72:  119:	if( !sym_file ){
+      148:  117:	std::ofstream sym_file;
+       74:  118:	sym_file.open( "zma.sym", std::ios::out );
+       74:  119:	if( !sym_file ){
     #####:  120:		return;
         -:  121:	}
-      332:  122:	for( auto item : dict ){
-       93:  123:		if( item.second.value_type != CVALUE_TYPE::CV_INTEGER ){
+      337:  122:	for( auto item : dict ){
+       94:  123:		if( item.second.value_type != CVALUE_TYPE::CV_INTEGER ){
        19:  124:			continue;
         -:  125:		}
-       74:  126:		sym_file << item.first << " equ 0" << std::hex << item.second.i << "h" << std::endl;
+       75:  126:		sym_file << item.first << " equ 0" << std::hex << item.second.i << "h" << std::endl;
         -:  127:	}
-       72:  128:	sym_file.close();
+       74:  128:	sym_file.close();
         -:  129:}

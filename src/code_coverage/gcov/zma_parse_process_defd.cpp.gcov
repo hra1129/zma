@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_defd.cpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -40,7 +40,7 @@
         -:   38:				data.clear();
        17:   39:				return false;
         -:   40:			}
-      149:   41:			if( !v.is_integer() || v.is_unknown() ) {
+      102:   41:			if( !v.is_integer() || v.is_unknown() ) {
        60:   42:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   43:				data.clear();
        10:   44:				return false;
@@ -65,5 +65,5 @@
         3:   63:		log.write_separator();
         -:   64:	}
         -:   65:	return check_all_fixed();
-      150:   66:}
+      154:   66:}
         -:   67:

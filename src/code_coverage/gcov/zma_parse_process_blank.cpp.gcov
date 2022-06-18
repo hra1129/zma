@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_blank.cpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -17,11 +17,11 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-    10754:   18:bool CZMA_PARSE_BLANK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+    10781:   18:bool CZMA_PARSE_BLANK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-    10754:   20:	this->is_data_fixed = true;
-    10754:   21:	update_flags( &info, p_last_line );
+    10781:   20:	this->is_data_fixed = true;
+    10781:   21:	update_flags( &info, p_last_line );
         -:   22:	this->set_code_size( &info, 0 );
-    10754:   23:	return this->check_all_fixed();
-      150:   24:}
+    10781:   23:	return this->check_all_fixed();
+      154:   24:}
         -:   25:

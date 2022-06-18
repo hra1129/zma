@@ -83,7 +83,27 @@ CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_co
 		if( output_mode ) {
 			(*p)->set_output_mode();
 		}
-		if( info.is_block_processing ) {
+		if( !info.is_block_processing ){
+			//	パースエラーを起こした行の場合、再パースを試みる
+			if( ( *p )->is_parse_error() ){
+				words = CZMA_PARSE::get_word_split( ( *p )->get_line() );
+				CZMA_PARSE *p_parse = CZMA_PARSE::create( info, words, ( *p )->get_file_name(), ( *p )->get_line_no() );
+				if( !( p_parse->is_parse_error() ) ){
+					p = m_text.erase( p );
+					p = m_text.insert( p, p_parse );
+				}
+				else{
+					delete p_parse;
+				}
+			}
+			//	ブロックの外側の処理
+			if( ( *p )->process( info, p_prev ) ){
+				success_count++;
+			}
+			p_prev = ( *p );
+			p++;
+		}
+		else {
 			//	ブロックの中の処理
 			if( (*p)->words.size() >= 1 && info.block_end_table.count( (*p)->words[0] ) ) {
 				//	ブロックを閉じる記号を発見
@@ -136,26 +156,6 @@ CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_co
 				p = m_text.erase( p );
 			}
 		}
-		else {
-			//	パースエラーを起こした行の場合、再パースを試みる
-			if( (*p)->is_parse_error() ) {
-				words = CZMA_PARSE::get_word_split( ( *p )->get_line() );
-				CZMA_PARSE *p_parse = CZMA_PARSE::create( info, words, (*p)->get_file_name(), (*p)->get_line_no() );
-				if( !(p_parse->is_parse_error()) ) {
-					p = m_text.erase( p );
-					p = m_text.insert( p, p_parse );
-				}
-				else {
-					delete p_parse;
-				}
-			}
-			//	ブロックの外側の処理
-			if( (*p)->process( info, p_prev ) ) {
-				success_count++;
-			}
-			p_prev = (*p);
-			p++;
-		}
 	}
 	return p_prev;
 }
@@ -166,13 +166,7 @@ bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
 	CZMA_PARSE* p_last_line;
 
 	for( ; ; ) {
-		success_count = 0;
-		info.scope.clear();
-		info.p_char_set = nullptr;
-		info.s_char_set = "DEFAULT";
-		info.is_updated = false;
-		info.is_block_processing = false;
-		info.auto_label_index = 0;
+		info.clear();
 		p_last_line = this->process( info, success_count, nullptr, false );
 		if( info.is_block_processing ) {
 			p_last_line->set_output_mode();
@@ -183,13 +177,9 @@ bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
 			break;
 		}
 	}
-	info.scope.clear();
-	info.p_char_set = nullptr;
-	info.s_char_set = "DEFAULT";
-	info.is_block_processing = false;
-	info.auto_label_index = 0;
+	info.clear();
 	p_last_line = this->process( info, success_count, nullptr, true );
-	if( p_last_line == nullptr ) {
+	if( p_last_line == nullptr || ((p_last_line->get_file_address() == 0) && (p_last_line->get_code_size() == 0)) ) {
 		std::cerr << "Code is not found.\n";
 		return false;
 	}
@@ -211,6 +201,9 @@ bool CZMA_TEXT::write( CZMA_INFORMATION& info, std::ofstream* f ) {
 	result = true;
 	for( auto &p: m_text ) {
 		result = result && p->write_output_and_log( info, f );
+	}
+	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_INTELHEX ){
+		info.hexfile.flush( *f );
 	}
 	return result;
 }
