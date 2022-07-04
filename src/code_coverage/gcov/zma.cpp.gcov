@@ -158,7 +158,7 @@
         -:  156:	}
       148:  157:	if( !src.save( info, sa_options[1].c_str() ) ){
         -:  158:		return_code = 1;
-        2:  159:		std::cout << "Save error.\n";
+    #####:  159:		std::cout << "Save error.\n";
         -:  160:	}
         -:  161:	return return_code;
       154:  162:}

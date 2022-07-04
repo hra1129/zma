@@ -77,15 +77,15 @@
         -:   75:	}
        12:   76:	if( this->opecode_n8( info, 0xFE ) ){
         -:   77:		//	log
-        3:   78:		if( !this->is_analyze_phase ){
-        2:   79:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        2:   80:			log.write_cycle_information( 8, 2 );	//	CP n
-        1:   81:			log.write_dump( this->code_address, this->file_address, this->data );
-        1:   82:			log.write_separator();
+        6:   78:		if( !this->is_analyze_phase ){
+        4:   79:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        4:   80:			log.write_cycle_information( 8, 2 );	//	CP n
+        2:   81:			log.write_dump( this->code_address, this->file_address, this->data );
+        2:   82:			log.write_separator();
         -:   83:		}
         -:   84:		return check_all_fixed();
         -:   85:	}
-       45:   86:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-        9:   87:	return false;
+       30:   86:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        6:   87:	return false;
       154:   88:}
         -:   89:

@@ -15,7 +15,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000000|0000|  01
 ------+------+----+----------------------------------
     10|      |    |ENDSCOPE
-    10|ERROR |    |Invalid command.: test3.asm(10)
+      |      |    |  Exit scope: AAA:
+------+------+----+----------------------------------
     14|      |    |SCOPE
     14|ERROR |    |Must be set name.: test3.asm(14)
     17|      |    |SCOPE BBB CCC

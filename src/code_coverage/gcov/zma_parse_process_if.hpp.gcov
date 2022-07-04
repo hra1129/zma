@@ -6,34 +6,66 @@
         -:    4://	2019/05/04	t.hara
         -:    5:// --------------------------------------------------------------------
         -:    6:
-        -:    7:#pragma once
+        -:    7:#include "zma_parse_process.hpp"
         -:    8:
-        -:    9:#include "zma_parse_process.hpp"
-        -:   10:
-      130:   11:CLASS_CZMA_PARSE( IF );
-        -:   12:
-        -:   13:// --------------------------------------------------------------------
-        -:   14:class CZMA_PARSE_ELSEIF: public CZMA_PARSE_IF {
-        -:   15:public:
-       29:   16:	using CZMA_PARSE_IF::CZMA_PARSE_IF;
-        -:   17:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
-        -:   18:};
-        -:   19:
-        -:   20:// --------------------------------------------------------------------
-        -:   21:class CZMA_PARSE_ELSE: public CZMA_PARSE_IF {
-        -:   22:public:
-       43:   23:	using CZMA_PARSE_IF::CZMA_PARSE_IF;
-        -:   24:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
-        -:   25:};
-        -:   26:
-        -:   27:// --------------------------------------------------------------------
-        -:   28:class CZMA_PARSE_ENDIF: public CZMA_PARSE {
-        -:   29:public:
-        -:   30:	CZMA_IF_T* p_if = nullptr;
-        -:   31:	bool is_loaded = false;
-        -:   32:
-       60:   33:	using CZMA_PARSE::CZMA_PARSE;
-        -:   34:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
-        -:   35:	bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) override;
-        -:   36:};
-        -:   37:
+        -:    9:// --------------------------------------------------------------------
+        -:   10:class CZMA_PARSE_IF: public CZMA_PARSE {
+        -:   11:public:
+        -:   12:	bool is_condition_fixed = false;
+        -:   13:	bool is_condition = false;
+        -:   14:	CZMA_TEXT m_text;
+        -:   15:
+      130:   16:	using CZMA_PARSE::CZMA_PARSE;
+        -:   17:	bool process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line = nullptr ) override;
+        -:   18:	void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) override;
+        -:   19:	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
+        -:   20:	void set_output_mode( void ) override;
+        -:   21:	std::vector< std::vector< std::string > > get_words( void ) override;
+        -:   22:};
+        -:   23:
+        -:   24:// --------------------------------------------------------------------
+        -:   25:class CZMA_PARSE_ELSEIF: public CZMA_PARSE_IF{
+        -:   26:public:
+       29:   27:	using CZMA_PARSE_IF::CZMA_PARSE_IF;
+        -:   28:	bool process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line = nullptr ) override;
+        -:   29:	void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) override;
+        -:   30:};
+        -:   31:
+        -:   32:// --------------------------------------------------------------------
+        -:   33:class CZMA_PARSE_ELSE: public CZMA_PARSE_IF {
+        -:   34:public:
+       43:   35:	using CZMA_PARSE_IF::CZMA_PARSE_IF;
+        -:   36:	bool process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line = nullptr ) override;
+        -:   37:	void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) override;
+        -:   38:};
+        -:   39:
+        -:   40:// --------------------------------------------------------------------
+       60:   41:CLASS_CZMA_PARSE( ENDIF );
+        -:   42:
+        -:   43:// --------------------------------------------------------------------
+        -:   44:class CZMA_IF_BLOCK_T{
+        -:   45:public:
+        -:   46:	CZMA_PARSE_IF *p_if;
+        -:   47:	std::map< std::string, CVALUE >	dict;
+        -:   48:
+      126:   49:	CZMA_IF_BLOCK_T(): p_if( nullptr ){
+        -:   50:	}
+        -:   51:};
+        -:   52:
+        -:   53:// --------------------------------------------------------------------
+        -:   54:class CZMA_PARSE_IF_BLOCK: public CZMA_PARSE{
+        -:   55:public:
+        -:   56:	bool is_condition_fixed = false;
+        -:   57:	std::vector<CZMA_IF_BLOCK_T *>	m_sub;
+        -:   58:
+        -:   59:	int calc_code_size( CZMA_INFORMATION &info, CZMA_IF_BLOCK_T *p_block, CZMA_PARSE *p_last_line, int &next_code_address );
+        -:   60:	void update_condition( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line );
+        -:   61:	void update_code_size( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line );
+        -:   62:	std::vector< std::vector< std::string > > get_words( void ) override;
+        -:   63:
+       56:   64:	using CZMA_PARSE::CZMA_PARSE;
+        -:   65:	bool sub_process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line );
+        -:   66:	bool process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line = nullptr ) override;
+        -:   67:	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
+        -:   68:	void set_output_mode( void ) override;
+        -:   69:};

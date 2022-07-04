@@ -155,6 +155,17 @@ bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 			info.is_updated = true;
 		}
 	}
+	if( this->next_code_address == -1 ){
+		if( p_last_line == nullptr ){
+			this->next_code_address = 0;
+		}
+		else{
+			this->next_code_address = p_last_line->get_next_code_address();
+		}
+		if( this->next_code_address != -1 ){
+			info.is_updated = true;
+		}
+	}
 	if( info.scope.size() == 0 ) {
 		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
 		return false;

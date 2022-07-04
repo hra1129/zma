@@ -35,9 +35,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
     21|      |    |XXX
     21|ERROR |    |Invalid command.: test3.asm(21)
     22|      |    |L1 :
-      |      |    |  label address: 0xXXXXXX
+      |      |    |  label [L1] address: 0x000010
 ------+------+----+----------------------------------
     23|      |    |ERROR L1
-    23|ERROR |    |Illegal parameter.: test3.asm(23)
+    23|ERROR |    |16: test3.asm(23)
 << label >>
-L1 ... ????
+L1 ... 16 ( 0x10 )

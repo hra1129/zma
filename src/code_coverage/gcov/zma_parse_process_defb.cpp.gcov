@@ -17,19 +17,19 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-     5064:   18:bool CZMA_PARSE_DEFB::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
+     4178:   18:bool CZMA_PARSE_DEFB::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
         -:   19:	int i, count;
         -:   20:	CVALUE v;
         -:   21:
-     5064:   22:	update_flags( &info, p_last_line );
-     5064:   23:	if( !this->is_fixed_code_size() ){
-        -:   24:		count = 1;
+     4178:   22:	update_flags( &info, p_last_line );
+     4178:   23:	if( !this->is_fixed_code_size() ){
+        -:   24:		count = 0;
         -:   25:		i = 1;
         -:   26:		for( ;; ){
-     7375:   27:			i = this->expression( info, i, v );
-     8810:   28:			if( v.is_integer() ){
+     7360:   27:			i = this->expression( info, i, v );
+     8782:   28:			if( v.is_integer() ){
         -:   29:				//	数値の場合は、値の確定の有無にかかわらず 1byte
-     4382:   30:				count++;
+     4368:   30:				count++;
         -:   31:			}
        23:   32:			else if( v.is_string() ){
         4:   33:				if( v.is_unknown() ){
@@ -45,42 +45,42 @@
         -:   43:				count = -1;
         -:   44:				break;
         -:   45:			}
-     8772:   46:			if( i >= (int)words.size() ){
+     8744:   46:			if( i >= (int)words.size() ){
         -:   47:				break;
         -:   48:			}
-     5984:   49:			if( words[ i ] != "," ){
+     5982:   49:			if( words[ i ] != "," ){
       110:   50:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
         -:   51:				count = -1;
         -:   52:				break;
         -:   53:			}
-     2970:   54:			i++;
+     2969:   54:			i++;
         -:   55:		}
-     1413:   56:		if( count >= 0 ){
-     1394:   57:			this->set_code_size( &info, count );
+     1400:   56:		if( count >= 0 ){
+     1381:   57:			this->set_code_size( &info, count );
         -:   58:		}
         -:   59:	}
-     5064:   60:	if( !this->is_data_fixed ){
+     4178:   60:	if( !this->is_data_fixed ){
         -:   61:		i = 1;
         -:   62:		for( ;; ){
-     4430:   63:			i = this->expression( info, i, v );
-     4430:   64:			if( i == 0 ){
+     4406:   63:			i = this->expression( info, i, v );
+     4406:   64:			if( i == 0 ){
       165:   65:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_EVALUATE_THE_EXPRESSION ) );
         -:   66:				data.clear();
        33:   67:				return false;
         -:   68:			}
-    11775:   69:			if( i < (int)words.size() && words[ i ] != "," ){
+    11726:   69:			if( i < (int)words.size() && words[ i ] != "," ){
        20:   70:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   71:				data.clear();
         4:   72:				return false;
         -:   73:			}
-     4393:   74:			i++;
-     8786:   75:			if( v.is_unknown() ){
-      125:   76:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+     4369:   74:			i++;
+     8738:   75:			if( v.is_unknown() ){
+       75:   76:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   77:				data.clear();
-       25:   78:				return false;
+       15:   78:				return false;
         -:   79:			}
-     4368:   80:			else if( v.is_integer() ) {
-     8728:   81:				data.push_back( v.i & 255 );
+     4354:   80:			else if( v.is_integer() ) {
+     8700:   81:				data.push_back( v.i & 255 );
         -:   82:			}
         -:   83:			else {
         -:   84:				//	v.is_string()
@@ -88,14 +88,14 @@
        50:   86:					data.push_back( (unsigned char) c );
         -:   87:				}
         -:   88:			}
-     8736:   89:			if( i >= (int)words.size() ){
+     8708:   89:			if( i >= (int)words.size() ){
         -:   90:				break;
         -:   91:			}
         -:   92:		}
-     1394:   93:		this->is_data_fixed = true;
+     1381:   93:		this->is_data_fixed = true;
         -:   94:	}
         -:   95:	//	log
-     5002:   96:	if( !this->is_analyze_phase ){
+     4126:   96:	if( !this->is_analyze_phase ){
      2758:   97:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
      1379:   98:		log.write_dump( this->code_address, this->file_address, this->data );
      1379:   99:		log.write_separator();

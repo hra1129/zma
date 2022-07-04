@@ -101,16 +101,20 @@ LINE# |OFFSET|ADDR|MNEMONIC
     44|      |    |AAA
     44|ERROR |    |Invalid command.: test1.asm(44)
     45|      |    |LABEL1_2 ::
-      |      |    |  global label address: 0xXXXXXX
+      |      |    |  global label [LABEL1_2] address: 0x000300
 ------+------+----+----------------------------------
     45|      |    |AAA
     45|ERROR |    |Invalid command.: test1.asm(45)
     46|      |    |LABEL1_3 = $ AAA
-      |      |    |  Integer symbol [LABEL1_3] = UNKNOWN
+      |      |    |  Integer symbol [LABEL1_3] = 768 (0x300)
+------+------+----+----------------------------------
+    46|      |    |LABEL1_3 = $ AAA
+    46|ERROR |    |Multiple definition.: test1.asm(46)
+    47|      |    |LABEL1_4 := $ AAA
+      |      |    |  Global integer symbol [LABEL1_4] = 768 (0x300)
 ------+------+----+----------------------------------
     47|      |    |LABEL1_4 := $ AAA
-      |      |    |  Global integer symbol [LABEL1_4] = UNKNOWN
-------+------+----+----------------------------------
+    47|ERROR |    |Multiple definition.: test1.asm(47)
     50|      |    |ORG 0x500
 ------+------+----+----------------------------------
     51|      |    |LABEL2_3 = INVALID_LABEL
@@ -125,9 +129,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
     52|ERROR |    |Label is indeterminate.: test1.asm(52)
 << label >>
 LABEL1_1 ...... 768 ( 0x300 )
-LABEL1_2 ...... ????
-LABEL1_3 ...... ????
-LABEL1_4 ...... ????
+LABEL1_2 ...... 768 ( 0x300 )
+LABEL1_3 ...... 768 ( 0x300 )
+LABEL1_4 ...... 768 ( 0x300 )
 LABEL_0X100 ... 256 ( 0x100 )
 LABEL_0X200 ... 256 ( 0x100 )
 LABEL_0X300 ... 256 ( 0x100 )

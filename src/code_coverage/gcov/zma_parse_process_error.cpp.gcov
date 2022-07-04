@@ -19,6 +19,8 @@
         -:   17:// --------------------------------------------------------------------
        18:   18:bool CZMA_PARSE_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-       90:   20:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
-       18:   21:	return false;
-      154:   22:}
+       18:   20:	set_code_size( &info, 0 );
+       18:   21:	update_flags( &info, p_last_line );
+       90:   22:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
+       18:   23:	return false;
+      154:   24:}

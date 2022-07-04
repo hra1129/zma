@@ -98,7 +98,7 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 	CZMA_PARSE *p_parse;
 	CZMA_MACRO* p_macro;
 	std::map< std::string, std::vector< std::string > > argument;
-	std::vector< std::string > parameter, insert_line, label_line;
+	std::vector< std::string > parameter, label_line;
 	std::string replace_name, arg_name;
 	int i, j, id;
 	unsigned int success_count;
@@ -139,37 +139,41 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 		}
 		//	m_text に macro の展開内容をコピーする
 		for( auto p : p_macro->m_text ) {
-			insert_line = p->words;
-			for( auto word = insert_line.begin(); word != insert_line.end(); ) {
-				replace_name = *word;
-				if( argument.count( replace_name ) ) {
-					//	マクロの仮引数を見つけた場合、指定されている式に置き換える
-					word = insert_line.erase( word );
-					for( auto &insert_word : argument[replace_name] ) {
-						word = insert_line.insert( word, insert_word );
+			printf( "INS: %s\n", p->get_line().c_str() );	//★
+			auto words_list = p->get_words();
+			for( auto insert_line : words_list ){
+				for( auto word = insert_line.begin(); word != insert_line.end(); ){
+					replace_name = *word;
+					if( argument.count( replace_name ) ){
+						//	マクロの仮引数を見つけた場合、指定されている式に置き換える
+						word = insert_line.erase( word );
+						for( auto &insert_word : argument[ replace_name ] ){
+							word = insert_line.insert( word, insert_word );
+							++word;
+						}
+					}
+					else{
 						++word;
 					}
 				}
-				else {
-					++word;
+				if( insert_line.size() > 2 && ( ( insert_line[ 1 ] == ":" ) || ( insert_line[ 1 ] == "::" ) ) ){
+					label_line.resize( 2 );
+					label_line[ 0 ] = insert_line[ 0 ];
+					label_line[ 1 ] = insert_line[ 1 ];
+					p_parse = CZMA_PARSE::create( info, label_line, this->p_file_name, this->line_no );
+					text.m_text.push_back( p_parse );
+					insert_line.erase( insert_line.begin() );
+					insert_line.erase( insert_line.begin() );
+					p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
+					text.m_text.push_back( p_parse );
+				}
+				else{
+					p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
+					text.m_text.push_back( p_parse );
 				}
 			}
-			if( insert_line.size() > 2 && ( (insert_line[ 1 ] == ":") || (insert_line[ 1 ] == "::") ) ){
-				label_line.resize( 2 );
-				label_line[ 0 ] = insert_line[ 0 ];
-				label_line[ 1 ] = insert_line[ 1 ];
-				p_parse = CZMA_PARSE::create( info, label_line, this->p_file_name, this->line_no );
-				text.m_text.push_back( p_parse );
-				insert_line.erase( insert_line.begin() );
-				insert_line.erase( insert_line.begin() );
-				p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
-				text.m_text.push_back( p_parse );
-			}
-			else{
-				p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
-				text.m_text.push_back( p_parse );
-			}
 		}
+		text.analyze_structure();
 		this->is_loaded = true;
 		info.is_updated = true;
 	}

@@ -12,8 +12,8 @@
 //	Constructor
 // ----------------------------------------------------------------
 CZMA_TEXT::CZMA_TEXT() {
-	code_size = 0;
-	next_code_address = 0;
+	code_size = -1;
+	next_code_address = -1;
 }
 
 // ----------------------------------------------------------------
@@ -23,6 +23,42 @@ CZMA_TEXT::~CZMA_TEXT() {
 	for( auto p: m_text ) { 
 		delete p; 
 	}
+}
+
+// ----------------------------------------------------------------
+//	code size
+// ----------------------------------------------------------------
+void CZMA_TEXT::calc_code_size( void ) {
+
+	code_size = 0;
+	for( auto &p : this->m_text ){
+		if( p->is_fixed_code_size() ){
+			code_size += p->get_code_size();
+		}
+		else{
+			code_size = -1;
+			break;
+		}
+		if( p->is_fixed_next_code_address() ){
+			next_code_address = p->get_next_code_address();
+		}
+		else{
+			next_code_address = -1;
+		}
+	}
+}
+
+// ----------------------------------------------------------------
+//	check data fixed
+// ----------------------------------------------------------------
+bool CZMA_TEXT::check_data_fixed( void ){
+
+	for( auto &p : this->m_text ){
+		if( !p->check_data_fixed() ){
+			return false;
+		}
+	}
+	return true;
 }
 
 // ----------------------------------------------------------------
@@ -107,8 +143,8 @@ CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_co
 			//	ブロックの中の処理
 			if( (*p)->words.size() >= 1 && info.block_end_table.count( (*p)->words[0] ) ) {
 				//	ブロックを閉じる記号を発見
-				if( (*p)->words[0] == "ENDR" || (*p)->words[0] == "ENDM" || (*p)->words[0] == "ENDIF" ) {
-					//	特に ENDR, ENDM, ENDIF の処理
+				if( (*p)->words[0] == "ENDR" || (*p)->words[0] == "ENDM" ) {
+					//	特に ENDR, ENDM の処理
 					if( nest_count ) {
 						//	ブロック内のブロックだったのでネスト数を減らすだけ
 						nest_count--;
@@ -141,7 +177,7 @@ CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_co
 			else {
 				if( (*p)->words.size() >= 1 && info.block_begin_table.count( (*p)->words[0] ) ) {
 					//	ブロックの内側にブロックの開始を発見
-					if( (*p)->words[0] == "REPEAT" || (*p)->words[0] == "IF" ) {
+					if( (*p)->words[0] == "REPEAT" ) {
 						nest_count++;
 					}
 				}
@@ -161,10 +197,24 @@ CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_co
 }
 
 // --------------------------------------------------------------------
+void CZMA_TEXT::analyze_structure( void ){
+	std::vector<CZMA_PARSE *>::iterator pp_current = this->m_text.begin();
+
+	while( pp_current != this->m_text.end() ){
+		(*pp_current)->block_structure( this->m_text, pp_current );
+		pp_current++;
+	}
+}
+
+// --------------------------------------------------------------------
 bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
 	unsigned int success_count;
 	CZMA_PARSE* p_last_line;
 
+	this->analyze_structure();
+	if( CZMA_PARSE::get_number_of_errors() ){
+		return false;
+	}
 	for( ; ; ) {
 		info.clear();
 		p_last_line = this->process( info, success_count, nullptr, false );

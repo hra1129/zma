@@ -11,10 +11,28 @@
 #include "zma_parse.hpp"
 
 class CZMA_TEXT {
-public:
-	std::vector<CZMA_PARSE*> m_text;
+private:
 	int	code_size;
 	int next_code_address;
+
+public:
+	std::vector<CZMA_PARSE*> m_text;
+
+	// --------------------------------------------------------------------
+	int get_code_size( void ) const{
+		return code_size;
+	}
+
+	// --------------------------------------------------------------------
+	int get_next_code_address( void ) const{
+		return next_code_address;
+	}
+
+	// --------------------------------------------------------------------
+	void calc_code_size( void );
+
+	// --------------------------------------------------------------------
+	bool check_data_fixed( void );
 
 	// ----------------------------------------------------------------
 	//	Constructor
@@ -52,5 +70,7 @@ public:
 	bool write( CZMA_INFORMATION& info, std::ofstream* f );
 
 	CZMA_PARSE* process( CZMA_INFORMATION& info, unsigned int& success_count, CZMA_PARSE* p_prev_line, bool output_mode );
+
+	void analyze_structure( void );
 	bool all_process( CZMA_INFORMATION &info );
 };

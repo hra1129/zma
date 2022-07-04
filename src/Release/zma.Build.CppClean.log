@@ -1,5 +1,4 @@
 c:\users\hra\documents\github\zma\src\release\vc142.pdb
-c:\users\hra\documents\github\zma\src\release\zma_parse_process_defb.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_dec.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_daa.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_cpl.obj
@@ -9,6 +8,7 @@ c:\users\hra\documents\github\zma\src\release\zma_parse_process_cpdr.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_cpd.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_cp.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_container.obj
+c:\users\hra\documents\github\zma\src\release\zma_parse_process_chg_char_set.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_ccf.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_call.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_blank.obj
@@ -19,7 +19,6 @@ c:\users\hra\documents\github\zma\src\release\zma_parse_process_align.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_add_include_path.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_add.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_adc.obj
-c:\users\hra\documents\github\zma\src\release\zma_parse_process_include.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_inc.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_in.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_im2.obj
@@ -39,7 +38,7 @@ c:\users\hra\documents\github\zma\src\release\zma_parse_process_di.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_defw.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_defs.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_defd.obj
-c:\users\hra\documents\github\zma\src\release\zma_parse_process_otdr.obj
+c:\users\hra\documents\github\zma\src\release\zma_parse_process_defb.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_org.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_or.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_nop.obj
@@ -59,7 +58,7 @@ c:\users\hra\documents\github\zma\src\release\zma_parse_process_inir.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_ini.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_indr.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_ind.obj
-c:\users\hra\documents\github\zma\src\release\zma_parse_process_rrca.obj
+c:\users\hra\documents\github\zma\src\release\zma_parse_process_include.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_rrc.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_rra.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_rr.obj
@@ -79,7 +78,7 @@ c:\users\hra\documents\github\zma\src\release\zma_parse_process_outi.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_outd.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_out.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_otir.obj
-c:\users\hra\documents\github\zma\src\release\zma_parse.obj
+c:\users\hra\documents\github\zma\src\release\zma_parse_process_otdr.obj
 c:\users\hra\documents\github\zma\src\release\zma_logger.obj
 c:\users\hra\documents\github\zma\src\release\zma_information.obj
 c:\users\hra\documents\github\zma\src\release\zma.obj
@@ -99,10 +98,13 @@ c:\users\hra\documents\github\zma\src\release\zma_parse_process_scf.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_sbc.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_rst.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_rrd.obj
+c:\users\hra\documents\github\zma\src\release\zma_parse_process_rrca.obj
 c:\users\hra\documents\github\zma\src\release\zma_text.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_expression.obj
-c:\users\hra\documents\github\zma\src\release\zma_parse_process_chg_char_set.obj
+c:\users\hra\documents\github\zma\src\release\zma_parse.obj
+c:\users\hra\documents\github\zma\src\release\zma_error.obj
+c:\users\hra\documents\github\zma\src\release\zma_hexfile.obj
 c:\users\hra\documents\github\zma\src\release\zma.exe
 c:\users\hra\documents\github\zma\src\release\zma.pdb
 c:\users\hra\documents\github\zma\src\release\zma.ipdb

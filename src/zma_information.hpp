@@ -90,21 +90,6 @@ public:
 };
 
 // --------------------------------------------------------------------
-class CZMA_IF_SUB_T {
-public:
-	bool							is_condition_fixed = false;
-	bool							is_condition = false;
-	class CZMA_PARSE_IF				*p_if = nullptr;
-	class CZMA_TEXT					*p_text = nullptr;
-};
-
-// --------------------------------------------------------------------
-class CZMA_IF_T {
-public:
-	std::vector<CZMA_IF_SUB_T*>		m_sub;
-};
-
-// --------------------------------------------------------------------
 class CZMA_CHAR_SET {
 public:
 	std::vector< unsigned char >	ascii_to_map;
@@ -114,6 +99,7 @@ public:
 class CZMA_INFORMATION {
 public:
 	std::map< std::string, CVALUE >	dict;
+	std::map< std::string, CVALUE >	*p_sub_dict;
 	std::map< std::string, int >	sss_or_ddd_id { { "B", 0 }, { "C", 1 }, { "D", 2 }, { "E", 3 }, { "H", 4 }, { "L", 5 }, { "A", 7 }, };
 	std::map< std::string, int >	ix_hl{ { "IXH", 4 }, { "IXL", 5 }, };
 	std::map< std::string, int >	iy_hl{ { "IYH", 4 }, { "IYL", 5 }, };
@@ -143,10 +129,8 @@ public:
 		CZMA_INFO_REPEAT_BLOCK,
 		CZMA_INFO_IF_BLOCK,
 	};
-	std::map< std::string, BLOCK_TYPE_T >	block_begin_table{ { "REPEAT", { BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK } },
-													{ "ELSEIF", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }, { "ELSE", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }, { "IF", { BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK } } };
-	std::map< std::string, BLOCK_TYPE_T >	block_end_table{ { "ENDM", BLOCK_TYPE_T::CZMA_INFO_MACRO_BLOCK }, { "ENDR", BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK },
-													{ "ELSEIF", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }, { "ELSE", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }, { "ENDIF", BLOCK_TYPE_T::CZMA_INFO_IF_BLOCK }  };
+	std::map< std::string, BLOCK_TYPE_T >	block_begin_table{ { "REPEAT", { BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK } } };
+	std::map< std::string, BLOCK_TYPE_T >	block_end_table{ { "ENDM", BLOCK_TYPE_T::CZMA_INFO_MACRO_BLOCK }, { "ENDR", BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK } };
 	bool is_updated;
 	bool is_block_processing;
 	BLOCK_TYPE_T block_type;
@@ -158,8 +142,6 @@ public:
 
 	CZMA_REPEAT_T*							p_repeat;
 
-	CZMA_IF_T*								p_if;
-
 	std::map< std::string, CZMA_CHAR_SET >	char_set_list;
 	CZMA_CHAR_SET*							p_char_set;
 	std::string								s_char_set;
@@ -170,8 +152,9 @@ public:
 	// --------------------------------------------------------------------
 	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), 
 			block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), 
-			p_text( nullptr ), p_macro( nullptr ), p_if( nullptr ), p_repeat( nullptr ), 
-			p_char_set( nullptr ), defs_is_space(false),
+			p_text( nullptr ), p_macro( nullptr ), 
+			p_sub_dict( nullptr ),
+			p_repeat( nullptr ), p_char_set( nullptr ), defs_is_space(false),
 			output_type( OUTPUT_TYPE::CZMA_BINARY ) {
 	}
 

@@ -17,27 +17,28 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-       37:   18:bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       21:   18:bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	CVALUE v;
         -:   20:
-       37:   21:	set_code_size( &info, 0 );
-       37:   22:	update_flags( &info, p_last_line );
-       74:   23:	if( words.size() == 1 ) {
-       15:   24:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
-        3:   25:		return false;
-        -:   26:	}
-       34:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
-       45:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        -:   29:	}
-       50:   30:	else if( v.is_unknown() ){
-       15:   31:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        -:   32:	}
-       22:   33:	else if( v.is_string() ){
-       38:   34:		put_error( v.s );
-        -:   35:	}
-        -:   36:	else {
-        -:   37:		//	v.is_integer()
-        9:   38:		put_error( std::to_string( v.i ) );
-        -:   39:	}
-        -:   40:	return false;
-      154:   41:}
+       21:   21:	set_code_size( &info, 0 );
+       21:   22:	this->is_data_fixed = true;
+       21:   23:	update_flags( &info, p_last_line );
+       42:   24:	if( words.size() == 1 ) {
+       15:   25:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
+        3:   26:		return false;
+        -:   27:	}
+       18:   28:	if( this->expression( info, 1, v, false ) == 0 ) {
+       45:   29:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        -:   30:	}
+       18:   31:	else if( v.is_unknown() ){
+    #####:   32:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        -:   33:	}
+        9:   34:	else if( v.is_string() ){
+        6:   35:		put_error( v.s );
+        -:   36:	}
+        -:   37:	else {
+        -:   38:		//	v.is_integer()
+       18:   39:		put_error( std::to_string( v.i ) );
+        -:   40:	}
+        -:   41:	return false;
+      154:   42:}

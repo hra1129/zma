@@ -19,6 +19,7 @@ bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 	CVALUE v;
 
 	set_code_size( &info, 0 );
+	this->is_data_fixed = true;
 	update_flags( &info, p_last_line );
 	if( words.size() == 1 ) {
 		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );

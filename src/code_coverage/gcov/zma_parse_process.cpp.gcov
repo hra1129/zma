@@ -128,31 +128,31 @@
         -:  126:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_##operation( words, p_file_name, line_no ))
         -:  127:
         -:  128:// --------------------------------------------------------------------
-     9029:  129:CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string> &words, const char* p_file_name, int line_no ) {
+     9033:  129:CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string> &words, const char* p_file_name, int line_no ) {
         -:  130:
-    18058:  131:	if( words.size() == 0 ) {
+    18066:  131:	if( words.size() == 0 ) {
      7146:  132:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_BLANK( words, p_file_name, line_no ));
         -:  133:	}
-     6652:  134:	if( words.size() == 2 && words[1] == ":" ) {
+     6660:  134:	if( words.size() == 2 && words[1] == ":" ) {
        98:  135:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_LABEL( words, p_file_name, line_no ));
         -:  136:	}
-     6554:  137:	if( words.size() == 2 && words[1] == "::" ) {
+     6562:  137:	if( words.size() == 2 && words[1] == "::" ) {
        18:  138:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_GLOBAL_LABEL( words, p_file_name, line_no ));
         -:  139:	}
-     7793:  140:	if( words.size() >= 3 && words[1] == "=" ) {
+     7797:  140:	if( words.size() >= 3 && words[1] == "=" ) {
        36:  141:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_SYMBOL( words, p_file_name, line_no ));
         -:  142:	}
-    10124:  143:	if( words.size() >= 3 && (words[1] == ":=" || words[ 1 ] == "EQU") ) {
+    10128:  143:	if( words.size() >= 3 && (words[1] == ":=" || words[ 1 ] == "EQU") ) {
        24:  144:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_GLOBAL_SYMBOL( words, p_file_name, line_no ));
         -:  145:	}
-     8871:  146:	if( words.size() >= 2 && words[1] == "MACRO" ) {
+     8879:  146:	if( words.size() >= 2 && words[1] == "MACRO" ) {
        31:  147:		info.macro_list[words[0]] = nullptr;
        62:  148:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_MACRO( words, p_file_name, line_no ));
         -:  149:	}
         -:  150:	if( words.size() >= 1 && info.macro_list.count( words[0] ) ) {
       152:  151:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_MACRO_INS( words, p_file_name, line_no ));
         -:  152:	}
-     5261:  153:	switch( command_list[words[0]] ) {
+     5265:  153:	switch( command_list[words[0]] ) {
        58:  154:		OPE_CASE( ORG );
        20:  155:		OPE_CASE( INCLUDE );
        10:  156:		OPE_CASE( ADD_INCLUDE_PATH );
@@ -161,7 +161,7 @@
        50:  159:		OPE_CASE( REPEAT );
        50:  160:		OPE_CASE( ENDR );
        60:  161:		OPE_CASE( ENDM );
-      116:  162:		OPE_CASE( IF );
+       58:  162:		OPE_CASE( IF );
        58:  163:		OPE_CASE( ELSEIF );
        86:  164:		OPE_CASE( ELSE );
       120:  165:		OPE_CASE( ENDIF );
@@ -170,7 +170,7 @@
        42:  168:		OPE_CASE( SCOPE );
        30:  169:		OPE_CASE( ENDSCOPE );
         2:  170:		OPE_CASE( BINARY_LINK );
-     2888:  171:		OPE_CASE( DEFB );
+     2896:  171:		OPE_CASE( DEFB );
       488:  172:		OPE_CASE( DEFW );
        20:  173:		OPE_CASE( DEFD );
        32:  174:		case CZMA_COMMAND_TYPE::CZMA_DEFS:
@@ -284,15 +284,15 @@
     #####:  282:}
         -:  283:
         -:  284:// --------------------------------------------------------------------
-     4999:  285:std::string CZMA_PARSE::get_line( void ) {
+     5365:  285:std::string CZMA_PARSE::get_line( void ) {
         -:  286:	std::string r, ss;
         -:  287:
         -:  288:	r = "";
-    22750:  289:	for( auto &s : words ) {
-    35502:  290:		if( s.size() > 0 && (s[0] == '\"' || s[0] == '\'') ){
-      115:  291:			ss = s[ 0 ];
-     1213:  292:			for( int i = 1; i < (int)s.size(); i++ ) {
-     1098:  293:				switch( s[i] ) {
+    24077:  289:	for( auto &s : words ) {
+    37424:  290:		if( s.size() > 0 && (s[0] == '\"' || s[0] == '\'') ){
+      124:  291:			ss = s[ 0 ];
+     1408:  292:			for( int i = 1; i < (int)s.size(); i++ ) {
+     1284:  293:				switch( s[i] ) {
     #####:  294:				case '\a':	ss = ss + "\\a";	break;
     #####:  295:				case '\b':	ss = ss + "\\b";	break;
     #####:  296:				case '\f':	ss = ss + "\\f";	break;
@@ -302,31 +302,31 @@
         2:  300:				case '\\':	ss = ss + "\\\\";	break;
     #####:  301:				case '\'':	ss = ss + "\\'";	break;
     #####:  302:				case '\"':	ss = ss + "\\\"";	break;
-     1096:  303:				default:	ss = ss + s[i];		break;
+     1282:  303:				default:	ss = ss + s[i];		break;
         -:  304:				}
         -:  305:			}
-      230:  306:			ss = ss + s[0];
+      248:  306:			ss = ss + s[0];
         -:  307:		}
         -:  308:		else {
         -:  309:			ss = s;
         -:  310:		}
-    17751:  311:		if( r == "" ) {
+    18712:  311:		if( r == "" ) {
         -:  312:			r = ss;
         -:  313:		}
-    12752:  314:		else if( ss == "," ){
-     8136:  315:			r = r + ss;
+    13347:  314:		else if( ss == "," ){
+     8234:  315:			r = r + ss;
         -:  316:		}
-     8684:  317:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'X' ){
+     9230:  317:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'X' ){
      3041:  318:			ss[ 1 ] = 'x';
      9123:  319:			r = r + " " + ss;
         -:  320:		}
-     7409:  321:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'B' ){
+     8247:  321:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'B' ){
         3:  322:			ss[ 1 ] = 'b';
         9:  323:			r = r + " " + ss;
         -:  324:		}
         -:  325:		else {
-    22560:  326:			r = r + " " + ss;
+    24744:  326:			r = r + " " + ss;
         -:  327:		}
         -:  328:	}
-     4999:  329:	return r;
+     5365:  329:	return r;
       231:  330:}

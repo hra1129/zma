@@ -76,7 +76,7 @@ bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 			if( !v.is_unknown() ){
 				this->is_data_fixed = true;
 			}
-			if( !info.dict.count( label ) ){
+			if( !info.dict.count( label ) || info.dict[ label ].value_type != v.value_type ){
 				info.is_updated = true;
 			}
 			info.dict[label] = v;

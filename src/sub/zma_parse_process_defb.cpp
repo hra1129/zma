@@ -21,7 +21,7 @@ bool CZMA_PARSE_DEFB::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line )
 
 	update_flags( &info, p_last_line );
 	if( !this->is_fixed_code_size() ){
-		count = 1;
+		count = 0;
 		i = 1;
 		for( ;; ){
 			i = this->expression( info, i, v );

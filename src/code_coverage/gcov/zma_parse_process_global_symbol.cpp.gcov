@@ -35,10 +35,10 @@
        10:   33:			v = info.dict[label];
        20:   34:			if( v.is_integer() ) {
         8:   35:				if( v.is_unknown() ){
-        2:   36:					s << "Global integer symbol [" << label << "] = UNKNOWN";
+        1:   36:					s << "Global integer symbol [" << label << "] = UNKNOWN";
         -:   37:				}
         -:   38:				else {
-       12:   39:					s << "Global integer symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
+       14:   39:					s << "Global integer symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
         -:   40:				}
         -:   41:			}
         2:   42:			else if( v.is_string() ) {
@@ -71,17 +71,17 @@
     #####:   69:			return false;
         -:   70:		}
        30:   71:		if( info.dict.count( label ) && !info.dict[ label ].is_unknown() ) {
-       30:   72:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
-        6:   73:			return false;
+       40:   72:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
+        8:   73:			return false;
         -:   74:		}
         -:   75:		else {
-       24:   76:			if( !v.is_unknown() ){
-        6:   77:				this->is_data_fixed = true;
+       20:   76:			if( !v.is_unknown() ){
+        7:   77:				this->is_data_fixed = true;
         -:   78:			}
-        -:   79:			if( !info.dict.count( label ) ){
+        4:   79:			if( !info.dict.count( label ) || info.dict[ label ].value_type != v.value_type ){
         8:   80:				info.is_updated = true;
         -:   81:			}
-       12:   82:			info.dict[label] = v;
+       10:   82:			info.dict[label] = v;
         -:   83:		}
         -:   84:	}
         -:   85:	else {

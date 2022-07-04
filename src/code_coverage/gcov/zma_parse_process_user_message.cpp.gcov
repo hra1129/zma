@@ -17,29 +17,30 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-      282:   18:bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      261:   18:bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	CVALUE v;
         -:   20:
-      282:   21:	set_code_size( &info, 0 );
-      282:   22:	update_flags( &info, p_last_line );
-      564:   23:	if( words.size() == 1 ) {
-       15:   24:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
-        3:   25:		return false;
-        -:   26:	}
-      279:   27:	if( this->expression( info, 1, v, false ) == 0 ) {
-      300:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-       60:   29:		return false;
-        -:   30:	}
-      438:   31:	else if( v.is_unknown() ){
-       10:   32:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        2:   33:		return false;
-        -:   34:	}
-      217:   35:	if( v.is_integer() ) {
-       27:   36:		v.s = std::to_string( v.i );
-        -:   37:	}
-        -:   38:	//	log
-      217:   39:	if( !this->is_analyze_phase ) {
-      132:   40:		put_message( v.s );
-        -:   41:	}
-        -:   42:	return true;
-      154:   43:}
+      261:   21:	set_code_size( &info, 0 );
+      261:   22:	this->is_data_fixed = true;
+      261:   23:	update_flags( &info, p_last_line );
+      522:   24:	if( words.size() == 1 ) {
+       15:   25:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
+        3:   26:		return false;
+        -:   27:	}
+      258:   28:	if( this->expression( info, 1, v, false ) == 0 ) {
+      300:   29:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+       60:   30:		return false;
+        -:   31:	}
+      396:   32:	else if( v.is_unknown() ){
+    #####:   33:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+    #####:   34:		return false;
+        -:   35:	}
+      198:   36:	if( v.is_integer() ) {
+       27:   37:		v.s = std::to_string( v.i );
+        -:   38:	}
+        -:   39:	//	log
+      198:   40:	if( !this->is_analyze_phase ) {
+      132:   41:		put_message( v.s );
+        -:   42:	}
+        -:   43:	return true;
+      154:   44:}

@@ -122,128 +122,146 @@
         -:  120:	// ----------------------------------------------------------------
         -:  121:	//	Destructor
         -:  122:	// ----------------------------------------------------------------
-    15886:  123:	~CZMA_PARSE() {
-     7943:  124:	}
+    15764:  123:	~CZMA_PARSE() {
+     7882:  124:	}
         -:  125:
         -:  126:	// ----------------------------------------------------------------
-        -:  127:	//	Process method
+        -:  127:	//	このインスタンスが示す行の情報を返す
         -:  128:	// ----------------------------------------------------------------
-        -:  129:	virtual bool process( CZMA_INFORMATION &info, CZMA_PARSE* p_last_line = NULL ) = 0;
-        -:  130:
-        -:  131:	// ----------------------------------------------------------------
-        -:  132:	bool check_all_fixed() const {
-    26407:  133:		return is_fixed_code_address() && is_fixed_file_address () && is_fixed_code_size() && check_data_fixed();
-        -:  134:	}
-        -:  135:
-        -:  136:	// ----------------------------------------------------------------
-        -:  137:	bool check_data_fixed() const {
-        -:  138:		return is_data_fixed;
-        -:  139:	}
+      422:  129:	virtual std::vector< std::vector< std::string > > get_words( void ){
+        -:  130:		std::vector< std::vector< std::string > > list;
+      422:  131:		list.push_back( this->words );
+      422:  132:		return list;
+        -:  133:	}
+        -:  134:
+        -:  135:	// ----------------------------------------------------------------
+        -:  136:	//	ブロック構造を解析する処理
+        -:  137:	// ----------------------------------------------------------------
+     8387:  138:	virtual void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) {
+     8387:  139:	}
         -:  140:
         -:  141:	// ----------------------------------------------------------------
-        -:  142:	//	Set method
+        -:  142:	//	不明確な値を確定させる処理
         -:  143:	// ----------------------------------------------------------------
-        -:  144:	void set_label_search_state( bool state ) {
-        -:  145:		this->is_label_search_state = state;
-        -:  146:	}
-        -:  147:
-        -:  148:	// --------------------------------------------------------------------
-        -:  149:	void set_code_address( CZMA_INFORMATION* p_info, unsigned int new_code_address ) {
-    26726:  150:		if( this->code_address == -1 ) {
-     8554:  151:			p_info->is_updated = true;
-        -:  152:		}
-    26726:  153:		this->code_address = new_code_address;
+        -:  144:	virtual bool process( CZMA_INFORMATION &info, CZMA_PARSE* p_last_line = NULL ) = 0;
+        -:  145:
+        -:  146:	// ----------------------------------------------------------------
+        -:  147:	bool check_all_fixed() const {
+    24934:  148:		return is_fixed_code_address() && is_fixed_file_address () && is_fixed_code_size() && check_data_fixed();
+        -:  149:	}
+        -:  150:
+        -:  151:	// ----------------------------------------------------------------
+        -:  152:	bool check_data_fixed() const {
+        -:  153:		return is_data_fixed;
         -:  154:	}
         -:  155:
         -:  156:	// ----------------------------------------------------------------
-        -:  157:	void set_file_address( CZMA_INFORMATION* p_info, unsigned int new_file_address ) {
-    26638:  158:		if( this->file_address == -1 ) {
-     8508:  159:			p_info->is_updated = true;
-        -:  160:		}
-    26638:  161:		this->file_address = new_file_address;
-        -:  162:	}
-        -:  163:
-        -:  164:	// ----------------------------------------------------------------
-        -:  165:	void set_code_size( CZMA_INFORMATION* p_info, unsigned int new_code_size ) {
-    17450:  166:		if( this->code_size != (int)new_code_size ) {
-     8548:  167:			p_info->is_updated = true;
-     8548:  168:			this->code_size = new_code_size;
-        -:  169:		}
-    17456:  170:		if( this->is_fixed_code_address() ) {
-    16679:  171:			if( this->next_code_address == -1 ) {
-     8105:  172:				p_info->is_updated = true;
-        -:  173:			}
-    16679:  174:			this->next_code_address = this->code_address + new_code_size;
+        -:  157:	//	Set method
+        -:  158:	// ----------------------------------------------------------------
+        -:  159:	void set_label_search_state( bool state ) {
+        -:  160:		this->is_label_search_state = state;
+        -:  161:	}
+        -:  162:
+        -:  163:	// --------------------------------------------------------------------
+        -:  164:	void set_code_address( CZMA_INFORMATION* p_info, unsigned int new_code_address ) {
+    25484:  165:		if( this->code_address == -1 ) {
+     8504:  166:			p_info->is_updated = true;
+        -:  167:		}
+    25484:  168:		this->code_address = new_code_address;
+        -:  169:	}
+        -:  170:
+        -:  171:	// ----------------------------------------------------------------
+        -:  172:	void set_file_address( CZMA_INFORMATION* p_info, unsigned int new_file_address ) {
+    25347:  173:		if( this->file_address == -1 ) {
+     8455:  174:			p_info->is_updated = true;
         -:  175:		}
-        -:  176:	}
-        -:  177:
-        -:  178:	// --------------------------------------------------------------------
-        -:  179:	void set_output_mode( void ) {
-     8786:  180:		this->is_analyze_phase = false;
-        -:  181:	}
-        -:  182:
-        -:  183:	// --------------------------------------------------------------------
-        -:  184:	const char *get_file_name( void ) {
-        -:  185:		return p_file_name;
-        -:  186:	}
-        -:  187:
-        -:  188:	// ----------------------------------------------------------------
-        -:  189:	//	Get method
-        -:  190:	// ----------------------------------------------------------------
-        -:  191:	bool is_fixed_code_address() const {
-        -:  192:		return (code_address != -1);
-        -:  193:	}
-        -:  194:
-        -:  195:	// ----------------------------------------------------------------
-        -:  196:	bool is_fixed_next_code_address() const {
-        -:  197:		return (next_code_address != -1);
-        -:  198:	}
-        -:  199:
-        -:  200:	// ----------------------------------------------------------------
-        -:  201:	bool is_fixed_file_address() const {
-        -:  202:		return (file_address != -1);
-        -:  203:	}
-        -:  204:
-        -:  205:	// ----------------------------------------------------------------
-        -:  206:	bool is_fixed_code_size() const {
-        -:  207:		return (code_size != -1);
-        -:  208:	}
-        -:  209:
-        -:  210:	// ----------------------------------------------------------------
-        -:  211:	int get_code_address() const {
-        -:  212:		return code_address;
-        -:  213:	}
-        -:  214:
-        -:  215:	// ----------------------------------------------------------------
-        -:  216:	int get_next_code_address() const {
-        -:  217:		return next_code_address;
-        -:  218:	}
-        -:  219:
-        -:  220:	// ----------------------------------------------------------------
-        -:  221:	int get_file_address() const {
-        -:  222:		return file_address;
-        -:  223:	}
-        -:  224:
-        -:  225:	// ----------------------------------------------------------------
-        -:  226:	int get_code_size() const {
-        -:  227:		return code_size;
-        -:  228:	}
-        -:  229:
-        -:  230:	// ----------------------------------------------------------------
-        -:  231:	int get_line_no() const {
-        -:  232:		return line_no;
-        -:  233:	}
-        -:  234:
-        -:  235:	// ----------------------------------------------------------------
-        -:  236:	static int get_number_of_errors() {
-       81:  237:		return number_of_error;
-        -:  238:	}
-        -:  239:
-        -:  240:	// ----------------------------------------------------------------
-        -:  241:	virtual bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream *f );
+    25347:  176:		this->file_address = new_file_address;
+        -:  177:	}
+        -:  178:
+        -:  179:	// ----------------------------------------------------------------
+        -:  180:	void set_code_size( CZMA_INFORMATION* p_info, unsigned int new_code_size ) {
+       63:  181:		if( new_code_size == (unsigned int)-1 ){
+        -:  182:			return;
+        -:  183:		}
+    17175:  184:		if( this->code_size != (int)new_code_size ) {
+     8377:  185:			p_info->is_updated = true;
+     8377:  186:			this->code_size = new_code_size;
+        -:  187:		}
+    17181:  188:		if( this->is_fixed_code_address() ) {
+    16630:  189:			if( this->next_code_address == -1 ) {
+     8052:  190:				p_info->is_updated = true;
+        -:  191:			}
+    16630:  192:			this->next_code_address = this->code_address + new_code_size;
+        -:  193:		}
+        -:  194:	}
+        -:  195:
+        -:  196:	// --------------------------------------------------------------------
+     8748:  197:	virtual void set_output_mode( void ) {
+     8748:  198:		this->is_analyze_phase = false;
+     8748:  199:	}
+        -:  200:
+        -:  201:	// --------------------------------------------------------------------
+        -:  202:	const char *get_file_name( void ) {
+        -:  203:		return p_file_name;
+        -:  204:	}
+        -:  205:
+        -:  206:	// ----------------------------------------------------------------
+        -:  207:	//	Get method
+        -:  208:	// ----------------------------------------------------------------
+        -:  209:	bool is_fixed_code_address() const {
+        -:  210:		return (code_address != -1);
+        -:  211:	}
+        -:  212:
+        -:  213:	// ----------------------------------------------------------------
+        -:  214:	bool is_fixed_next_code_address() const {
+        -:  215:		return (next_code_address != -1);
+        -:  216:	}
+        -:  217:
+        -:  218:	// ----------------------------------------------------------------
+        -:  219:	bool is_fixed_file_address() const {
+        -:  220:		return (file_address != -1);
+        -:  221:	}
+        -:  222:
+        -:  223:	// ----------------------------------------------------------------
+        -:  224:	bool is_fixed_code_size() const {
+        -:  225:		return (code_size != -1);
+        -:  226:	}
+        -:  227:
+        -:  228:	// ----------------------------------------------------------------
+        -:  229:	int get_code_address() const {
+        -:  230:		return code_address;
+        -:  231:	}
+        -:  232:
+        -:  233:	// ----------------------------------------------------------------
+        -:  234:	int get_next_code_address() const {
+        -:  235:		return next_code_address;
+        -:  236:	}
+        -:  237:
+        -:  238:	// ----------------------------------------------------------------
+        -:  239:	int get_file_address() const {
+        -:  240:		return file_address;
+        -:  241:	}
         -:  242:
         -:  243:	// ----------------------------------------------------------------
-    27613:  244:	virtual bool is_parse_error( void ) {
-    27613:  245:		return false;
+        -:  244:	int get_code_size() const {
+        -:  245:		return code_size;
         -:  246:	}
-        -:  247:};
+        -:  247:
+        -:  248:	// ----------------------------------------------------------------
+        -:  249:	int get_line_no() const {
+        -:  250:		return line_no;
+        -:  251:	}
+        -:  252:
+        -:  253:	// ----------------------------------------------------------------
+        -:  254:	static int get_number_of_errors() {
+      151:  255:		return number_of_error;
+        -:  256:	}
+        -:  257:
+        -:  258:	// ----------------------------------------------------------------
+        -:  259:	virtual bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream *f );
+        -:  260:
+        -:  261:	// ----------------------------------------------------------------
+    26016:  262:	virtual bool is_parse_error( void ) {
+    26016:  263:		return false;
+        -:  264:	}
+        -:  265:};

@@ -124,7 +124,22 @@ public:
 	}
 
 	// ----------------------------------------------------------------
-	//	Process method
+	//	このインスタンスが示す行の情報を返す
+	// ----------------------------------------------------------------
+	virtual std::vector< std::vector< std::string > > get_words( void ){
+		std::vector< std::vector< std::string > > list;
+		list.push_back( this->words );
+		return list;
+	}
+
+	// ----------------------------------------------------------------
+	//	ブロック構造を解析する処理
+	// ----------------------------------------------------------------
+	virtual void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) {
+	}
+
+	// ----------------------------------------------------------------
+	//	不明確な値を確定させる処理
 	// ----------------------------------------------------------------
 	virtual bool process( CZMA_INFORMATION &info, CZMA_PARSE* p_last_line = NULL ) = 0;
 
@@ -163,6 +178,9 @@ public:
 
 	// ----------------------------------------------------------------
 	void set_code_size( CZMA_INFORMATION* p_info, unsigned int new_code_size ) {
+		if( new_code_size == (unsigned int)-1 ){
+			return;
+		}
 		if( this->code_size != (int)new_code_size ) {
 			p_info->is_updated = true;
 			this->code_size = new_code_size;
@@ -176,7 +194,7 @@ public:
 	}
 
 	// --------------------------------------------------------------------
-	void set_output_mode( void ) {
+	virtual void set_output_mode( void ) {
 		this->is_analyze_phase = false;
 	}
 
