@@ -22,7 +22,7 @@
        43:   20:	for( auto line : log ) {
        24:   21:		info.log << line << " begin" << std::endl;
         -:   22:	}
-       19:   23:	bool result = this->text.write( info, f );
+       19:   23:	bool result = this->m_text.write( info, f );
        43:   24:	for( auto line : log ) {
        24:   25:		info.log << line << " end" << std::endl;
         -:   26:	}
@@ -30,88 +30,103 @@
         -:   28:}
         -:   29:
         -:   30:// --------------------------------------------------------------------
-       61:   31:bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   32:	std::string s;
-        -:   33:	int i;
-        -:   34:	unsigned int success_count;
-        -:   35:	CVALUE path;
-      122:   36:	std::ifstream f;
-        -:   37:	bool is_open;
-        -:   38:
-       61:   39:	update_flags( &info, p_last_line );
-      122:   40:	if( words.size() < 2 ) {
-       15:   41:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MUST_BE_SET_NAME ) );
-        3:   42:		return false;
-        -:   43:	}
-       58:   44:	i = this->expression( info, 1, path, false );
-       58:   45:	if( i == 0 ) {
-       15:   46:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-        3:   47:		return false;
+        -:   31://	1つのIF文についてコードサイズを計算する
+    #####:   32:int CZMA_PARSE_INCLUDE::calc_code_size( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line, int &next_code_address ){
+        -:   33:	int code_size = 0;
+        -:   34:
+       31:   35:	for( auto &p : this->m_text.m_text ){
+       26:   36:		if( p->is_fixed_code_size() ){
+    #####:   37:			code_size += p->get_code_size();
+        -:   38:		}
+        -:   39:		else{
+        -:   40:			return -1;
+        -:   41:		}
+       26:   42:		if( p->is_fixed_next_code_address() ){
+        4:   43:			next_code_address = p->get_next_code_address();
+        -:   44:		}
+        -:   45:		else{
+       22:   46:			next_code_address = -1;
+        -:   47:		}
         -:   48:	}
-       55:   49:	if( path.value_type != CVALUE_TYPE::CV_STRING ) {
-       15:   50:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        3:   51:		return false;
-        -:   52:	}
-      104:   53:	if( i < (int)words.size() ) {
-       15:   54:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
-        3:   55:		return false;
-        -:   56:	}
-       49:   57:	if( !this->is_loaded ) {
-        -:   58:		is_open = false;
-       28:   59:		for( auto include_path : info.include_path ) {
-       75:   60:			s = include_path + "/" + path.s;
-       25:   61:			f.open( s.c_str() );
-       25:   62:			if( f ) {
-       14:   63:				f.close();
-       14:   64:				this->s_file_name = s;
-       28:   65:				if( this->text.load( info, this->s_file_name.c_str() ) ) {
-       14:   66:					this->is_loaded = true;
-        -:   67:					is_open = true;
-        -:   68:					break;
-        -:   69:				}
-        -:   70:			}
-        -:   71:		}
-        -:   72:		if( !is_open ) {
-       15:   73:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE ) );
-        3:   74:			return false;
-        -:   75:		}
-       14:   76:		info.is_updated = true;
-        -:   77:	}
-        -:   78:	//	log
-       46:   79:	if( !this->is_analyze_phase ) {
-       28:   80:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        -:   81:	}
-       46:   82:	if( p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
-       42:   83:		this->file_address = p_last_line->get_file_address() + p_last_line->get_code_size();
-        -:   84:	}
-       46:   85:	p_last_line = this->text.process( info, success_count, p_last_line, !this->is_analyze_phase );
-       46:   86:	if( p_last_line->is_fixed_next_code_address() ) {
-       41:   87:		this->next_code_address = p_last_line->get_next_code_address();
-       41:   88:		this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
-        -:   89:	}
-       46:   90:	if( !this->is_data_fixed ) {
-      283:   91:		for( auto p : text.m_text ) {
-      237:   92:			this->is_data_fixed = this->is_data_fixed && p->check_data_fixed();
+        -:   49:	return code_size;
+        -:   50:}
+        -:   51:
+        -:   52:// --------------------------------------------------------------------
+       61:   53:bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   54:	std::string s;
+        -:   55:	int i;
+        -:   56:	unsigned int success_count;
+        -:   57:	CVALUE path;
+      122:   58:	std::ifstream f;
+        -:   59:	bool is_open;
+        -:   60:
+       61:   61:	update_flags( &info, p_last_line );
+      122:   62:	if( words.size() < 2 ) {
+       15:   63:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MUST_BE_SET_NAME ) );
+        3:   64:		return false;
+        -:   65:	}
+       58:   66:	i = this->expression( info, 1, path, false );
+       58:   67:	if( i == 0 ) {
+       15:   68:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        3:   69:		return false;
+        -:   70:	}
+       55:   71:	if( path.value_type != CVALUE_TYPE::CV_STRING ) {
+       15:   72:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        3:   73:		return false;
+        -:   74:	}
+      104:   75:	if( i < (int)words.size() ) {
+       15:   76:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
+        3:   77:		return false;
+        -:   78:	}
+       49:   79:	if( !this->is_loaded ) {
+        -:   80:		is_open = false;
+       28:   81:		for( auto include_path : info.include_path ) {
+       75:   82:			s = include_path + "/" + path.s;
+       25:   83:			f.open( s.c_str() );
+       25:   84:			if( f ) {
+       14:   85:				f.close();
+       14:   86:				this->s_file_name = s;
+       28:   87:				if( this->m_text.load( info, this->s_file_name.c_str() ) ) {
+       14:   88:					this->is_loaded = true;
+        -:   89:					is_open = true;
+        -:   90:					break;
+        -:   91:				}
+        -:   92:			}
         -:   93:		}
-       46:   94:		if( this->is_data_fixed ) {
-    #####:   95:			info.is_updated = true;
-        -:   96:		}
-        -:   97:	}
-       46:   98:	if( this->code_size == -1 ) {
-       31:   99:		for( auto p : text.m_text ) {
-       26:  100:			if( this->code_size != -1 && p->is_fixed_code_size() ) {
-    #####:  101:				this->code_size = this->code_size + p->get_code_size();
-        -:  102:			}
-        -:  103:			else {
-       26:  104:				this->code_size = -1;
-        -:  105:			}
-        -:  106:		}
-        5:  107:		if( this->code_size != -1 ) {
-    #####:  108:			info.is_updated = true;
-        -:  109:		}
-        -:  110:	}
-       92:  111:	if( success_count < this->text.m_text.size() ) {
-        -:  112:		return false;
-        -:  113:	}
-        -:  114:	return check_all_fixed();
-      154:  115:}
+        -:   94:		if( !is_open ) {
+       15:   95:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE ) );
+        3:   96:			return false;
+        -:   97:		}
+       14:   98:		info.is_updated = true;
+        -:   99:	}
+        -:  100:	//	log
+       46:  101:	if( !this->is_analyze_phase ) {
+       28:  102:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        -:  103:	}
+       46:  104:	if( p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
+       42:  105:		this->file_address = p_last_line->get_file_address() + p_last_line->get_code_size();
+        -:  106:	}
+       46:  107:	p_last_line = this->m_text.process( info, success_count, p_last_line, !this->is_analyze_phase );
+       46:  108:	if( p_last_line->is_fixed_next_code_address() ) {
+       41:  109:		this->next_code_address = p_last_line->get_next_code_address();
+       41:  110:		this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
+        -:  111:	}
+       46:  112:	if( !this->is_data_fixed ) {
+      283:  113:		for( auto p : m_text.m_text ) {
+      237:  114:			this->is_data_fixed = this->is_data_fixed && p->check_data_fixed();
+        -:  115:		}
+       46:  116:		if( this->is_data_fixed ) {
+    #####:  117:			info.is_updated = true;
+        -:  118:		}
+        -:  119:	}
+       46:  120:	if( this->code_size == -1 ) {
+        -:  121:		calc_code_size( info, p_last_line, this->next_code_address );
+        -:  122:		if( this->code_size != -1 ) {
+        -:  123:			info.is_updated = true;
+        -:  124:		}
+        -:  125:	}
+       92:  126:	if( success_count < this->m_text.m_text.size() ) {
+        -:  127:		return false;
+        -:  128:	}
+        -:  129:	return check_all_fixed();
+      154:  130:}

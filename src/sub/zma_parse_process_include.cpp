@@ -20,11 +20,33 @@ bool CZMA_PARSE_INCLUDE::write_output_and_log( CZMA_INFORMATION& info, std::ofst
 	for( auto line : log ) {
 		info.log << line << " begin" << std::endl;
 	}
-	bool result = this->text.write( info, f );
+	bool result = this->m_text.write( info, f );
 	for( auto line : log ) {
 		info.log << line << " end" << std::endl;
 	}
 	return result;
+}
+
+// --------------------------------------------------------------------
+//	1つのIF文についてコードサイズを計算する
+int CZMA_PARSE_INCLUDE::calc_code_size( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line, int &next_code_address ){
+	int code_size = 0;
+
+	for( auto &p : this->m_text.m_text ){
+		if( p->is_fixed_code_size() ){
+			code_size += p->get_code_size();
+		}
+		else{
+			return -1;
+		}
+		if( p->is_fixed_next_code_address() ){
+			next_code_address = p->get_next_code_address();
+		}
+		else{
+			next_code_address = -1;
+		}
+	}
+	return code_size;
 }
 
 // --------------------------------------------------------------------
@@ -62,7 +84,7 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 			if( f ) {
 				f.close();
 				this->s_file_name = s;
-				if( this->text.load( info, this->s_file_name.c_str() ) ) {
+				if( this->m_text.load( info, this->s_file_name.c_str() ) ) {
 					this->is_loaded = true;
 					is_open = true;
 					break;
@@ -82,13 +104,13 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 	if( p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
 		this->file_address = p_last_line->get_file_address() + p_last_line->get_code_size();
 	}
-	p_last_line = this->text.process( info, success_count, p_last_line, !this->is_analyze_phase );
+	p_last_line = this->m_text.process( info, success_count, p_last_line, !this->is_analyze_phase );
 	if( p_last_line->is_fixed_next_code_address() ) {
 		this->next_code_address = p_last_line->get_next_code_address();
 		this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
 	}
 	if( !this->is_data_fixed ) {
-		for( auto p : text.m_text ) {
+		for( auto p : m_text.m_text ) {
 			this->is_data_fixed = this->is_data_fixed && p->check_data_fixed();
 		}
 		if( this->is_data_fixed ) {
@@ -96,19 +118,12 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 		}
 	}
 	if( this->code_size == -1 ) {
-		for( auto p : text.m_text ) {
-			if( this->code_size != -1 && p->is_fixed_code_size() ) {
-				this->code_size = this->code_size + p->get_code_size();
-			}
-			else {
-				this->code_size = -1;
-			}
-		}
+		calc_code_size( info, p_last_line, this->next_code_address );
 		if( this->code_size != -1 ) {
 			info.is_updated = true;
 		}
 	}
-	if( success_count < this->text.m_text.size() ) {
+	if( success_count < this->m_text.m_text.size() ) {
 		return false;
 	}
 	return check_all_fixed();
