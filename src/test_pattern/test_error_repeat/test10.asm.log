@@ -10,6 +10,3 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |REPEAT I, "hoge"
      6|ERROR |    |Illegal parameter.: test10.asm(6)
-     8|      |    |ENDR
-     8|ERROR |    |Block processing is not closed.: test10.asm(8)
-     8|ERROR |    |Repeat counter is no fixed.: test10.asm(8)

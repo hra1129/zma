@@ -2,14 +2,8 @@
 ;	test program
 ; -----------------------------------------------------------------------------
 
-	include		"sub_repeat.asm"
-	endr
+	include		"sub_repeat_macro.asm"
 
-	include		"sub_macro.asm"
-	endm
+	defb	1, 2
 
-	include		"sub_if.asm"
-	endif
-
-	include		"sub_scope.asm"
-	endscope
+	PAGE_ALIGN

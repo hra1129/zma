@@ -9,4 +9,4 @@ Programmed by t.hara
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |ENDR
-     6|ERROR |    |Invalid command.: test1.asm(6)
+     6|ERROR |    |Syntax error.: test1.asm(6)

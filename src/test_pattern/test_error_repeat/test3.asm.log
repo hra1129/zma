@@ -9,9 +9,34 @@ Programmed by t.hara
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |REPEAT I, 5
-     6|ERROR |    |Block processing is not closed.: test3.asm(6)
-     6|      |    |REPEAT I, 5
       |      |    |  Enter scope: @REPEAT0:
 ------+------+----+----------------------------------
+     6|      |    |DEFB 1
+      |000000|0000|  01
+------+------+----+----------------------------------
+     6|      |    |ENDR
+     6|ERROR |    |Syntax error.: test3.asm(6)
+     6|      |    |DEFB 1
+      |XXXXXX|XXXX|  01
+------+------+----+----------------------------------
+     6|      |    |ENDR
+     6|ERROR |    |Syntax error.: test3.asm(6)
+     6|      |    |DEFB 1
+      |XXXXXX|XXXX|  01
+------+------+----+----------------------------------
+     6|      |    |ENDR
+     6|ERROR |    |Syntax error.: test3.asm(6)
+     6|      |    |DEFB 1
+      |XXXXXX|XXXX|  01
+------+------+----+----------------------------------
+     6|      |    |ENDR
+     6|ERROR |    |Syntax error.: test3.asm(6)
+     6|      |    |DEFB 1
+      |XXXXXX|XXXX|  01
+------+------+----+----------------------------------
+     6|      |    |ENDR
+     6|ERROR |    |Syntax error.: test3.asm(6)
+      |      |    |  Exit scope: 
+------+------+----+----------------------------------
 << label >>
-@REPEAT0:I ... 0 ( 0x0 )
+@REPEAT0:I ... 4 ( 0x4 )

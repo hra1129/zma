@@ -10,8 +10,3 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |REPEAT I 5 + 4
      6|ERROR |    |Illegal parameter.: test8.asm(6)
-     7|      |    |DEFB 2
-      |000000|0000|  02
-------+------+----+----------------------------------
-     8|      |    |ENDR
-     8|ERROR |    |Invalid command.: test8.asm(8)

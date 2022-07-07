@@ -182,8 +182,13 @@ void CZMA_PARSE_IF_BLOCK::update_condition( CZMA_INFORMATION &info, CZMA_PARSE *
 
 // --------------------------------------------------------------------
 void CZMA_PARSE_IF_BLOCK::update_code_size( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
+	bool b_code_size_fixed;
+	bool b_next_code_address_fixed;
 
-	if( this->code_size != -1 && this->next_code_address != -1 ){
+	b_code_size_fixed = ( this->code_size != -1 );
+	b_next_code_address_fixed = ( this->next_code_address != -1 );
+
+	if( b_code_size_fixed && b_next_code_address_fixed ){
 		//	すでにサイズは確定済みなので何もしない
 		return;
 	}
@@ -255,7 +260,7 @@ void CZMA_PARSE_IF_BLOCK::update_code_size( CZMA_INFORMATION &info, CZMA_PARSE *
 			}
 		}
 	}
-	if( this->code_size != -1 || this->next_code_address != -1 ){
+	if( ((!b_code_size_fixed) && (this->code_size != -1)) || ((!b_next_code_address_fixed) && (this->next_code_address != -1)) ){
 		info.is_updated = true;
 	}
 }
@@ -403,7 +408,6 @@ bool CZMA_PARSE_ELSEIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 
 // --------------------------------------------------------------------
 bool CZMA_PARSE_ELSE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-	int code_size;
 	unsigned int success_count;
 
 	this->update_flags( &info, p_last_line );
@@ -427,5 +431,6 @@ bool CZMA_PARSE_ELSE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 // --------------------------------------------------------------------
 bool CZMA_PARSE_ENDIF::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 	//	本来、これは実行されるべきでないので、常にエラーを返す。
+	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SYNTAX_ERROR ) );
 	return false;
 }

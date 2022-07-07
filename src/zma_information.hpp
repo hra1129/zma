@@ -126,11 +126,8 @@ public:
 	enum class BLOCK_TYPE_T {
 		CZMA_INFO_UNKNOWN,
 		CZMA_INFO_MACRO_BLOCK,
-		CZMA_INFO_REPEAT_BLOCK,
-		CZMA_INFO_IF_BLOCK,
 	};
-	std::map< std::string, BLOCK_TYPE_T >	block_begin_table{ { "REPEAT", { BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK } } };
-	std::map< std::string, BLOCK_TYPE_T >	block_end_table{ { "ENDM", BLOCK_TYPE_T::CZMA_INFO_MACRO_BLOCK }, { "ENDR", BLOCK_TYPE_T::CZMA_INFO_REPEAT_BLOCK } };
+	std::map< std::string, BLOCK_TYPE_T >	block_end_table{ { "ENDM", BLOCK_TYPE_T::CZMA_INFO_MACRO_BLOCK } };
 	bool is_updated;
 	bool is_block_processing;
 	BLOCK_TYPE_T block_type;
@@ -139,8 +136,6 @@ public:
 	CZMA_MACRO* p_macro;
 	std::map< std::string, CZMA_MACRO* >	macro_list;
 	std::map< std::string, std::string >	parameter_list;
-
-	CZMA_REPEAT_T*							p_repeat;
 
 	std::map< std::string, CZMA_CHAR_SET >	char_set_list;
 	CZMA_CHAR_SET*							p_char_set;
@@ -154,7 +149,7 @@ public:
 			block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), 
 			p_text( nullptr ), p_macro( nullptr ), 
 			p_sub_dict( nullptr ),
-			p_repeat( nullptr ), p_char_set( nullptr ), defs_is_space(false),
+			p_char_set( nullptr ), defs_is_space(false),
 			output_type( OUTPUT_TYPE::CZMA_BINARY ) {
 	}
 

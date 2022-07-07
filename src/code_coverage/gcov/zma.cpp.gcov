@@ -150,11 +150,11 @@
         -:  148:	int return_code = 0;
        74:  149:	if( src.all_process( info ) ) {
         -:  150:		return_code = 0;
-       39:  151:		std::cout << "Success.\n";
+       38:  151:		std::cout << "Success.\n";
         -:  152:	}
         -:  153:	else {
         -:  154:		return_code = 1;
-       35:  155:		std::cout << "Failed.\n";
+       36:  155:		std::cout << "Failed.\n";
         -:  156:	}
       148:  157:	if( !src.save( info, sa_options[1].c_str() ) ){
         -:  158:		return_code = 1;

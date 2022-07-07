@@ -96,17 +96,17 @@
         -:   94:}
         -:   95:
         -:   96:// --------------------------------------------------------------------
-      212:   97:bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      222:   97:bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   98:	CZMA_PARSE *p_parse;
         -:   99:	CZMA_MACRO* p_macro;
         -:  100:	std::map< std::string, std::vector< std::string > > argument;
-      212:  101:	std::vector< std::string > parameter, label_line;
+      222:  101:	std::vector< std::string > parameter, label_line;
         -:  102:	std::string replace_name, arg_name;
         -:  103:	int i, j, id;
         -:  104:	unsigned int success_count;
         -:  105:	bool result = true;
-      212:  106:	update_flags( &info, p_last_line );
-      212:  107:	if( !this->is_loaded ) {
+      222:  106:	update_flags( &info, p_last_line );
+      222:  107:	if( !this->is_loaded ) {
        78:  108:		p_macro = info.macro_list[words[0]];	//	※必ず存在する
         -:  109:		//	引数を取り込む
         -:  110:		id = 0;
@@ -140,77 +140,76 @@
         3:  138:			return false;
         -:  139:		}
         -:  140:		//	m_text に macro の展開内容をコピーする
-      446:  141:		for( auto p : p_macro->m_text ) {
-      748:  142:			printf( "INS: %s\n", p->get_line().c_str() );	//★
-      748:  143:			auto words_list = p->get_words();
-     1340:  144:			for( auto insert_line : words_list ){
-     1761:  145:				for( auto word = insert_line.begin(); word != insert_line.end(); ){
-        -:  146:					replace_name = *word;
-        -:  147:					if( argument.count( replace_name ) ){
-        -:  148:						//	マクロの仮引数を見つけた場合、指定されている式に置き換える
-        -:  149:						word = insert_line.erase( word );
-      226:  150:						for( auto &insert_word : argument[ replace_name ] ){
-       78:  151:							word = insert_line.insert( word, insert_word );
-        -:  152:							++word;
-        -:  153:						}
-        -:  154:					}
-        -:  155:					else{
-        -:  156:						++word;
-        -:  157:					}
-        -:  158:				}
-     1200:  159:				if( insert_line.size() > 2 && ( ( insert_line[ 1 ] == ":" ) || ( insert_line[ 1 ] == "::" ) ) ){
-    #####:  160:					label_line.resize( 2 );
-    #####:  161:					label_line[ 0 ] = insert_line[ 0 ];
-    #####:  162:					label_line[ 1 ] = insert_line[ 1 ];
-    #####:  163:					p_parse = CZMA_PARSE::create( info, label_line, this->p_file_name, this->line_no );
-    #####:  164:					text.m_text.push_back( p_parse );
+      441:  141:		for( auto p : p_macro->m_text ) {
+      738:  142:			auto words_list = p->get_words();
+     1345:  143:			for( auto insert_line : words_list ){
+     1771:  144:				for( auto word = insert_line.begin(); word != insert_line.end(); ){
+        -:  145:					replace_name = *word;
+        -:  146:					if( argument.count( replace_name ) ){
+        -:  147:						//	マクロの仮引数を見つけた場合、指定されている式に置き換える
+        -:  148:						word = insert_line.erase( word );
+      226:  149:						for( auto &insert_word : argument[ replace_name ] ){
+       78:  150:							word = insert_line.insert( word, insert_word );
+        -:  151:							++word;
+        -:  152:						}
+        -:  153:					}
+        -:  154:					else{
+        -:  155:						++word;
+        -:  156:					}
+        -:  157:				}
+     1210:  158:				if( insert_line.size() > 2 && ( ( insert_line[ 1 ] == ":" ) || ( insert_line[ 1 ] == "::" ) ) ){
+    #####:  159:					label_line.resize( 2 );
+    #####:  160:					label_line[ 0 ] = insert_line[ 0 ];
+    #####:  161:					label_line[ 1 ] = insert_line[ 1 ];
+    #####:  162:					p_parse = CZMA_PARSE::create( info, label_line, this->p_file_name, this->line_no );
+    #####:  163:					text.m_text.push_back( p_parse );
+        -:  164:					insert_line.erase( insert_line.begin() );
         -:  165:					insert_line.erase( insert_line.begin() );
-        -:  166:					insert_line.erase( insert_line.begin() );
-    #####:  167:					p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
-    #####:  168:					text.m_text.push_back( p_parse );
-        -:  169:				}
-        -:  170:				else{
-      966:  171:					p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
-      483:  172:					text.m_text.push_back( p_parse );
-        -:  173:				}
-        -:  174:			}
-        -:  175:		}
-       72:  176:		text.analyze_structure();
-       72:  177:		this->is_loaded = true;
-       72:  178:		info.is_updated = true;
-        -:  179:	}
-      824:  180:	info.scope.push_back( "@MACRO" + std::to_string( info.get_auto_label_index() ) );
-        -:  181:	//	log
-      206:  182:	if( !is_analyze_phase ) {
-      144:  183:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-      216:  184:		log.write_message( "Intra-macro scope: " + info.get_scope_path() );
-        -:  185:	}
-      206:  186:	p_last_line = text.process( info, success_count, p_last_line, !this->is_analyze_phase );
-      206:  187:	if( !this->is_data_fixed ) {
-     1307:  188:		for( auto p : text.m_text ) {
-     1101:  189:			this->is_data_fixed = this->is_data_fixed && p->is_fixed_code_size();
-        -:  190:		}
-      206:  191:		if( this->is_data_fixed ) {
-    #####:  192:			info.is_updated = true;
-        -:  193:		}
-        -:  194:	}
-      206:  195:	if( this->code_size == -1 ) {
-       72:  196:		this->code_size = 0;
-      439:  197:		for( auto p : text.m_text ) {
-      367:  198:			if( this->code_size != -1 && p->is_fixed_code_size() ) {
-      367:  199:				this->code_size = this->code_size + p->get_code_size();
-        -:  200:			}
-        -:  201:			else {
-    #####:  202:				this->code_size = -1;
-        -:  203:			}
-        -:  204:		}
-       72:  205:		if( this->code_size != -1 ) {
-       72:  206:			info.is_updated = true;
-        -:  207:		}
-        -:  208:	}
-      412:  209:	if( info.scope.size() > 0 ) {
-        -:  210:		info.scope.pop_back();
-        -:  211:	}
-      206:  212:	this->next_code_address = p_last_line->get_next_code_address();
-        -:  213:	return result && check_all_fixed();
-      154:  214:}
+    #####:  166:					p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
+    #####:  167:					text.m_text.push_back( p_parse );
+        -:  168:				}
+        -:  169:				else{
+      976:  170:					p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
+      488:  171:					text.m_text.push_back( p_parse );
+        -:  172:				}
+        -:  173:			}
+        -:  174:		}
+       72:  175:		text.analyze_structure();
+       72:  176:		this->is_loaded = true;
+       72:  177:		info.is_updated = true;
+        -:  178:	}
+      864:  179:	info.scope.push_back( "@MACRO" + std::to_string( info.get_auto_label_index() ) );
+        -:  180:	//	log
+      216:  181:	if( !is_analyze_phase ) {
+      144:  182:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+      216:  183:		log.write_message( "Intra-macro scope: " + info.get_scope_path() );
+        -:  184:	}
+      216:  185:	p_last_line = text.process( info, success_count, p_last_line, !this->is_analyze_phase );
+      216:  186:	if( !this->is_data_fixed ) {
+     1323:  187:		for( auto p : text.m_text ) {
+     1107:  188:			this->is_data_fixed = this->is_data_fixed && p->is_fixed_code_size();
+        -:  189:		}
+      216:  190:		if( this->is_data_fixed ) {
+    #####:  191:			info.is_updated = true;
+        -:  192:		}
+        -:  193:	}
+      216:  194:	if( this->code_size == -1 ) {
+       82:  195:		this->code_size = 0;
+      461:  196:		for( auto p : text.m_text ) {
+      379:  197:			if( this->code_size != -1 && p->is_fixed_code_size() ) {
+      364:  198:				this->code_size = this->code_size + p->get_code_size();
+        -:  199:			}
+        -:  200:			else {
+       15:  201:				this->code_size = -1;
+        -:  202:			}
+        -:  203:		}
+       82:  204:		if( this->code_size != -1 ) {
+       67:  205:			info.is_updated = true;
+        -:  206:		}
+        -:  207:	}
+      432:  208:	if( info.scope.size() > 0 ) {
+        -:  209:		info.scope.pop_back();
+        -:  210:	}
+      216:  211:	this->next_code_address = p_last_line->get_next_code_address();
+        -:  212:	return result && check_all_fixed();
+      154:  213:}

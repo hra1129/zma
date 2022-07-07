@@ -143,7 +143,7 @@ CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_co
 			//	ブロックの中の処理
 			if( (*p)->words.size() >= 1 && info.block_end_table.count( (*p)->words[0] ) ) {
 				//	ブロックを閉じる記号を発見
-				if( (*p)->words[0] == "ENDR" || (*p)->words[0] == "ENDM" ) {
+				if( (*p)->words[0] == "ENDM" ) {
 					//	特に ENDR, ENDM の処理
 					if( nest_count ) {
 						//	ブロック内のブロックだったのでネスト数を減らすだけ
@@ -175,13 +175,7 @@ CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_co
 				}
 			}
 			else {
-				if( (*p)->words.size() >= 1 && info.block_begin_table.count( (*p)->words[0] ) ) {
-					//	ブロックの内側にブロックの開始を発見
-					if( (*p)->words[0] == "REPEAT" ) {
-						nest_count++;
-					}
-				}
-				else if( (*p)->words.size() >= 2 && (*p)->words[1] == "MACRO" ) {
+				if( (*p)->words.size() >= 2 && (*p)->words[1] == "MACRO" ) {
 					//	ブロックの内側にマクロ宣言を発見
 					(*p)->put_structure_error( "MACRO cannot define in MACRO/REPEAT/IF block." );
 					p_prev = (*p);

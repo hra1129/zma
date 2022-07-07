@@ -11,5 +11,32 @@ LINE# |OFFSET|ADDR|MNEMONIC
      8|      |    |REPEAT I, 5
       |      |    |  Enter scope: @REPEAT0:
 ------+------+----+----------------------------------
+     8|      |    |DEFB 1
+      |000000|0000|  01
+------+------+----+----------------------------------
+     8|      |    |ENDIF
+     8|ERROR |    |Syntax error.: test4.asm(8)
+     8|      |    |DEFB 1
+      |XXXXXX|XXXX|  01
+------+------+----+----------------------------------
+     8|      |    |ENDIF
+     8|ERROR |    |Syntax error.: test4.asm(8)
+     8|      |    |DEFB 1
+      |XXXXXX|XXXX|  01
+------+------+----+----------------------------------
+     8|      |    |ENDIF
+     8|ERROR |    |Syntax error.: test4.asm(8)
+     8|      |    |DEFB 1
+      |XXXXXX|XXXX|  01
+------+------+----+----------------------------------
+     8|      |    |ENDIF
+     8|ERROR |    |Syntax error.: test4.asm(8)
+     8|      |    |DEFB 1
+      |XXXXXX|XXXX|  01
+------+------+----+----------------------------------
+     8|      |    |ENDIF
+     8|ERROR |    |Syntax error.: test4.asm(8)
+      |      |    |  Exit scope: 
+------+------+----+----------------------------------
 << label >>
-@REPEAT0:I ... 0 ( 0x0 )
+@REPEAT0:I ... 4 ( 0x4 )

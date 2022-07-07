@@ -59,6 +59,7 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 	bool is_open;
 
 	update_flags( &info, p_last_line );
+	//	ファイル名を評価
 	if( words.size() < 2 ) {
 		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MUST_BE_SET_NAME ) );
 		return false;
@@ -77,7 +78,9 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 		return false;
 	}
 	if( !this->is_loaded ) {
+		//	指定のファイルを m_text に読み込み
 		is_open = false;
+		//	includeパスを順次走査
 		for( auto include_path : info.include_path ) {
 			s = include_path + "/" + path.s;
 			f.open( s.c_str() );
@@ -95,6 +98,7 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE ) );
 			return false;
 		}
+		this->m_text.analyze_structure();
 		info.is_updated = true;
 	}
 	//	log

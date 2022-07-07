@@ -10,6 +10,3 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |REPEAT I, J
      6|ERROR |    |Illegal expression.: test9.asm(6)
-     8|      |    |ENDR
-     8|ERROR |    |Block processing is not closed.: test9.asm(8)
-     8|ERROR |    |Repeat counter is no fixed.: test9.asm(8)

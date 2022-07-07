@@ -139,7 +139,6 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 		}
 		//	m_text に macro の展開内容をコピーする
 		for( auto p : p_macro->m_text ) {
-			printf( "INS: %s\n", p->get_line().c_str() );	//★
 			auto words_list = p->get_words();
 			for( auto insert_line : words_list ){
 				for( auto word = insert_line.begin(); word != insert_line.end(); ){
