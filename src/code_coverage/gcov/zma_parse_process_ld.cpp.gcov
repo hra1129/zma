@@ -17,140 +17,140 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-     1288:   18:bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+     1852:   18:bool CZMA_PARSE_LD::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-     1288:   20:	update_flags( &info, p_last_line );
-     1288:   21:	if( opecode_a_i_r( info ) ) {						//	ld {A|I|R}, {A|I|R} line
+     1852:   20:	update_flags( &info, p_last_line );
+     1852:   21:	if( opecode_a_i_r( info ) ) {						//	ld {A|I|R}, {A|I|R} line
         -:   22:		//	log
-       12:   23:		if( !is_analyze_phase ) {
-        8:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        8:   25:			log.write_cycle_information( 11, 2 );			//	ld	{A|I|R}, {A|I|R}
+       24:   23:		if( !is_analyze_phase ) {
+       16:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       16:   25:			log.write_cycle_information( 11, 2 );			//	ld	{A|I|R}, {A|I|R}
         -:   26:		}
         -:   27:	}
-     1276:   28:	else if( opecode_destination8_source8( info, 0x40 ) ) {				//	ld <reg8>, <reg8> line
+     1828:   28:	else if( opecode_destination8_source8( info, 0x40 ) ) {				//	ld <reg8>, <reg8> line
         -:   29:		//	log
-      346:   30:		if( !is_analyze_phase ) {
-      230:   31:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-      115:   32:			if( this->code_size == 1 ) {
-      134:   33:				log.write_cycle_information( 5, 2 );			//	ld <reg8>, reg8>
+      640:   30:		if( !is_analyze_phase ) {
+      426:   31:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+      213:   32:			if( this->code_size == 1 ) {
+      234:   33:				log.write_cycle_information( 5, 2 );			//	ld <reg8>, reg8>
         -:   34:			}
         -:   35:			else {
-       96:   36:				log.write_cycle_information( 10, 2 );			//	ld <reg8>, ixh
+      192:   36:				log.write_cycle_information( 10, 2 );			//	ld <reg8>, ixh
         -:   37:			}
         -:   38:		}
         -:   39:	}
-      930:   40:	else if( opecode_destination8_memory_hl( info, 0x46 ) ) {				//	ld <reg8>, [HL] line
+     1188:   40:	else if( opecode_destination8_memory_hl( info, 0x46 ) ) {				//	ld <reg8>, [HL] line
         -:   41:		//	log
-       72:   42:		if( !is_analyze_phase ) {
-       48:   43:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       24:   44:			if( this->code_size == 1 ) {
-       16:   45:				log.write_cycle_information( 8, 4 );			//	ld	<reg8>, [hl]
+      147:   42:		if( !is_analyze_phase ) {
+       98:   43:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       49:   44:			if( this->code_size == 1 ) {
+       30:   45:				log.write_cycle_information( 8, 4 );			//	ld	<reg8>, [hl]
         -:   46:			}
         -:   47:			else {
-       32:   48:				log.write_cycle_information( 21, 7 );			//	ld	<reg8>, [ix+d]
+       68:   48:				log.write_cycle_information( 21, 7 );			//	ld	<reg8>, [ix+d]
         -:   49:			}
         -:   50:		}
         -:   51:	}
-      858:   52:	else if( opecode_a_memory_bc( info, 0x0A ) ) {				//	ld a, [bc/de/nn] line
+     1041:   52:	else if( opecode_a_memory_bc( info, 0x0A ) ) {				//	ld a, [bc/de/nn] line
         -:   53:		//	log
-        9:   54:		if( !is_analyze_phase ) {
-        6:   55:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        3:   56:			if( this->code_size == 1 ) {
-        4:   57:				log.write_cycle_information( 8, 4 );			//	ld	<reg8>, [bc/de]
+       18:   54:		if( !is_analyze_phase ) {
+       12:   55:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        6:   56:			if( this->code_size == 1 ) {
+        8:   57:				log.write_cycle_information( 8, 4 );			//	ld	<reg8>, [bc/de]
         -:   58:			}
         -:   59:			else {
-        2:   60:				log.write_cycle_information( 14, 6 );			//	ld	a, [nn]
+        4:   60:				log.write_cycle_information( 14, 6 );			//	ld	a, [nn]
         -:   61:			}
         -:   62:		}
         -:   63:	}
-      849:   64:	else if( opecode_destination8_n8( info, 0x06 ) ) {					//	ld <reg8>, imm8 line
+     1023:   64:	else if( opecode_destination8_n8( info, 0x06 ) ) {					//	ld <reg8>, imm8 line
         -:   65:		//	log
-      156:   66:		if( !is_analyze_phase ) {
-      104:   67:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       52:   68:			if( this->code_size == 2 ) {
-       96:   69:				log.write_cycle_information( 8, 2 );			//	ld	<reg8>, imm8
+      189:   66:		if( !is_analyze_phase ) {
+      126:   67:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       63:   68:			if( this->code_size == 2 ) {
+      110:   69:				log.write_cycle_information( 8, 2 );			//	ld	<reg8>, imm8
         -:   70:			}
         -:   71:			else {
-        8:   72:				log.write_cycle_information( 13, 3 );			//	ld	ixh, imm8
+       16:   72:				log.write_cycle_information( 13, 3 );			//	ld	ixh, imm8
         -:   73:			}
         -:   74:		}
         -:   75:	}
-      693:   76:	else if( opecode_sp_hl( info, 0xF9 ) ) {					//	ld sp, hl/ix/iy line
+      834:   76:	else if( opecode_sp_hl( info, 0xF9 ) ) {					//	ld sp, hl/ix/iy line
         -:   77:		//	log
-        9:   78:		if( !is_analyze_phase ) {
-        6:   79:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        3:   80:			if( this->code_size == 1 ) {
-        2:   81:				log.write_cycle_information( 7, 1 );			//	ld	sp, hl
+       18:   78:		if( !is_analyze_phase ) {
+       12:   79:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        6:   80:			if( this->code_size == 1 ) {
+        4:   81:				log.write_cycle_information( 7, 1 );			//	ld	sp, hl
         -:   82:			}
         -:   83:			else {
-        4:   84:				log.write_cycle_information( 12, 2 );			//	ld	sp, ix
+        8:   84:				log.write_cycle_information( 12, 2 );			//	ld	sp, ix
         -:   85:			}
         -:   86:		}
         -:   87:	}
-      684:   88:	else if( opecode_destination16_n16( info, 0x01 ) ) {					//	ld <reg16>, imm16 line
+      816:   88:	else if( opecode_destination16_n16( info, 0x01 ) ) {					//	ld <reg16>, imm16 line
         -:   89:		//	log
-      302:   90:		if( !is_analyze_phase ) {
-      202:   91:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-      101:   92:			if( this->code_size == 3 ) {
-      198:   93:				log.write_cycle_information( 11, 3 );			//	ld	<reg16>, imm16
+      320:   90:		if( !is_analyze_phase ) {
+      214:   91:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+      107:   92:			if( this->code_size == 3 ) {
+      206:   93:				log.write_cycle_information( 11, 3 );			//	ld	<reg16>, imm16
         -:   94:			}
         -:   95:			else {
-        4:   96:				log.write_cycle_information( 16, 4 );			//	ld	ix, imm16
+        8:   96:				log.write_cycle_information( 16, 4 );			//	ld	ix, imm16
         -:   97:			}
         -:   98:		}
         -:   99:	}
-      382:  100:	else if( opecode_destination16_memory16( info, 0x2A, 0x4B ) ) {		//	ld <reg16>, [nn] line
+      496:  100:	else if( opecode_destination16_memory16( info, 0x2A, 0x4B ) ) {		//	ld <reg16>, [nn] line
         -:  101:		//	log
-       24:  102:		if( !is_analyze_phase ) {
-       16:  103:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        8:  104:			if( this->code_size == 3 ) {
-        6:  105:				log.write_cycle_information( 17, 7 );			//	ld	hl, [nn]
+       42:  102:		if( !is_analyze_phase ) {
+       28:  103:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       14:  104:			if( this->code_size == 3 ) {
+        8:  105:				log.write_cycle_information( 17, 7 );			//	ld	hl, [nn]
         -:  106:			}
         -:  107:			else {
-       10:  108:				log.write_cycle_information( 22, 8 );			//	ld	de/bc/sp/ix/iy, [nn]
+       20:  108:				log.write_cycle_information( 22, 8 );			//	ld	de/bc/sp/ix/iy, [nn]
         -:  109:			}
         -:  110:		}
         -:  111:	}
-      358:  112:	else if( opecode_memory_hl_source8( info, 0x70 ) ) {			//	ld [HL], <reg8> line
+      454:  112:	else if( opecode_memory_hl_source8( info, 0x70 ) ) {			//	ld [HL], <reg8> line
         -:  113:		//	log
-       66:  114:		if( !is_analyze_phase ) {
-       44:  115:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       44:  116:			log.write_cycle_information( 8, 4 );			//	ld [HL], <reg8>
+      126:  114:		if( !is_analyze_phase ) {
+       84:  115:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       84:  116:			log.write_cycle_information( 8, 4 );			//	ld [HL], <reg8>
         -:  117:		}
         -:  118:	}
-      292:  119:	else if( opecode_memory_hl_n8( info, 0x36 ) ) {				//	ld [HL], imm8 line
+      328:  119:	else if( opecode_memory_hl_n8( info, 0x36 ) ) {				//	ld [HL], imm8 line
         -:  120:		//	log
-        9:  121:		if( !is_analyze_phase ) {
-        6:  122:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        3:  123:			if( this->code_size == 2 ) {
-        2:  124:				log.write_cycle_information( 11, 5 );			//	ld [HL], imm8
+       18:  121:		if( !is_analyze_phase ) {
+       12:  122:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        6:  123:			if( this->code_size == 2 ) {
+        4:  124:				log.write_cycle_information( 11, 5 );			//	ld [HL], imm8
         -:  125:			}
         -:  126:			else {
-        4:  127:				log.write_cycle_information( 21, 7 );			//	ld [IX+d], imm8
+        8:  127:				log.write_cycle_information( 21, 7 );			//	ld [IX+d], imm8
         -:  128:			}
         -:  129:		}
         -:  130:	}
-      283:  131:	else if( opecode_memory_bc_a( info, 0x02 ) ) {				//	ld [bc/de/nn], a line
+      310:  131:	else if( opecode_memory_bc_a( info, 0x02 ) ) {				//	ld [bc/de/nn], a line
         -:  132:		//	log
-        9:  133:		if( !is_analyze_phase ) {
-        6:  134:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        3:  135:			if( this->code_size == 1 ) {
-        4:  136:				log.write_cycle_information( 8, 4 );			//	ld [bc/de], a
+       18:  133:		if( !is_analyze_phase ) {
+       12:  134:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        6:  135:			if( this->code_size == 1 ) {
+        8:  136:				log.write_cycle_information( 8, 4 );			//	ld [bc/de], a
         -:  137:			}
         -:  138:			else {
-        2:  139:				log.write_cycle_information( 14, 6 );			//	ld [nn], a
+        4:  139:				log.write_cycle_information( 14, 6 );			//	ld [nn], a
         -:  140:			}
         -:  141:		}
         -:  142:	}
-      274:  143:	else if( opecode_memory16_source16( info, 0xED, 0x22, 0x43 ) ) {	//	ld [nn], <reg16> line
+      292:  143:	else if( opecode_memory16_source16( info, 0xED, 0x22, 0x43 ) ) {	//	ld [nn], <reg16> line
         -:  144:		//	log
-       18:  145:		if( !is_analyze_phase ) {
-       12:  146:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        6:  147:			if( this->code_size == 3 ) {
-        2:  148:				log.write_cycle_information( 17, 7 );			//	ld [nn],hl
+       36:  145:		if( !is_analyze_phase ) {
+       24:  146:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       12:  147:			if( this->code_size == 3 ) {
+        4:  148:				log.write_cycle_information( 17, 7 );			//	ld [nn],hl
         -:  149:			}
         -:  150:			else {
-       10:  151:				log.write_cycle_information( 22, 8 );			//	ld [nn],bc/de/sp/ix/iy
+       20:  151:				log.write_cycle_information( 22, 8 );			//	ld [nn],bc/de/sp/ix/iy
         -:  152:			}
         -:  153:		}
         -:  154:	}
@@ -159,10 +159,10 @@
       256:  157:		return false;
         -:  158:	}
         -:  159:	//	log
-     1032:  160:	if( !is_analyze_phase ) {
-      344:  161:		log.write_dump( this->code_address, this->file_address, this->data );
-      344:  162:		log.write_separator();
+     1596:  160:	if( !is_analyze_phase ) {
+      532:  161:		log.write_dump( this->code_address, this->file_address, this->data );
+      532:  162:		log.write_separator();
         -:  163:	}
         -:  164:	return check_all_fixed();
-      154:  165:}
+      156:  165:}
         -:  166:

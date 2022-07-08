@@ -17,46 +17,46 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-      147:   18:bool CZMA_PARSE_OR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      192:   18:bool CZMA_PARSE_OR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-      147:   20:	update_flags( &info, p_last_line );
-      147:   21:	if( this->opecode_a_source8( info, 0xB0 ) ) {
+      192:   20:	update_flags( &info, p_last_line );
+      192:   21:	if( this->opecode_a_source8( info, 0xB0 ) ) {
         -:   22:		//	log
-       69:   23:		if( !this->is_analyze_phase ) {
-       46:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       46:   25:			if( data.size() == 2 ) {
-       16:   26:				log.write_cycle_information( 10, 2 );			//	OR A, IXh
+      102:   23:		if( !this->is_analyze_phase ) {
+       68:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       68:   25:			if( data.size() == 2 ) {
+       24:   26:				log.write_cycle_information( 10, 2 );			//	OR A, IXh
         -:   27:			}
         -:   28:			else {
-       30:   29:				log.write_cycle_information( 5, 1 );			//	OR A, r
+       44:   29:				log.write_cycle_information( 5, 1 );			//	OR A, r
         -:   30:			}
-       23:   31:			log.write_dump( this->code_address, this->file_address, this->data );
-       23:   32:			log.write_separator();
+       34:   31:			log.write_dump( this->code_address, this->file_address, this->data );
+       34:   32:			log.write_separator();
         -:   33:		}
         -:   34:		return check_all_fixed();
         -:   35:	}
-       78:   36:	if( this->opecode_a_n8( info, 0xF6 ) ) {
+       90:   36:	if( this->opecode_a_n8( info, 0xF6 ) ) {
         -:   37:		//	log
-        6:   38:		if( !this->is_analyze_phase ) {
-        4:   39:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        4:   40:			log.write_cycle_information( 8, 2 );			//	OR A, n
-        2:   41:			log.write_dump( this->code_address, this->file_address, this->data );
-        2:   42:			log.write_separator();
+        9:   38:		if( !this->is_analyze_phase ) {
+        6:   39:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        6:   40:			log.write_cycle_information( 8, 2 );			//	OR A, n
+        3:   41:			log.write_dump( this->code_address, this->file_address, this->data );
+        3:   42:			log.write_separator();
         -:   43:		}
         -:   44:		return check_all_fixed();
         -:   45:	}
-       72:   46:	if( this->opecode_a_memory_hl( info, 0xB6 ) ) {
+       81:   46:	if( this->opecode_a_memory_hl( info, 0xB6 ) ) {
         -:   47:		//	log
-       18:   48:		if( !this->is_analyze_phase ) {
-       12:   49:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       12:   50:			if( words[4] == "HL" ) {
-        4:   51:				log.write_cycle_information( 8, 4 );			//	OR A, [HL]
+       27:   48:		if( !this->is_analyze_phase ) {
+       18:   49:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       18:   50:			if( words[4] == "HL" ) {
+        6:   51:				log.write_cycle_information( 8, 4 );			//	OR A, [HL]
         -:   52:			}
         -:   53:			else {
-        8:   54:				log.write_cycle_information( 21, 7 );			//	OR A, [IX+o]
+       12:   54:				log.write_cycle_information( 21, 7 );			//	OR A, [IX+o]
         -:   55:			}
-        6:   56:			log.write_dump( this->code_address, this->file_address, this->data );
-        6:   57:			log.write_separator();
+        9:   56:			log.write_dump( this->code_address, this->file_address, this->data );
+        9:   57:			log.write_separator();
         -:   58:		}
         -:   59:		return check_all_fixed();
         -:   60:	}
@@ -87,5 +87,5 @@
         -:   85:	}
        15:   86:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
         3:   87:	return false;
-      154:   88:}
+      156:   88:}
         -:   89:

@@ -12,7 +12,7 @@
         -:   10:#include <string>
         -:   11:#include <vector>
         -:   12:
-     7871:   13:class CZMA_LOG: public std::vector< std::string > {
+    14091:   13:class CZMA_LOG: public std::vector< std::string > {
         -:   14:public:
         -:   15:
         -:   16:	// --------------------------------------------------------------------
@@ -41,7 +41,7 @@
         -:   39:
         -:   40:	// --------------------------------------------------------------------
         -:   41:	//	Write error message
-        -:   42:	void write_error_message( const char *p_file_name, int line_no, const std::string &s_message );
+        -:   42:	void write_error_message( const char *p_file_name, int line_no, const std::string &s_message, bool is_all_error, bool error_disable );
         -:   43:
         -:   44:	// --------------------------------------------------------------------
         -:   45:	//	Cycles information

@@ -71,7 +71,7 @@ void CZMA_LOG::write_message( const std::string &s_message ){
 }
 
 // --------------------------------------------------------------------
-void CZMA_LOG::write_error_message( const char *p_file_name, int line_no, const std::string &s_message ){
+void CZMA_LOG::write_error_message( const char *p_file_name, int line_no, const std::string &s_message, bool is_all_error, bool error_disable ){
 	std::stringstream s, ss;
 
 	if( line_no < 0 ){
@@ -82,7 +82,9 @@ void CZMA_LOG::write_error_message( const char *p_file_name, int line_no, const 
 		ss << s_message << ": " << p_file_name << "(" << line_no << ")";
 		s << std::dec << std::setw( 6 ) << std::right << line_no << "|ERROR |    |" << ss.str();
 	}
-	std::cerr << "ERROR:" << ss.str() << "\n";
+	if( is_all_error || !error_disable ){
+		std::cerr << "ERROR:" << ss.str() << "\n";
+	}
 	this->push_back( s.str() );
 }
 

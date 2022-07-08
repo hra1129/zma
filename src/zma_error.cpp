@@ -15,6 +15,7 @@
 static std::map< CZMA_ERROR_CODE, const std::string > error_message = {
 	{ CZMA_ERROR_CODE::SYNTAX_ERROR, "Syntax error." },
 	{ CZMA_ERROR_CODE::INVALID_COMMAND, "Invalid command." },
+	{ CZMA_ERROR_CODE::ADDRESS_DETERMINED, "Code address not yet determined." },
 	{ CZMA_ERROR_CODE::ILLEGAL_OPERAND, "Illegal operand." },
 	{ CZMA_ERROR_CODE::ILLEGAL_PARAMETER, "Illegal parameter." },
 	{ CZMA_ERROR_CODE::ILLEGAL_EXPRESSION, "Illegal expression." },

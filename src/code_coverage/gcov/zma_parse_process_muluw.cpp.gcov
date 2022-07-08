@@ -17,20 +17,20 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-        9:   18:bool CZMA_PARSE_MULUW::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       15:   18:bool CZMA_PARSE_MULUW::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:
-        9:   20:	update_flags( &info, p_last_line );
-        9:   21:	if( opecode_muluw( info ) ) {
+       15:   20:	update_flags( &info, p_last_line );
+       15:   21:	if( opecode_muluw( info ) ) {
         -:   22:		//	log
-        6:   23:		if( !this->is_analyze_phase ) {
-        4:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        4:   25:			log.write_cycle_information( -1, 36 );
-        2:   26:			log.write_dump( this->code_address, this->file_address, this->data );
-        2:   27:			log.write_separator();
+       12:   23:		if( !this->is_analyze_phase ) {
+        8:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        8:   25:			log.write_cycle_information( -1, 36 );
+        4:   26:			log.write_dump( this->code_address, this->file_address, this->data );
+        4:   27:			log.write_separator();
         -:   28:		}
         -:   29:		return check_all_fixed();
         -:   30:	}
        15:   31:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
         3:   32:	return false;
-      154:   33:}
+      156:   33:}
         -:   34:

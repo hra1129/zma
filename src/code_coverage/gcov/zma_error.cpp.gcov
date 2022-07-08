@@ -14,57 +14,58 @@
         -:   12:#include <sstream>
         -:   13:#include <map>
         -:   14:
-      154:   15:static std::map< CZMA_ERROR_CODE, const std::string > error_message = {
+      156:   15:static std::map< CZMA_ERROR_CODE, const std::string > error_message = {
         -:   16:	{ CZMA_ERROR_CODE::SYNTAX_ERROR, "Syntax error." },
         -:   17:	{ CZMA_ERROR_CODE::INVALID_COMMAND, "Invalid command." },
-        -:   18:	{ CZMA_ERROR_CODE::ILLEGAL_OPERAND, "Illegal operand." },
-        -:   19:	{ CZMA_ERROR_CODE::ILLEGAL_PARAMETER, "Illegal parameter." },
-        -:   20:	{ CZMA_ERROR_CODE::ILLEGAL_EXPRESSION, "Illegal expression." },
-        -:   21:	{ CZMA_ERROR_CODE::ILLEGAL_CONDITION, "Illegal condition." },
-        -:   22:	{ CZMA_ERROR_CODE::ILLEGAL_ARGUMENT, "Illegal argument." },
-        -:   23:	{ CZMA_ERROR_CODE::TOO_MANY_PARAMETERS, "Too many parameters." },
-        -:   24:	{ CZMA_ERROR_CODE::DEFAULT_CHAR_SET_CANNOT_BE_MAPPED_AND_CHANGED, "Default character set cannot be mapped and changed." },
-        -:   25:	{ CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE, "Cannot open the file." },
-        -:   26:	{ CZMA_ERROR_CODE::CANNOT_EVALUATE_THE_EXPRESSION, "Cannot evaluate the expression." },
-        -:   27:	{ CZMA_ERROR_CODE::MULTIPLE_DEFINITION, "Multiple definition." },
-        -:   28:	{ CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE, "Label is indeterminate." },
-        -:   29:	{ CZMA_ERROR_CODE::REPEAT_COUNTER_IS_NO_FIXED, "Repeat counter is no fixed." },
-        -:   30:	{ CZMA_ERROR_CODE::MUST_BE_SET_NAME, "Must be set name." },
-        -:   31:	{ CZMA_ERROR_CODE::BLOCK_PROCESSING_IS_NOT_CLOSED, "Block processing is not closed." },
-        -:   32:	{ CZMA_ERROR_CODE::SCOPE_IS_NOT_CLOSED, "Scope is not closed." },
-        -:   33:	{ CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS, "Out of range relative address." },
-        -:   34:	{ CZMA_ERROR_CODE::OUT_OF_RANGE_BIT_NUMBER, "Out of range bit number." },
-        -:   35:	{ CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT, "The numerical value is incorrect." },
-        -:   36:	{ CZMA_ERROR_CODE::DIVIDED_BY_ZERO, "Divided by zero." },
-        -:   37:};
-        -:   38:
-        -:   39:// --------------------------------------------------------------------
-     1383:   40:std::string CZMA_ERROR::get( CZMA_ERROR_CODE code, std::string message1, std::string message2, std::string message3 ){
-        -:   41:	std::string base_message;
-     1383:   42:	std::string result( "" );
-        -:   43:	bool b_insert_message = false;
-        -:   44:
-     1383:   45:	base_message = error_message[ code ];
-    26409:   46:	for( auto &c : base_message ){
-    25026:   47:		if( c == '$' ){
-        -:   48:			b_insert_message = true;
-    #####:   49:			continue;
-        -:   50:		}
-    25026:   51:		if( b_insert_message ){
-        -:   52:			b_insert_message = false;
-    #####:   53:			if( c == '1' ){
-    #####:   54:				result = result + message1;
-        -:   55:			}
-    #####:   56:			else if( c == '2' ){
-    #####:   57:				result = result + message2;
-        -:   58:			}
-        -:   59:			else{
-    #####:   60:				result = result + message3;
-        -:   61:			}
-        -:   62:		}
-        -:   63:		else{
-    50052:   64:			result = result + c;
-        -:   65:		}
-        -:   66:	}
-     1383:   67:	return result;
-      231:   68:}
+        -:   18:	{ CZMA_ERROR_CODE::ADDRESS_DETERMINED, "Code address not yet determined." },
+        -:   19:	{ CZMA_ERROR_CODE::ILLEGAL_OPERAND, "Illegal operand." },
+        -:   20:	{ CZMA_ERROR_CODE::ILLEGAL_PARAMETER, "Illegal parameter." },
+        -:   21:	{ CZMA_ERROR_CODE::ILLEGAL_EXPRESSION, "Illegal expression." },
+        -:   22:	{ CZMA_ERROR_CODE::ILLEGAL_CONDITION, "Illegal condition." },
+        -:   23:	{ CZMA_ERROR_CODE::ILLEGAL_ARGUMENT, "Illegal argument." },
+        -:   24:	{ CZMA_ERROR_CODE::TOO_MANY_PARAMETERS, "Too many parameters." },
+        -:   25:	{ CZMA_ERROR_CODE::DEFAULT_CHAR_SET_CANNOT_BE_MAPPED_AND_CHANGED, "Default character set cannot be mapped and changed." },
+        -:   26:	{ CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE, "Cannot open the file." },
+        -:   27:	{ CZMA_ERROR_CODE::CANNOT_EVALUATE_THE_EXPRESSION, "Cannot evaluate the expression." },
+        -:   28:	{ CZMA_ERROR_CODE::MULTIPLE_DEFINITION, "Multiple definition." },
+        -:   29:	{ CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE, "Label is indeterminate." },
+        -:   30:	{ CZMA_ERROR_CODE::REPEAT_COUNTER_IS_NO_FIXED, "Repeat counter is no fixed." },
+        -:   31:	{ CZMA_ERROR_CODE::MUST_BE_SET_NAME, "Must be set name." },
+        -:   32:	{ CZMA_ERROR_CODE::BLOCK_PROCESSING_IS_NOT_CLOSED, "Block processing is not closed." },
+        -:   33:	{ CZMA_ERROR_CODE::SCOPE_IS_NOT_CLOSED, "Scope is not closed." },
+        -:   34:	{ CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS, "Out of range relative address." },
+        -:   35:	{ CZMA_ERROR_CODE::OUT_OF_RANGE_BIT_NUMBER, "Out of range bit number." },
+        -:   36:	{ CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT, "The numerical value is incorrect." },
+        -:   37:	{ CZMA_ERROR_CODE::DIVIDED_BY_ZERO, "Divided by zero." },
+        -:   38:};
+        -:   39:
+        -:   40:// --------------------------------------------------------------------
+     1398:   41:std::string CZMA_ERROR::get( CZMA_ERROR_CODE code, std::string message1, std::string message2, std::string message3 ){
+        -:   42:	std::string base_message;
+     1398:   43:	std::string result( "" );
+        -:   44:	bool b_insert_message = false;
+        -:   45:
+     1398:   46:	base_message = error_message[ code ];
+    27358:   47:	for( auto &c : base_message ){
+    25960:   48:		if( c == '$' ){
+        -:   49:			b_insert_message = true;
+    #####:   50:			continue;
+        -:   51:		}
+    25960:   52:		if( b_insert_message ){
+        -:   53:			b_insert_message = false;
+    #####:   54:			if( c == '1' ){
+    #####:   55:				result = result + message1;
+        -:   56:			}
+    #####:   57:			else if( c == '2' ){
+    #####:   58:				result = result + message2;
+        -:   59:			}
+        -:   60:			else{
+    #####:   61:				result = result + message3;
+        -:   62:			}
+        -:   63:		}
+        -:   64:		else{
+    51920:   65:			result = result + c;
+        -:   66:		}
+        -:   67:	}
+     1398:   68:	return result;
+      234:   69:}

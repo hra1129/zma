@@ -20,7 +20,7 @@
         -:   18:int CZMA_PARSE::number_of_error = 0;
         -:   19:
         -:   20:// --------------------------------------------------------------------
-      154:   21:static std::map< std::string, CZMA_COMMAND_TYPE > command_list = {
+      156:   21:static std::map< std::string, CZMA_COMMAND_TYPE > command_list = {
         -:   22:	{ "ALIGN", CZMA_COMMAND_TYPE::CZMA_ALIGN },
         -:   23:	{ "SPACE", CZMA_COMMAND_TYPE::CZMA_SPACE },
         -:   24:	{ "REPEAT", CZMA_COMMAND_TYPE::CZMA_REPEAT },
@@ -128,32 +128,32 @@
         -:  126:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_##operation( words, p_file_name, line_no ))
         -:  127:
         -:  128:// --------------------------------------------------------------------
-     9073:  129:CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string> &words, const char* p_file_name, int line_no ) {
+    15293:  129:CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string> &words, const char* p_file_name, int line_no ) {
         -:  130:
-    18146:  131:	if( words.size() == 0 ) {
-     7156:  132:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_BLANK( words, p_file_name, line_no ));
+    30586:  131:	if( words.size() == 0 ) {
+    12866:  132:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_BLANK( words, p_file_name, line_no ));
         -:  133:	}
-     6710:  134:	if( words.size() == 2 && words[1] == ":" ) {
-       98:  135:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_LABEL( words, p_file_name, line_no ));
+    10207:  134:	if( words.size() == 2 && words[1] == ":" ) {
+      112:  135:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_LABEL( words, p_file_name, line_no ));
         -:  136:	}
-     6612:  137:	if( words.size() == 2 && words[1] == "::" ) {
+    10095:  137:	if( words.size() == 2 && words[1] == "::" ) {
        18:  138:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_GLOBAL_LABEL( words, p_file_name, line_no ));
         -:  139:	}
-     7832:  140:	if( words.size() >= 3 && words[1] == "=" ) {
+    12812:  140:	if( words.size() >= 3 && words[1] == "=" ) {
        36:  141:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_SYMBOL( words, p_file_name, line_no ));
         -:  142:	}
-    10163:  143:	if( words.size() >= 3 && (words[1] == ":=" || words[ 1 ] == "EQU") ) {
+    16765:  143:	if( words.size() >= 3 && (words[1] == ":=" || words[ 1 ] == "EQU") ) {
        24:  144:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_GLOBAL_SYMBOL( words, p_file_name, line_no ));
         -:  145:	}
-     8929:  146:	if( words.size() >= 2 && words[1] == "MACRO" ) {
+    14034:  146:	if( words.size() >= 2 && words[1] == "MACRO" ) {
        31:  147:		info.macro_list[words[0]] = nullptr;
        62:  148:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_MACRO( words, p_file_name, line_no ));
         -:  149:	}
         -:  150:	if( words.size() >= 1 && info.macro_list.count( words[0] ) ) {
       152:  151:		return reinterpret_cast<CZMA_PARSE*> (new CZMA_PARSE_MACRO_INS( words, p_file_name, line_no ));
         -:  152:	}
-     5300:  153:	switch( command_list[words[0]] ) {
-       58:  154:		OPE_CASE( ORG );
+     8658:  153:	switch( command_list[words[0]] ) {
+       60:  154:		OPE_CASE( ORG );
        20:  155:		OPE_CASE( INCLUDE );
        10:  156:		OPE_CASE( ADD_INCLUDE_PATH );
         4:  157:		OPE_CASE( ALIGN );
@@ -170,86 +170,86 @@
        42:  168:		OPE_CASE( SCOPE );
        30:  169:		OPE_CASE( ENDSCOPE );
         2:  170:		OPE_CASE( BINARY_LINK );
-     2916:  171:		OPE_CASE( DEFB );
-      488:  172:		OPE_CASE( DEFW );
+     4880:  171:		OPE_CASE( DEFB );
+      490:  172:		OPE_CASE( DEFW );
        20:  173:		OPE_CASE( DEFD );
        32:  174:		case CZMA_COMMAND_TYPE::CZMA_DEFS:
        32:  175:			if( info.defs_is_space ){
         6:  176:				return reinterpret_cast<CZMA_PARSE *> ( new CZMA_PARSE_SPACE( words, p_file_name, line_no ) );
         -:  177:			}
        58:  178:			return reinterpret_cast<CZMA_PARSE *> ( new CZMA_PARSE_DEFS( words, p_file_name, line_no ) );
-      964:  179:		OPE_CASE( LD );
-       14:  180:		OPE_CASE( PUSH );
-       14:  181:		OPE_CASE( POP );
-       14:  182:		OPE_CASE( EX );
-        4:  183:		OPE_CASE( EXX );
-        4:  184:		OPE_CASE( LDI );
-        4:  185:		OPE_CASE( LDIR );
-        4:  186:		OPE_CASE( LDD );
-        4:  187:		OPE_CASE( LDDR );
-        4:  188:		OPE_CASE( RLCA );
-        4:  189:		OPE_CASE( RLA );
-       22:  190:		OPE_CASE( RLC );
-       24:  191:		OPE_CASE( RL );
-        4:  192:		OPE_CASE( RRCA );
-        4:  193:		OPE_CASE( RRA );
-       22:  194:		OPE_CASE( RRC );
-       24:  195:		OPE_CASE( RR );
-       22:  196:		OPE_CASE( SLA );
-       24:  197:		OPE_CASE( SRA );
-       24:  198:		OPE_CASE( SRL );
+     1340:  179:		OPE_CASE( LD );
+       26:  180:		OPE_CASE( PUSH );
+       26:  181:		OPE_CASE( POP );
+       24:  182:		OPE_CASE( EX );
+        6:  183:		OPE_CASE( EXX );
+        6:  184:		OPE_CASE( LDI );
+        6:  185:		OPE_CASE( LDIR );
+        6:  186:		OPE_CASE( LDD );
+        6:  187:		OPE_CASE( LDDR );
+        6:  188:		OPE_CASE( RLCA );
+        6:  189:		OPE_CASE( RLA );
+       42:  190:		OPE_CASE( RLC );
+       44:  191:		OPE_CASE( RL );
+        6:  192:		OPE_CASE( RRCA );
+        6:  193:		OPE_CASE( RRA );
+       42:  194:		OPE_CASE( RRC );
+       44:  195:		OPE_CASE( RR );
+       42:  196:		OPE_CASE( SLA );
+       44:  197:		OPE_CASE( SRA );
+       44:  198:		OPE_CASE( SRL );
         2:  199:		OPE_CASE( SLL );
-       88:  200:		OPE_CASE( ADD );
-       40:  201:		OPE_CASE( ADC );
-       88:  202:		OPE_CASE( INC );
-       92:  203:		OPE_CASE( SUB );
-       40:  204:		OPE_CASE( SBC );
-       42:  205:		OPE_CASE( DEC );
-       96:  206:		OPE_CASE( AND );
-       98:  207:		OPE_CASE( OR );
-       96:  208:		OPE_CASE( XOR );
-        4:  209:		OPE_CASE( CPL );
-        4:  210:		OPE_CASE( NEG );
-        4:  211:		OPE_CASE( CCF );
-        4:  212:		OPE_CASE( SCF );
-      164:  213:		OPE_CASE( BIT );
-      164:  214:		OPE_CASE( RES );
-      164:  215:		OPE_CASE( SET );
-        4:  216:		OPE_CASE( CPI );
-        4:  217:		OPE_CASE( CPIR );
-        4:  218:		OPE_CASE( CPD );
-        4:  219:		OPE_CASE( CPDR );
-      104:  220:		OPE_CASE( CP );
-       56:  221:		OPE_CASE( JP );
-       42:  222:		OPE_CASE( JR );
-       10:  223:		OPE_CASE( DJNZ );
-       36:  224:		OPE_CASE( CALL );
-       30:  225:		OPE_CASE( RET );
-        4:  226:		OPE_CASE( RETI );
-        4:  227:		OPE_CASE( RETN );
-       26:  228:		OPE_CASE( RST );
-     3150:  229:		OPE_CASE( NOP );
-        4:  230:		OPE_CASE( HALT );
-        4:  231:		OPE_CASE( EI );
-        4:  232:		OPE_CASE( DI );
-        4:  233:		OPE_CASE( IM0 );
-        4:  234:		OPE_CASE( IM1 );
-        4:  235:		OPE_CASE( IM2 );
-       20:  236:		OPE_CASE( IN );
-        4:  237:		OPE_CASE( INI );
-        4:  238:		OPE_CASE( INIR );
-        4:  239:		OPE_CASE( IND );
-        4:  240:		OPE_CASE( INDR );
-       36:  241:		OPE_CASE( OUT );
-        4:  242:		OPE_CASE( OUTI );
-        4:  243:		OPE_CASE( OTIR );
-        4:  244:		OPE_CASE( OUTD );
-        4:  245:		OPE_CASE( OTDR );
-        4:  246:		OPE_CASE( DAA );
-        4:  247:		OPE_CASE( RLD );
-        4:  248:		OPE_CASE( RRD );
-       10:  249:		OPE_CASE( MULUB );
-        6:  250:		OPE_CASE( MULUW );
+      142:  200:		OPE_CASE( ADD );
+       78:  201:		OPE_CASE( ADC );
+      128:  202:		OPE_CASE( INC );
+      122:  203:		OPE_CASE( SUB );
+       78:  204:		OPE_CASE( SBC );
+       82:  205:		OPE_CASE( DEC );
+      126:  206:		OPE_CASE( AND );
+      128:  207:		OPE_CASE( OR );
+      128:  208:		OPE_CASE( XOR );
+        6:  209:		OPE_CASE( CPL );
+        6:  210:		OPE_CASE( NEG );
+        6:  211:		OPE_CASE( CCF );
+        6:  212:		OPE_CASE( SCF );
+      324:  213:		OPE_CASE( BIT );
+      324:  214:		OPE_CASE( RES );
+      324:  215:		OPE_CASE( SET );
+        6:  216:		OPE_CASE( CPI );
+        6:  217:		OPE_CASE( CPIR );
+        6:  218:		OPE_CASE( CPD );
+        6:  219:		OPE_CASE( CPDR );
+      134:  220:		OPE_CASE( CP );
+       80:  221:		OPE_CASE( JP );
+       58:  222:		OPE_CASE( JR );
+       12:  223:		OPE_CASE( DJNZ );
+       54:  224:		OPE_CASE( CALL );
+       48:  225:		OPE_CASE( RET );
+        6:  226:		OPE_CASE( RETI );
+        6:  227:		OPE_CASE( RETN );
+       42:  228:		OPE_CASE( RST );
+     6296:  229:		OPE_CASE( NOP );
+        6:  230:		OPE_CASE( HALT );
+        6:  231:		OPE_CASE( EI );
+        6:  232:		OPE_CASE( DI );
+        6:  233:		OPE_CASE( IM0 );
+        6:  234:		OPE_CASE( IM1 );
+        6:  235:		OPE_CASE( IM2 );
+       36:  236:		OPE_CASE( IN );
+        6:  237:		OPE_CASE( INI );
+        6:  238:		OPE_CASE( INIR );
+        6:  239:		OPE_CASE( IND );
+        6:  240:		OPE_CASE( INDR );
+       52:  241:		OPE_CASE( OUT );
+        6:  242:		OPE_CASE( OUTI );
+        6:  243:		OPE_CASE( OTIR );
+        6:  244:		OPE_CASE( OUTD );
+        6:  245:		OPE_CASE( OTDR );
+        6:  246:		OPE_CASE( DAA );
+        6:  247:		OPE_CASE( RLD );
+        6:  248:		OPE_CASE( RRD );
+       18:  249:		OPE_CASE( MULUB );
+       10:  250:		OPE_CASE( MULUW );
         6:  251:		OPE_CASE( CHG_CHAR_SET );
         8:  252:		OPE_CASE( MAPPING_CHAR );
         -:  253:	default:
@@ -284,12 +284,12 @@
     #####:  282:}
         -:  283:
         -:  284:// --------------------------------------------------------------------
-     5006:  285:std::string CZMA_PARSE::get_line( void ) {
+     8370:  285:std::string CZMA_PARSE::get_line( void ) {
         -:  286:	std::string r, ss;
         -:  287:
         -:  288:	r = "";
-    22766:  289:	for( auto &s : words ) {
-    35520:  290:		if( s.size() > 0 && (s[0] == '\"' || s[0] == '\'') ){
+    38979:  289:	for( auto &s : words ) {
+    61218:  290:		if( s.size() > 0 && (s[0] == '\"' || s[0] == '\'') ){
       114:  291:			ss = s[ 0 ];
      1210:  292:			for( int i = 1; i < (int)s.size(); i++ ) {
      1096:  293:				switch( s[i] ) {
@@ -310,23 +310,23 @@
         -:  308:		else {
         -:  309:			ss = s;
         -:  310:		}
-    17760:  311:		if( r == "" ) {
+    30609:  311:		if( r == "" ) {
         -:  312:			r = ss;
         -:  313:		}
-    12754:  314:		else if( ss == "," ){
-     8138:  315:			r = r + ss;
+    22239:  314:		else if( ss == "," ){
+    15234:  315:			r = r + ss;
         -:  316:		}
-     8685:  317:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'X' ){
-     3041:  318:			ss[ 1 ] = 'x';
-     9123:  319:			r = r + " " + ss;
+    14622:  317:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'X' ){
+     6030:  318:			ss[ 1 ] = 'x';
+    18090:  319:			r = r + " " + ss;
         -:  320:		}
-     7409:  321:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'B' ){
+    11495:  321:		else if( ss[ 0 ] == '0' && ss[ 1 ] == 'B' ){
         3:  322:			ss[ 1 ] = 'b';
         9:  323:			r = r + " " + ss;
         -:  324:		}
         -:  325:		else {
-    22564:  326:			r = r + " " + ss;
+    34356:  326:			r = r + " " + ss;
         -:  327:		}
         -:  328:	}
-     5006:  329:	return r;
-      231:  330:}
+     8370:  329:	return r;
+      234:  330:}

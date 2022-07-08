@@ -9,14 +9,14 @@
         -:    7:#include <fstream>
         -:    8:#include <vector>
         -:    9:
-       75:   10:class CZMA_HEXFILE_WRITER {
+       76:   10:class CZMA_HEXFILE_WRITER {
         -:   11:private:
         -:   12:	int								address;
         -:   13:	int								last_segment;
         -:   14:	std::vector< unsigned char >	data;
         -:   15:public:
         -:   16:	// --------------------------------------------------------------------
-       77:   17:	CZMA_HEXFILE_WRITER(): address(0), last_segment(0) {
+       78:   17:	CZMA_HEXFILE_WRITER(): address(0), last_segment(0) {
         -:   18:	}
         -:   19:
         -:   20:	// --------------------------------------------------------------------

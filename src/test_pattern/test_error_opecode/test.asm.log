@@ -186,11 +186,11 @@ LINE# |OFFSET|ADDR|MNEMONIC
     98|      |    |CALL Z, 0 AAA
     98|ERROR |    |Illegal operand.: test.asm(98)
     99|      |    |DJNZ 0 AAA
-    99|ERROR |    |Illegal operand.: test.asm(99)
+    99|ERROR |    |Code address not yet determined.: test.asm(99)
    100|      |    |JR 0 AAA
-   100|ERROR |    |Illegal operand.: test.asm(100)
+   100|ERROR |    |Code address not yet determined.: test.asm(100)
    101|      |    |JR Z, 0 AAA
-   101|ERROR |    |Illegal operand.: test.asm(101)
+   101|ERROR |    |Code address not yet determined.: test.asm(101)
    102|      |    |JP 0 AAA
    102|ERROR |    |Illegal operand.: test.asm(102)
    103|      |    |JP Z, 0 AAA
@@ -296,7 +296,7 @@ LINE# |OFFSET|ADDR|MNEMONIC
    154|      |    |EX [ SP ], DE
    154|ERROR |    |Illegal operand.: test.asm(154)
    157|      |    |JR "hoge"
-   157|ERROR |    |Illegal operand.: test.asm(157)
+   157|ERROR |    |Code address not yet determined.: test.asm(157)
    158|      |    |JP "hoge"
    158|ERROR |    |Illegal operand.: test.asm(158)
    159|      |    |CALL "hoge"
@@ -305,10 +305,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
    163|      |    |JR 127
    163|ERROR |    |Out of range relative address.: test.asm(163)
-   163|ERROR |    |Illegal operand.: test.asm(163)
    164|      |    |JR 1000
    164|ERROR |    |Out of range relative address.: test.asm(164)
-   164|ERROR |    |Illegal operand.: test.asm(164)
    167|      |    |LD IXH, IXH
    167|ERROR |    |Illegal operand.: test.asm(167)
    168|      |    |LD IXH, IXL

@@ -83,7 +83,8 @@ bool CZMA_PARSE_GLOBAL_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_la
 		}
 	}
 	else {
-		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ) );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ), info.all_error_enable, info.error_disable );
+		info.error_disable = true;
 		return false;
 	}
 	return check_all_fixed();

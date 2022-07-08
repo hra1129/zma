@@ -17,36 +17,36 @@
         -:   15:#include <algorithm>
         -:   16:
         -:   17:// --------------------------------------------------------------------
-      150:   18:bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      171:   18:bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   19:	std::string label;
         -:   20:	CVALUE v;
         -:   21:
-      150:   22:	this->set_code_size( &info, 0 );
-      150:   23:	update_flags( &info, p_last_line );
+      171:   22:	this->set_code_size( &info, 0 );
+      171:   23:	update_flags( &info, p_last_line );
         -:   24:	//	log
-      450:   25:	label = info.get_scope_path() + words[ 0 ];
-      150:   26:	if( !this->is_analyze_phase ) {
-       92:   27:		std::stringstream s;
-       92:   28:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       46:   29:		if( this->get_code_address() == -1 ){
-        3:   30:			s << "label address: 0xXXXXXX";
+      513:   25:	label = info.get_scope_path() + words[ 0 ];
+      171:   26:	if( !this->is_analyze_phase ) {
+      106:   27:		std::stringstream s;
+      106:   28:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       53:   29:		if( this->get_code_address() == -1 ){
+       10:   30:			s << "label address: 0xXXXXXX";
         -:   31:		}
         -:   32:		else { 
        43:   33:			s << "label [" << label << "] address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
         -:   34:		}
-       92:   35:		log.write_message( s.str() );
-       46:   36:		log.write_separator();
+      106:   35:		log.write_message( s.str() );
+       53:   36:		log.write_separator();
         -:   37:	}
-      150:   38:	if( this->is_data_fixed ) {
+      171:   38:	if( this->is_data_fixed ) {
         -:   39:		if( check_all_fixed() && info.dict.count( label ) ){
         -:   40:			return true;
         -:   41:		}
         -:   42:	}
-      130:   43:	if( words[0][0] == '\"' ) {
+      172:   43:	if( words[0][0] == '\"' ) {
        15:   44:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
         3:   45:		return false;
         -:   46:	}
-       62:   47:	if( this->is_fixed_code_address() ) {
+       83:   47:	if( this->is_fixed_code_address() ) {
        22:   48:		if( info.dict.count( label ) && info.dict[ label ].value_type != CVALUE_TYPE::CV_UNKNOWN_INTEGER ){
         3:   49:			if( !( info.dict[ label ].value_type == CVALUE_TYPE::CV_INTEGER && info.dict[ label ].i == this->get_code_address() ) ){
     #####:   50:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
@@ -65,13 +65,14 @@
         -:   63:		if( info.dict.count( label ) ) {
         -:   64:			return check_all_fixed();
         -:   65:		}
-       11:   66:		v.i = -1;
-       11:   67:		v.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
-       11:   68:		info.dict[ label ] = v;
-       11:   69:		info.is_updated = true;
-       55:   70:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ) );
-       11:   71:		return false;
-        -:   72:	}
-        -:   73:	return check_all_fixed();
-      154:   74:}
-        -:   75:
+       18:   66:		v.i = -1;
+       18:   67:		v.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
+       18:   68:		info.dict[ label ] = v;
+       18:   69:		info.is_updated = true;
+       90:   70:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ), info.all_error_enable, info.error_disable );
+       18:   71:		info.error_disable = true;
+       18:   72:		return false;
+        -:   73:	}
+        -:   74:	return check_all_fixed();
+      156:   75:}
+        -:   76:

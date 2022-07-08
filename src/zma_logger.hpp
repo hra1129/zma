@@ -39,7 +39,7 @@ public:
 
 	// --------------------------------------------------------------------
 	//	Write error message
-	void write_error_message( const char *p_file_name, int line_no, const std::string &s_message );
+	void write_error_message( const char *p_file_name, int line_no, const std::string &s_message, bool is_all_error, bool error_disable );
 
 	// --------------------------------------------------------------------
 	//	Cycles information

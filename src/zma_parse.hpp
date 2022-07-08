@@ -102,9 +102,9 @@ protected:
 
 public:
 	std::string get_line( void );
-	void put_error( std::string message );
+	void put_error( std::string message, bool is_all_error = true, bool error_disable = true );
 	void put_message( std::string message );
-	void put_structure_error( std::string message );
+	void put_structure_error( std::string message, bool is_all_error = true, bool error_disable = true );
 	std::vector<std::string> words;
 	int expression( CZMA_INFORMATION& info, int index, CVALUE& result, bool do_char_map = true );
 	std::string escape( const std::string &s );

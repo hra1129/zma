@@ -22,6 +22,7 @@ static void usage( const char* p_name ) {
 	std::cerr << "  -D{name}={value} .... Define symbol. ex) -DSWITCH=1 -DNAME='GAME'\n";
 	std::cerr << "  -DEFS ............... Change the DEFS instruction to an area allocation instruction.\n";
 	std::cerr << "  -HEX ................ Output file is a HEX file.\n";
+	std::cerr << "  -EALL ............... Detailed error display.\n";
 }
 
 // --------------------------------------------------------------------
@@ -94,6 +95,9 @@ static std::vector<std::string> get_command_line_options( int argc, char *argv[]
 			}
 			else if( s_argument == "-HEX" ){
 				info.output_type = CZMA_INFORMATION::OUTPUT_TYPE::CZMA_INTELHEX;
+			}
+			else if( s_argument == "-EALL" ){
+				info.all_error_enable = true;
 			}
 		}
 		else{

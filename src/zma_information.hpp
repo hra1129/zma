@@ -114,7 +114,9 @@ public:
 
 	unsigned int auto_label_index;
 
-	bool		defs_is_space;	//	false: DEFS疑似命令は文字列配置(default), true: DEFS疑似命令は領域確保
+	bool		defs_is_space;		//	false: DEFS疑似命令は文字列配置(default), true: DEFS疑似命令は領域確保
+	bool		all_error_enable;	//	false: アドレス未確定以降のエラーを抑止, true: 全てのエラーを表示
+	bool		error_disable;
 
 	enum class OUTPUT_TYPE{
 		CZMA_BINARY,
@@ -150,7 +152,8 @@ public:
 			p_text( nullptr ), p_macro( nullptr ), 
 			p_sub_dict( nullptr ),
 			p_char_set( nullptr ), defs_is_space(false),
-			output_type( OUTPUT_TYPE::CZMA_BINARY ) {
+			output_type( OUTPUT_TYPE::CZMA_BINARY ),
+			error_disable( false ), all_error_enable( false ) {
 	}
 
 	// --------------------------------------------------------------------
@@ -161,6 +164,7 @@ public:
 		is_updated = false;
 		is_block_processing = false;
 		auto_label_index = 0;
+		error_disable = false;
 	}
 
 	// --------------------------------------------------------------------

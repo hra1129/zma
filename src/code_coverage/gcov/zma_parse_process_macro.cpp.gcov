@@ -212,4 +212,4 @@
         -:  210:	}
       216:  211:	this->next_code_address = p_last_line->get_next_code_address();
         -:  212:	return result && check_all_fixed();
-      154:  213:}
+      156:  213:}

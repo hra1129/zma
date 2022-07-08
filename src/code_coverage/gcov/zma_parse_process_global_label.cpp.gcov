@@ -69,8 +69,9 @@
         3:   67:		v.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
         3:   68:		info.dict[ label ] = v;
         3:   69:		info.is_updated = true;
-       15:   70:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ) );
-        3:   71:		return false;
-        -:   72:	}
-        -:   73:	return check_all_fixed();
-      154:   74:}
+       15:   70:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ), info.all_error_enable, info.error_disable );
+        3:   71:		info.error_disable = true;
+        3:   72:		return false;
+        -:   73:	}
+        -:   74:	return check_all_fixed();
+      156:   75:}

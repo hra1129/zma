@@ -85,8 +85,9 @@
         -:   83:		}
         -:   84:	}
         -:   85:	else {
-       15:   86:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ) );
-        3:   87:		return false;
-        -:   88:	}
-        -:   89:	return check_all_fixed();
-      154:   90:}
+       15:   86:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ), info.all_error_enable, info.error_disable );
+        3:   87:		info.error_disable = true;
+        3:   88:		return false;
+        -:   89:	}
+        -:   90:	return check_all_fixed();
+      156:   91:}

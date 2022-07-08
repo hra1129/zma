@@ -34,7 +34,6 @@ bool CZMA_PARSE_JR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 		}
 		return check_all_fixed();
 	}
-	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 	return false;
 }
 

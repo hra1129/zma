@@ -19,7 +19,7 @@ bool CZMA_PARSE_DJNZ::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	int relative;
 
 	update_flags( &info, p_last_line );
-	if( words.size() != 2 ) {
+	if( words.size() < 2 ) {
 		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 		return false;
 	}
@@ -27,7 +27,6 @@ bool CZMA_PARSE_DJNZ::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 		this->set_code_size( &info, 2 );
 		relative = this->relative_address( info, 1 );
 		if( relative == -9999 ) {
-			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 			return false;
 		}
 		this->is_data_fixed = true;

@@ -67,7 +67,8 @@ bool CZMA_PARSE_GLOBAL_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_las
 		v.value_type = CVALUE_TYPE::CV_UNKNOWN_INTEGER;
 		info.dict[ label ] = v;
 		info.is_updated = true;
-		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ) );
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ), info.all_error_enable, info.error_disable );
+		info.error_disable = true;
 		return false;
 	}
 	return check_all_fixed();

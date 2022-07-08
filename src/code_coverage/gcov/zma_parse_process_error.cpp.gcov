@@ -23,4 +23,4 @@
        18:   21:	update_flags( &info, p_last_line );
        90:   22:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
        18:   23:	return false;
-      154:   24:}
+      156:   24:}
