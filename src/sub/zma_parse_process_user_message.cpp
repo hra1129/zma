@@ -14,6 +14,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include "zma_parse_process_user_message.hpp"
+
 // --------------------------------------------------------------------
 bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 	CVALUE v;

@@ -28,12 +28,4 @@ public:
 	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
 };
 
-// --------------------------------------------------------------------
-class CZMA_PARSE_ENDR: public CZMA_PARSE {
-public:
-	CZMA_REPEAT_T* p_repeat = nullptr;
-	bool is_loaded = false;
-
-	using CZMA_PARSE::CZMA_PARSE;
-	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
-};
+CLASS_CZMA_PARSE( ENDR );

@@ -6,6 +6,4 @@
 
 #pragma once
 
-#include "zma_parse_process.hpp"
-
 CLASS_CZMA_PARSE( ADC );

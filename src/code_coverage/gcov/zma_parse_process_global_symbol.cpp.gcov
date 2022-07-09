@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_global_symbol.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,78 +16,80 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-       36:   18:bool CZMA_PARSE_GLOBAL_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:	std::string label;
-        -:   20:	CVALUE v;
-        -:   21:
-       36:   22:	this->set_code_size( &info, 0 );
-       36:   23:	update_flags( &info, p_last_line );
-        -:   24:	//	log
-       36:   25:	label = words[0];
-       36:   26:	if( !this->is_analyze_phase ) {
-       24:   27:		std::stringstream s;
-       24:   28:		log.write_line_infomation( this->line_no, -1, -1, get_line() );
-        -:   29:		if( !info.dict.count( label ) ){
-        2:   30:			s << "global symbol [" << label << "] = UNKNOWN";
-        -:   31:		}
-        -:   32:		else {
-       10:   33:			v = info.dict[label];
-       20:   34:			if( v.is_integer() ) {
-        8:   35:				if( v.is_unknown() ){
-        1:   36:					s << "Global integer symbol [" << label << "] = UNKNOWN";
-        -:   37:				}
-        -:   38:				else {
-       14:   39:					s << "Global integer symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
-        -:   40:				}
-        -:   41:			}
-        2:   42:			else if( v.is_string() ) {
-        2:   43:				if( v.is_unknown() ){
-    #####:   44:					s << "Global string symbol [" << label << "] = UNKNOWN";
-        -:   45:				}
-        -:   46:				else{
-        2:   47:					s << "Global string symbol [" << label << "] = \"" << v.s << "\"";
-        -:   48:				}
-        -:   49:			}
-        -:   50:			else {
-    #####:   51:				s << "Global symbol [" << label << "] = UNKNOWN";
-        -:   52:			}
-        -:   53:		}
-       24:   54:		log.write_message( s.str() );
-       12:   55:		log.write_separator();
-        -:   56:	}
-       36:   57:	if( this->is_data_fixed ) {
-        -:   58:		if( check_all_fixed() && info.dict.count( label ) ){
-        -:   59:			return true;
-        -:   60:		}
-        -:   61:	}
-       48:   62:	if( words[0][0] == '\"' ) {
-       15:   63:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
-        3:   64:		return false;
-        -:   65:	}
-       21:   66:	if( this->expression( info, 2, v ) ) {
-       18:   67:		if( v.value_type == CVALUE_TYPE::CV_UNKNOWN ) {
-    #####:   68:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:   69:			return false;
-        -:   70:		}
-       30:   71:		if( info.dict.count( label ) && !info.dict[ label ].is_unknown() ) {
-       40:   72:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
-        8:   73:			return false;
-        -:   74:		}
-        -:   75:		else {
-       20:   76:			if( !v.is_unknown() ){
-        7:   77:				this->is_data_fixed = true;
-        -:   78:			}
-        4:   79:			if( !info.dict.count( label ) || info.dict[ label ].value_type != v.value_type ){
-        8:   80:				info.is_updated = true;
-        -:   81:			}
-       10:   82:			info.dict[label] = v;
-        -:   83:		}
-        -:   84:	}
-        -:   85:	else {
-       15:   86:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ), info.all_error_enable, info.error_disable );
-        3:   87:		info.error_disable = true;
-        3:   88:		return false;
-        -:   89:	}
-        -:   90:	return check_all_fixed();
-      156:   91:}
+        -:   17:#include "zma_parse_process_global_symbol.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+       36:   20:bool CZMA_PARSE_GLOBAL_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:	std::string label;
+        -:   22:	CVALUE v;
+        -:   23:
+       36:   24:	this->set_code_size( &info, 0 );
+       36:   25:	update_flags( &info, p_last_line );
+        -:   26:	//	log
+       36:   27:	label = words[0];
+       36:   28:	if( !this->is_analyze_phase ) {
+       24:   29:		std::stringstream s;
+       24:   30:		log.write_line_infomation( this->line_no, -1, -1, get_line() );
+        -:   31:		if( !info.dict.count( label ) ){
+        2:   32:			s << "global symbol [" << label << "] = UNKNOWN";
+        -:   33:		}
+        -:   34:		else {
+       10:   35:			v = info.dict[label];
+       20:   36:			if( v.is_integer() ) {
+        8:   37:				if( v.is_unknown() ){
+        1:   38:					s << "Global integer symbol [" << label << "] = UNKNOWN";
+        -:   39:				}
+        -:   40:				else {
+       14:   41:					s << "Global integer symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
+        -:   42:				}
+        -:   43:			}
+        2:   44:			else if( v.is_string() ) {
+        2:   45:				if( v.is_unknown() ){
+    #####:   46:					s << "Global string symbol [" << label << "] = UNKNOWN";
+        -:   47:				}
+        -:   48:				else{
+        2:   49:					s << "Global string symbol [" << label << "] = \"" << v.s << "\"";
+        -:   50:				}
+        -:   51:			}
+        -:   52:			else {
+    #####:   53:				s << "Global symbol [" << label << "] = UNKNOWN";
+        -:   54:			}
+        -:   55:		}
+       24:   56:		log.write_message( s.str() );
+       12:   57:		log.write_separator();
+        -:   58:	}
+       36:   59:	if( this->is_data_fixed ) {
+        -:   60:		if( check_all_fixed() && info.dict.count( label ) ){
+        -:   61:			return true;
+        -:   62:		}
+        -:   63:	}
+       48:   64:	if( words[0][0] == '\"' ) {
+       15:   65:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
+        3:   66:		return false;
+        -:   67:	}
+       21:   68:	if( this->expression( info, 2, v ) ) {
+       18:   69:		if( v.value_type == CVALUE_TYPE::CV_UNKNOWN ) {
+    #####:   70:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+    #####:   71:			return false;
+        -:   72:		}
+       30:   73:		if( info.dict.count( label ) && !info.dict[ label ].is_unknown() ) {
+       40:   74:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
+        8:   75:			return false;
+        -:   76:		}
+        -:   77:		else {
+       20:   78:			if( !v.is_unknown() ){
+        7:   79:				this->is_data_fixed = true;
+        -:   80:			}
+        4:   81:			if( !info.dict.count( label ) || info.dict[ label ].value_type != v.value_type ){
+        8:   82:				info.is_updated = true;
+        -:   83:			}
+       10:   84:			info.dict[label] = v;
+        -:   85:		}
+        -:   86:	}
+        -:   87:	else {
+       15:   88:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::LABEL_IS_INDETERMINATE ), info.all_error_enable, info.error_disable );
+        3:   89:		info.error_disable = true;
+        3:   90:		return false;
+        -:   91:	}
+        -:   92:	return check_all_fixed();
+      156:   93:}

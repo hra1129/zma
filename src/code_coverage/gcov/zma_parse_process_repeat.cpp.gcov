@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_repeat.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,229 +16,231 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-        -:   18://	REPEAT文は特殊な構造を持つのでこのメソッドを定義
-        -:   19://	load 時は、このクラスは REPEATの1行目単独を示している。
-        -:   20://	この関数では、REPEAT～ENDR全体を示すように変更する。
-       25:   21:void CZMA_PARSE_REPEAT::block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ){
-        -:   22:
-       50:   23:	while( pp_current != m_text.end() ){
-        -:   24:		//	ENDR か？
-      138:   25:		if( ( *pp_current )->words.size() > 0 && ( *pp_current )->words[ 0 ] == "ENDR" ){
-        -:   26:			//	ENDR自体はもう不要なので削除
-       21:   27:			pp_current = m_text.erase( pp_current );
-       21:   28:			break;
-        -:   29:		}
-        -:   30:		//	中身を this->m_text に詰める
-        -:   31:		pp_current++;
-       85:   32:		while( pp_current != m_text.end() ){
-      102:   33:			if( ( *pp_current )->words.size() == 0 ){
-        -:   34:				//	through
-        -:   35:			}
-       50:   36:			else if( ( *pp_current )->words[ 0 ] == "ENDR" ){
-        -:   37:				break;
-        -:   38:			}
-       30:   39:			( *pp_current )->block_structure( m_text, pp_current );
-       60:   40:			this->m_text.m_text.push_back( *pp_current );
-       30:   41:			pp_current = m_text.erase( pp_current );
-        -:   42:		}
-        -:   43:	}
-        -:   44:	pp_current--;
-       25:   45:}
-        -:   46:
-        -:   47:// --------------------------------------------------------------------
-        9:   48:std::vector< std::vector< std::string > > CZMA_PARSE_REPEAT::get_words( void ){
-        9:   49:	std::vector< std::vector< std::string > > list, sub_list;
-       27:   50:	std::vector< std::string > words_endif = { "ENDR" };
-        -:   51:
-        9:   52:	list.push_back( this->words );
-       18:   53:	for( auto &p_block : this->m_text.m_text ){
-       18:   54:		sub_list = p_block->get_words();
-        9:   55:		list.insert( list.end(), sub_list.begin(), sub_list.end() );
-        -:   56:	}
-        9:   57:	list.push_back( words_endif );
-        9:   58:	return list;
-        -:   59:}
-        -:   60:
-        -:   61:// --------------------------------------------------------------------
-       22:   62:bool CZMA_PARSE_REPEAT::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
-        -:   63:	bool result;
-        -:   64:
-        -:   65:	result = true;
-       73:   66:	for( auto &line : log_header ){
-       51:   67:		info.log << line << std::endl;
-        -:   68:	}
-      364:   69:	for( auto text : this->m_text_list ) {
-      342:   70:		result = result && text->write( info, f );
-        -:   71:	}
-       68:   72:	for( auto &line : log ) {
-       46:   73:		info.log << line << std::endl;
-        -:   74:	}
-       22:   75:	return result;
-        -:   76:}
-        -:   77:
-        -:   78:// --------------------------------------------------------------------
-       72:   79:bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   80:	std::string label;
-        -:   81:	CVALUE v;
-        -:   82:	int index, i;
-        -:   83:	unsigned int sub_success_count;
-        -:   84:	CZMA_TEXT *p_text;
-        -:   85:	CZMA_PARSE *p_parse;
-        -:   86:	std::string s_scope;
-       72:   87:	std::vector< std::string > label_line;
-        -:   88:
-        -:   89:	update_flags( &info, p_last_line );
-       72:   90:	if( !this->is_counter_end_fixed ) {
-       64:   91:		if( words.size() < 4 ) {
-        -:   92:			//	REPEAT 変数名 , 値 で、少なくとも 4[word] なければならない
-       15:   93:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        3:   94:			return false;
-        -:   95:		}
-       29:   96:		if( words[2] != "," ) {
-       15:   97:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        3:   98:			return false;
-        -:   99:		}
-        -:  100:		//	"REPEAT 変数名 , 値" の 値を評価する
-       26:  101:		index = this->expression( info, 3, v );
-       26:  102:		if( index == 0 ) {
-       15:  103:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-        3:  104:			return false;
-        -:  105:		}
-       46:  106:		if( index < ( int) words.size() ) {
-       15:  107:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-        3:  108:			return false;
-        -:  109:		}
-       20:  110:		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
-       15:  111:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        3:  112:			return false;
-        -:  113:		}
-       17:  114:		this->counter_end = v.i;
-       17:  115:		this->is_counter_end_fixed = true;
-       51:  116:		this->scope_name = "@REPEAT" + std::to_string( info.get_auto_label_index() );
-       17:  117:		info.scope.push_back( this->scope_name );
-       17:  118:		v.value_type = CVALUE_TYPE::CV_INTEGER;
-       17:  119:		v.i = 0;
-       68:  120:		this->counter_symbol = info.get_scope_path() + words[ 1 ];
-       17:  121:		info.dict[this->counter_symbol] = v;
-        -:  122:
-       17:  123:		this->is_data_fixed = true;
-       17:  124:		info.is_updated = true;
-        -:  125:	}
-        -:  126:	else{
-       40:  127:		info.scope.push_back( this->scope_name );
-      160:  128:		this->counter_symbol = info.get_scope_path() + words[ 1 ];
-        -:  129:	}
-        -:  130:	//	log
-       57:  131:	if( !is_analyze_phase ){
-       34:  132:		log_header.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       51:  133:		log_header.write_message( "Enter scope: " + info.get_scope_path() );
-       17:  134:		log_header.write_separator();
-        -:  135:	}
-        -:  136:
-        -:  137:	//	this->m_text_list が空っぽなら中身を詰める
-       57:  138:	if( !this->is_loaded ){
-       17:  139:		if( !this->is_counter_end_fixed ){
-        -:  140:			//	繰り返しカウンターがまだ評価完了していない
-    #####:  141:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::REPEAT_COUNTER_IS_NO_FIXED ) );
-        -:  142:			info.scope.pop_back();
-    #####:  143:			return false;
-        -:  144:		}
-      701:  145:		for( i = 0; i < this->counter_end; i++ ){
-      342:  146:			info.dict[ this->counter_symbol ].i = i;
-      342:  147:			p_text = new CZMA_TEXT;
-      709:  148:			for( auto p : this->m_text.m_text ){
-      734:  149:				auto words_list = p->get_words();
-      754:  150:				for( auto &insert_line : words_list ){
-      814:  151:					if( insert_line.size() > 2 && ( ( insert_line[ 1 ] == ":" ) || ( insert_line[ 1 ] == "::" ) ) ){
-    #####:  152:						label_line.resize( 2 );
-    #####:  153:						label_line[ 0 ] = insert_line[ 0 ];
-    #####:  154:						label_line[ 1 ] = insert_line[ 1 ];
-    #####:  155:						p_parse = CZMA_PARSE::create( info, label_line, this->p_file_name, this->line_no );
-    #####:  156:						p_text->m_text.push_back( p_parse );
-        -:  157:						insert_line.erase( insert_line.begin() );
-        -:  158:						insert_line.erase( insert_line.begin() );
-    #####:  159:						p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
-    #####:  160:						p_text->m_text.push_back( p_parse );
-        -:  161:					}
-        -:  162:					else{
-      774:  163:						p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
-      387:  164:						p_text->m_text.push_back( p_parse );
-        -:  165:					}
-        -:  166:				}
-        -:  167:			}
-      342:  168:			p_text->analyze_structure();
-      342:  169:			this->m_text_list.push_back( p_text );
-        -:  170:		}
-       17:  171:		this->is_loaded = true;
-       17:  172:		info.is_updated = true;
-        -:  173:	}
-        -:  174:	//	中身を処理する
-     2139:  175:	for( i = 0; i < this->counter_end; i++ ){
-     1041:  176:		info.dict[ this->counter_symbol ].i = i;
-     2082:  177:		p_last_line = this->m_text_list[ i ]->process( info, sub_success_count, p_last_line, !is_analyze_phase );
-        -:  178:	}
-        -:  179:
-        -:  180:	//	データが確定したか確認する
-       57:  181:	if( !this->is_data_fixed ){
-    #####:  182:		for( auto p_text : this->m_text_list ){
-    #####:  183:			for( auto p : p_text->m_text ){
-    #####:  184:				this->is_data_fixed = this->is_data_fixed && p->is_fixed_code_size();
-        -:  185:			}
-        -:  186:		}
-    #####:  187:		if( this->is_data_fixed ){
-    #####:  188:			info.is_updated = true;
-        -:  189:		}
-        -:  190:	}
-        -:  191:
-        -:  192:	//	コードサイズを計算する
-       57:  193:	if( this->code_size == -1 ){
-       28:  194:		this->code_size = 0;
-      356:  195:		for( auto p_text : this->m_text_list ){
-      687:  196:			for( auto p : p_text->m_text ){
-      359:  197:				if( this->code_size != -1 && p->is_fixed_code_size() ){
-      345:  198:					this->code_size = this->code_size + p->get_code_size();
-        -:  199:				}
-        -:  200:				else{
-       14:  201:					this->code_size = -1;
-       14:  202:					break;
-        -:  203:				}
-        -:  204:			}
-      342:  205:			if( this->code_size == -1 ){
-        -:  206:				break;
-        -:  207:			}
-        -:  208:		}
-       28:  209:		if( this->code_size != -1 ){
-       14:  210:			info.is_updated = true;
-        -:  211:		}
-        -:  212:	}
-        -:  213:
-        -:  214:	//	次のアドレスを計算する
-       57:  215:	if( this->next_code_address == -1 ){
-       28:  216:		if( p_last_line == nullptr ){
-    #####:  217:			this->next_code_address = 0;
-        -:  218:		}
-        -:  219:		else{
-       28:  220:			this->next_code_address = p_last_line->get_next_code_address();
-        -:  221:		}
-       28:  222:		if( this->next_code_address != -1 ){
-       14:  223:			info.is_updated = true;
-        -:  224:		}
-        -:  225:	}
-        -:  226:
-        -:  227:	//	log
-       57:  228:	if( !is_analyze_phase ){
-       34:  229:		log.write_message( "Exit scope: " + s_scope );
-       17:  230:		log.write_separator();
-        -:  231:	}
-      114:  232:	s_scope = info.get_scope_path();
-        -:  233:	info.scope.pop_back();
-        -:  234:	return check_all_fixed();
-        -:  235:}
-        -:  236:
-        -:  237:// --------------------------------------------------------------------
-       36:  238:bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:  239:	//	本来、これは実行されるべきでないので、常にエラーを返す。
-      180:  240:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SYNTAX_ERROR ) );
-       36:  241:	return false;
-      156:  242:}
+        -:   17:#include "zma_parse_process_repeat.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+        -:   20://	REPEAT文は特殊な構造を持つのでこのメソッドを定義
+        -:   21://	load 時は、このクラスは REPEATの1行目単独を示している。
+        -:   22://	この関数では、REPEAT～ENDR全体を示すように変更する。
+       25:   23:void CZMA_PARSE_REPEAT::block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ){
+        -:   24:
+       50:   25:	while( pp_current != m_text.end() ){
+        -:   26:		//	ENDR か？
+      138:   27:		if( ( *pp_current )->words.size() > 0 && ( *pp_current )->words[ 0 ] == "ENDR" ){
+        -:   28:			//	ENDR自体はもう不要なので削除
+       21:   29:			pp_current = m_text.erase( pp_current );
+       21:   30:			break;
+        -:   31:		}
+        -:   32:		//	中身を this->m_text に詰める
+        -:   33:		pp_current++;
+       85:   34:		while( pp_current != m_text.end() ){
+      102:   35:			if( ( *pp_current )->words.size() == 0 ){
+        -:   36:				//	through
+        -:   37:			}
+       50:   38:			else if( ( *pp_current )->words[ 0 ] == "ENDR" ){
+        -:   39:				break;
+        -:   40:			}
+       30:   41:			( *pp_current )->block_structure( m_text, pp_current );
+       60:   42:			this->m_text.m_text.push_back( *pp_current );
+       30:   43:			pp_current = m_text.erase( pp_current );
+        -:   44:		}
+        -:   45:	}
+        -:   46:	pp_current--;
+       25:   47:}
+        -:   48:
+        -:   49:// --------------------------------------------------------------------
+        9:   50:std::vector< std::vector< std::string > > CZMA_PARSE_REPEAT::get_words( void ){
+        9:   51:	std::vector< std::vector< std::string > > list, sub_list;
+       27:   52:	std::vector< std::string > words_endif = { "ENDR" };
+        -:   53:
+        9:   54:	list.push_back( this->words );
+       18:   55:	for( auto &p_block : this->m_text.m_text ){
+       18:   56:		sub_list = p_block->get_words();
+        9:   57:		list.insert( list.end(), sub_list.begin(), sub_list.end() );
+        -:   58:	}
+        9:   59:	list.push_back( words_endif );
+        9:   60:	return list;
+        -:   61:}
+        -:   62:
+        -:   63:// --------------------------------------------------------------------
+       23:   64:bool CZMA_PARSE_REPEAT::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
+        -:   65:	bool result;
+        -:   66:
+        -:   67:	result = true;
+       74:   68:	for( auto &line : log_header ){
+       51:   69:		info.log << line << std::endl;
+        -:   70:	}
+      365:   71:	for( auto text : this->m_text_list ) {
+      342:   72:		result = result && text->write( info, f );
+        -:   73:	}
+       69:   74:	for( auto &line : log ) {
+       46:   75:		info.log << line << std::endl;
+        -:   76:	}
+       23:   77:	return result;
+        -:   78:}
+        -:   79:
+        -:   80:// --------------------------------------------------------------------
+       72:   81:bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   82:	std::string label;
+        -:   83:	CVALUE v;
+        -:   84:	int index, i;
+        -:   85:	unsigned int sub_success_count;
+        -:   86:	CZMA_TEXT *p_text;
+        -:   87:	CZMA_PARSE *p_parse;
+        -:   88:	std::string s_scope;
+       72:   89:	std::vector< std::string > label_line;
+        -:   90:
+       72:   91:	update_flags( &info, p_last_line );
+       72:   92:	if( !this->is_counter_end_fixed ) {
+       64:   93:		if( words.size() < 4 ) {
+        -:   94:			//	REPEAT 変数名 , 値 で、少なくとも 4[word] なければならない
+       15:   95:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        3:   96:			return false;
+        -:   97:		}
+       29:   98:		if( words[2] != "," ) {
+       15:   99:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        3:  100:			return false;
+        -:  101:		}
+        -:  102:		//	"REPEAT 変数名 , 値" の 値を評価する
+       26:  103:		index = this->expression( info, 3, v );
+       26:  104:		if( index == 0 ) {
+       15:  105:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        3:  106:			return false;
+        -:  107:		}
+       46:  108:		if( index < ( int) words.size() ) {
+       15:  109:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        3:  110:			return false;
+        -:  111:		}
+       20:  112:		if( v.value_type != CVALUE_TYPE::CV_INTEGER ) {
+       15:  113:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        3:  114:			return false;
+        -:  115:		}
+       17:  116:		this->counter_end = v.i;
+       17:  117:		this->is_counter_end_fixed = true;
+       51:  118:		this->scope_name = "@REPEAT" + std::to_string( info.get_auto_label_index() );
+       17:  119:		info.scope.push_back( this->scope_name );
+       17:  120:		v.value_type = CVALUE_TYPE::CV_INTEGER;
+       17:  121:		v.i = 0;
+       68:  122:		this->counter_symbol = info.get_scope_path() + words[ 1 ];
+       17:  123:		info.dict[this->counter_symbol] = v;
+        -:  124:
+       17:  125:		this->is_data_fixed = true;
+       17:  126:		info.is_updated = true;
+        -:  127:	}
+        -:  128:	else{
+       40:  129:		info.scope.push_back( this->scope_name );
+      160:  130:		this->counter_symbol = info.get_scope_path() + words[ 1 ];
+        -:  131:	}
+        -:  132:	//	log
+       57:  133:	if( !is_analyze_phase ){
+       34:  134:		log_header.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       51:  135:		log_header.write_message( "Enter scope: " + info.get_scope_path() );
+       17:  136:		log_header.write_separator();
+        -:  137:	}
+        -:  138:
+        -:  139:	//	this->m_text_list が空っぽなら中身を詰める
+       57:  140:	if( !this->is_loaded ){
+       17:  141:		if( !this->is_counter_end_fixed ){
+        -:  142:			//	繰り返しカウンターがまだ評価完了していない
+    #####:  143:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::REPEAT_COUNTER_IS_NO_FIXED ) );
+        -:  144:			info.scope.pop_back();
+    #####:  145:			return false;
+        -:  146:		}
+      701:  147:		for( i = 0; i < this->counter_end; i++ ){
+      342:  148:			info.dict[ this->counter_symbol ].i = i;
+      342:  149:			p_text = new CZMA_TEXT;
+      709:  150:			for( auto p : this->m_text.m_text ){
+      734:  151:				auto words_list = p->get_words();
+      754:  152:				for( auto &insert_line : words_list ){
+      814:  153:					if( insert_line.size() > 2 && ( ( insert_line[ 1 ] == ":" ) || ( insert_line[ 1 ] == "::" ) ) ){
+    #####:  154:						label_line.resize( 2 );
+    #####:  155:						label_line[ 0 ] = insert_line[ 0 ];
+    #####:  156:						label_line[ 1 ] = insert_line[ 1 ];
+    #####:  157:						p_parse = CZMA_PARSE::create( info, label_line, this->p_file_name, this->line_no );
+    #####:  158:						p_text->m_text.push_back( p_parse );
+        -:  159:						insert_line.erase( insert_line.begin() );
+        -:  160:						insert_line.erase( insert_line.begin() );
+    #####:  161:						p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
+    #####:  162:						p_text->m_text.push_back( p_parse );
+        -:  163:					}
+        -:  164:					else{
+      774:  165:						p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
+      387:  166:						p_text->m_text.push_back( p_parse );
+        -:  167:					}
+        -:  168:				}
+        -:  169:			}
+      342:  170:			p_text->analyze_structure();
+      342:  171:			this->m_text_list.push_back( p_text );
+        -:  172:		}
+       17:  173:		this->is_loaded = true;
+       17:  174:		info.is_updated = true;
+        -:  175:	}
+        -:  176:	//	中身を処理する
+     2139:  177:	for( i = 0; i < this->counter_end; i++ ){
+     1041:  178:		info.dict[ this->counter_symbol ].i = i;
+     2082:  179:		p_last_line = this->m_text_list[ i ]->process( info, sub_success_count, p_last_line, !is_analyze_phase );
+        -:  180:	}
+        -:  181:
+        -:  182:	//	データが確定したか確認する
+       57:  183:	if( !this->is_data_fixed ){
+    #####:  184:		for( auto p_text : this->m_text_list ){
+    #####:  185:			for( auto p : p_text->m_text ){
+    #####:  186:				this->is_data_fixed = this->is_data_fixed && p->is_fixed_code_size();
+        -:  187:			}
+        -:  188:		}
+    #####:  189:		if( this->is_data_fixed ){
+    #####:  190:			info.is_updated = true;
+        -:  191:		}
+        -:  192:	}
+        -:  193:
+        -:  194:	//	コードサイズを計算する
+       57:  195:	if( this->code_size == -1 ){
+       28:  196:		this->code_size = 0;
+      356:  197:		for( auto p_text : this->m_text_list ){
+      687:  198:			for( auto p : p_text->m_text ){
+      359:  199:				if( this->code_size != -1 && p->is_fixed_code_size() ){
+      345:  200:					this->code_size = this->code_size + p->get_code_size();
+        -:  201:				}
+        -:  202:				else{
+       14:  203:					this->code_size = -1;
+       14:  204:					break;
+        -:  205:				}
+        -:  206:			}
+      342:  207:			if( this->code_size == -1 ){
+        -:  208:				break;
+        -:  209:			}
+        -:  210:		}
+       28:  211:		if( this->code_size != -1 ){
+       14:  212:			info.is_updated = true;
+        -:  213:		}
+        -:  214:	}
+        -:  215:
+        -:  216:	//	次のアドレスを計算する
+       57:  217:	if( this->next_code_address == -1 ){
+       28:  218:		if( p_last_line == nullptr ){
+    #####:  219:			this->next_code_address = 0;
+        -:  220:		}
+        -:  221:		else{
+       28:  222:			this->next_code_address = p_last_line->get_next_code_address();
+        -:  223:		}
+       28:  224:		if( this->next_code_address != -1 ){
+       14:  225:			info.is_updated = true;
+        -:  226:		}
+        -:  227:	}
+        -:  228:
+        -:  229:	//	log
+       57:  230:	if( !is_analyze_phase ){
+       34:  231:		log.write_message( "Exit scope: " + s_scope );
+       17:  232:		log.write_separator();
+        -:  233:	}
+      114:  234:	s_scope = info.get_scope_path();
+        -:  235:	info.scope.pop_back();
+        -:  236:	return check_all_fixed();
+        -:  237:}
+        -:  238:
+        -:  239:// --------------------------------------------------------------------
+       36:  240:bool CZMA_PARSE_ENDR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:  241:	//	本来、これは実行されるべきでないので、常にエラーを返す。
+      180:  242:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SYNTAX_ERROR ) );
+       36:  243:	return false;
+      156:  244:}

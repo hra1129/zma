@@ -14,6 +14,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include "zma_parse_process_muluw.hpp"
+
 // --------------------------------------------------------------------
 bool CZMA_PARSE_MULUW::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 

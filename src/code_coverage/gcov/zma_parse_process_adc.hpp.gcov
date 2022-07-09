@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_adc.hpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -8,6 +8,4 @@
         -:    6:
         -:    7:#pragma once
         -:    8:
-        -:    9:#include "zma_parse_process.hpp"
-        -:   10:
-       39:   11:CLASS_CZMA_PARSE( ADC );
+       39:    9:CLASS_CZMA_PARSE( ADC );

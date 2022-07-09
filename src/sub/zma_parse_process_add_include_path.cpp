@@ -14,6 +14,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include "zma_parse_process_add_include_path.hpp"
+
 // --------------------------------------------------------------------
 bool CZMA_PARSE_ADD_INCLUDE_PATH::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 	CVALUE v;

@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_ex.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,64 +16,66 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-       36:   18:bool CZMA_PARSE_EX::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:
-       36:   20:	update_flags( &info, p_last_line );
-       36:   21:	if( !this->is_data_fixed ) {
-       16:   22:		this->is_data_fixed = true;
-       40:   23:		if( words.size() == 4 && words[1] == "DE" && words[2] == "," && words[3] == "HL" ) {
-        -:   24:			this->set_code_size( &info, 1 );
-        4:   25:			this->data.push_back( 0xEB );
-        -:   26:		}
-       20:   27:		else if( words.size() == 4 && words[1] == "AF" && words[2] == "," && words[3] == "AF'" ) {
-        -:   28:			this->set_code_size( &info, 1 );
-        4:   29:			this->data.push_back( 0x08 );
-        -:   30:		}
-       48:   31:		else if( words.size() == 6 && words[1] == "[" && words[2] == "SP" && words[3] == "]" && words[4] == "," ) {
-        9:   32:			if( words[5] == "HL" ) {
-        -:   33:				this->set_code_size( &info, 1 );
-        4:   34:				this->data.push_back( 0xE3 );
-        -:   35:			}
-        7:   36:			else if( words[5] == "IX" ) {
-        -:   37:				this->set_code_size( &info, 2 );
-        4:   38:				this->data.push_back( 0xDD );
-        4:   39:				this->data.push_back( 0xE3 );
-        -:   40:			}
-        5:   41:			else if( words[5] == "IY" ) {
-        -:   42:				this->set_code_size( &info, 2 );
-        4:   43:				this->data.push_back( 0xFD );
-        4:   44:				this->data.push_back( 0xE3 );
-        -:   45:			}
-        -:   46:			else {
-        3:   47:				this->is_data_fixed = false;
-       15:   48:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-        3:   49:				return false;
-        -:   50:			}
-        -:   51:		}
-        -:   52:		else {
-        3:   53:			this->is_data_fixed = false;
-       18:   54:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-        3:   55:			return false;
-        -:   56:		}
-        -:   57:	}
-        -:   58:	//	log
-       30:   59:	if( !this->is_analyze_phase ) {
-       20:   60:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       20:   61:		if( words.size() == 6 ) {
-        6:   62:			if( words[5] == "HL" ) {
-        4:   63:				log.write_cycle_information( 20, 7 );			//	EX (SP), HL
-        -:   64:			}
-        -:   65:			else {
-        8:   66:				log.write_cycle_information( 25, 8 );			//	EX (SP), IX
-        -:   67:			}
-        -:   68:		}
-        -:   69:		else {
-        8:   70:			log.write_cycle_information( 5, 1 );			//	EX DE, HL/ EX AF, AF'
-        -:   71:		}
-       10:   72:		log.write_dump( this->code_address, this->file_address, this->data );
-       10:   73:		log.write_separator();
-        -:   74:	}
-        -:   75:	return check_all_fixed();
-      156:   76:}
-        -:   77:
+        -:   17:#include "zma_parse_process_ex.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+       36:   20:bool CZMA_PARSE_EX::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:
+       36:   22:	update_flags( &info, p_last_line );
+       36:   23:	if( !this->is_data_fixed ) {
+       16:   24:		this->is_data_fixed = true;
+       40:   25:		if( words.size() == 4 && words[1] == "DE" && words[2] == "," && words[3] == "HL" ) {
+        -:   26:			this->set_code_size( &info, 1 );
+        4:   27:			this->data.push_back( 0xEB );
+        -:   28:		}
+       20:   29:		else if( words.size() == 4 && words[1] == "AF" && words[2] == "," && words[3] == "AF'" ) {
+        -:   30:			this->set_code_size( &info, 1 );
+        4:   31:			this->data.push_back( 0x08 );
+        -:   32:		}
+       48:   33:		else if( words.size() == 6 && words[1] == "[" && words[2] == "SP" && words[3] == "]" && words[4] == "," ) {
+        9:   34:			if( words[5] == "HL" ) {
+        -:   35:				this->set_code_size( &info, 1 );
+        4:   36:				this->data.push_back( 0xE3 );
+        -:   37:			}
+        7:   38:			else if( words[5] == "IX" ) {
+        -:   39:				this->set_code_size( &info, 2 );
+        4:   40:				this->data.push_back( 0xDD );
+        4:   41:				this->data.push_back( 0xE3 );
+        -:   42:			}
+        5:   43:			else if( words[5] == "IY" ) {
+        -:   44:				this->set_code_size( &info, 2 );
+        4:   45:				this->data.push_back( 0xFD );
+        4:   46:				this->data.push_back( 0xE3 );
+        -:   47:			}
+        -:   48:			else {
+        3:   49:				this->is_data_fixed = false;
+       15:   50:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        3:   51:				return false;
+        -:   52:			}
+        -:   53:		}
+        -:   54:		else {
+        3:   55:			this->is_data_fixed = false;
+       18:   56:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        3:   57:			return false;
+        -:   58:		}
+        -:   59:	}
+        -:   60:	//	log
+       30:   61:	if( !this->is_analyze_phase ) {
+       20:   62:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       20:   63:		if( words.size() == 6 ) {
+        6:   64:			if( words[5] == "HL" ) {
+        4:   65:				log.write_cycle_information( 20, 7 );			//	EX (SP), HL
+        -:   66:			}
+        -:   67:			else {
+        8:   68:				log.write_cycle_information( 25, 8 );			//	EX (SP), IX
+        -:   69:			}
+        -:   70:		}
+        -:   71:		else {
+        8:   72:			log.write_cycle_information( 5, 1 );			//	EX DE, HL/ EX AF, AF'
+        -:   73:		}
+       10:   74:		log.write_dump( this->code_address, this->file_address, this->data );
+       10:   75:		log.write_separator();
+        -:   76:	}
+        -:   77:	return check_all_fixed();
+      156:   78:}
+        -:   79:

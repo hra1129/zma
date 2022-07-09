@@ -2215,7 +2215,7 @@ bool CZMA_PARSE::write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f 
 			info.hexfile.write( *f, c );
 		}
 	}
-	for( auto line : log ) {
+	for( auto &line : log ) {
 		info.log << line << std::endl;
 	}
 	return true;

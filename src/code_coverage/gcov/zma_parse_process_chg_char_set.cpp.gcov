@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_chg_char_set.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,120 +16,122 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-        9:   18:bool CZMA_PARSE_CHG_CHAR_SET::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
-        -:   19:	CVALUE v;
-        -:   20:	int index, i;
-        -:   21:
-        9:   22:	this->set_code_size( &info, 0 );
-        9:   23:	update_flags( &info, p_last_line );
-        9:   24:	index = this->expression( info, 1, v, false );
-        9:   25:	if( index == 0 ){
-    #####:   26:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:   27:		return false;
-        -:   28:	}
-       18:   29:	if( index < (int)words.size() ){
-    #####:   30:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-    #####:   31:		return false;
-        -:   32:	}
-        9:   33:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ){
-    #####:   34:		v.value_type = CVALUE_TYPE::CV_STRING;
-    #####:   35:		v.s = std::to_string( v.i );
-        -:   36:	}
-        -:   37:
-        -:   38:	std::transform( v.s.begin(), v.s.end(), v.s.begin(), toupper );
+        -:   17:#include "zma_parse_process_chg_char_set.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+        9:   20:bool CZMA_PARSE_CHG_CHAR_SET::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
+        -:   21:	CVALUE v;
+        -:   22:	int index, i;
+        -:   23:
+        9:   24:	this->set_code_size( &info, 0 );
+        9:   25:	update_flags( &info, p_last_line );
+        9:   26:	index = this->expression( info, 1, v, false );
+        9:   27:	if( index == 0 ){
+    #####:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+    #####:   29:		return false;
+        -:   30:	}
+       18:   31:	if( index < (int)words.size() ){
+    #####:   32:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+    #####:   33:		return false;
+        -:   34:	}
+        9:   35:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ){
+    #####:   36:		v.value_type = CVALUE_TYPE::CV_STRING;
+    #####:   37:		v.s = std::to_string( v.i );
+        -:   38:	}
         -:   39:
-        -:   40:	//	存在確認
-        9:   41:	info.s_char_set = v.s;
-        -:   42:	if( info.char_set_list.count( v.s ) ){
-        -:   43:		//	すでに存在する場合、切り替えるだけ
-        7:   44:		info.p_char_set = &( info.char_set_list[ v.s ] );
-        -:   45:	}
-        -:   46:	else{
-        -:   47:		//	存在しない場合、新たに作る
-        -:   48:		CZMA_CHAR_SET char_set;
-     1026:   49:		for( i = 0; i < 256; i++ ){
-     1024:   50:			char_set.ascii_to_map.push_back( (unsigned char)i );
-        -:   51:		}
-        2:   52:		info.char_set_list[ v.s ] = char_set;
-        2:   53:		info.p_char_set = &( info.char_set_list[ v.s ] );
-        -:   54:	}
-        9:   55:	if( !this->is_analyze_phase ){
-        6:   56:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        3:   57:		log.write_separator();
-        -:   58:	}
-        -:   59:	return true;
-        -:   60:}
-        -:   61:
-        -:   62:// --------------------------------------------------------------------
-       12:   63:bool CZMA_PARSE_MAPPING_CHAR::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
-        -:   64:	CVALUE v;
-        -:   65:	int index, start_char_ascii, end_char_ascii, start_char_map, step_char_map, di, code;
-        -:   66:
-       12:   67:	this->set_code_size( &info, 0 );
-       12:   68:	update_flags( &info, p_last_line );
-       12:   69:	if( info.p_char_set == nullptr ){
-        -:   70:		//	デフォルトキャラセットはマッピング変更できない
-    #####:   71:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::DEFAULT_CHAR_SET_CANNOT_BE_MAPPED_AND_CHANGED ) );
-    #####:   72:		return false;
-        -:   73:	}
-        -:   74:	//	第1引数
-       12:   75:	index = this->expression( info, 1, v );
-       12:   76:	if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:   77:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:   78:		return false;
-        -:   79:	}
-       12:   80:	start_char_ascii = v.i;
-        -:   81:	end_char_ascii = v.i;
-        -:   82:	//	カンマ
-       36:   83:	if( index == (int)words.size() || words[index] != "," ){
-    #####:   84:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:   85:		return false;
-        -:   86:	}
-        -:   87:	//	第2引数
-       12:   88:	index = this->expression( info, index + 1, v );
-       12:   89:	if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:   90:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:   91:		return false;
-        -:   92:	}
-       12:   93:	start_char_map = v.i;
-        -:   94:	step_char_map = 1;
-        -:   95:	//	カンマ (※省略可能)
-       33:   96:	if( index != (int)words.size() && words[ index ] == "," ){
-        -:   97:		//	第3引数
-        9:   98:		index = this->expression( info, index + 1, v );
-        9:   99:		if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:  100:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:  101:			return false;
-        -:  102:		}
-        9:  103:		end_char_ascii = v.i;
-        -:  104:	}
-        -:  105:	//	カンマ (※省略可能)
-       30:  106:	if( index != (int)words.size() && words[ index ] == "," ){
-        -:  107:		//	第4引数
-        6:  108:		index = this->expression( info, index + 1, v );
-        6:  109:		if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:  110:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:  111:			return false;
-        -:  112:		}
-        6:  113:		step_char_map = v.i;
-        -:  114:	}
-        -:  115:	//	変換テーブルを更新
-       12:  116:	if( start_char_ascii <= end_char_ascii ){
-        -:  117:		di = 1;
-        -:  118:	}
-        -:  119:	else{
-        -:  120:		di = -1;
-        -:  121:	}
-       12:  122:	index = start_char_ascii & 255;
-       12:  123:	code = start_char_map & 255;
-        -:  124:	for( ;; ){
-      252:  125:		info.p_char_set->ascii_to_map[ index ] = code;
-       88:  126:		if( index == end_char_ascii ){
-        -:  127:			break;
-        -:  128:		}
-       76:  129:		index = ( index + di ) & 255;
-       76:  130:		code = ( code + step_char_map ) & 255;
-        -:  131:	}
-        -:  132:	return false;
-      156:  133:}
+        -:   40:	std::transform( v.s.begin(), v.s.end(), v.s.begin(), toupper );
+        -:   41:
+        -:   42:	//	存在確認
+        9:   43:	info.s_char_set = v.s;
+        -:   44:	if( info.char_set_list.count( v.s ) ){
+        -:   45:		//	すでに存在する場合、切り替えるだけ
+        7:   46:		info.p_char_set = &( info.char_set_list[ v.s ] );
+        -:   47:	}
+        -:   48:	else{
+        -:   49:		//	存在しない場合、新たに作る
+        -:   50:		CZMA_CHAR_SET char_set;
+     1026:   51:		for( i = 0; i < 256; i++ ){
+     1024:   52:			char_set.ascii_to_map.push_back( (unsigned char)i );
+        -:   53:		}
+        2:   54:		info.char_set_list[ v.s ] = char_set;
+        2:   55:		info.p_char_set = &( info.char_set_list[ v.s ] );
+        -:   56:	}
+        9:   57:	if( !this->is_analyze_phase ){
+        6:   58:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        3:   59:		log.write_separator();
+        -:   60:	}
+        -:   61:	return true;
+        -:   62:}
+        -:   63:
+        -:   64:// --------------------------------------------------------------------
+       12:   65:bool CZMA_PARSE_MAPPING_CHAR::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
+        -:   66:	CVALUE v;
+        -:   67:	int index, start_char_ascii, end_char_ascii, start_char_map, step_char_map, di, code;
+        -:   68:
+       12:   69:	this->set_code_size( &info, 0 );
+       12:   70:	update_flags( &info, p_last_line );
+       12:   71:	if( info.p_char_set == nullptr ){
+        -:   72:		//	デフォルトキャラセットはマッピング変更できない
+    #####:   73:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::DEFAULT_CHAR_SET_CANNOT_BE_MAPPED_AND_CHANGED ) );
+    #####:   74:		return false;
+        -:   75:	}
+        -:   76:	//	第1引数
+       12:   77:	index = this->expression( info, 1, v );
+       12:   78:	if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
+    #####:   79:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+    #####:   80:		return false;
+        -:   81:	}
+       12:   82:	start_char_ascii = v.i;
+        -:   83:	end_char_ascii = v.i;
+        -:   84:	//	カンマ
+       36:   85:	if( index == (int)words.size() || words[index] != "," ){
+    #####:   86:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+    #####:   87:		return false;
+        -:   88:	}
+        -:   89:	//	第2引数
+       12:   90:	index = this->expression( info, index + 1, v );
+       12:   91:	if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
+    #####:   92:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+    #####:   93:		return false;
+        -:   94:	}
+       12:   95:	start_char_map = v.i;
+        -:   96:	step_char_map = 1;
+        -:   97:	//	カンマ (※省略可能)
+       33:   98:	if( index != (int)words.size() && words[ index ] == "," ){
+        -:   99:		//	第3引数
+        9:  100:		index = this->expression( info, index + 1, v );
+        9:  101:		if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
+    #####:  102:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+    #####:  103:			return false;
+        -:  104:		}
+        9:  105:		end_char_ascii = v.i;
+        -:  106:	}
+        -:  107:	//	カンマ (※省略可能)
+       30:  108:	if( index != (int)words.size() && words[ index ] == "," ){
+        -:  109:		//	第4引数
+        6:  110:		index = this->expression( info, index + 1, v );
+        6:  111:		if( index == 0 || v.value_type != CVALUE_TYPE::CV_INTEGER ){
+    #####:  112:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+    #####:  113:			return false;
+        -:  114:		}
+        6:  115:		step_char_map = v.i;
+        -:  116:	}
+        -:  117:	//	変換テーブルを更新
+       12:  118:	if( start_char_ascii <= end_char_ascii ){
+        -:  119:		di = 1;
+        -:  120:	}
+        -:  121:	else{
+        -:  122:		di = -1;
+        -:  123:	}
+       12:  124:	index = start_char_ascii & 255;
+       12:  125:	code = start_char_map & 255;
+        -:  126:	for( ;; ){
+      252:  127:		info.p_char_set->ascii_to_map[ index ] = code;
+       88:  128:		if( index == end_char_ascii ){
+        -:  129:			break;
+        -:  130:		}
+       76:  131:		index = ( index + di ) & 255;
+       76:  132:		code = ( code + step_char_map ) & 255;
+        -:  133:	}
+        -:  134:	return false;
+      156:  135:}

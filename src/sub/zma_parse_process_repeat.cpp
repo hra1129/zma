@@ -14,6 +14,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include "zma_parse_process_repeat.hpp"
+
 // --------------------------------------------------------------------
 //	REPEAT文は特殊な構造を持つのでこのメソッドを定義
 //	load 時は、このクラスは REPEATの1行目単独を示している。

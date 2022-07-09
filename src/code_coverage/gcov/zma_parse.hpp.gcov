@@ -1,267 +1,273 @@
         -:    0:Source:../zma_parse.hpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
         -:    4://	2019/05/04	t.hara
         -:    5:// --------------------------------------------------------------------
         -:    6:
-        -:    7:#pragma once
-        -:    8:
-        -:    9:#include <string>
-        -:   10:#include <vector>
-        -:   11:#include <map>
-        -:   12:#include "zma_information.hpp"
-        -:   13:#include "zma_logger.hpp"
-        -:   14:#include "zma_error.hpp"
-        -:   15:
-        -:   16:class CZMA_PARSE {
-        -:   17:protected:
-        -:   18:	std::vector<unsigned char> data;
-        -:   19:	int	code_address;
-        -:   20:	int	file_address;
-        -:   21:	int	code_size;
-        -:   22:	int next_code_address;
-        -:   23:	bool is_data_fixed;
-        -:   24:	bool is_label_search_state;
-        -:   25:	const char* p_file_name;
-        -:   26:	int line_no;
-        -:   27:	bool is_analyze_phase;
-        -:   28:	static int number_of_error;
-        -:   29:	int number_of_error_for_this;
-        -:   30:	std::string last_error;
-        -:   31:	CZMA_LOG log;
-        -:   32:
-        -:   33:	bool is_structure_error;
-        -:   34:	std::string structure_error;
-        -:   35:
-        -:   36:	static std::string delete_head_space( std::string s );
-        -:   37:
-        -:   38:	virtual bool update_flags( CZMA_INFORMATION *p_info, const CZMA_PARSE* p_last_line );
-        -:   39:	bool check_location_hl( int index );
-        -:   40:	int check_location_ix( int index );
-        -:   41:	int check_location_iy( int index );
-        -:   42:	int relative_address( CZMA_INFORMATION &info, int index );
-        -:   43:	std::string get_word( int index );
-        -:   44:	void log_data_dump( void );
-        -:   45:
-        -:   46:	// --------------------------------------------------------------------
-        -:   47:	bool operator_single( CZMA_INFORMATION& info, int &index, CVALUE&result, bool do_char_map );
-        -:   48:	bool operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
-        -:   49:	bool operator_add_sub( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
-        -:   50:	bool operator_shift( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
-        -:   51:	bool operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
-        -:   52:	bool operator_equal( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
-        -:   53:	bool operator_bit_and( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
-        -:   54:	bool operator_bit_xor( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
-        -:   55:	bool operator_bit_or( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
-        -:   56:	bool operator_logical_and( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
-        -:   57:	bool operator_logical_or( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
-        -:   58:
-        -:   59:	// --------------------------------------------------------------------
-        -:   60:	//	命令の引数を解釈する関数
-        -:   61:	//
-        -:   62:	//	返値:
-        -:   63:	//		true ..... 所定の引数並びにマッチ 又は すでにオペコード生成済み
-        -:   64:	//		false .... 所定の引数並びにマッチしない
-        -:   65:	//	備考:
-        -:   66:	//		返値はオペコードを生成し終えたかどうかの判定結果ではないことに注意。
-        -:   67:	//		オペコードを生成し終えたかどうかは、is_data_fixed を参照。
-        -:   68:	//		オペコードを生成し終えている場合は、引数並びをチェックせずに true を返す。
-        -:   69:	// --------------------------------------------------------------------
-        -:   70:	bool opecode( CZMA_INFORMATION& info, unsigned char op1, int op2 = -1 );
-        -:   71:	bool opecode_a_i_r( CZMA_INFORMATION& info );
-        -:   72:	bool opecode_destination8_source8( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   73:	bool opecode_a_source8( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   74:	bool opecode_destination8_c( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
-        -:   75:	bool opecode_c_source8( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
-        -:   76:	bool opecode_bit_source8( CZMA_INFORMATION& info, unsigned char op1, bool no_3operand = false );
-        -:   77:	bool opecode_hl_source16( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   78:	bool opecode_hl_source16_witnout_ix( CZMA_INFORMATION& info, unsigned char op1, unsigned char op2 );
-        -:   79:	bool opecode_destination8_memory_hl( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   80:	bool opecode_a_memory_hl( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   81:	bool opecode_memory_hl( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   82:	bool opecode_destination8_n8( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   83:	bool opecode_a_n8( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   84:	bool opecode_n8( CZMA_INFORMATION &info, unsigned char op1 );
-        -:   85:	bool opecode_register16( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   86:	bool opecode_destination16_n16( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   87:	bool opecode_destination16_memory16( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
-        -:   88:	bool opecode_memory_hl_source8( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   89:	bool opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   90:	bool opecode_memory_bc_a( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   91:	bool opecode_memory16_source16( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
-        -:   92:	bool opecode_a_memory_bc( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   93:	bool opecode_sp_hl( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   94:	bool opecode_register16_with_af( CZMA_INFORMATION& info, unsigned char op1 );
-        -:   95:	bool opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int op2 = -1 );
-        -:   96:	bool opecode_destination8( CZMA_INFORMATION& info, unsigned char op1, int op2 = -1 );
-        -:   97:	bool opecode_condition_address( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
-        -:   98:	bool opecode_condition_offset( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
-        -:   99:	bool opecode_condition( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
-        -:  100:	bool opecode_mulub( CZMA_INFORMATION& info, unsigned char op1, int op2 );
-        -:  101:	bool opecode_muluw( CZMA_INFORMATION& info );
-        -:  102:
-        -:  103:public:
-        -:  104:	std::string get_line( void );
-        -:  105:	void put_error( std::string message, bool is_all_error = true, bool error_disable = true );
-        -:  106:	void put_message( std::string message );
-        -:  107:	void put_structure_error( std::string message, bool is_all_error = true, bool error_disable = true );
-        -:  108:	std::vector<std::string> words;
-        -:  109:	int expression( CZMA_INFORMATION& info, int index, CVALUE& result, bool do_char_map = true );
-        -:  110:	std::string escape( const std::string &s );
-        -:  111:
-        -:  112:	static std::vector<std::string> get_word_split( std::string s );
-        -:  113:
-        -:  114:	// ----------------------------------------------------------------
-        -:  115:	//	Constructor
-        -:  116:	// ----------------------------------------------------------------
-        -:  117:	CZMA_PARSE( std::vector<std::string> words, const char* p_file_name, int line_no );
-        -:  118:	static CZMA_PARSE* create( CZMA_INFORMATION &info, std::vector<std::string> &words, const char* p_file_name, int line_no );
-        -:  119:
+        -:    7:#include <string>
+        -:    8:#include <vector>
+        -:    9:#include <map>
+        -:   10:#include "zma_logger.hpp"
+        -:   11:#include "zma_error.hpp"
+        -:   12:#include "zma_parse_expression.hpp"
+        -:   13:#include "zma_information.hpp"
+        -:   14:
+        -:   15:#ifndef __ZNA_PARSE_HPP__
+        -:   16:#define __ZNA_PARSE_HPP__
+        -:   17:
+        -:   18:class CZMA_PARSE_MACRO;
+        -:   19:
+        -:   20:class CZMA_PARSE {
+        -:   21:protected:
+        -:   22:	std::vector<unsigned char> data;
+        -:   23:	int	code_address;
+        -:   24:	int	file_address;
+        -:   25:	int	code_size;
+        -:   26:	int next_code_address;
+        -:   27:	bool is_data_fixed;
+        -:   28:	bool is_label_search_state;
+        -:   29:	const char* p_file_name;
+        -:   30:	int line_no;
+        -:   31:	bool is_analyze_phase;
+        -:   32:	static int number_of_error;
+        -:   33:	int number_of_error_for_this;
+        -:   34:	std::string last_error;
+        -:   35:	CZMA_LOG log;
+        -:   36:
+        -:   37:	bool is_structure_error;
+        -:   38:	std::string structure_error;
+        -:   39:
+        -:   40:	static std::string delete_head_space( std::string s );
+        -:   41:
+        -:   42:	virtual bool update_flags( CZMA_INFORMATION *p_info, const CZMA_PARSE* p_last_line );
+        -:   43:	bool check_location_hl( int index );
+        -:   44:	int check_location_ix( int index );
+        -:   45:	int check_location_iy( int index );
+        -:   46:	int relative_address( CZMA_INFORMATION &info, int index );
+        -:   47:	std::string get_word( int index );
+        -:   48:	void log_data_dump( void );
+        -:   49:
+        -:   50:	// --------------------------------------------------------------------
+        -:   51:	bool operator_single( CZMA_INFORMATION& info, int &index, CVALUE&result, bool do_char_map );
+        -:   52:	bool operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+        -:   53:	bool operator_add_sub( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+        -:   54:	bool operator_shift( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+        -:   55:	bool operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+        -:   56:	bool operator_equal( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+        -:   57:	bool operator_bit_and( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+        -:   58:	bool operator_bit_xor( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+        -:   59:	bool operator_bit_or( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+        -:   60:	bool operator_logical_and( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+        -:   61:	bool operator_logical_or( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map );
+        -:   62:
+        -:   63:	// --------------------------------------------------------------------
+        -:   64:	//	命令の引数を解釈する関数
+        -:   65:	//
+        -:   66:	//	返値:
+        -:   67:	//		true ..... 所定の引数並びにマッチ 又は すでにオペコード生成済み
+        -:   68:	//		false .... 所定の引数並びにマッチしない
+        -:   69:	//	備考:
+        -:   70:	//		返値はオペコードを生成し終えたかどうかの判定結果ではないことに注意。
+        -:   71:	//		オペコードを生成し終えたかどうかは、is_data_fixed を参照。
+        -:   72:	//		オペコードを生成し終えている場合は、引数並びをチェックせずに true を返す。
+        -:   73:	// --------------------------------------------------------------------
+        -:   74:	bool opecode( CZMA_INFORMATION& info, unsigned char op1, int op2 = -1 );
+        -:   75:	bool opecode_a_i_r( CZMA_INFORMATION& info );
+        -:   76:	bool opecode_destination8_source8( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   77:	bool opecode_a_source8( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   78:	bool opecode_destination8_c( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
+        -:   79:	bool opecode_c_source8( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
+        -:   80:	bool opecode_bit_source8( CZMA_INFORMATION& info, unsigned char op1, bool no_3operand = false );
+        -:   81:	bool opecode_hl_source16( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   82:	bool opecode_hl_source16_witnout_ix( CZMA_INFORMATION& info, unsigned char op1, unsigned char op2 );
+        -:   83:	bool opecode_destination8_memory_hl( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   84:	bool opecode_a_memory_hl( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   85:	bool opecode_memory_hl( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   86:	bool opecode_destination8_n8( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   87:	bool opecode_a_n8( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   88:	bool opecode_n8( CZMA_INFORMATION &info, unsigned char op1 );
+        -:   89:	bool opecode_register16( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   90:	bool opecode_destination16_n16( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   91:	bool opecode_destination16_memory16( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
+        -:   92:	bool opecode_memory_hl_source8( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   93:	bool opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   94:	bool opecode_memory_bc_a( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   95:	bool opecode_memory16_source16( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c, unsigned char op2 );
+        -:   96:	bool opecode_a_memory_bc( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   97:	bool opecode_sp_hl( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   98:	bool opecode_register16_with_af( CZMA_INFORMATION& info, unsigned char op1 );
+        -:   99:	bool opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int op2 = -1 );
+        -:  100:	bool opecode_destination8( CZMA_INFORMATION& info, unsigned char op1, int op2 = -1 );
+        -:  101:	bool opecode_condition_address( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
+        -:  102:	bool opecode_condition_offset( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
+        -:  103:	bool opecode_condition( CZMA_INFORMATION& info, unsigned char op1, unsigned char op1c );
+        -:  104:	bool opecode_mulub( CZMA_INFORMATION& info, unsigned char op1, int op2 );
+        -:  105:	bool opecode_muluw( CZMA_INFORMATION& info );
+        -:  106:
+        -:  107:public:
+        -:  108:	std::string get_line( void );
+        -:  109:	void put_error( std::string message, bool is_all_error = true, bool error_disable = true );
+        -:  110:	void put_message( std::string message );
+        -:  111:	void put_structure_error( std::string message, bool is_all_error = true, bool error_disable = true );
+        -:  112:	std::vector<std::string> words;
+        -:  113:	int expression( CZMA_INFORMATION& info, int index, CVALUE& result, bool do_char_map = true );
+        -:  114:	std::string escape( const std::string &s );
+        -:  115:
+        -:  116:	static std::vector<std::string> get_word_split( std::string s );
+        -:  117:
+        -:  118:	// ----------------------------------------------------------------
+        -:  119:	//	Constructor
         -:  120:	// ----------------------------------------------------------------
-        -:  121:	//	Destructor
-        -:  122:	// ----------------------------------------------------------------
-    28182:  123:	~CZMA_PARSE() {
-    14091:  124:	}
-        -:  125:
+        -:  121:	CZMA_PARSE( std::vector<std::string> words, const char* p_file_name, int line_no );
+        -:  122:	static CZMA_PARSE* create( CZMA_INFORMATION &info, std::vector<std::string> &words, const char* p_file_name, int line_no );
+        -:  123:
+        -:  124:	// ----------------------------------------------------------------
+        -:  125:	//	Destructor
         -:  126:	// ----------------------------------------------------------------
-        -:  127:	//	このインスタンスが示す行の情報を返す
-        -:  128:	// ----------------------------------------------------------------
-      785:  129:	virtual std::vector< std::vector< std::string > > get_words( void ){
-        -:  130:		std::vector< std::vector< std::string > > list;
-      785:  131:		list.push_back( this->words );
-      785:  132:		return list;
-        -:  133:	}
-        -:  134:
-        -:  135:	// ----------------------------------------------------------------
-        -:  136:	//	ブロック構造を解析する処理
-        -:  137:	// ----------------------------------------------------------------
-    15031:  138:	virtual void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) {
-    15031:  139:	}
-        -:  140:
+    28120:  127:	~CZMA_PARSE() {
+    14060:  128:	}
+        -:  129:
+        -:  130:	// ----------------------------------------------------------------
+        -:  131:	//	このインスタンスが示す行の情報を返す
+        -:  132:	// ----------------------------------------------------------------
+      785:  133:	virtual std::vector< std::vector< std::string > > get_words( void ){
+        -:  134:		std::vector< std::vector< std::string > > list;
+      785:  135:		list.push_back( this->words );
+      785:  136:		return list;
+        -:  137:	}
+        -:  138:
+        -:  139:	// ----------------------------------------------------------------
+        -:  140:	//	ブロック構造を解析する処理
         -:  141:	// ----------------------------------------------------------------
-        -:  142:	//	不明確な値を確定させる処理
-        -:  143:	// ----------------------------------------------------------------
-        -:  144:	virtual bool process( CZMA_INFORMATION &info, CZMA_PARSE* p_last_line = NULL ) = 0;
-        -:  145:
-        -:  146:	// ----------------------------------------------------------------
-        -:  147:	bool check_all_fixed() const {
-    43610:  148:		return is_fixed_code_address() && is_fixed_file_address () && is_fixed_code_size() && check_data_fixed();
-        -:  149:	}
-        -:  150:
-        -:  151:	// ----------------------------------------------------------------
-        -:  152:	bool check_data_fixed() const {
-        -:  153:		return is_data_fixed;
-        -:  154:	}
-        -:  155:
-        -:  156:	// ----------------------------------------------------------------
-        -:  157:	//	Set method
-        -:  158:	// ----------------------------------------------------------------
-        -:  159:	void set_label_search_state( bool state ) {
-        -:  160:		this->is_label_search_state = state;
-        -:  161:	}
-        -:  162:
-        -:  163:	// --------------------------------------------------------------------
-        -:  164:	void set_code_address( CZMA_INFORMATION* p_info, unsigned int new_code_address ) {
-    25433:  165:		if( this->code_address == -1 ) {
-     8472:  166:			p_info->is_updated = true;
-        -:  167:		}
-    25433:  168:		this->code_address = new_code_address;
-        -:  169:	}
-        -:  170:
-        -:  171:	// ----------------------------------------------------------------
-        -:  172:	void set_file_address( CZMA_INFORMATION* p_info, unsigned int new_file_address ) {
-    25295:  173:		if( this->file_address == -1 ) {
-     8423:  174:			p_info->is_updated = true;
-        -:  175:		}
-    25295:  176:		this->file_address = new_file_address;
-        -:  177:	}
-        -:  178:
-        -:  179:	// ----------------------------------------------------------------
-        -:  180:	void set_code_size( CZMA_INFORMATION* p_info, unsigned int new_code_size ) {
-       63:  181:		if( new_code_size == (unsigned int)-1 ){
-        -:  182:			return;
-        -:  183:		}
-    29468:  184:		if( this->code_size != (int)new_code_size ) {
-    14587:  185:			p_info->is_updated = true;
-    14587:  186:			this->code_size = new_code_size;
+    14971:  142:	virtual void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) {
+    14971:  143:	}
+        -:  144:
+        -:  145:	// ----------------------------------------------------------------
+        -:  146:	//	不明確な値を確定させる処理
+        -:  147:	// ----------------------------------------------------------------
+        -:  148:	virtual bool process( CZMA_INFORMATION &info, CZMA_PARSE* p_last_line = NULL ) = 0;
+        -:  149:
+        -:  150:	// ----------------------------------------------------------------
+        -:  151:	bool check_all_fixed() const {
+    43515:  152:		return is_fixed_code_address() && is_fixed_file_address () && is_fixed_code_size() && check_data_fixed();
+        -:  153:	}
+        -:  154:
+        -:  155:	// ----------------------------------------------------------------
+        -:  156:	bool check_data_fixed() const {
+        -:  157:		return is_data_fixed;
+        -:  158:	}
+        -:  159:
+        -:  160:	// ----------------------------------------------------------------
+        -:  161:	//	Set method
+        -:  162:	// ----------------------------------------------------------------
+        -:  163:	void set_label_search_state( bool state ) {
+        -:  164:		this->is_label_search_state = state;
+        -:  165:	}
+        -:  166:
+        -:  167:	// --------------------------------------------------------------------
+        -:  168:	void set_code_address( CZMA_INFORMATION* p_info, unsigned int new_code_address ) {
+    25355:  169:		if( this->code_address == -1 ) {
+     8446:  170:			p_info->is_updated = true;
+        -:  171:		}
+    25355:  172:		this->code_address = new_code_address;
+        -:  173:	}
+        -:  174:
+        -:  175:	// ----------------------------------------------------------------
+        -:  176:	void set_file_address( CZMA_INFORMATION* p_info, unsigned int new_file_address ) {
+    25217:  177:		if( this->file_address == -1 ) {
+     8397:  178:			p_info->is_updated = true;
+        -:  179:		}
+    25217:  180:		this->file_address = new_file_address;
+        -:  181:	}
+        -:  182:
+        -:  183:	// ----------------------------------------------------------------
+        -:  184:	void set_code_size( CZMA_INFORMATION* p_info, unsigned int new_code_size ) {
+       63:  185:		if( new_code_size == (unsigned int)-1 ){
+        -:  186:			return;
         -:  187:		}
-    29480:  188:		if( this->is_fixed_code_address() ) {
-    16573:  189:			if( this->next_code_address == -1 ) {
-     8029:  190:				p_info->is_updated = true;
-        -:  191:			}
-    16573:  192:			this->next_code_address = this->code_address + new_code_size;
-        -:  193:		}
-        -:  194:	}
-        -:  195:
-        -:  196:	// --------------------------------------------------------------------
-    14976:  197:	virtual void set_output_mode( void ) {
-    14976:  198:		this->is_analyze_phase = false;
-    14976:  199:	}
-        -:  200:
-        -:  201:	// --------------------------------------------------------------------
-        -:  202:	const char *get_file_name( void ) {
-        -:  203:		return p_file_name;
-        -:  204:	}
-        -:  205:
-        -:  206:	// ----------------------------------------------------------------
-        -:  207:	//	Get method
-        -:  208:	// ----------------------------------------------------------------
-        -:  209:	bool is_fixed_code_address() const {
-        -:  210:		return (code_address != -1);
-        -:  211:	}
-        -:  212:
-        -:  213:	// ----------------------------------------------------------------
-        -:  214:	bool is_fixed_next_code_address() const {
-        -:  215:		return (next_code_address != -1);
-        -:  216:	}
-        -:  217:
-        -:  218:	// ----------------------------------------------------------------
-        -:  219:	bool is_fixed_file_address() const {
-        -:  220:		return (file_address != -1);
-        -:  221:	}
-        -:  222:
-        -:  223:	// ----------------------------------------------------------------
-        -:  224:	bool is_fixed_code_size() const {
-        -:  225:		return (code_size != -1);
-        -:  226:	}
-        -:  227:
-        -:  228:	// ----------------------------------------------------------------
-        -:  229:	int get_code_address() const {
-        -:  230:		return code_address;
-        -:  231:	}
-        -:  232:
-        -:  233:	// ----------------------------------------------------------------
-        -:  234:	int get_next_code_address() const {
-        -:  235:		return next_code_address;
-        -:  236:	}
-        -:  237:
-        -:  238:	// ----------------------------------------------------------------
-        -:  239:	int get_file_address() const {
-        -:  240:		return file_address;
-        -:  241:	}
-        -:  242:
-        -:  243:	// ----------------------------------------------------------------
-        -:  244:	int get_code_size() const {
-        -:  245:		return code_size;
-        -:  246:	}
-        -:  247:
-        -:  248:	// ----------------------------------------------------------------
-        -:  249:	int get_line_no() const {
-        -:  250:		return line_no;
-        -:  251:	}
-        -:  252:
-        -:  253:	// ----------------------------------------------------------------
-        -:  254:	static int get_number_of_errors() {
-      161:  255:		return number_of_error;
-        -:  256:	}
-        -:  257:
-        -:  258:	// ----------------------------------------------------------------
-        -:  259:	virtual bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream *f );
-        -:  260:
-        -:  261:	// ----------------------------------------------------------------
-    44766:  262:	virtual bool is_parse_error( void ) {
-    44766:  263:		return false;
-        -:  264:	}
-        -:  265:};
+    29464:  188:		if( this->code_size != (int)new_code_size ) {
+    14559:  189:			p_info->is_updated = true;
+    14559:  190:			this->code_size = new_code_size;
+        -:  191:		}
+    29476:  192:		if( this->is_fixed_code_address() ) {
+    16584:  193:			if( this->next_code_address == -1 ) {
+     8009:  194:				p_info->is_updated = true;
+        -:  195:			}
+    16584:  196:			this->next_code_address = this->code_address + new_code_size;
+        -:  197:		}
+        -:  198:	}
+        -:  199:
+        -:  200:	// --------------------------------------------------------------------
+    14941:  201:	virtual void set_output_mode( void ) {
+    14941:  202:		this->is_analyze_phase = false;
+    14941:  203:	}
+        -:  204:
+        -:  205:	// --------------------------------------------------------------------
+        -:  206:	const char *get_file_name( void ) {
+        -:  207:		return p_file_name;
+        -:  208:	}
+        -:  209:
+        -:  210:	// ----------------------------------------------------------------
+        -:  211:	//	Get method
+        -:  212:	// ----------------------------------------------------------------
+        -:  213:	bool is_fixed_code_address() const {
+        -:  214:		return (code_address != -1);
+        -:  215:	}
+        -:  216:
+        -:  217:	// ----------------------------------------------------------------
+        -:  218:	bool is_fixed_next_code_address() const {
+        -:  219:		return (next_code_address != -1);
+        -:  220:	}
+        -:  221:
+        -:  222:	// ----------------------------------------------------------------
+        -:  223:	bool is_fixed_file_address() const {
+        -:  224:		return (file_address != -1);
+        -:  225:	}
+        -:  226:
+        -:  227:	// ----------------------------------------------------------------
+        -:  228:	bool is_fixed_code_size() const {
+        -:  229:		return (code_size != -1);
+        -:  230:	}
+        -:  231:
+        -:  232:	// ----------------------------------------------------------------
+        -:  233:	int get_code_address() const {
+        -:  234:		return code_address;
+        -:  235:	}
+        -:  236:
+        -:  237:	// ----------------------------------------------------------------
+        -:  238:	int get_next_code_address() const {
+        -:  239:		return next_code_address;
+        -:  240:	}
+        -:  241:
+        -:  242:	// ----------------------------------------------------------------
+        -:  243:	int get_file_address() const {
+        -:  244:		return file_address;
+        -:  245:	}
+        -:  246:
+        -:  247:	// ----------------------------------------------------------------
+        -:  248:	int get_code_size() const {
+        -:  249:		return code_size;
+        -:  250:	}
+        -:  251:
+        -:  252:	// ----------------------------------------------------------------
+        -:  253:	int get_line_no() const {
+        -:  254:		return line_no;
+        -:  255:	}
+        -:  256:
+        -:  257:	// ----------------------------------------------------------------
+        -:  258:	static int get_number_of_errors() {
+      153:  259:		return number_of_error;
+        -:  260:	}
+        -:  261:
+        -:  262:	// ----------------------------------------------------------------
+        -:  263:	virtual bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream *f );
+        -:  264:
+        -:  265:	// ----------------------------------------------------------------
+    44688:  266:	virtual bool is_parse_error( void ) {
+    44688:  267:		return false;
+        -:  268:	}
+        -:  269:};
+        -:  270:
+        -:  271:#endif

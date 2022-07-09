@@ -1,5 +1,5 @@
         -:    0:Source:../zma_parse_expression.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -15,12 +15,12 @@
         -:   13:#include <algorithm>
         -:   14:
         -:   15:// --------------------------------------------------------------------
-    22766:   16:bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& result, bool do_char_map ) {
+    22744:   16:bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& result, bool do_char_map ) {
         -:   17:	std::string s, num;
         -:   18:	bool is_success;
         -:   19:
-    45532:   20:	s = get_word( index );
-    45498:   21:	if( s == "$" || s == "CODE_ADDRESS" ) {
+    45488:   20:	s = get_word( index );
+    45454:   21:	if( s == "$" || s == "CODE_ADDRESS" ) {
        49:   22:		index++;
        49:   23:		result.value_type = CVALUE_TYPE::CV_INTEGER;
        49:   24:		if( this->is_fixed_code_address() ) {
@@ -32,7 +32,7 @@
         -:   30:		}
         -:   31:		return true;
         -:   32:	}
-    45431:   33:	if( s == "$$" || s == "FILE_ADDRESS" ) {
+    45387:   33:	if( s == "$$" || s == "FILE_ADDRESS" ) {
        27:   34:		index++;
        27:   35:		result.value_type = CVALUE_TYPE::CV_INTEGER;
        27:   36:		if( this->is_fixed_file_address() ) {
@@ -44,13 +44,13 @@
         -:   42:		}
         -:   43:		return true;
         -:   44:	}
-    22690:   45:	if( s == "CHAR_SET_NAME" ){
+    22668:   45:	if( s == "CHAR_SET_NAME" ){
        12:   46:		index++;
        12:   47:		result.value_type = CVALUE_TYPE::CV_STRING;
        12:   48:		result.s = info.s_char_set;
         -:   49:		return true;
         -:   50:	}
-    22678:   51:	if( s[ 0 ] == '$' ){
+    22656:   51:	if( s[ 0 ] == '$' ){
         -:   52:		num = "";
        60:   53:		for( auto c : s ){
        84:   54:			if( isxdigit( c ) ){
@@ -73,7 +73,7 @@
         -:   71:		}
         -:   72:		return true;
         -:   73:	}
-    22666:   74:	if( s == "+" ) {
+    22644:   74:	if( s == "+" ) {
       813:   75:		index++;
       813:   76:		is_success = operator_single( info, index, result, do_char_map );
      1626:   77:		if( !result.is_integer() ) {
@@ -82,7 +82,7 @@
         -:   80:		}
         -:   81:		return is_success;
         -:   82:	}
-    21853:   83:	if( s == "-" ) {
+    21831:   83:	if( s == "-" ) {
        37:   84:		index++;
        37:   85:		is_success = operator_single( info, index, result, do_char_map );
        74:   86:		if( !result.is_integer() ) {
@@ -92,7 +92,7 @@
        34:   90:		result.i = -result.i;
        34:   91:		return is_success;
         -:   92:	}
-    21816:   93:	if( s == "(" ) {
+    21794:   93:	if( s == "(" ) {
        78:   94:		index++;
        78:   95:		is_success = operator_logical_or( info, index, result, do_char_map );
        78:   96:		if( !is_success ) {
@@ -107,7 +107,7 @@
        72:  105:		index++;
        72:  106:		return true;
         -:  107:	}
-    21738:  108:	if( s == "!" ) {
+    21716:  108:	if( s == "!" ) {
        11:  109:		index++;
        11:  110:		is_success = operator_single( info, index, result, do_char_map );
        22:  111:		if( !result.is_integer() ) {
@@ -117,7 +117,7 @@
         7:  115:		result.i = (int) !((bool)result.i);
         7:  116:		return is_success;
         -:  117:	}
-    21727:  118:	if( s == "~" ) {
+    21705:  118:	if( s == "~" ) {
         6:  119:		index++;
         6:  120:		is_success = operator_single( info, index, result, do_char_map );
        12:  121:		if( !result.is_integer() ) {
@@ -127,7 +127,7 @@
         3:  125:		result.i = ~result.i;
         3:  126:		return is_success;
         -:  127:	}
-    21721:  128:	if( s[0] == '0' ) {
+    21699:  128:	if( s[0] == '0' ) {
         -:  129:		//	0 Ç≈énÇ‹ÇÈêîéö
     18137:  130:		index++;
     18137:  131:		if( s[1] == '\0' ) {
@@ -228,7 +228,7 @@
         -:  226:		}
         -:  227:		return true;
         -:  228:	}
-     3584:  229:	if( s[ 0 ] == '\'' ){
+     3562:  229:	if( s[ 0 ] == '\'' ){
        43:  230:		index++;
         -:  231:		unsigned char c;
         -:  232:		//	ï∂éö
@@ -241,10 +241,10 @@
        43:  239:		result.i = (int) c;
        43:  240:		return true;
         -:  241:	}
-     3541:  242:	if( isdigit( s[0] ) ) {
+     3519:  242:	if( isdigit( s[0] ) ) {
         -:  243:		//	êîéö
         -:  244:		num = "";
-     4606:  245:		if( s[ s.size() - 1 ] == 'H' ){
+     4598:  245:		if( s[ s.size() - 1 ] == 'H' ){
        84:  246:			for( auto c : s ){
       114:  247:				if( isxdigit( c ) ){
        96:  248:					num = num + c;
@@ -266,11 +266,11 @@
         -:  264:			}
         -:  265:			return true;
         -:  266:		}
-     2285:  267:		index++;
-     5134:  268:		for( auto c : s ) {
-     5698:  269:			if( isdigit( c ) ) {
-     5692:  270:				num = num + c;
-     2846:  271:				continue;
+     2281:  267:		index++;
+     5126:  268:		for( auto c : s ) {
+     5690:  269:			if( isdigit( c ) ) {
+     5684:  270:				num = num + c;
+     2842:  271:				continue;
         -:  272:			}
         9:  273:			if( c == '_' ) {
         3:  274:				continue;
@@ -278,9 +278,9 @@
        15:  276:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
         -:  277:			return false;
         -:  278:		}
-     2282:  279:		result.value_type = CVALUE_TYPE::CV_INTEGER;
+     2278:  279:		result.value_type = CVALUE_TYPE::CV_INTEGER;
         -:  280:		try {
-     2282:  281:			result.i = (int)std::stoll( num, nullptr );
+     2278:  281:			result.i = (int)std::stoll( num, nullptr );
         -:  282:		}
     =====:  283:		catch( ... ){
     =====:  284:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT ) );
@@ -289,7 +289,7 @@
         -:  287:		return true;
         -:  288:	}
         -:  289:	//	string
-     1238:  290:	if( s[0] == '\"' ) {
+     1220:  290:	if( s[0] == '\"' ) {
         -:  291:		std::string ss;
       495:  292:		index++;
       495:  293:		result.value_type = CVALUE_TYPE::CV_STRING;
@@ -304,8 +304,8 @@
         -:  302:	}
         -:  303:	//	ïsê≥Ç»ãLçÜ
         -:  304:	//	label
-      743:  305:	if( isalpha( s[0] ) || s[0] == '_' ) {
-     1202:  306:		if( info.get_label_value( result, s ) ) {
+      725:  305:	if( isalpha( s[0] ) || s[0] == '_' ) {
+     1166:  306:		if( info.get_label_value( result, s ) ) {
       311:  307:			index++;
       311:  308:			return true;
         -:  309:		}
@@ -314,20 +314,20 @@
         -:  312:}
         -:  313:
         -:  314:// --------------------------------------------------------------------
-    21833:  315:bool CZMA_PARSE::operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
+    21811:  315:bool CZMA_PARSE::operator_mul_div( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
         -:  316:	std::string s;
         -:  317:	bool is_success;
         -:  318:	CVALUE term;
         -:  319:	int i;
         -:  320:
-    43666:  321:	s = get_word( index );
-    21833:  322:	is_success = operator_single( info, index, result, do_char_map );
-    21833:  323:	if( !is_success ) {
+    43622:  321:	s = get_word( index );
+    21811:  322:	is_success = operator_single( info, index, result, do_char_map );
+    21811:  323:	if( !is_success ) {
         -:  324:		return false;
         -:  325:	}
         -:  326:	for( ;;) {
-    42856:  327:		s = get_word( index );
-    21428:  328:		if( s == "*" ) {
+    42848:  327:		s = get_word( index );
+    21424:  328:		if( s == "*" ) {
        30:  329:			index++;
        30:  330:			is_success = operator_single( info, index, term, do_char_map );
        30:  331:			if( !is_success ) {
@@ -359,7 +359,7 @@
        18:  357:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         3:  358:			return false;
         -:  359:		}
-    21401:  360:		if( s == "/" ) {
+    21397:  360:		if( s == "/" ) {
        15:  361:			index++;
        15:  362:			is_success = operator_single( info, index, term, do_char_map );
        15:  363:			if( !is_success ) {
@@ -379,7 +379,7 @@
         -:  377:			}
         3:  378:			continue;
         -:  379:		}
-    21392:  380:		if( s == "%" ) {
+    21388:  380:		if( s == "%" ) {
        21:  381:			index++;
        21:  382:			is_success = operator_single( info, index, term, do_char_map );
        21:  383:			if( !is_success ) {
@@ -405,19 +405,19 @@
         -:  403:}
         -:  404:
         -:  405:// --------------------------------------------------------------------
-    21609:  406:bool CZMA_PARSE::operator_add_sub( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
+    21587:  406:bool CZMA_PARSE::operator_add_sub( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
         -:  407:	std::string s;
         -:  408:	bool is_success;
         -:  409:	CVALUE term;
         -:  410:
-    43218:  411:	s = get_word( index );
-    21609:  412:	is_success = operator_mul_div( info, index, result, do_char_map );
-    21609:  413:	if( !is_success ) {
+    43174:  411:	s = get_word( index );
+    21587:  412:	is_success = operator_mul_div( info, index, result, do_char_map );
+    21587:  413:	if( !is_success ) {
         -:  414:		return false;
         -:  415:	}
         -:  416:	for( ;;) {
-    42712:  417:		s = get_word( index );
-    21356:  418:		if( s == "+" ) {
+    42704:  417:		s = get_word( index );
+    21352:  418:		if( s == "+" ) {
       202:  419:			index++;
       202:  420:			is_success = operator_mul_div( info, index, term, do_char_map );
       202:  421:			if( !is_success ) {
@@ -441,7 +441,7 @@
       198:  439:				result.s = result.s + term.s;
         -:  440:			}
         -:  441:		}
-    21154:  442:		else if( s == "-" ) {
+    21150:  442:		else if( s == "-" ) {
        22:  443:			index++;
        22:  444:			is_success = operator_mul_div( info, index, term, do_char_map );
        22:  445:			if( !is_success ) {
@@ -462,22 +462,22 @@
         -:  460:}
         -:  461:
         -:  462:// --------------------------------------------------------------------
-    21558:  463:bool CZMA_PARSE::operator_shift( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
+    21536:  463:bool CZMA_PARSE::operator_shift( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
         -:  464:	std::string s;
         -:  465:	bool is_success;
         -:  466:	CVALUE term;
         -:  467:
-    43116:  468:	s = get_word( index );
-    21558:  469:	is_success = operator_add_sub( info, index, result, do_char_map );
-    21558:  470:	if( !is_success ) {
+    43072:  468:	s = get_word( index );
+    21536:  469:	is_success = operator_add_sub( info, index, result, do_char_map );
+    21536:  470:	if( !is_success ) {
         -:  471:		return false;
         -:  472:	}
-    42174:  473:	if( !result.is_integer() ) {
+    42166:  473:	if( !result.is_integer() ) {
         -:  474:		return true;
         -:  475:	}
         -:  476:	for( ;;) {
-    41388:  477:		s = get_word( index );
-    20730:  478:		if( s == "<<" ) {
+    41380:  477:		s = get_word( index );
+    20726:  478:		if( s == "<<" ) {
        42:  479:			index++;
        42:  480:			is_success = operator_add_sub( info, index, term, do_char_map );
        42:  481:			if( !is_success ) {
@@ -491,7 +491,7 @@
        36:  489:			result.i = result.i << term.i;
        36:  490:			continue;
         -:  491:		}
-    20655:  492:		if( s == ">>" ) {
+    20651:  492:		if( s == ">>" ) {
         9:  493:			index++;
         9:  494:			is_success = operator_add_sub( info, index, term, do_char_map );
         9:  495:			if( !is_success ) {
@@ -511,22 +511,22 @@
         -:  509:}
         -:  510:
         -:  511:// --------------------------------------------------------------------
-    21500:  512:bool CZMA_PARSE::operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
+    21478:  512:bool CZMA_PARSE::operator_compare( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
         -:  513:	std::string s;
         -:  514:	bool is_success;
         -:  515:	CVALUE term;
         -:  516:
-    43000:  517:	s = get_word( index );
-    21500:  518:	is_success = operator_shift( info, index, result, do_char_map );
-    21500:  519:	if( !is_success ) {
+    42956:  517:	s = get_word( index );
+    21478:  518:	is_success = operator_shift( info, index, result, do_char_map );
+    21478:  519:	if( !is_success ) {
         -:  520:		return false;
         -:  521:	}
-    42058:  522:	if( !result.is_integer() ) {
+    42050:  522:	if( !result.is_integer() ) {
         -:  523:		return true;
         -:  524:	}
         -:  525:	for( ;;) {
-    41286:  526:		s = get_word( index );
-    20651:  527:		if( s == "<" ) {
+    41278:  526:		s = get_word( index );
+    20647:  527:		if( s == "<" ) {
        14:  528:			index++;
        14:  529:			is_success = operator_shift( info, index, term, do_char_map );
        14:  530:			if( !is_success ) {
@@ -540,7 +540,7 @@
         8:  538:			result.i = result.i < term.i;
         8:  539:			continue;
         -:  540:		}
-    20635:  541:		if( s == ">" ) {
+    20631:  541:		if( s == ">" ) {
        12:  542:			index++;
        12:  543:			is_success = operator_shift( info, index, term, do_char_map );
        12:  544:			if( !is_success ) {
@@ -554,7 +554,7 @@
         6:  552:			result.i = result.i > term.i;
         6:  553:			continue;
         -:  554:		}
-    20626:  555:		if( s == "<=" ) {
+    20622:  555:		if( s == "<=" ) {
        15:  556:			index++;
        15:  557:			is_success = operator_shift( info, index, term, do_char_map );
        15:  558:			if( !is_success ) {
@@ -568,7 +568,7 @@
         9:  566:			result.i = result.i <= term.i;
         9:  567:			continue;
         -:  568:		}
-    20613:  569:		if( s == ">=" ) {
+    20609:  569:		if( s == ">=" ) {
        17:  570:			index++;
        17:  571:			is_success = operator_shift( info, index, term, do_char_map );
        17:  572:			if( !is_success ) {
@@ -588,19 +588,19 @@
         -:  586:}
         -:  587:
         -:  588:// --------------------------------------------------------------------
-    21446:  589:bool CZMA_PARSE::operator_equal( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
+    21424:  589:bool CZMA_PARSE::operator_equal( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
         -:  590:	std::string s;
         -:  591:	bool is_success;
         -:  592:	CVALUE term;
         -:  593:
-    42892:  594:	s = get_word( index );
-    21446:  595:	is_success = operator_compare( info, index, result, do_char_map );
-    21446:  596:	if( !is_success ) {
+    42848:  594:	s = get_word( index );
+    21424:  595:	is_success = operator_compare( info, index, result, do_char_map );
+    21424:  596:	if( !is_success ) {
         -:  597:		return false;
         -:  598:	}
         -:  599:	for( ;;) {
-    42010:  600:		s = get_word( index );
-    21008:  601:		if( s == "==" ) {
+    42002:  600:		s = get_word( index );
+    21004:  601:		if( s == "==" ) {
        36:  602:			index++;
        36:  603:			is_success = operator_compare( info, index, term, do_char_map );
        36:  604:			if( !is_success ) {
@@ -620,7 +620,7 @@
         3:  618:			result.i = false;
         3:  619:			continue;
         -:  620:		}
-    20972:  621:		if( s == "!=" ) {
+    20968:  621:		if( s == "!=" ) {
        18:  622:			index++;
        18:  623:			is_success = operator_compare( info, index, term, do_char_map );
        18:  624:			if( !is_success ) {
@@ -645,22 +645,22 @@
         -:  643:}
         -:  644:
         -:  645:// --------------------------------------------------------------------
-    21434:  646:bool CZMA_PARSE::operator_bit_and( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
+    21412:  646:bool CZMA_PARSE::operator_bit_and( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
         -:  647:	std::string s;
         -:  648:	bool is_success;
         -:  649:	CVALUE term;
         -:  650:
-    42868:  651:	s = get_word( index );
-    21434:  652:	is_success = operator_equal( info, index, result, do_char_map );
-    21434:  653:	if( !is_success ) {
+    42824:  651:	s = get_word( index );
+    21412:  652:	is_success = operator_equal( info, index, result, do_char_map );
+    21412:  653:	if( !is_success ) {
         -:  654:		return false;
         -:  655:	}
-    41884:  656:	if( !result.is_integer() ) {
+    41876:  656:	if( !result.is_integer() ) {
         -:  657:		return true;
         -:  658:	}
         -:  659:	for( ;;) {
-    41168:  660:		s = get_word( index );
-    20587:  661:		if( s == "&" ) {
+    41160:  660:		s = get_word( index );
+    20583:  661:		if( s == "&" ) {
        12:  662:			index++;
        12:  663:			is_success = operator_equal( info, index, term, do_char_map );
        12:  664:			if( !is_success ) {
@@ -680,22 +680,22 @@
         -:  678:}
         -:  679:
         -:  680:// --------------------------------------------------------------------
-    21422:  681:bool CZMA_PARSE::operator_bit_xor( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
+    21400:  681:bool CZMA_PARSE::operator_bit_xor( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
         -:  682:	std::string s;
         -:  683:	bool is_success;
         -:  684:	CVALUE term;
         -:  685:
-    42844:  686:	s = get_word( index );
-    21422:  687:	is_success = operator_bit_and( info, index, result, do_char_map );
-    21422:  688:	if( !is_success ) {
+    42800:  686:	s = get_word( index );
+    21400:  687:	is_success = operator_bit_and( info, index, result, do_char_map );
+    21400:  688:	if( !is_success ) {
         -:  689:		return false;
         -:  690:	}
-    41854:  691:	if( !result.is_integer() ) {
+    41846:  691:	if( !result.is_integer() ) {
         -:  692:		return true;
         -:  693:	}
         -:  694:	for( ;;) {
-    41144:  695:		s = get_word( index );
-    20575:  696:		if( s == "^" ) {
+    41136:  695:		s = get_word( index );
+    20571:  696:		if( s == "^" ) {
        12:  697:			index++;
        12:  698:			is_success = operator_bit_and( info, index, term, do_char_map );
        12:  699:			if( !is_success ) {
@@ -715,22 +715,22 @@
         -:  713:}
         -:  714:
         -:  715:// --------------------------------------------------------------------
-    21377:  716:bool CZMA_PARSE::operator_bit_or( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
+    21355:  716:bool CZMA_PARSE::operator_bit_or( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
         -:  717:	std::string s;
         -:  718:	bool is_success;
         -:  719:	CVALUE term;
         -:  720:
-    42754:  721:	s = get_word( index );
-    21377:  722:	is_success = operator_bit_xor( info, index, result, do_char_map );
-    21377:  723:	if( !is_success ) {
+    42710:  721:	s = get_word( index );
+    21355:  722:	is_success = operator_bit_xor( info, index, result, do_char_map );
+    21355:  723:	if( !is_success ) {
         -:  724:		return false;
         -:  725:	}
-    41758:  726:	if( !result.is_integer() ) {
+    41750:  726:	if( !result.is_integer() ) {
         -:  727:		return true;
         -:  728:	}
         -:  729:	for( ;;) {
-    41153:  730:		s = get_word( index );
-    20596:  731:		if( s == "|" ) {
+    41145:  730:		s = get_word( index );
+    20592:  731:		if( s == "|" ) {
        45:  732:			index++;
        45:  733:			is_success = operator_bit_xor( info, index, term, do_char_map );
        45:  734:			if( !is_success ) {
@@ -750,22 +750,22 @@
         -:  748:}
         -:  749:
         -:  750:// --------------------------------------------------------------------
-    21359:  751:bool CZMA_PARSE::operator_logical_and( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
+    21337:  751:bool CZMA_PARSE::operator_logical_and( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
         -:  752:	std::string s;
         -:  753:	bool is_success;
         -:  754:	CVALUE term;
         -:  755:
-    42718:  756:	s = get_word( index );
-    21359:  757:	is_success = operator_bit_or( info, index, result, do_char_map );
-    21359:  758:	if( !is_success ) {
+    42674:  756:	s = get_word( index );
+    21337:  757:	is_success = operator_bit_or( info, index, result, do_char_map );
+    21337:  758:	if( !is_success ) {
         -:  759:		return false;
         -:  760:	}
-    41716:  761:	if( !result.is_integer() ) {
+    41708:  761:	if( !result.is_integer() ) {
         -:  762:		return true;
         -:  763:	}
         -:  764:	for( ;;) {
-    41036:  765:		s = get_word( index );
-    20524:  766:		if( s == "&&" ) {
+    41028:  765:		s = get_word( index );
+    20520:  766:		if( s == "&&" ) {
        18:  767:			index++;
        18:  768:			is_success = operator_bit_or( info, index, term, do_char_map );
        18:  769:			if( !is_success ) {
@@ -785,22 +785,22 @@
         -:  783:}
         -:  784:
         -:  785:// --------------------------------------------------------------------
-    21341:  786:bool CZMA_PARSE::operator_logical_or( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
+    21319:  786:bool CZMA_PARSE::operator_logical_or( CZMA_INFORMATION& info, int& index, CVALUE& result, bool do_char_map ) {
         -:  787:	std::string s;
         -:  788:	bool is_success;
         -:  789:	CVALUE term;
         -:  790:
-    42682:  791:	s = get_word(index);
-    21341:  792:	is_success = operator_logical_and( info, index, result, do_char_map );
-    21341:  793:	if( !is_success ) {
+    42638:  791:	s = get_word(index);
+    21319:  792:	is_success = operator_logical_and( info, index, result, do_char_map );
+    21319:  793:	if( !is_success ) {
         -:  794:		return false;
         -:  795:	}
-    41674:  796:	if( !result.is_integer() ) {
+    41666:  796:	if( !result.is_integer() ) {
         -:  797:		return true;
         -:  798:	}
         -:  799:	for( ;;) {
-    41000:  800:		s = get_word( index );
-    20506:  801:		if( s == "||" ) {
+    40992:  800:		s = get_word( index );
+    20502:  801:		if( s == "||" ) {
        18:  802:			index++;
        18:  803:			is_success = operator_logical_and( info, index, term, do_char_map );
        18:  804:			if( !is_success ) {
@@ -820,10 +820,10 @@
         -:  818:}
         -:  819:
         -:  820:// --------------------------------------------------------------------
-    21263:  821:int CZMA_PARSE::expression( CZMA_INFORMATION& info, int index, CVALUE& result, bool do_char_map ) {
-    21263:  822:	bool is_success = operator_logical_or( info, index, result, do_char_map );
-    21263:  823:	if( is_success ) {
-    20756:  824:		return index;
+    21241:  821:int CZMA_PARSE::expression( CZMA_INFORMATION& info, int index, CVALUE& result, bool do_char_map ) {
+    21241:  822:	bool is_success = operator_logical_or( info, index, result, do_char_map );
+    21241:  823:	if( is_success ) {
+    20752:  824:		return index;
         -:  825:	}
         -:  826:	return 0;
       156:  827:}

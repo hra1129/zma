@@ -119,73 +119,24 @@ CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_co
 		if( output_mode ) {
 			(*p)->set_output_mode();
 		}
-		if( !info.is_block_processing ){
-			//	パースエラーを起こした行の場合、再パースを試みる
-			if( ( *p )->is_parse_error() ){
-				words = CZMA_PARSE::get_word_split( ( *p )->get_line() );
-				CZMA_PARSE *p_parse = CZMA_PARSE::create( info, words, ( *p )->get_file_name(), ( *p )->get_line_no() );
-				if( !( p_parse->is_parse_error() ) ){
-					p = m_text.erase( p );
-					p = m_text.insert( p, p_parse );
-				}
-				else{
-					delete p_parse;
-				}
-			}
-			//	ブロックの外側の処理
-			if( ( *p )->process( info, p_prev ) ){
-				success_count++;
-			}
-			p_prev = ( *p );
-			p++;
-		}
-		else {
-			//	ブロックの中の処理
-			if( (*p)->words.size() >= 1 && info.block_end_table.count( (*p)->words[0] ) ) {
-				//	ブロックを閉じる記号を発見
-				if( (*p)->words[0] == "ENDM" ) {
-					//	特に ENDR, ENDM の処理
-					if( nest_count ) {
-						//	ブロック内のブロックだったのでネスト数を減らすだけ
-						nest_count--;
-						info.p_text->push_back( *p );
-						p = m_text.erase( p );
-						continue;
-					}
-				}
-				if( nest_count == 0 ) {
-					if( info.block_type != info.block_end_table[(*p)->words[0]] ) {
-						//	着目ブロックの種類と異なる「閉じる記号」を発見
-						(*p)->put_structure_error( "Invalid block pair." );
-						p_prev = (*p);
-						p++;
-						continue;
-					}
-					//	「閉じる記号」の処理
-					if( (*p)->process( info, p_prev ) ) {
-						success_count++;
-					}
-					p_prev = (*p);
-					p++;
-				}
-				else {
-					info.p_text->push_back( *p );
-					p = m_text.erase( p );
-					continue;
-				}
-			}
-			else {
-				if( (*p)->words.size() >= 2 && (*p)->words[1] == "MACRO" ) {
-					//	ブロックの内側にマクロ宣言を発見
-					(*p)->put_structure_error( "MACRO cannot define in MACRO/REPEAT/IF block." );
-					p_prev = (*p);
-					p++;
-					continue;
-				}
-				info.p_text->push_back( *p );
+		//	パースエラーを起こした行の場合、再パースを試みる
+		if( ( *p )->is_parse_error() ){
+			words = CZMA_PARSE::get_word_split( ( *p )->get_line() );
+			CZMA_PARSE *p_parse = CZMA_PARSE::create( info, words, ( *p )->get_file_name(), ( *p )->get_line_no() );
+			if( !( p_parse->is_parse_error() ) ){
 				p = m_text.erase( p );
+				p = m_text.insert( p, p_parse );
+			}
+			else{
+				delete p_parse;
 			}
 		}
+		//	ブロックの外側の処理
+		if( ( *p )->process( info, p_prev ) ){
+			success_count++;
+		}
+		p_prev = ( *p );
+		p++;
 	}
 	return p_prev;
 }
@@ -212,11 +163,6 @@ bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
 	for( ; ; ) {
 		info.clear();
 		p_last_line = this->process( info, success_count, nullptr, false );
-		if( info.is_block_processing ) {
-			p_last_line->set_output_mode();
-			p_last_line->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::BLOCK_PROCESSING_IS_NOT_CLOSED ) );
-			break;
-		}
 		if( !info.is_updated ) {
 			break;
 		}

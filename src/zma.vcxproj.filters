@@ -317,9 +317,6 @@
     <ClCompile Include="zma_logger.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="sub\zma_parse_process_container.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="sub\zma_parse_process_chg_char_set.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -435,5 +432,6 @@
     <ClInclude Include="sub\zma_parse_process_chg_char_set.hpp" />
     <ClInclude Include="zma_error.hpp" />
     <ClInclude Include="zma_hexfile.hpp" />
+    <ClInclude Include="zma_parse_expression.hpp" />
   </ItemGroup>
 </Project>

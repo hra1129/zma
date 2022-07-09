@@ -14,6 +14,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include "zma_parse_process_if.hpp"
+
 // --------------------------------------------------------------------
 //	IF文は特殊な構造を持つのでこのメソッドを定義
 //	load 時は、このクラスは IFの1行目単独を示している。

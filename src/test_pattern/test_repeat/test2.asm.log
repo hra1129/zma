@@ -52,6 +52,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000010|0010|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO0:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO1:
     14|      |    |DB 0
       |000012|0012|  00
@@ -79,6 +82,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |000020|0020|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO1:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO2:
@@ -110,6 +116,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000030|0030|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO2:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO3:
     14|      |    |DB 0
       |000032|0032|  00
@@ -137,6 +146,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |000040|0040|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO3:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO4:
@@ -168,6 +180,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000050|0050|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO4:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO5:
     14|      |    |DB 0
       |000052|0052|  00
@@ -195,6 +210,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |000060|0060|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO5:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO6:
@@ -226,6 +244,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000070|0070|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO6:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO7:
     14|      |    |DB 0
       |000072|0072|  00
@@ -253,6 +274,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |000080|0080|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO7:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO8:
@@ -284,6 +308,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000090|0090|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO8:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO9:
     14|      |    |DB 0
       |000092|0092|  00
@@ -311,6 +338,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |0000A0|00A0|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO9:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO10:
@@ -342,6 +372,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |0000B0|00B0|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO10:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO11:
     14|      |    |DB 0
       |0000B2|00B2|  00
@@ -369,6 +402,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |0000C0|00C0|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO11:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO12:
@@ -400,6 +436,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |0000D0|00D0|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO12:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO13:
     14|      |    |DB 0
       |0000D2|00D2|  00
@@ -427,6 +466,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |0000E0|00E0|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO13:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO14:
@@ -458,6 +500,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |0000F0|00F0|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO14:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO15:
     14|      |    |DB 0
       |0000F2|00F2|  00
@@ -485,6 +530,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |000100|0100|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO15:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO16:
@@ -516,6 +564,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000110|0110|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO16:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO17:
     14|      |    |DB 0
       |000112|0112|  00
@@ -543,6 +594,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |000120|0120|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO17:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO18:
@@ -574,6 +628,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000130|0130|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO18:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO19:
     14|      |    |DB 0
       |000132|0132|  00
@@ -601,6 +658,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |000140|0140|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO19:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO20:
@@ -632,6 +692,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000150|0150|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO20:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO21:
     14|      |    |DB 0
       |000152|0152|  00
@@ -659,6 +722,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |000160|0160|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO21:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO22:
@@ -690,6 +756,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000170|0170|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO22:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO23:
     14|      |    |DB 0
       |000172|0172|  00
@@ -717,6 +786,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |000180|0180|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO23:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO24:
@@ -748,6 +820,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |000190|0190|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO24:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO25:
     14|      |    |DB 0
       |000192|0192|  00
@@ -775,6 +850,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |0001A0|01A0|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO25:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO26:
@@ -806,6 +884,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |0001B0|01B0|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO26:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO27:
     14|      |    |DB 0
       |0001B2|01B2|  00
@@ -833,6 +914,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |0001C0|01C0|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO27:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO28:
@@ -864,6 +948,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |0001D0|01D0|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO28:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO29:
     14|      |    |DB 0
       |0001D2|01D2|  00
@@ -891,6 +978,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |0001E0|01E0|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO29:
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO30:
@@ -922,6 +1012,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |0001F0|01F0|  00 00
 ------+------+----+----------------------------------
     14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO30:
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO31:
     14|      |    |DB 0
       |0001F2|01F2|  00
@@ -949,6 +1042,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |DW 0
       |000200|0200|  00 00
+------+------+----+----------------------------------
+    14|      |    |SHOT_ATTRIBUTE
+      |      |    |  Exit scope: @REPEAT0:@MACRO31:
 ------+------+----+----------------------------------
       |      |    |  Exit scope: 
 ------+------+----+----------------------------------

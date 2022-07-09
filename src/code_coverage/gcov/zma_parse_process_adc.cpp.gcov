@@ -1,20 +1,20 @@
         -:    0:Source:../sub/zma_parse_process_adc.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
         -:    4://	2019/05/04	t.hara
         -:    5:// --------------------------------------------------------------------
         -:    6:
-        -:    7:#include "zma_parse.hpp"
-        -:    8:#include "zma_text.hpp"
-        -:    9:#include "zma_parse_process.hpp"
-        -:   10:#include <string>
-        -:   11:#include <cctype>
-        -:   12:#include <iostream>
-        -:   13:#include <fstream>
-        -:   14:#include <sstream>
-        -:   15:#include <algorithm>
+        -:    7:#include "zma_text.hpp"
+        -:    8:#include <string>
+        -:    9:#include <cctype>
+        -:   10:#include <iostream>
+        -:   11:#include <fstream>
+        -:   12:#include <sstream>
+        -:   13:#include <algorithm>
+        -:   14:
+        -:   15:#include "zma_parse_process_adc.hpp"
         -:   16:
         -:   17:// --------------------------------------------------------------------
       117:   18:bool CZMA_PARSE_ADC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {

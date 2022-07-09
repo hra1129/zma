@@ -4,15 +4,15 @@
 //	2019/05/04	t.hara
 // --------------------------------------------------------------------
 
-#include "zma_parse.hpp"
 #include "zma_text.hpp"
-#include "zma_parse_process.hpp"
 #include <string>
 #include <cctype>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+
+#include "zma_parse_process_adc.hpp"
 
 // --------------------------------------------------------------------
 bool CZMA_PARSE_ADC::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {

@@ -14,6 +14,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include "zma_parse_process_include.hpp"
+
 // --------------------------------------------------------------------
 bool CZMA_PARSE_INCLUDE::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
 

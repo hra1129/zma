@@ -1,36 +1,38 @@
         -:    0:Source:../zma_hexfile.hpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	HEX FILE WRITER
         -:    3:// ====================================================================
         -:    4://	2022/06/19	t.hara
         -:    5:// --------------------------------------------------------------------
         -:    6:
-        -:    7:#include <fstream>
-        -:    8:#include <vector>
-        -:    9:
-       76:   10:class CZMA_HEXFILE_WRITER {
-        -:   11:private:
-        -:   12:	int								address;
-        -:   13:	int								last_segment;
-        -:   14:	std::vector< unsigned char >	data;
-        -:   15:public:
-        -:   16:	// --------------------------------------------------------------------
-       78:   17:	CZMA_HEXFILE_WRITER(): address(0), last_segment(0) {
-        -:   18:	}
-        -:   19:
-        -:   20:	// --------------------------------------------------------------------
-        -:   21:	unsigned char write_byte( std::ofstream &f, unsigned char c, unsigned char check_sum );
-        -:   22:
-        -:   23:	// --------------------------------------------------------------------
-        -:   24:	void flush( std::ofstream &f );
-        -:   25:
-        -:   26:	// --------------------------------------------------------------------
-        -:   27:	void update_segment( std::ofstream &f );
-        -:   28:
-        -:   29:	// --------------------------------------------------------------------
-        -:   30:	void set_address( std::ofstream &f, int new_address );
-        -:   31:
-        -:   32:	// --------------------------------------------------------------------
-        -:   33:	void write( std::ofstream &f, unsigned char c );
-        -:   34:};
+        -:    7:#pragma once
+        -:    8:
+        -:    9:#include <fstream>
+        -:   10:#include <vector>
+        -:   11:
+       76:   12:class CZMA_HEXFILE_WRITER {
+        -:   13:private:
+        -:   14:	int								address;
+        -:   15:	int								last_segment;
+        -:   16:	std::vector< unsigned char >	data;
+        -:   17:public:
+        -:   18:	// --------------------------------------------------------------------
+       78:   19:	CZMA_HEXFILE_WRITER(): address(0), last_segment(0) {
+        -:   20:	}
+        -:   21:
+        -:   22:	// --------------------------------------------------------------------
+        -:   23:	unsigned char write_byte( std::ofstream &f, unsigned char c, unsigned char check_sum );
+        -:   24:
+        -:   25:	// --------------------------------------------------------------------
+        -:   26:	void flush( std::ofstream &f );
+        -:   27:
+        -:   28:	// --------------------------------------------------------------------
+        -:   29:	void update_segment( std::ofstream &f );
+        -:   30:
+        -:   31:	// --------------------------------------------------------------------
+        -:   32:	void set_address( std::ofstream &f, int new_address );
+        -:   33:
+        -:   34:	// --------------------------------------------------------------------
+        -:   35:	void write( std::ofstream &f, unsigned char c );
+        -:   36:};

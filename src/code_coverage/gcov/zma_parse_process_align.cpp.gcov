@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_align.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,46 +16,48 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-        6:   18:bool CZMA_PARSE_ALIGN::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ) {
-        -:   19:	int i, address, padding_size, block_size;
-        -:   20:	CVALUE v;
-        -:   21:
-        6:   22:	update_flags( &info, p_last_line );
-        6:   23:	if( !this->is_data_fixed ){
-        2:   24:		if( this->is_fixed_code_address() ){
-        2:   25:			i = this->expression( info, 1, v );
-        2:   26:			if( i == 0 ){
-    #####:   27:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-        -:   28:				data.clear();
-    #####:   29:				return false;
-        -:   30:			}
-        2:   31:			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:   32:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:   33:				return false;
-        -:   34:			}
-        2:   35:			if( v.i < 1 ){
-    #####:   36:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-    #####:   37:				return false;
-        -:   38:			}
-        -:   39:			//	パディングの量を計算する
-        -:   40:			block_size = v.i;
-        2:   41:			address = this->get_code_address();
-        2:   42:			padding_size = ( block_size - ( address % block_size ) ) % block_size;
-        -:   43:			//	パディングする
-        2:   44:			this->set_code_size( &info, padding_size );
-    65474:   45:			for( i = 0; i < padding_size; i++ ){
-    65472:   46:				this->data.push_back( 0 );
-        -:   47:			}
-        2:   48:			this->is_data_fixed = true;
-        2:   49:			info.is_updated = true;
-        -:   50:		}
-        -:   51:	}
-        -:   52:
-        6:   53:	if( !is_analyze_phase ){
-        4:   54:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       10:   55:		log.write_message( "Padding: " + std::to_string( this->get_code_size() ) + "byte(s)" );
-        2:   56:		log.write_separator();
-        -:   57:	}
-        -:   58:	return check_all_fixed();
-      156:   59:}
+        -:   17:#include "zma_parse_process_align.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+        6:   20:bool CZMA_PARSE_ALIGN::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ) {
+        -:   21:	int i, address, padding_size, block_size;
+        -:   22:	CVALUE v;
+        -:   23:
+        6:   24:	update_flags( &info, p_last_line );
+        6:   25:	if( !this->is_data_fixed ){
+        2:   26:		if( this->is_fixed_code_address() ){
+        2:   27:			i = this->expression( info, 1, v );
+        2:   28:			if( i == 0 ){
+    #####:   29:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        -:   30:				data.clear();
+    #####:   31:				return false;
+        -:   32:			}
+        2:   33:			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
+    #####:   34:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+    #####:   35:				return false;
+        -:   36:			}
+        2:   37:			if( v.i < 1 ){
+    #####:   38:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+    #####:   39:				return false;
+        -:   40:			}
+        -:   41:			//	パディングの量を計算する
+        -:   42:			block_size = v.i;
+        2:   43:			address = this->get_code_address();
+        2:   44:			padding_size = ( block_size - ( address % block_size ) ) % block_size;
+        -:   45:			//	パディングする
+        2:   46:			this->set_code_size( &info, padding_size );
+    65474:   47:			for( i = 0; i < padding_size; i++ ){
+    65472:   48:				this->data.push_back( 0 );
+        -:   49:			}
+        2:   50:			this->is_data_fixed = true;
+        2:   51:			info.is_updated = true;
+        -:   52:		}
+        -:   53:	}
+        -:   54:
+        6:   55:	if( !is_analyze_phase ){
+        4:   56:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       10:   57:		log.write_message( "Padding: " + std::to_string( this->get_code_size() ) + "byte(s)" );
+        2:   58:		log.write_separator();
+        -:   59:	}
+        -:   60:	return check_all_fixed();
+      156:   61:}

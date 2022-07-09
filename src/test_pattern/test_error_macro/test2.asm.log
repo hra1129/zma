@@ -10,6 +10,3 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |HOGE MACRO
 ------+------+----+----------------------------------
-     7|ERROR |    |MACRO cannot define in MACRO/REPEAT/IF block.: test2.asm(7): test2.asm(7)
-     7|      |    |MOGE MACRO
-------+------+----+----------------------------------

@@ -9,6 +9,4 @@ Programmed by t.hara
 LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |HOGE MACRO NUM
-     6|ERROR |    |Block processing is not closed.: test1.asm(6)
-     6|      |    |HOGE MACRO NUM
 ------+------+----+----------------------------------

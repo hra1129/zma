@@ -1,5 +1,5 @@
         -:    0:Source:../zma_information.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler dictionary
         -:    3:// ====================================================================
@@ -9,32 +9,32 @@
         -:    7:#include "zma_information.hpp"
         -:    8:
         -:    9:// --------------------------------------------------------------------
-      601:   10:bool CZMA_INFORMATION::get_label_value( CVALUE &result, std::string word ){
+      583:   10:bool CZMA_INFORMATION::get_label_value( CVALUE &result, std::string word ){
         -:   11:	int i, l;
         -:   12:	std::string s;
         -:   13:
-     1623:   14:	for( l = (int)scope.size(); l >= 0; l-- ){
+     1569:   14:	for( l = (int)scope.size(); l >= 0; l-- ){
         -:   15:		s = "";
-     1420:   16:		for( i = 0; i < l; i++ ){
+     1402:   16:		for( i = 0; i < l; i++ ){
      1376:   17:			s = s + scope[ i ] + ":";
         -:   18:		}
-     1464:   19:		s = s + word;
+     1428:   19:		s = s + word;
         -:   20:		if( this->dict.count( s ) ){
       311:   21:			result = this->dict[ s ];
         -:   22:			return true;
         -:   23:		}
         -:   24:	}
-      290:   25:	result.value_type = CVALUE_TYPE::CV_UNKNOWN;
-      290:   26:	return false;
+      272:   25:	result.value_type = CVALUE_TYPE::CV_UNKNOWN;
+      272:   26:	return false;
         -:   27:}
         -:   28:
         -:   29:// --------------------------------------------------------------------
-      479:   30:std::string CZMA_INFORMATION::get_scope_path( void ) {
-      479:   31:	std::string r = "";
-      924:   32:	for( std::string s : scope ){
-     1335:   33:		r = r + s + ":";
+      551:   30:std::string CZMA_INFORMATION::get_scope_path( void ) {
+      551:   31:	std::string r = "";
+     1106:   32:	for( std::string s : scope ){
+     1665:   33:		r = r + s + ":";
         -:   34:	}
-      479:   35:	return r;
+      551:   35:	return r;
         -:   36:}
         -:   37:
         -:   38:// --------------------------------------------------------------------

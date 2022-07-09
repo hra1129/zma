@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_org.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,34 +16,36 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-       95:   18:bool CZMA_PARSE_ORG::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:	CVALUE address;
-        -:   20:	int index;
-        -:   21:
-       95:   22:	update_flags( &info, p_last_line );
-       95:   23:	index = this->expression( info, 1, address );
-       95:   24:	this->code_size = 0;
-       95:   25:	if( index == 0 ) {
-       40:   26:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-        8:   27:		return false;
-        -:   28:	}
-       87:   29:	if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
-       20:   30:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        4:   31:		return false;
-        -:   32:	}
-      166:   33:	if( index < (int)words.size() ) {
-       20:   34:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        4:   35:		return false;
-        -:   36:	}
-       79:   37:	this->is_data_fixed = true;
-       79:   38:	this->code_address = address.i;
-       79:   39:	this->next_code_address = address.i;
-        -:   40:	//	log
-       79:   41:	if( !this->is_analyze_phase ) {
-       52:   42:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       26:   43:		log.write_separator();
-        -:   44:	}
-        -:   45:	return check_all_fixed();
-      156:   46:}
-        -:   47:
+        -:   17:#include "zma_parse_process_org.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+       95:   20:bool CZMA_PARSE_ORG::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:	CVALUE address;
+        -:   22:	int index;
+        -:   23:
+       95:   24:	update_flags( &info, p_last_line );
+       95:   25:	index = this->expression( info, 1, address );
+       95:   26:	this->code_size = 0;
+       95:   27:	if( index == 0 ) {
+       40:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        8:   29:		return false;
+        -:   30:	}
+       87:   31:	if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
+       20:   32:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        4:   33:		return false;
+        -:   34:	}
+      166:   35:	if( index < (int)words.size() ) {
+       20:   36:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        4:   37:		return false;
+        -:   38:	}
+       79:   39:	this->is_data_fixed = true;
+       79:   40:	this->code_address = address.i;
+       79:   41:	this->next_code_address = address.i;
+        -:   42:	//	log
+       79:   43:	if( !this->is_analyze_phase ) {
+       52:   44:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       26:   45:		log.write_separator();
+        -:   46:	}
+        -:   47:	return check_all_fixed();
+      156:   48:}
+        -:   49:

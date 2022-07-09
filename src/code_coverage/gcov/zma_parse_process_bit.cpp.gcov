@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_bit.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,29 +16,31 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-      486:   18:bool CZMA_PARSE_BIT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:
-      486:   20:	update_flags( &info, p_last_line );
-      486:   21:	if( this->opecode_bit_source8( info, 0x40, true ) ) {
-        -:   22:		//	log
-      483:   23:		if( !this->is_analyze_phase ) {
-      322:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-      322:   25:			if( data.size() == 2 && (data[1] & 0x07) != 0x06 ) {
-      336:   26:				log.write_cycle_information( 10, 2 );			//	BIT b,r
-        -:   27:			}
-       49:   28:			else if( data.size() == 2 ) {
-       32:   29:				log.write_cycle_information( 14, 5 );			//	BIT b,[HL]
-        -:   30:			}
-        -:   31:			else {
-       66:   32:				log.write_cycle_information( 22, 7 );			//	BIT b,[IX+o]
-        -:   33:			}
-      161:   34:			log.write_dump( this->code_address, this->file_address, this->data );
-      161:   35:			log.write_separator();
-        -:   36:		}
-        -:   37:		return check_all_fixed();
-        -:   38:	}
-       15:   39:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-        3:   40:	return false;
-      156:   41:}
-        -:   42:
+        -:   17:#include "zma_parse_process_bit.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+      486:   20:bool CZMA_PARSE_BIT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:
+      486:   22:	update_flags( &info, p_last_line );
+      486:   23:	if( this->opecode_bit_source8( info, 0x40, true ) ) {
+        -:   24:		//	log
+      483:   25:		if( !this->is_analyze_phase ) {
+      322:   26:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+      322:   27:			if( data.size() == 2 && (data[1] & 0x07) != 0x06 ) {
+      336:   28:				log.write_cycle_information( 10, 2 );			//	BIT b,r
+        -:   29:			}
+       49:   30:			else if( data.size() == 2 ) {
+       32:   31:				log.write_cycle_information( 14, 5 );			//	BIT b,[HL]
+        -:   32:			}
+        -:   33:			else {
+       66:   34:				log.write_cycle_information( 22, 7 );			//	BIT b,[IX+o]
+        -:   35:			}
+      161:   36:			log.write_dump( this->code_address, this->file_address, this->data );
+      161:   37:			log.write_separator();
+        -:   38:		}
+        -:   39:		return check_all_fixed();
+        -:   40:	}
+       15:   41:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        3:   42:	return false;
+      156:   43:}
+        -:   44:

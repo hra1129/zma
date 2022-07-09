@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_jp.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,74 +16,76 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-      112:   18:bool CZMA_PARSE_JP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:
-      112:   20:	update_flags( &info, p_last_line );
-      342:   21:	if( (words.size() == 2 && words[1] == "HL") || (words.size() == 4 && words[1] == "(" && words[2] == "HL" && words[3] == ")") ) {
-       12:   22:		if( !this->is_data_fixed ) {
-        -:   23:			this->set_code_size( &info, 1 );
-        4:   24:			this->is_data_fixed = true;
-        8:   25:			this->data.push_back( 0xE9 );
-        -:   26:		}
-        -:   27:		//	log
-       12:   28:		if( !this->is_analyze_phase ) {
-        8:   29:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        8:   30:			log.write_cycle_information( 5, 3 );		//	JP HL
-        4:   31:			log.write_dump( this->code_address, this->file_address, this->data );
-        4:   32:			log.write_separator();
-        -:   33:		}
-        -:   34:		return check_all_fixed();
-        -:   35:	}
-      203:   36:	if( (words.size() == 2 && words[1] == "IX") || (words.size() == 4 && words[1] == "(" && words[2] == "IX" && words[3] == ")") ) {
-       12:   37:		if( !this->is_data_fixed ) {
-        -:   38:			this->set_code_size( &info, 2 );
-        4:   39:			this->is_data_fixed = true;
-        8:   40:			this->data.push_back( 0xDD );
-        8:   41:			this->data.push_back( 0xE9 );
-        -:   42:		}
-        -:   43:		//	log
-       12:   44:		if( !this->is_analyze_phase ) {
-        8:   45:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        8:   46:			log.write_cycle_information( 10, 4 );		//	JP IX
-        4:   47:			log.write_dump( this->code_address, this->file_address, this->data );
-        4:   48:			log.write_separator();
-        -:   49:		}
-        -:   50:		return check_all_fixed();
-        -:   51:	}
-      176:   52:	if( (words.size() == 2 && words[1] == "IY") || (words.size() == 4 && words[1] == "(" && words[2] == "IY" && words[3] == ")") ) {
-       12:   53:		if( !this->is_data_fixed ) {
-        -:   54:			this->set_code_size( &info, 2 );
-        4:   55:			this->is_data_fixed = true;
-        8:   56:			this->data.push_back( 0xFD );
-        8:   57:			this->data.push_back( 0xE9 );
-        -:   58:		}
-        -:   59:		//	log
-       12:   60:		if( !this->is_analyze_phase ) {
-        8:   61:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        8:   62:			log.write_cycle_information( 10, 4 );	//	JP IY
-        4:   63:			log.write_dump( this->code_address, this->file_address, this->data );
-        4:   64:			log.write_separator();
-        -:   65:		}
-        -:   66:		return check_all_fixed();
-        -:   67:	}
-       76:   68:	if( opecode_condition_address( info, 0xC3, 0xC2 ) ) {
-        -:   69:		//	log
-       66:   70:		if( !this->is_analyze_phase ) {
-       44:   71:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       22:   72:			if( data[0] == 0xC3 ) {
-       12:   73:				log.write_cycle_information( 11, 5 );		//	JP nn
-        -:   74:			}
-        -:   75:			else {
-       32:   76:				log.write_cycle_information( 11, 5, -1, 3 );		//	JP cond, nn
-        -:   77:			}
-       22:   78:			log.write_dump( this->code_address, this->file_address, this->data );
-       22:   79:			log.write_separator();
-        -:   80:		}
-        -:   81:		return check_all_fixed();
-        -:   82:	}
-       50:   83:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ), info.all_error_enable, info.error_disable );
-       10:   84:	info.error_disable = true;
-       10:   85:	return false;
-      156:   86:}
-        -:   87:
+        -:   17:#include "zma_parse_process_jp.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+      112:   20:bool CZMA_PARSE_JP::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:
+      112:   22:	update_flags( &info, p_last_line );
+      342:   23:	if( (words.size() == 2 && words[1] == "HL") || (words.size() == 4 && words[1] == "(" && words[2] == "HL" && words[3] == ")") ) {
+       12:   24:		if( !this->is_data_fixed ) {
+        -:   25:			this->set_code_size( &info, 1 );
+        4:   26:			this->is_data_fixed = true;
+        8:   27:			this->data.push_back( 0xE9 );
+        -:   28:		}
+        -:   29:		//	log
+       12:   30:		if( !this->is_analyze_phase ) {
+        8:   31:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        8:   32:			log.write_cycle_information( 5, 3 );		//	JP HL
+        4:   33:			log.write_dump( this->code_address, this->file_address, this->data );
+        4:   34:			log.write_separator();
+        -:   35:		}
+        -:   36:		return check_all_fixed();
+        -:   37:	}
+      203:   38:	if( (words.size() == 2 && words[1] == "IX") || (words.size() == 4 && words[1] == "(" && words[2] == "IX" && words[3] == ")") ) {
+       12:   39:		if( !this->is_data_fixed ) {
+        -:   40:			this->set_code_size( &info, 2 );
+        4:   41:			this->is_data_fixed = true;
+        8:   42:			this->data.push_back( 0xDD );
+        8:   43:			this->data.push_back( 0xE9 );
+        -:   44:		}
+        -:   45:		//	log
+       12:   46:		if( !this->is_analyze_phase ) {
+        8:   47:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        8:   48:			log.write_cycle_information( 10, 4 );		//	JP IX
+        4:   49:			log.write_dump( this->code_address, this->file_address, this->data );
+        4:   50:			log.write_separator();
+        -:   51:		}
+        -:   52:		return check_all_fixed();
+        -:   53:	}
+      176:   54:	if( (words.size() == 2 && words[1] == "IY") || (words.size() == 4 && words[1] == "(" && words[2] == "IY" && words[3] == ")") ) {
+       12:   55:		if( !this->is_data_fixed ) {
+        -:   56:			this->set_code_size( &info, 2 );
+        4:   57:			this->is_data_fixed = true;
+        8:   58:			this->data.push_back( 0xFD );
+        8:   59:			this->data.push_back( 0xE9 );
+        -:   60:		}
+        -:   61:		//	log
+       12:   62:		if( !this->is_analyze_phase ) {
+        8:   63:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        8:   64:			log.write_cycle_information( 10, 4 );	//	JP IY
+        4:   65:			log.write_dump( this->code_address, this->file_address, this->data );
+        4:   66:			log.write_separator();
+        -:   67:		}
+        -:   68:		return check_all_fixed();
+        -:   69:	}
+       76:   70:	if( opecode_condition_address( info, 0xC3, 0xC2 ) ) {
+        -:   71:		//	log
+       66:   72:		if( !this->is_analyze_phase ) {
+       44:   73:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       22:   74:			if( data[0] == 0xC3 ) {
+       12:   75:				log.write_cycle_information( 11, 5 );		//	JP nn
+        -:   76:			}
+        -:   77:			else {
+       32:   78:				log.write_cycle_information( 11, 5, -1, 3 );		//	JP cond, nn
+        -:   79:			}
+       22:   80:			log.write_dump( this->code_address, this->file_address, this->data );
+       22:   81:			log.write_separator();
+        -:   82:		}
+        -:   83:		return check_all_fixed();
+        -:   84:	}
+       50:   85:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ), info.all_error_enable, info.error_disable );
+       10:   86:	info.error_disable = true;
+       10:   87:	return false;
+      156:   88:}
+        -:   89:

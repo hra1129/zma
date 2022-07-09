@@ -36,6 +36,8 @@ LINE# |OFFSET|ADDR|MNEMONIC
      5|      |    |HOGE MACRO
 ------+------+----+----------------------------------
      8|      |    |INCLUDE "sub_macro.asm" end
+     9|      |    |ENDM
+     9|ERROR |    |Syntax error.: test2.asm(9)
     11|      |    |INCLUDE "sub_if.asm" begin
      6|      |    |DEFB 9
       |XXXXXX|XXXX|  09

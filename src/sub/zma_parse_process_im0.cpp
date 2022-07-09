@@ -14,6 +14,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include "zma_parse_process_im0.hpp"
+
 // --------------------------------------------------------------------
 bool CZMA_PARSE_IM0::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 

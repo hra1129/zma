@@ -6,6 +6,6 @@
 
 #pragma once
 
-#include "zma_parse_process.hpp"
+#include "zma_parse.hpp"
 
 CLASS_CZMA_PARSE( ALIGN );

@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_defs.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,42 +16,44 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-       79:   18:bool CZMA_PARSE_DEFS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:	CVALUE v;
-        -:   20:	int index;
-        -:   21:
-       79:   22:	update_flags( &info, p_last_line );
-       79:   23:	index = this->expression( info, 1, v );
-       79:   24:	if( index == 0 ) {
-       50:   25:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-       10:   26:		return false;
-        -:   27:	}
-      138:   28:	if( index < ( int) words.size() ) {
-       20:   29:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        4:   30:		return false;
-        -:   31:	}
-      130:   32:	if( v.is_unknown() ){
-       25:   33:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        5:   34:		return false;
-        -:   35:	}
-       60:   36:	if( v.is_integer() ) {
-        4:   37:		v.value_type = CVALUE_TYPE::CV_STRING;
-       12:   38:		v.s = std::to_string( v.i );
-        -:   39:	}
-       60:   40:	this->set_code_size( &info, (unsigned int)v.s.size() );
-       60:   41:	if( !this->is_data_fixed ) {
-    16532:   42:		for( auto c : v.s ) {
-    33026:   43:			data.push_back( c );
-        -:   44:		}
-       19:   45:		this->is_data_fixed = true;
-        -:   46:	}
-        -:   47:	//	log
-       60:   48:	if( !this->is_analyze_phase ) {
-       38:   49:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       19:   50:		log.write_dump( this->code_address, this->file_address, this->data );
-       19:   51:		log.write_separator();
-        -:   52:	}
-        -:   53:	return check_all_fixed();
-      156:   54:}
-        -:   55:
+        -:   17:#include "zma_parse_process_defs.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+       79:   20:bool CZMA_PARSE_DEFS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:	CVALUE v;
+        -:   22:	int index;
+        -:   23:
+       79:   24:	update_flags( &info, p_last_line );
+       79:   25:	index = this->expression( info, 1, v );
+       79:   26:	if( index == 0 ) {
+       50:   27:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+       10:   28:		return false;
+        -:   29:	}
+      138:   30:	if( index < ( int) words.size() ) {
+       20:   31:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        4:   32:		return false;
+        -:   33:	}
+      130:   34:	if( v.is_unknown() ){
+       25:   35:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        5:   36:		return false;
+        -:   37:	}
+       60:   38:	if( v.is_integer() ) {
+        4:   39:		v.value_type = CVALUE_TYPE::CV_STRING;
+       12:   40:		v.s = std::to_string( v.i );
+        -:   41:	}
+       60:   42:	this->set_code_size( &info, (unsigned int)v.s.size() );
+       60:   43:	if( !this->is_data_fixed ) {
+    16532:   44:		for( auto c : v.s ) {
+    33026:   45:			data.push_back( c );
+        -:   46:		}
+       19:   47:		this->is_data_fixed = true;
+        -:   48:	}
+        -:   49:	//	log
+       60:   50:	if( !this->is_analyze_phase ) {
+       38:   51:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       19:   52:		log.write_dump( this->code_address, this->file_address, this->data );
+       19:   53:		log.write_separator();
+        -:   54:	}
+        -:   55:	return check_all_fixed();
+      156:   56:}
+        -:   57:

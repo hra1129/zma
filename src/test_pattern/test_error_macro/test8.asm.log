@@ -10,5 +10,3 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ======+======+====+==================================
      6|      |    |HOGE MACRO A B
      6|ERROR |    |Illegal argument.: test8.asm(6)
-     7|      |    |DEFB A, B
-     7|ERROR |    |Cannot evaluate the expression.: test8.asm(7)

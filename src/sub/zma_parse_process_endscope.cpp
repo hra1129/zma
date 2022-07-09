@@ -14,6 +14,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include "zma_parse_process_endscope.hpp"
+
 // --------------------------------------------------------------------
 bool CZMA_PARSE_ENDSCOPE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 	std::string s, s_scope;

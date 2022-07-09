@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include "zma_parse.hpp"
+#include "zma_parse_process.hpp"
 
 class CZMA_TEXT {
 private:

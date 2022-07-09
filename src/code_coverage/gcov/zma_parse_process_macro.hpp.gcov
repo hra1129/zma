@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_macro.hpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -9,26 +9,43 @@
         -:    7:#pragma once
         -:    8:
         -:    9:#include "zma_parse_process.hpp"
-        -:   10:
-       31:   11:CLASS_CZMA_PARSE( MACRO );
-        -:   12:
-        -:   13:// --------------------------------------------------------------------
-        -:   14:class CZMA_PARSE_ENDM: public CZMA_PARSE {
-        -:   15:public:
-        -:   16:	CZMA_MACRO* p_macro = nullptr;
-        -:   17:	bool is_loaded = false;
-        -:   18:
-       30:   19:	using CZMA_PARSE::CZMA_PARSE;
-        -:   20:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
+        -:   10:#include "zma_text.hpp"
+        -:   11:
+        -:   12:// --------------------------------------------------------------------
+      199:   13:class CZMA_MACRO_ARG{
+        -:   14:public:
+        -:   15:	std::string		name;			//	引数の名前
+        -:   16:	bool			is_through;		//	false: 普通の引数, true: @付き引数
+        -:   17:
+        -:   18:	// --------------------------------------------------------------------
+       90:   19:	CZMA_MACRO_ARG(): name( "" ), is_through( false ){
+        -:   20:	}
         -:   21:};
         -:   22:
         -:   23:// --------------------------------------------------------------------
-        -:   24:class CZMA_PARSE_MACRO_INS: public CZMA_PARSE {
+        -:   24:class CZMA_PARSE_MACRO: public CZMA_PARSE{
         -:   25:public:
-        -:   26:	CZMA_TEXT text;
-        -:   27:	bool is_loaded = false;
-        -:   28:
-       76:   29:	using CZMA_PARSE::CZMA_PARSE;
-        -:   30:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
-        -:   31:	bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) override;
-        -:   32:};
+        -:   26:	std::vector< CZMA_MACRO_ARG >	parameter_name_list;		//	引数リスト
+        -:   27:	CZMA_TEXT m_text;											//	展開前のソースコード
+        -:   28:	CZMA_LOG log_header;
+        -:   29:
+       93:   30:	using CZMA_PARSE::CZMA_PARSE;
+        -:   31:	bool process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line = nullptr ) override;
+        -:   32:	void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) override;
+        -:   33:	std::vector< std::vector< std::string > > get_words( void );
+        -:   34:	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
+        -:   35:};
+        -:   36:
+       30:   37:CLASS_CZMA_PARSE( ENDM );
+        -:   38:
+        -:   39:// --------------------------------------------------------------------
+        -:   40:class CZMA_PARSE_MACRO_INS: public CZMA_PARSE {
+        -:   41:public:
+        -:   42:	CZMA_TEXT m_text;
+        -:   43:	CZMA_LOG log_header;
+        -:   44:	bool is_loaded = false;
+        -:   45:
+      152:   46:	using CZMA_PARSE::CZMA_PARSE;
+        -:   47:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
+        -:   48:	bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) override;
+        -:   49:};

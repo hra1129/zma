@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_add_include_path.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,36 +16,38 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-       15:   18:bool CZMA_PARSE_ADD_INCLUDE_PATH::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:	CVALUE v;
-        -:   20:	bool is_loaded = false;
-        -:   21:
-       15:   22:	set_code_size( &info, 0 );
-       15:   23:	update_flags( &info, p_last_line );
-       30:   24:	if( words.size() == 1 ) {
-       15:   25:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        3:   26:		return false;
-        -:   27:	}
-       12:   28:	if( this->expression( info, 1, v, false ) == 0 ) {
-       15:   29:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        3:   30:		return false;
-        -:   31:	}
-        9:   32:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
-        9:   33:		v.s = std::to_string( v.i );
-        -:   34:	}
-       38:   35:	for( auto s : info.include_path ) {
-        -:   36:		if( s == v.s ) {
-        -:   37:			is_loaded = true;
-        -:   38:		}
-        -:   39:	}
-        9:   40:	if( !is_loaded ) {
-        3:   41:		info.include_path.push_back( v.s );
-        -:   42:	}
-        -:   43:	//	log
-        9:   44:	if( !this->is_analyze_phase ) {
-        6:   45:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        6:   46:		log.write_message( "Add include path: " + v.s );
-        -:   47:	}
-        -:   48:	return true;
-      156:   49:}
+        -:   17:#include "zma_parse_process_add_include_path.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+       15:   20:bool CZMA_PARSE_ADD_INCLUDE_PATH::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:	CVALUE v;
+        -:   22:	bool is_loaded = false;
+        -:   23:
+       15:   24:	set_code_size( &info, 0 );
+       15:   25:	update_flags( &info, p_last_line );
+       30:   26:	if( words.size() == 1 ) {
+       15:   27:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        3:   28:		return false;
+        -:   29:	}
+       12:   30:	if( this->expression( info, 1, v, false ) == 0 ) {
+       15:   31:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        3:   32:		return false;
+        -:   33:	}
+        9:   34:	if( v.value_type == CVALUE_TYPE::CV_INTEGER ) {
+        9:   35:		v.s = std::to_string( v.i );
+        -:   36:	}
+       38:   37:	for( auto s : info.include_path ) {
+        -:   38:		if( s == v.s ) {
+        -:   39:			is_loaded = true;
+        -:   40:		}
+        -:   41:	}
+        9:   42:	if( !is_loaded ) {
+        3:   43:		info.include_path.push_back( v.s );
+        -:   44:	}
+        -:   45:	//	log
+        9:   46:	if( !this->is_analyze_phase ) {
+        6:   47:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        6:   48:		log.write_message( "Add include path: " + v.s );
+        -:   49:	}
+        -:   50:	return true;
+      156:   51:}

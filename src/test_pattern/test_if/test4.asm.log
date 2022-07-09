@@ -13,3 +13,6 @@ LINE# |OFFSET|ADDR|MNEMONIC
     14|      |    |USE_HOGE 1
       |      |    |  Intra-macro scope: @MACRO0:
       |      |    |  MESSAGE: aaaaaaaa: test4.asm(14)
+    14|      |    |USE_HOGE 1
+      |      |    |  Exit scope: @MACRO0:
+------+------+----+----------------------------------

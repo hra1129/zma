@@ -14,6 +14,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include "zma_parse_process_exx.hpp"
+
 // --------------------------------------------------------------------
 bool CZMA_PARSE_EXX::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 

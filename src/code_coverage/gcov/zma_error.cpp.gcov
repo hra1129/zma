@@ -1,5 +1,5 @@
         -:    0:Source:../zma_error.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	ZMA: CZMA_TEXT
         -:    3:// ====================================================================
@@ -40,18 +40,18 @@
         -:   38:};
         -:   39:
         -:   40:// --------------------------------------------------------------------
-     1398:   41:std::string CZMA_ERROR::get( CZMA_ERROR_CODE code, std::string message1, std::string message2, std::string message3 ){
+     1391:   41:std::string CZMA_ERROR::get( CZMA_ERROR_CODE code, std::string message1, std::string message2, std::string message3 ){
         -:   42:	std::string base_message;
-     1398:   43:	std::string result( "" );
+     1391:   43:	std::string result( "" );
         -:   44:	bool b_insert_message = false;
         -:   45:
-     1398:   46:	base_message = error_message[ code ];
-    27358:   47:	for( auto &c : base_message ){
-    25960:   48:		if( c == '$' ){
+     1391:   46:	base_message = error_message[ code ];
+    27080:   47:	for( auto &c : base_message ){
+    25689:   48:		if( c == '$' ){
         -:   49:			b_insert_message = true;
     #####:   50:			continue;
         -:   51:		}
-    25960:   52:		if( b_insert_message ){
+    25689:   52:		if( b_insert_message ){
         -:   53:			b_insert_message = false;
     #####:   54:			if( c == '1' ){
     #####:   55:				result = result + message1;
@@ -64,8 +64,8 @@
         -:   62:			}
         -:   63:		}
         -:   64:		else{
-    51920:   65:			result = result + c;
+    51378:   65:			result = result + c;
         -:   66:		}
         -:   67:	}
-     1398:   68:	return result;
+     1391:   68:	return result;
       234:   69:}

@@ -20,6 +20,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO0:
     10|      |    |ENDR
     10|ERROR |    |Syntax error.: test2.asm(10)
+    10|      |    |BBB
+      |      |    |  Exit scope: @REPEAT0:@MACRO0:
+------+------+----+----------------------------------
     10|      |    |DEFB 1
       |XXXXXX|XXXX|  01
 ------+------+----+----------------------------------
@@ -27,6 +30,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO1:
     10|      |    |ENDR
     10|ERROR |    |Syntax error.: test2.asm(10)
+    10|      |    |BBB
+      |      |    |  Exit scope: @REPEAT0:@MACRO1:
+------+------+----+----------------------------------
     10|      |    |DEFB 1
       |XXXXXX|XXXX|  01
 ------+------+----+----------------------------------
@@ -34,6 +40,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO2:
     10|      |    |ENDR
     10|ERROR |    |Syntax error.: test2.asm(10)
+    10|      |    |BBB
+      |      |    |  Exit scope: @REPEAT0:@MACRO2:
+------+------+----+----------------------------------
     10|      |    |DEFB 1
       |XXXXXX|XXXX|  01
 ------+------+----+----------------------------------
@@ -41,6 +50,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO3:
     10|      |    |ENDR
     10|ERROR |    |Syntax error.: test2.asm(10)
+    10|      |    |BBB
+      |      |    |  Exit scope: @REPEAT0:@MACRO3:
+------+------+----+----------------------------------
     10|      |    |DEFB 1
       |XXXXXX|XXXX|  01
 ------+------+----+----------------------------------
@@ -48,6 +60,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
       |      |    |  Intra-macro scope: @REPEAT0:@MACRO4:
     10|      |    |ENDR
     10|ERROR |    |Syntax error.: test2.asm(10)
+    10|      |    |BBB
+      |      |    |  Exit scope: @REPEAT0:@MACRO4:
+------+------+----+----------------------------------
       |      |    |  Exit scope: 
 ------+------+----+----------------------------------
 << label >>

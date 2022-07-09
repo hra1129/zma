@@ -4,14 +4,18 @@
 //	2019/05/04	t.hara
 // --------------------------------------------------------------------
 
-#pragma once
-
 #include <string>
 #include <vector>
 #include <map>
-#include "zma_information.hpp"
 #include "zma_logger.hpp"
 #include "zma_error.hpp"
+#include "zma_parse_expression.hpp"
+#include "zma_information.hpp"
+
+#ifndef __ZNA_PARSE_HPP__
+#define __ZNA_PARSE_HPP__
+
+class CZMA_PARSE_MACRO;
 
 class CZMA_PARSE {
 protected:
@@ -263,3 +267,5 @@ public:
 		return false;
 	}
 };
+
+#endif

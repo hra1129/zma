@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_defw.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,52 +16,54 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-      723:   18:bool CZMA_PARSE_DEFW::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:	int i, count;
-        -:   20:	CVALUE v;
-        -:   21:
-      723:   22:	update_flags( &info, p_last_line );
-      723:   23:	if( !this->is_fixed_code_size() ) {
-        -:   24:		count = 1;
-     1301:   25:		for( i = 1; i < ( int) words.size(); i++ ) {
-      550:   26:			if( words[i] == "," ) {
-       19:   27:				count++;
-        -:   28:			}
-        -:   29:		}
-      238:   30:		this->set_code_size( &info, count * 2 );
-        -:   31:	}
-      723:   32:	if( !this->is_data_fixed ) {
-        -:   33:		i = 1;
-      794:   34:		for( count = 0; (count * 2) < this->get_code_size(); count++ ) {
-      300:   35:			i = this->expression( info, i, v );
-      300:   36:			if( i == 0 ) {
-      100:   37:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_EVALUATE_THE_EXPRESSION ) );
-        -:   38:				data.clear();
-       20:   39:				return false;
-        -:   40:			}
-      560:   41:			if( !v.is_integer() || v.is_unknown() ){
-       72:   42:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-        -:   43:				data.clear();
-       12:   44:				return false;
-        -:   45:			}
-      612:   46:			if( i < (int)words.size() && words[i] != "," ) {
-       20:   47:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-        -:   48:				data.clear();
-        4:   49:				return false;
-        -:   50:			}
-      264:   51:			i++;
-      528:   52:			data.push_back( v.i & 255 );
-      528:   53:			data.push_back( (v.i >> 8) & 255 );
-        -:   54:		}
-      230:   55:		this->is_data_fixed = true;
-        -:   56:	}
-        -:   57:	//	log
-      687:   58:	if( !this->is_analyze_phase ) {
-      460:   59:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-      230:   60:		log.write_dump( this->code_address, this->file_address, this->data );
-      230:   61:		log.write_separator();
-        -:   62:	}
-        -:   63:	return check_all_fixed();
-      156:   64:}
-        -:   65:
+        -:   17:#include "zma_parse_process_defw.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+      723:   20:bool CZMA_PARSE_DEFW::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:	int i, count;
+        -:   22:	CVALUE v;
+        -:   23:
+      723:   24:	update_flags( &info, p_last_line );
+      723:   25:	if( !this->is_fixed_code_size() ) {
+        -:   26:		count = 1;
+     1301:   27:		for( i = 1; i < ( int) words.size(); i++ ) {
+      550:   28:			if( words[i] == "," ) {
+       19:   29:				count++;
+        -:   30:			}
+        -:   31:		}
+      238:   32:		this->set_code_size( &info, count * 2 );
+        -:   33:	}
+      723:   34:	if( !this->is_data_fixed ) {
+        -:   35:		i = 1;
+      794:   36:		for( count = 0; (count * 2) < this->get_code_size(); count++ ) {
+      300:   37:			i = this->expression( info, i, v );
+      300:   38:			if( i == 0 ) {
+      100:   39:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_EVALUATE_THE_EXPRESSION ) );
+        -:   40:				data.clear();
+       20:   41:				return false;
+        -:   42:			}
+      836:   43:			if( !v.is_integer() || v.is_unknown() ){
+       72:   44:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        -:   45:				data.clear();
+       12:   46:				return false;
+        -:   47:			}
+      612:   48:			if( i < (int)words.size() && words[i] != "," ) {
+       20:   49:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        -:   50:				data.clear();
+        4:   51:				return false;
+        -:   52:			}
+      264:   53:			i++;
+      528:   54:			data.push_back( v.i & 255 );
+      528:   55:			data.push_back( (v.i >> 8) & 255 );
+        -:   56:		}
+      230:   57:		this->is_data_fixed = true;
+        -:   58:	}
+        -:   59:	//	log
+      687:   60:	if( !this->is_analyze_phase ) {
+      460:   61:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+      230:   62:		log.write_dump( this->code_address, this->file_address, this->data );
+      230:   63:		log.write_separator();
+        -:   64:	}
+        -:   65:	return check_all_fixed();
+      156:   66:}
+        -:   67:

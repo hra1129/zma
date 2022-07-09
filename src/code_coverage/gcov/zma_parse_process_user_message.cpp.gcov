@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_user_message.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,31 +16,33 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-      261:   18:bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:	CVALUE v;
-        -:   20:
-      261:   21:	set_code_size( &info, 0 );
-      261:   22:	this->is_data_fixed = true;
-      261:   23:	update_flags( &info, p_last_line );
-      522:   24:	if( words.size() == 1 ) {
-       15:   25:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
-        3:   26:		return false;
-        -:   27:	}
-      258:   28:	if( this->expression( info, 1, v, false ) == 0 ) {
-      300:   29:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-       60:   30:		return false;
-        -:   31:	}
-      396:   32:	else if( v.is_unknown() ){
-    #####:   33:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-    #####:   34:		return false;
-        -:   35:	}
-      198:   36:	if( v.is_integer() ) {
-       27:   37:		v.s = std::to_string( v.i );
-        -:   38:	}
-        -:   39:	//	log
-      198:   40:	if( !this->is_analyze_phase ) {
-      132:   41:		put_message( v.s );
-        -:   42:	}
-        -:   43:	return true;
-      156:   44:}
+        -:   17:#include "zma_parse_process_user_message.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+      261:   20:bool CZMA_PARSE_USER_MESSAGE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:	CVALUE v;
+        -:   22:
+      261:   23:	set_code_size( &info, 0 );
+      261:   24:	this->is_data_fixed = true;
+      261:   25:	update_flags( &info, p_last_line );
+      522:   26:	if( words.size() == 1 ) {
+       15:   27:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
+        3:   28:		return false;
+        -:   29:	}
+      258:   30:	if( this->expression( info, 1, v, false ) == 0 ) {
+      300:   31:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+       60:   32:		return false;
+        -:   33:	}
+      396:   34:	else if( v.is_unknown() ){
+    #####:   35:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+    #####:   36:		return false;
+        -:   37:	}
+      198:   38:	if( v.is_integer() ) {
+       27:   39:		v.s = std::to_string( v.i );
+        -:   40:	}
+        -:   41:	//	log
+      198:   42:	if( !this->is_analyze_phase ) {
+      132:   43:		put_message( v.s );
+        -:   44:	}
+        -:   45:	return true;
+      156:   46:}

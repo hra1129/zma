@@ -1,0 +1,61 @@
+        -:    0:Source:../zma_parse_expression.hpp
+        -:    0:Programs:105
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler dictionary
+        -:    3:// ====================================================================
+        -:    4://	2019/05/05	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#include <string>
+        -:    8:#include <map>
+        -:    9:#include <vector>
+        -:   10:#include <fstream>
+        -:   11:#include <sstream>
+        -:   12:#include <iomanip>
+        -:   13:
+        -:   14:#ifndef __ZMA_PARSE_EXPRESSION_HPP__
+        -:   15:#define __ZMA_PARSE_EXPRESSION_HPP__
+        -:   16:
+        -:   17:// --------------------------------------------------------------------
+        -:   18:enum class CVALUE_TYPE {
+        -:   19:	CV_UNKNOWN = 0x100,
+        -:   20:	CV_UNKNOWN_INTEGER = 0x101,
+        -:   21:	CV_UNKNOWN_STRING = 0x102,
+        -:   22:	CV_INTEGER = 0x1,
+        -:   23:	CV_STRING = 0x2,
+        -:   24:};
+        -:   25:
+        -:   26:// --------------------------------------------------------------------
+   217821:   27:class CVALUE {
+        -:   28:public:
+        -:   29:	CVALUE_TYPE value_type;
+        -:   30:
+        -:   31:	int			i;
+        -:   32:	std::string	s;
+        -:   33:
+        -:   34:	// --------------------------------------------------------------------
+   235395:   35:	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
+        -:   36:	}
+        -:   37:
+        -:   38:	// --------------------------------------------------------------------
+        -:   39:	bool is_unknown( void ) const{
+     9012:   40:		return ( ( (int)value_type & 0x100 ) == 0x100 );
+        -:   41:	}
+        -:   42:
+        -:   43:	// --------------------------------------------------------------------
+        -:   44:	bool is_integer( void ) const{
+   165289:   45:		return ( ( (int)value_type & 0xFF ) == 0x1 );
+        -:   46:	}
+        -:   47:
+        -:   48:	// --------------------------------------------------------------------
+        -:   49:	bool is_string( void ) const{
+      154:   50:		return ( ( (int)value_type & 0xFF ) == 0x2 );
+        -:   51:	}
+        -:   52:
+        -:   53:	// --------------------------------------------------------------------
+        -:   54:	void inherit( CVALUE_TYPE base, CVALUE_TYPE inherit_a, CVALUE_TYPE inherit_b ){
+      409:   55:		value_type = (CVALUE_TYPE)( (int)base | ( ( (int)inherit_a | (int)inherit_b ) & 0x100 ) );
+        -:   56:	}
+        -:   57:};
+        -:   58:
+        -:   59:#endif

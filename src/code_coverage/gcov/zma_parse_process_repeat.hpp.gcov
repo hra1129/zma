@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_repeat.hpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -30,12 +30,4 @@
         -:   28:	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
         -:   29:};
         -:   30:
-        -:   31:// --------------------------------------------------------------------
-        -:   32:class CZMA_PARSE_ENDR: public CZMA_PARSE {
-        -:   33:public:
-        -:   34:	CZMA_REPEAT_T* p_repeat = nullptr;
-        -:   35:	bool is_loaded = false;
-        -:   36:
-       35:   37:	using CZMA_PARSE::CZMA_PARSE;
-        -:   38:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
-        -:   39:};
+       35:   31:CLASS_CZMA_PARSE( ENDR );

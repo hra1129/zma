@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_error.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,11 +16,13 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-       18:   18:bool CZMA_PARSE_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:
-       18:   20:	set_code_size( &info, 0 );
-       18:   21:	update_flags( &info, p_last_line );
-       90:   22:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
-       18:   23:	return false;
-      156:   24:}
+        -:   17:#include "zma_parse_process_error.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+       18:   20:bool CZMA_PARSE_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:
+       18:   22:	set_code_size( &info, 0 );
+       18:   23:	update_flags( &info, p_last_line );
+       90:   24:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
+       18:   25:	return false;
+      156:   26:}

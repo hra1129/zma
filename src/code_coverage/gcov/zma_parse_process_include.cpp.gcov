@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_include.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,121 +16,123 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-       19:   18:bool CZMA_PARSE_INCLUDE::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
-        -:   19:
-       43:   20:	for( auto line : log ) {
-       24:   21:		info.log << line << " begin" << std::endl;
-        -:   22:	}
-       19:   23:	bool result = this->m_text.write( info, f );
-       43:   24:	for( auto line : log ) {
-       24:   25:		info.log << line << " end" << std::endl;
-        -:   26:	}
-       19:   27:	return result;
-        -:   28:}
-        -:   29:
-        -:   30:// --------------------------------------------------------------------
-        -:   31://	1つのIF文についてコードサイズを計算する
-    #####:   32:int CZMA_PARSE_INCLUDE::calc_code_size( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line, int &next_code_address ){
-        -:   33:	int code_size = 0;
-        -:   34:
-       54:   35:	for( auto &p : this->m_text.m_text ){
-       45:   36:		if( p->is_fixed_code_size() ){
-    #####:   37:			code_size += p->get_code_size();
-        -:   38:		}
-        -:   39:		else{
-        -:   40:			return -1;
-        -:   41:		}
-       45:   42:		if( p->is_fixed_next_code_address() ){
-    #####:   43:			next_code_address = p->get_next_code_address();
-        -:   44:		}
-        -:   45:		else{
-       45:   46:			next_code_address = -1;
-        -:   47:		}
-        -:   48:	}
-        -:   49:	return code_size;
-        -:   50:}
-        -:   51:
-        -:   52:// --------------------------------------------------------------------
-       57:   53:bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   54:	std::string s;
-        -:   55:	int i;
-        -:   56:	unsigned int success_count;
-        -:   57:	CVALUE path;
-      114:   58:	std::ifstream f;
-        -:   59:	bool is_open;
-        -:   60:
-       57:   61:	update_flags( &info, p_last_line );
-        -:   62:	//	ファイル名を評価
-      114:   63:	if( words.size() < 2 ) {
-       15:   64:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MUST_BE_SET_NAME ) );
-        3:   65:		return false;
-        -:   66:	}
-       54:   67:	i = this->expression( info, 1, path, false );
-       54:   68:	if( i == 0 ) {
-       15:   69:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-        3:   70:		return false;
-        -:   71:	}
-       51:   72:	if( path.value_type != CVALUE_TYPE::CV_STRING ) {
-       15:   73:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        3:   74:		return false;
-        -:   75:	}
-       96:   76:	if( i < (int)words.size() ) {
-       15:   77:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
-        3:   78:		return false;
-        -:   79:	}
-       45:   80:	if( !this->is_loaded ) {
-        -:   81:		//	指定のファイルを m_text に読み込み
-        -:   82:		is_open = false;
-        -:   83:		//	includeパスを順次走査
-       28:   84:		for( auto include_path : info.include_path ) {
-       75:   85:			s = include_path + "/" + path.s;
-       25:   86:			f.open( s.c_str() );
-       25:   87:			if( f ) {
-       14:   88:				f.close();
-       14:   89:				this->s_file_name = s;
-       28:   90:				if( this->m_text.load( info, this->s_file_name.c_str() ) ) {
-       14:   91:					this->is_loaded = true;
-        -:   92:					is_open = true;
-        -:   93:					break;
-        -:   94:				}
-        -:   95:			}
-        -:   96:		}
-        -:   97:		if( !is_open ) {
-       15:   98:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE ) );
-        3:   99:			return false;
-        -:  100:		}
-       14:  101:		this->m_text.analyze_structure();
-       14:  102:		info.is_updated = true;
-        -:  103:	}
-        -:  104:	//	log
-       42:  105:	if( !this->is_analyze_phase ) {
-       28:  106:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        -:  107:	}
-       42:  108:	if( p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
-       33:  109:		this->file_address = p_last_line->get_file_address() + p_last_line->get_code_size();
-        -:  110:	}
-       42:  111:	p_last_line = this->m_text.process( info, success_count, p_last_line, !this->is_analyze_phase );
-       42:  112:	if( p_last_line->is_fixed_next_code_address() ) {
-       33:  113:		this->next_code_address = p_last_line->get_next_code_address();
-       33:  114:		this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
-        -:  115:	}
-       42:  116:	if( !this->is_data_fixed ) {
-      252:  117:		for( auto p : m_text.m_text ) {
-      210:  118:			this->is_data_fixed = this->is_data_fixed && p->check_data_fixed();
-        -:  119:		}
-       42:  120:		if( this->is_data_fixed ) {
-    #####:  121:			info.is_updated = true;
-        -:  122:		}
-        -:  123:	}
-       42:  124:	if( this->code_size == -1 ) {
-        -:  125:		calc_code_size( info, p_last_line, this->next_code_address );
-        -:  126:		if( this->code_size != -1 ) {
-        -:  127:			info.is_updated = true;
-        -:  128:		}
-        -:  129:	}
-       84:  130:	if( success_count < this->m_text.m_text.size() ) {
-        -:  131:		return false;
-        -:  132:	}
-        -:  133:	return check_all_fixed();
-      156:  134:}
+        -:   17:#include "zma_parse_process_include.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+       20:   20:bool CZMA_PARSE_INCLUDE::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
+        -:   21:
+       44:   22:	for( auto line : log ) {
+       24:   23:		info.log << line << " begin" << std::endl;
+        -:   24:	}
+       20:   25:	bool result = this->m_text.write( info, f );
+       44:   26:	for( auto line : log ) {
+       24:   27:		info.log << line << " end" << std::endl;
+        -:   28:	}
+       20:   29:	return result;
+        -:   30:}
+        -:   31:
+        -:   32:// --------------------------------------------------------------------
+        -:   33://	1つのIF文についてコードサイズを計算する
+    #####:   34:int CZMA_PARSE_INCLUDE::calc_code_size( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line, int &next_code_address ){
+        -:   35:	int code_size = 0;
+        -:   36:
+       54:   37:	for( auto &p : this->m_text.m_text ){
+       45:   38:		if( p->is_fixed_code_size() ){
+    #####:   39:			code_size += p->get_code_size();
+        -:   40:		}
+        -:   41:		else{
+        -:   42:			return -1;
+        -:   43:		}
+       45:   44:		if( p->is_fixed_next_code_address() ){
+    #####:   45:			next_code_address = p->get_next_code_address();
+        -:   46:		}
+        -:   47:		else{
+       45:   48:			next_code_address = -1;
+        -:   49:		}
+        -:   50:	}
+        -:   51:	return code_size;
+        -:   52:}
+        -:   53:
+        -:   54:// --------------------------------------------------------------------
+       57:   55:bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   56:	std::string s;
+        -:   57:	int i;
+        -:   58:	unsigned int success_count;
+        -:   59:	CVALUE path;
+      114:   60:	std::ifstream f;
+        -:   61:	bool is_open;
+        -:   62:
+       57:   63:	update_flags( &info, p_last_line );
+        -:   64:	//	ファイル名を評価
+      114:   65:	if( words.size() < 2 ) {
+       15:   66:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MUST_BE_SET_NAME ) );
+        3:   67:		return false;
+        -:   68:	}
+       54:   69:	i = this->expression( info, 1, path, false );
+       54:   70:	if( i == 0 ) {
+       15:   71:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        3:   72:		return false;
+        -:   73:	}
+       51:   74:	if( path.value_type != CVALUE_TYPE::CV_STRING ) {
+       15:   75:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        3:   76:		return false;
+        -:   77:	}
+       96:   78:	if( i < (int)words.size() ) {
+       15:   79:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
+        3:   80:		return false;
+        -:   81:	}
+       45:   82:	if( !this->is_loaded ) {
+        -:   83:		//	指定のファイルを m_text に読み込み
+        -:   84:		is_open = false;
+        -:   85:		//	includeパスを順次走査
+       28:   86:		for( auto include_path : info.include_path ) {
+       75:   87:			s = include_path + "/" + path.s;
+       25:   88:			f.open( s.c_str() );
+       25:   89:			if( f ) {
+       14:   90:				f.close();
+       14:   91:				this->s_file_name = s;
+       28:   92:				if( this->m_text.load( info, this->s_file_name.c_str() ) ) {
+       14:   93:					this->is_loaded = true;
+        -:   94:					is_open = true;
+        -:   95:					break;
+        -:   96:				}
+        -:   97:			}
+        -:   98:		}
+        -:   99:		if( !is_open ) {
+       15:  100:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::CANNOT_OPEN_THE_FILE ) );
+        3:  101:			return false;
+        -:  102:		}
+       14:  103:		this->m_text.analyze_structure();
+       14:  104:		info.is_updated = true;
+        -:  105:	}
+        -:  106:	//	log
+       42:  107:	if( !this->is_analyze_phase ) {
+       28:  108:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        -:  109:	}
+       42:  110:	if( p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
+       33:  111:		this->file_address = p_last_line->get_file_address() + p_last_line->get_code_size();
+        -:  112:	}
+       42:  113:	p_last_line = this->m_text.process( info, success_count, p_last_line, !this->is_analyze_phase );
+       42:  114:	if( p_last_line->is_fixed_next_code_address() ) {
+       33:  115:		this->next_code_address = p_last_line->get_next_code_address();
+       33:  116:		this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
+        -:  117:	}
+       42:  118:	if( !this->is_data_fixed ) {
+      243:  119:		for( auto p : m_text.m_text ) {
+      201:  120:			this->is_data_fixed = this->is_data_fixed && p->check_data_fixed();
+        -:  121:		}
+       42:  122:		if( this->is_data_fixed ) {
+    #####:  123:			info.is_updated = true;
+        -:  124:		}
+        -:  125:	}
+       42:  126:	if( this->code_size == -1 ) {
+        -:  127:		calc_code_size( info, p_last_line, this->next_code_address );
+        -:  128:		if( this->code_size != -1 ) {
+        -:  129:			info.is_updated = true;
+        -:  130:		}
+        -:  131:	}
+       84:  132:	if( success_count < this->m_text.m_text.size() ) {
+        -:  133:		return false;
+        -:  134:	}
+        -:  135:	return check_all_fixed();
+      156:  136:}

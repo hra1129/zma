@@ -33,6 +33,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
     11|      |    |ADD_HL_A1 :
       |      |    |  label [@MACRO0:ADD_HL_A1] address: 0x000105
 ------+------+----+----------------------------------
+    11|      |    |ADD_HL_A
+      |      |    |  Exit scope: @MACRO0:
+------+------+----+----------------------------------
     12|      |    |ADD_HL_A
       |      |    |  Intra-macro scope: @MACRO1:
     12|      |    |ADD A, L
@@ -53,6 +56,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     12|      |    |ADD_HL_A1 :
       |      |    |  label [@MACRO1:ADD_HL_A1] address: 0x00010a
+------+------+----+----------------------------------
+    12|      |    |ADD_HL_A
+      |      |    |  Exit scope: @MACRO1:
 ------+------+----+----------------------------------
     13|      |    |ADD_HL_A
       |      |    |  Intra-macro scope: @MACRO2:
@@ -75,6 +81,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
     13|      |    |ADD_HL_A1 :
       |      |    |  label [@MACRO2:ADD_HL_A1] address: 0x00010f
 ------+------+----+----------------------------------
+    13|      |    |ADD_HL_A
+      |      |    |  Exit scope: @MACRO2:
+------+------+----+----------------------------------
     14|      |    |ADD_HL_A
       |      |    |  Intra-macro scope: @MACRO3:
     14|      |    |ADD A, L
@@ -95,6 +104,9 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     14|      |    |ADD_HL_A1 :
       |      |    |  label [@MACRO3:ADD_HL_A1] address: 0x000114
+------+------+----+----------------------------------
+    14|      |    |ADD_HL_A
+      |      |    |  Exit scope: @MACRO3:
 ------+------+----+----------------------------------
 << label >>
 @MACRO0:ADD_HL_A1 ... 261 ( 0x105 )

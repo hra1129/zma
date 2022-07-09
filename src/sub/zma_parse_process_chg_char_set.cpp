@@ -14,6 +14,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include "zma_parse_process_chg_char_set.hpp"
+
 // --------------------------------------------------------------------
 bool CZMA_PARSE_CHG_CHAR_SET::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
 	CVALUE v;

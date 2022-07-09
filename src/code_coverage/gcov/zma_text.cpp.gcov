@@ -1,5 +1,5 @@
         -:    0:Source:../zma_text.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	ZMA: CZMA_TEXT
         -:    3:// ====================================================================
@@ -13,17 +13,17 @@
         -:   11:// ----------------------------------------------------------------
         -:   12://	Constructor
         -:   13:// ----------------------------------------------------------------
-      676:   14:CZMA_TEXT::CZMA_TEXT() {
-      676:   15:	code_size = -1;
-      676:   16:	next_code_address = -1;
-      676:   17:}
+      707:   14:CZMA_TEXT::CZMA_TEXT() {
+      707:   15:	code_size = -1;
+      707:   16:	next_code_address = -1;
+      707:   17:}
         -:   18:
         -:   19:// ----------------------------------------------------------------
         -:   20://	Destructor
         -:   21:// ----------------------------------------------------------------
       152:   22:CZMA_TEXT::~CZMA_TEXT() {
-    14149:   23:	for( auto p: m_text ) { 
-    14073:   24:		delete p; 
+    14118:   23:	for( auto p: m_text ) { 
+    14042:   24:		delete p; 
         -:   25:	}
        76:   26:}
         -:   27:
@@ -117,149 +117,95 @@
      1650:  115:	success_count = 0;
      1650:  116:	std::vector<std::string> words;
         -:  117:
-    46509:  118:	for( auto p = m_text.begin(); p != m_text.end(); ) {
-    44859:  119:		if( output_mode ) {
-    14892:  120:			(*p)->set_output_mode();
+    46356:  118:	for( auto p = m_text.begin(); p != m_text.end(); ) {
+    44706:  119:		if( output_mode ) {
+    14858:  120:			(*p)->set_output_mode();
         -:  121:		}
-    44859:  122:		if( !info.is_block_processing ){
-        -:  123:			//	パースエラーを起こした行の場合、再パースを試みる
-    44784:  124:			if( ( *p )->is_parse_error() ){
-       60:  125:				words = CZMA_PARSE::get_word_split( ( *p )->get_line() );
-       20:  126:				CZMA_PARSE *p_parse = CZMA_PARSE::create( info, words, ( *p )->get_file_name(), ( *p )->get_line_no() );
-       20:  127:				if( !( p_parse->is_parse_error() ) ){
-        2:  128:					p = m_text.erase( p );
-        2:  129:					p = m_text.insert( p, p_parse );
-        -:  130:				}
-        -:  131:				else{
-       18:  132:					delete p_parse;
-        -:  133:				}
-        -:  134:			}
-        -:  135:			//	ブロックの外側の処理
-    44784:  136:			if( ( *p )->process( info, p_prev ) ){
-    24470:  137:				success_count++;
-        -:  138:			}
-    44784:  139:			p_prev = ( *p );
-        -:  140:			p++;
-        -:  141:		}
-        -:  142:		else {
-        -:  143:			//	ブロックの中の処理
-      150:  144:			if( (*p)->words.size() >= 1 && info.block_end_table.count( (*p)->words[0] ) ) {
-        -:  145:				//	ブロックを閉じる記号を発見
-       26:  146:				if( (*p)->words[0] == "ENDM" ) {
-        -:  147:					//	特に ENDR, ENDM の処理
-        -:  148:					if( nest_count ) {
-        -:  149:						//	ブロック内のブロックだったのでネスト数を減らすだけ
-        -:  150:						nest_count--;
-        -:  151:						info.p_text->push_back( *p );
-        -:  152:						p = m_text.erase( p );
-        -:  153:						continue;
-        -:  154:					}
-        -:  155:				}
-        -:  156:				if( nest_count == 0 ) {
-       52:  157:					if( info.block_type != info.block_end_table[(*p)->words[0]] ) {
-        -:  158:						//	着目ブロックの種類と異なる「閉じる記号」を発見
-    #####:  159:						(*p)->put_structure_error( "Invalid block pair." );
-    #####:  160:						p_prev = (*p);
-        -:  161:						p++;
-    #####:  162:						continue;
-        -:  163:					}
-        -:  164:					//	「閉じる記号」の処理
-       26:  165:					if( (*p)->process( info, p_prev ) ) {
-       24:  166:						success_count++;
-        -:  167:					}
-       26:  168:					p_prev = (*p);
-        -:  169:					p++;
-        -:  170:				}
-        -:  171:				else {
-        -:  172:					info.p_text->push_back( *p );
-        -:  173:					p = m_text.erase( p );
-        -:  174:					continue;
-        -:  175:				}
-        -:  176:			}
-        -:  177:			else {
-      146:  178:				if( (*p)->words.size() >= 2 && (*p)->words[1] == "MACRO" ) {
-        -:  179:					//	ブロックの内側にマクロ宣言を発見
-        2:  180:					(*p)->put_structure_error( "MACRO cannot define in MACRO/REPEAT/IF block." );
-        1:  181:					p_prev = (*p);
-        -:  182:					p++;
-        1:  183:					continue;
-        -:  184:				}
-       48:  185:				info.p_text->push_back( *p );
-       48:  186:				p = m_text.erase( p );
-        -:  187:			}
-        -:  188:		}
-        -:  189:	}
-     1650:  190:	return p_prev;
-        -:  191:}
-        -:  192:
-        -:  193:// --------------------------------------------------------------------
-      503:  194:void CZMA_TEXT::analyze_structure( void ){
-      503:  195:	std::vector<CZMA_PARSE *>::iterator pp_current = this->m_text.begin();
-        -:  196:
-    15430:  197:	while( pp_current != this->m_text.end() ){
-    14927:  198:		(*pp_current)->block_structure( this->m_text, pp_current );
-        -:  199:		pp_current++;
-        -:  200:	}
-      503:  201:}
-        -:  202:
-        -:  203:// --------------------------------------------------------------------
-       75:  204:bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
-        -:  205:	unsigned int success_count;
-        -:  206:	CZMA_PARSE* p_last_line;
-        -:  207:
-       75:  208:	this->analyze_structure();
-       75:  209:	if( CZMA_PARSE::get_number_of_errors() ){
-        -:  210:		return false;
-        -:  211:	}
-        -:  212:	for( ; ; ) {
-      153:  213:		info.clear();
-      153:  214:		p_last_line = this->process( info, success_count, nullptr, false );
-      153:  215:		if( info.is_block_processing ) {
-        1:  216:			p_last_line->set_output_mode();
-        5:  217:			p_last_line->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::BLOCK_PROCESSING_IS_NOT_CLOSED ) );
-        1:  218:			break;
-        -:  219:		}
-      152:  220:		if( !info.is_updated ) {
-        -:  221:			break;
-        -:  222:		}
-        -:  223:	}
-       74:  224:	info.clear();
-       74:  225:	p_last_line = this->process( info, success_count, nullptr, true );
-       74:  226:	if( p_last_line == nullptr || ((p_last_line->get_file_address() == 0) && (p_last_line->get_code_size() == 0)) ) {
-        9:  227:		std::cerr << "Code is not found.\n";
-        -:  228:		return false;
-        -:  229:	}
-      130:  230:	if( info.scope.size() > 0 ) {
-       15:  231:		p_last_line->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SCOPE_IS_NOT_CLOSED ) );
-        3:  232:		return false;
-        -:  233:	}
-       62:  234:	if( CZMA_PARSE::get_number_of_errors() ) {
-       24:  235:		std::cerr << "Found " << CZMA_PARSE::get_number_of_errors() << " error(s).\n";
-        -:  236:		return false;
-        -:  237:	}
-        -:  238:	return true;
-        -:  239:}
-        -:  240:
-        -:  241:// --------------------------------------------------------------------
-      510:  242:bool CZMA_TEXT::write( CZMA_INFORMATION& info, std::ofstream* f ) {
-        -:  243:	bool result;
-        -:  244:
-        -:  245:	result = true;
-    15389:  246:	for( auto &p: m_text ) {
-    14879:  247:		result = result && p->write_output_and_log( info, f );
-        -:  248:	}
-      510:  249:	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_INTELHEX ){
-        1:  250:		info.hexfile.flush( *f );
-        -:  251:	}
-      510:  252:	return result;
-        -:  253:}
-        -:  254:
-        -:  255:// --------------------------------------------------------------------
-       75:  256:bool CZMA_TEXT::save( CZMA_INFORMATION& info, const char* p_file_name ) {
-      150:  257:	std::ofstream f;
-        -:  258:
-       75:  259:	f.open( p_file_name, std::ios::out | std::ios::binary );
-       75:  260:	bool result = this->write( info, &f );
-       75:  261:	info.write();
-       75:  262:	return result;
-      156:  263:}
+        -:  122:		//	パースエラーを起こした行の場合、再パースを試みる
+    44706:  123:		if( ( *p )->is_parse_error() ){
+       60:  124:			words = CZMA_PARSE::get_word_split( ( *p )->get_line() );
+       20:  125:			CZMA_PARSE *p_parse = CZMA_PARSE::create( info, words, ( *p )->get_file_name(), ( *p )->get_line_no() );
+       20:  126:			if( !( p_parse->is_parse_error() ) ){
+        2:  127:				p = m_text.erase( p );
+        2:  128:				p = m_text.insert( p, p_parse );
+        -:  129:			}
+        -:  130:			else{
+       18:  131:				delete p_parse;
+        -:  132:			}
+        -:  133:		}
+        -:  134:		//	ブロックの外側の処理
+    44706:  135:		if( ( *p )->process( info, p_prev ) ){
+    24417:  136:			success_count++;
+        -:  137:		}
+    44706:  138:		p_prev = ( *p );
+        -:  139:		p++;
+        -:  140:	}
+     1650:  141:	return p_prev;
+        -:  142:}
+        -:  143:
+        -:  144:// --------------------------------------------------------------------
+      503:  145:void CZMA_TEXT::analyze_structure( void ){
+      503:  146:	std::vector<CZMA_PARSE *>::iterator pp_current = this->m_text.begin();
+        -:  147:
+    15348:  148:	while( pp_current != this->m_text.end() ){
+    14845:  149:		(*pp_current)->block_structure( this->m_text, pp_current );
+        -:  150:		pp_current++;
+        -:  151:	}
+      503:  152:}
+        -:  153:
+        -:  154:// --------------------------------------------------------------------
+       75:  155:bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
+        -:  156:	unsigned int success_count;
+        -:  157:	CZMA_PARSE* p_last_line;
+        -:  158:
+       75:  159:	this->analyze_structure();
+       75:  160:	if( CZMA_PARSE::get_number_of_errors() ){
+        -:  161:		return false;
+        -:  162:	}
+        -:  163:	for( ; ; ) {
+      153:  164:		info.clear();
+      153:  165:		p_last_line = this->process( info, success_count, nullptr, false );
+      153:  166:		if( !info.is_updated ) {
+        -:  167:			break;
+        -:  168:		}
+        -:  169:	}
+       74:  170:	info.clear();
+       74:  171:	p_last_line = this->process( info, success_count, nullptr, true );
+       74:  172:	if( p_last_line == nullptr || ((p_last_line->get_file_address() == 0) && (p_last_line->get_code_size() == 0)) ) {
+       13:  173:		std::cerr << "Code is not found.\n";
+        -:  174:		return false;
+        -:  175:	}
+      122:  176:	if( info.scope.size() > 0 ) {
+       15:  177:		p_last_line->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SCOPE_IS_NOT_CLOSED ) );
+        3:  178:		return false;
+        -:  179:	}
+       58:  180:	if( CZMA_PARSE::get_number_of_errors() ) {
+       20:  181:		std::cerr << "Found " << CZMA_PARSE::get_number_of_errors() << " error(s).\n";
+        -:  182:		return false;
+        -:  183:	}
+        -:  184:	return true;
+        -:  185:}
+        -:  186:
+        -:  187:// --------------------------------------------------------------------
+      542:  188:bool CZMA_TEXT::write( CZMA_INFORMATION& info, std::ofstream* f ) {
+        -:  189:	bool result;
+        -:  190:
+        -:  191:	result = true;
+    15440:  192:	for( auto &p: m_text ) {
+    14898:  193:		result = result && p->write_output_and_log( info, f );
+        -:  194:	}
+      542:  195:	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_INTELHEX ){
+        1:  196:		info.hexfile.flush( *f );
+        -:  197:	}
+      542:  198:	return result;
+        -:  199:}
+        -:  200:
+        -:  201:// --------------------------------------------------------------------
+       75:  202:bool CZMA_TEXT::save( CZMA_INFORMATION& info, const char* p_file_name ) {
+      150:  203:	std::ofstream f;
+        -:  204:
+       75:  205:	f.open( p_file_name, std::ios::out | std::ios::binary );
+       75:  206:	bool result = this->write( info, &f );
+       75:  207:	info.write();
+       75:  208:	return result;
+      156:  209:}

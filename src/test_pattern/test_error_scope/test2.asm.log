@@ -18,7 +18,10 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     12|      |    |BBB
       |      |    |  Intra-macro scope: AAA:@MACRO0:
-    12|      |    |BBB
-    12|ERROR |    |Scope is not closed.: test2.asm(12)
     12|      |    |ENDSCOPE
     12|ERROR |    |Invalid command.: test2.asm(12)
+    12|      |    |BBB
+      |      |    |  Exit scope: AAA:@MACRO0:
+------+------+----+----------------------------------
+    12|      |    |BBB
+    12|ERROR |    |Scope is not closed.: test2.asm(12)

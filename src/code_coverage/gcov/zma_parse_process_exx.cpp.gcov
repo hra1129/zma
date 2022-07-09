@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_exx.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,22 +16,24 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-        9:   18:bool CZMA_PARSE_EXX::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:
-        9:   20:	update_flags( &info, p_last_line );
-        9:   21:	if( this->opecode( info, 0xD9 ) ) {
-        -:   22:		//	log
-        6:   23:		if( !this->is_analyze_phase ) {
-        4:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        4:   25:			log.write_cycle_information( 5, 1 );
-        8:   26:			log.push_back( "[\t" + get_line() + "] Z80:5cyc, R800:1cyc" );
-        2:   27:			log.write_dump( this->code_address, this->file_address, this->data );
-        2:   28:			log.write_separator();
-        -:   29:		}
-        -:   30:		return check_all_fixed();
-        -:   31:	}
-       15:   32:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-        3:   33:	return false;
-      156:   34:}
-        -:   35:
+        -:   17:#include "zma_parse_process_exx.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+        9:   20:bool CZMA_PARSE_EXX::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:
+        9:   22:	update_flags( &info, p_last_line );
+        9:   23:	if( this->opecode( info, 0xD9 ) ) {
+        -:   24:		//	log
+        6:   25:		if( !this->is_analyze_phase ) {
+        4:   26:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        4:   27:			log.write_cycle_information( 5, 1 );
+        8:   28:			log.push_back( "[\t" + get_line() + "] Z80:5cyc, R800:1cyc" );
+        2:   29:			log.write_dump( this->code_address, this->file_address, this->data );
+        2:   30:			log.write_separator();
+        -:   31:		}
+        -:   32:		return check_all_fixed();
+        -:   33:	}
+       15:   34:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        3:   35:	return false;
+      156:   36:}
+        -:   37:

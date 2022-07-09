@@ -12,5 +12,3 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     10|      |    |HOGE MACRO A, B
     10|ERROR |    |Multiple definition.: test6.asm(10)
-    11|      |    |DEFB A, B
-    11|ERROR |    |Cannot evaluate the expression.: test6.asm(11)

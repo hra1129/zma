@@ -4,76 +4,28 @@
 //	2019/05/05	t.hara
 // --------------------------------------------------------------------
 
-#pragma once
-
-#include "zma_error.hpp"
-#include "zma_hexfile.hpp"
 #include <string>
 #include <map>
 #include <vector>
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include "zma_error.hpp"
+#include "zma_hexfile.hpp"
+#include "zma_parse_process.hpp"
+#include "zma_parse_expression.hpp"
+
+#ifndef __ZMA_INFORMATION_HPP__
+#define __ZMA_INFORMATION_HPP__
+
+class CZMA_PARSE_MACRO;
 
 // --------------------------------------------------------------------
-enum class CVALUE_TYPE {
-	CV_UNKNOWN = 0x100,
-	CV_UNKNOWN_INTEGER = 0x101,
-	CV_UNKNOWN_STRING = 0x102,
-	CV_INTEGER = 0x1,
-	CV_STRING = 0x2,
-};
-
-// --------------------------------------------------------------------
-class CVALUE {
-public:
-	CVALUE_TYPE value_type;
-
-	int			i;
-	std::string	s;
-
-	// --------------------------------------------------------------------
-	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
-	}
-
-	// --------------------------------------------------------------------
-	bool is_unknown( void ) const{
-		return ( ( (int)value_type & 0x100 ) == 0x100 );
-	}
-
-	// --------------------------------------------------------------------
-	bool is_integer( void ) const{
-		return ( ( (int)value_type & 0xFF ) == 0x1 );
-	}
-
-	// --------------------------------------------------------------------
-	bool is_string( void ) const{
-		return ( ( (int)value_type & 0xFF ) == 0x2 );
-	}
-
-	// --------------------------------------------------------------------
-	void inherit( CVALUE_TYPE base, CVALUE_TYPE inherit_a, CVALUE_TYPE inherit_b ){
-		value_type = (CVALUE_TYPE)( (int)base | ( ( (int)inherit_a | (int)inherit_b ) & 0x100 ) );
-	}
-};
-
-// --------------------------------------------------------------------
-class CZMA_MACRO_ARG {
-public:
-	std::string						name;
-	bool							is_through;
-
-	// --------------------------------------------------------------------
-	CZMA_MACRO_ARG(): name( "" ), is_through( false ) {
-	}
-};
-
-// --------------------------------------------------------------------
-class CZMA_MACRO {
-public:
-	std::vector< CZMA_MACRO_ARG >	parameter_name_list;
-	std::vector<class CZMA_PARSE*>	m_text;
-};
+//class CZMA_MACRO {
+//public:
+//	std::vector< CZMA_MACRO_ARG >	parameter_name_list;
+//	std::vector<class CZMA_PARSE*>	m_text;
+//};
 
 // --------------------------------------------------------------------
 class CZMA_REPEAT_T {
@@ -124,33 +76,19 @@ public:
 	};
 	OUTPUT_TYPE	output_type;
 	CZMA_HEXFILE_WRITER hexfile;
-
-	enum class BLOCK_TYPE_T {
-		CZMA_INFO_UNKNOWN,
-		CZMA_INFO_MACRO_BLOCK,
-	};
-	std::map< std::string, BLOCK_TYPE_T >	block_end_table{ { "ENDM", BLOCK_TYPE_T::CZMA_INFO_MACRO_BLOCK } };
 	bool is_updated;
-	bool is_block_processing;
-	BLOCK_TYPE_T block_type;
-	std::vector<class CZMA_PARSE*>			*p_text;
 
-	CZMA_MACRO* p_macro;
-	std::map< std::string, CZMA_MACRO* >	macro_list;
-	std::map< std::string, std::string >	parameter_list;
+	std::map< std::string, CZMA_PARSE_MACRO* >	macro_list;
+	std::map< std::string, CZMA_CHAR_SET >		char_set_list;
+	CZMA_CHAR_SET*								p_char_set;
+	std::string									s_char_set;
 
-	std::map< std::string, CZMA_CHAR_SET >	char_set_list;
-	CZMA_CHAR_SET*							p_char_set;
-	std::string								s_char_set;
-
-	CZMA_ERROR								error;
-	std::ofstream							log;
+	CZMA_ERROR									error;
+	std::ofstream								log;
 
 	// --------------------------------------------------------------------
-	CZMA_INFORMATION(): is_updated( false ), is_block_processing( false ), 
-			block_type( BLOCK_TYPE_T::CZMA_INFO_UNKNOWN  ), auto_label_index( 0 ), 
-			p_text( nullptr ), p_macro( nullptr ), 
-			p_sub_dict( nullptr ),
+	CZMA_INFORMATION(): is_updated( false ), 
+			auto_label_index( 0 ), p_sub_dict( nullptr ),
 			p_char_set( nullptr ), defs_is_space(false),
 			output_type( OUTPUT_TYPE::CZMA_BINARY ),
 			error_disable( false ), all_error_enable( false ) {
@@ -162,7 +100,6 @@ public:
 		p_char_set = nullptr;
 		s_char_set = "DEFAULT";
 		is_updated = false;
-		is_block_processing = false;
 		auto_label_index = 0;
 		error_disable = false;
 	}
@@ -235,3 +172,5 @@ public:
 	// --------------------------------------------------------------------
 	void write( void );
 };
+
+#endif

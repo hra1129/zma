@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_jr.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,26 +16,28 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-       75:   18:bool CZMA_PARSE_JR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:
-       75:   20:	update_flags( &info, p_last_line );
+        -:   17:#include "zma_parse_process_jr.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+       75:   20:bool CZMA_PARSE_JR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   21:
-       75:   22:	if( opecode_condition_offset( info, 0x18, 0x20 ) ) {
-        -:   23:		//	log
-       27:   24:		if( !this->is_analyze_phase ) {
-       24:   25:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       12:   26:			if( data[0] == 0x18 ) {
-        8:   27:				log.write_cycle_information( 13, 3 );			//	JR nn
-        -:   28:			}
-        -:   29:			else {
-       16:   30:				log.write_cycle_information( 13, 3, 8, 2 );		//	JR cond, nn
-        -:   31:			}
-       12:   32:			log.write_dump( this->code_address, this->file_address, this->data );
-       12:   33:			log.write_separator();
-        -:   34:		}
-        -:   35:		return check_all_fixed();
-        -:   36:	}
-        -:   37:	return false;
-      156:   38:}
-        -:   39:
+       75:   22:	update_flags( &info, p_last_line );
+        -:   23:
+       75:   24:	if( opecode_condition_offset( info, 0x18, 0x20 ) ) {
+        -:   25:		//	log
+       27:   26:		if( !this->is_analyze_phase ) {
+       24:   27:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       12:   28:			if( data[0] == 0x18 ) {
+        8:   29:				log.write_cycle_information( 13, 3 );			//	JR nn
+        -:   30:			}
+        -:   31:			else {
+       16:   32:				log.write_cycle_information( 13, 3, 8, 2 );		//	JR cond, nn
+        -:   33:			}
+       12:   34:			log.write_dump( this->code_address, this->file_address, this->data );
+       12:   35:			log.write_separator();
+        -:   36:		}
+        -:   37:		return check_all_fixed();
+        -:   38:	}
+        -:   39:	return false;
+      156:   40:}
+        -:   41:

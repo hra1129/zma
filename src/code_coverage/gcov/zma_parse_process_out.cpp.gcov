@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_out.cpp
-        -:    0:Programs:106
+        -:    0:Programs:105
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -16,26 +16,28 @@
         -:   14:#include <sstream>
         -:   15:#include <algorithm>
         -:   16:
-        -:   17:// --------------------------------------------------------------------
-       72:   18:bool CZMA_PARSE_OUT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:   19:
-       72:   20:	update_flags( &info, p_last_line );
-       72:   21:	if( opecode_c_source8( info, 0xD3, 0xED, 0x41 ) ) {
-        -:   22:		//	log
-       69:   23:		if( !this->is_analyze_phase ) {
-       46:   24:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       23:   25:			if( data[0] == 0xD3 ) {
-        4:   26:				log.write_cycle_information( 12, 10, -1, 9 );	//	OUT [n], A
-        -:   27:			}
-        -:   28:			else {
-       42:   29:				log.write_cycle_information( 14, 10, -1, 9 );	//	OUT	[C], A
-        -:   30:			}
-       23:   31:			log.write_dump( this->code_address, this->file_address, this->data );
-       23:   32:			log.write_separator();
-        -:   33:		}
-        -:   34:		return check_all_fixed();
-        -:   35:	}
-       15:   36:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-        3:   37:	return false;
-      156:   38:}
-        -:   39:
+        -:   17:#include "zma_parse_process_out.hpp"
+        -:   18:
+        -:   19:// --------------------------------------------------------------------
+       72:   20:bool CZMA_PARSE_OUT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:   21:
+       72:   22:	update_flags( &info, p_last_line );
+       72:   23:	if( opecode_c_source8( info, 0xD3, 0xED, 0x41 ) ) {
+        -:   24:		//	log
+       69:   25:		if( !this->is_analyze_phase ) {
+       46:   26:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       23:   27:			if( data[0] == 0xD3 ) {
+        4:   28:				log.write_cycle_information( 12, 10, -1, 9 );	//	OUT [n], A
+        -:   29:			}
+        -:   30:			else {
+       42:   31:				log.write_cycle_information( 14, 10, -1, 9 );	//	OUT	[C], A
+        -:   32:			}
+       23:   33:			log.write_dump( this->code_address, this->file_address, this->data );
+       23:   34:			log.write_separator();
+        -:   35:		}
+        -:   36:		return check_all_fixed();
+        -:   37:	}
+       15:   38:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        3:   39:	return false;
+      156:   40:}
+        -:   41:
