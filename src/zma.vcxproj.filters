@@ -326,6 +326,9 @@
     <ClCompile Include="zma_hexfile.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="sub\zma_parse_process_link.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="zma_text.hpp" />
@@ -433,5 +436,6 @@
     <ClInclude Include="zma_error.hpp" />
     <ClInclude Include="zma_hexfile.hpp" />
     <ClInclude Include="zma_parse_expression.hpp" />
+    <ClInclude Include="sub\zma_parse_process_link.hpp" />
   </ItemGroup>
 </Project>

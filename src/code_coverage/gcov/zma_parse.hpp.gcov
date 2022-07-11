@@ -1,5 +1,5 @@
         -:    0:Source:../zma_parse.hpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -126,8 +126,8 @@
         -:  124:	// ----------------------------------------------------------------
         -:  125:	//	Destructor
         -:  126:	// ----------------------------------------------------------------
-    28120:  127:	~CZMA_PARSE() {
-    14060:  128:	}
+    28176:  127:	~CZMA_PARSE() {
+    14088:  128:	}
         -:  129:
         -:  130:	// ----------------------------------------------------------------
         -:  131:	//	このインスタンスが示す行の情報を返す
@@ -141,8 +141,8 @@
         -:  139:	// ----------------------------------------------------------------
         -:  140:	//	ブロック構造を解析する処理
         -:  141:	// ----------------------------------------------------------------
-    14971:  142:	virtual void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) {
-    14971:  143:	}
+    15008:  142:	virtual void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) {
+    15008:  143:	}
         -:  144:
         -:  145:	// ----------------------------------------------------------------
         -:  146:	//	不明確な値を確定させる処理
@@ -151,7 +151,7 @@
         -:  149:
         -:  150:	// ----------------------------------------------------------------
         -:  151:	bool check_all_fixed() const {
-    43515:  152:		return is_fixed_code_address() && is_fixed_file_address () && is_fixed_code_size() && check_data_fixed();
+    43653:  152:		return is_fixed_code_address() && is_fixed_file_address () && is_fixed_code_size() && check_data_fixed();
         -:  153:	}
         -:  154:
         -:  155:	// ----------------------------------------------------------------
@@ -168,18 +168,18 @@
         -:  166:
         -:  167:	// --------------------------------------------------------------------
         -:  168:	void set_code_address( CZMA_INFORMATION* p_info, unsigned int new_code_address ) {
-    25355:  169:		if( this->code_address == -1 ) {
-     8446:  170:			p_info->is_updated = true;
+    25476:  169:		if( this->code_address == -1 ) {
+     8484:  170:			p_info->is_updated = true;
         -:  171:		}
-    25355:  172:		this->code_address = new_code_address;
+    25476:  172:		this->code_address = new_code_address;
         -:  173:	}
         -:  174:
         -:  175:	// ----------------------------------------------------------------
         -:  176:	void set_file_address( CZMA_INFORMATION* p_info, unsigned int new_file_address ) {
-    25217:  177:		if( this->file_address == -1 ) {
-     8397:  178:			p_info->is_updated = true;
+    25338:  177:		if( this->file_address == -1 ) {
+     8435:  178:			p_info->is_updated = true;
         -:  179:		}
-    25217:  180:		this->file_address = new_file_address;
+    25338:  180:		this->file_address = new_file_address;
         -:  181:	}
         -:  182:
         -:  183:	// ----------------------------------------------------------------
@@ -187,22 +187,22 @@
        63:  185:		if( new_code_size == (unsigned int)-1 ){
         -:  186:			return;
         -:  187:		}
-    29464:  188:		if( this->code_size != (int)new_code_size ) {
-    14559:  189:			p_info->is_updated = true;
-    14559:  190:			this->code_size = new_code_size;
+    29593:  188:		if( this->code_size != (int)new_code_size ) {
+    14594:  189:			p_info->is_updated = true;
+    14594:  190:			this->code_size = new_code_size;
         -:  191:		}
-    29476:  192:		if( this->is_fixed_code_address() ) {
-    16584:  193:			if( this->next_code_address == -1 ) {
-     8009:  194:				p_info->is_updated = true;
+    29605:  192:		if( this->is_fixed_code_address() ) {
+    16691:  193:			if( this->next_code_address == -1 ) {
+     8022:  194:				p_info->is_updated = true;
         -:  195:			}
-    16584:  196:			this->next_code_address = this->code_address + new_code_size;
+    16691:  196:			this->next_code_address = this->code_address + new_code_size;
         -:  197:		}
         -:  198:	}
         -:  199:
         -:  200:	// --------------------------------------------------------------------
-    14941:  201:	virtual void set_output_mode( void ) {
-    14941:  202:		this->is_analyze_phase = false;
-    14941:  203:	}
+    14979:  201:	virtual void set_output_mode( void ) {
+    14979:  202:		this->is_analyze_phase = false;
+    14979:  203:	}
         -:  204:
         -:  205:	// --------------------------------------------------------------------
         -:  206:	const char *get_file_name( void ) {
@@ -258,15 +258,15 @@
         -:  256:
         -:  257:	// ----------------------------------------------------------------
         -:  258:	static int get_number_of_errors() {
-      153:  259:		return number_of_error;
+      155:  259:		return number_of_error;
         -:  260:	}
         -:  261:
         -:  262:	// ----------------------------------------------------------------
         -:  263:	virtual bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream *f );
         -:  264:
         -:  265:	// ----------------------------------------------------------------
-    44688:  266:	virtual bool is_parse_error( void ) {
-    44688:  267:		return false;
+    44830:  266:	virtual bool is_parse_error( void ) {
+    44830:  267:		return false;
         -:  268:	}
         -:  269:};
         -:  270:

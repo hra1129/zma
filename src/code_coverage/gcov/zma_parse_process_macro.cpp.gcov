@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_macro.cpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -277,4 +277,4 @@
         -:  275:	}
       216:  276:	this->next_code_address = p_last_line->get_next_code_address();
         -:  277:	return result && check_all_fixed();
-      156:  278:}
+      158:  278:}

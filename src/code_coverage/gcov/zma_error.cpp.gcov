@@ -1,5 +1,5 @@
         -:    0:Source:../zma_error.cpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	ZMA: CZMA_TEXT
         -:    3:// ====================================================================
@@ -14,7 +14,7 @@
         -:   12:#include <sstream>
         -:   13:#include <map>
         -:   14:
-      156:   15:static std::map< CZMA_ERROR_CODE, const std::string > error_message = {
+      158:   15:static std::map< CZMA_ERROR_CODE, const std::string > error_message = {
         -:   16:	{ CZMA_ERROR_CODE::SYNTAX_ERROR, "Syntax error." },
         -:   17:	{ CZMA_ERROR_CODE::INVALID_COMMAND, "Invalid command." },
         -:   18:	{ CZMA_ERROR_CODE::ADDRESS_DETERMINED, "Code address not yet determined." },
@@ -40,18 +40,18 @@
         -:   38:};
         -:   39:
         -:   40:// --------------------------------------------------------------------
-     1391:   41:std::string CZMA_ERROR::get( CZMA_ERROR_CODE code, std::string message1, std::string message2, std::string message3 ){
+     1399:   41:std::string CZMA_ERROR::get( CZMA_ERROR_CODE code, std::string message1, std::string message2, std::string message3 ){
         -:   42:	std::string base_message;
-     1391:   43:	std::string result( "" );
+     1399:   43:	std::string result( "" );
         -:   44:	bool b_insert_message = false;
         -:   45:
-     1391:   46:	base_message = error_message[ code ];
-    27080:   47:	for( auto &c : base_message ){
-    25689:   48:		if( c == '$' ){
+     1399:   46:	base_message = error_message[ code ];
+    27216:   47:	for( auto &c : base_message ){
+    25817:   48:		if( c == '$' ){
         -:   49:			b_insert_message = true;
     #####:   50:			continue;
         -:   51:		}
-    25689:   52:		if( b_insert_message ){
+    25817:   52:		if( b_insert_message ){
         -:   53:			b_insert_message = false;
     #####:   54:			if( c == '1' ){
     #####:   55:				result = result + message1;
@@ -64,8 +64,8 @@
         -:   62:			}
         -:   63:		}
         -:   64:		else{
-    51378:   65:			result = result + c;
+    51634:   65:			result = result + c;
         -:   66:		}
         -:   67:	}
-     1391:   68:	return result;
-      234:   69:}
+     1399:   68:	return result;
+      237:   69:}

@@ -11,8 +11,6 @@
 // --------------------------------------------------------------------
 class CZMA_PARSE_ERROR: public CZMA_PARSE {
 public:
-	CZMA_REPEAT_T* p_repeat = nullptr;
-
 	using CZMA_PARSE::CZMA_PARSE;
 	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
 	virtual bool is_parse_error( void ) {

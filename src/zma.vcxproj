@@ -207,6 +207,7 @@
     <ClCompile Include="sub\zma_parse_process_lddr.cpp" />
     <ClCompile Include="sub\zma_parse_process_ldi.cpp" />
     <ClCompile Include="sub\zma_parse_process_ldir.cpp" />
+    <ClCompile Include="sub\zma_parse_process_link.cpp" />
     <ClCompile Include="sub\zma_parse_process_macro.cpp" />
     <ClCompile Include="sub\zma_parse_process_mulub.cpp" />
     <ClCompile Include="sub\zma_parse_process_muluw.cpp" />
@@ -315,6 +316,7 @@
     <ClInclude Include="sub\zma_parse_process_lddr.hpp" />
     <ClInclude Include="sub\zma_parse_process_ldi.hpp" />
     <ClInclude Include="sub\zma_parse_process_ldir.hpp" />
+    <ClInclude Include="sub\zma_parse_process_link.hpp" />
     <ClInclude Include="sub\zma_parse_process_macro.hpp" />
     <ClInclude Include="sub\zma_parse_process_mulub.hpp" />
     <ClInclude Include="sub\zma_parse_process_muluw.hpp" />

@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_label.cpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -19,36 +19,36 @@
         -:   17:#include "zma_parse_process_label.hpp"
         -:   18:
         -:   19:// --------------------------------------------------------------------
-      171:   20:bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      183:   20:bool CZMA_PARSE_LABEL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   21:	std::string label;
         -:   22:	CVALUE v;
         -:   23:
-      171:   24:	this->set_code_size( &info, 0 );
-      171:   25:	update_flags( &info, p_last_line );
+      183:   24:	this->set_code_size( &info, 0 );
+      183:   25:	update_flags( &info, p_last_line );
         -:   26:	//	log
-      513:   27:	label = info.get_scope_path() + words[ 0 ];
-      171:   28:	if( !this->is_analyze_phase ) {
-      106:   29:		std::stringstream s;
-      106:   30:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       53:   31:		if( this->get_code_address() == -1 ){
+      549:   27:	label = info.get_scope_path() + words[ 0 ];
+      183:   28:	if( !this->is_analyze_phase ) {
+      114:   29:		std::stringstream s;
+      114:   30:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       57:   31:		if( this->get_code_address() == -1 ){
        10:   32:			s << "label address: 0xXXXXXX";
         -:   33:		}
         -:   34:		else { 
-       43:   35:			s << "label [" << label << "] address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
+       47:   35:			s << "label [" << label << "] address: 0x" << std::hex << std::setw( 6 ) << std::setfill( '0' ) << this->get_code_address();
         -:   36:		}
-      106:   37:		log.write_message( s.str() );
-       53:   38:		log.write_separator();
+      114:   37:		log.write_message( s.str() );
+       57:   38:		log.write_separator();
         -:   39:	}
-      171:   40:	if( this->is_data_fixed ) {
+      183:   40:	if( this->is_data_fixed ) {
         -:   41:		if( check_all_fixed() && info.dict.count( label ) ){
         -:   42:			return true;
         -:   43:		}
         -:   44:	}
-      172:   45:	if( words[0][0] == '\"' ) {
+      180:   45:	if( words[0][0] == '\"' ) {
        15:   46:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
         3:   47:		return false;
         -:   48:	}
-       83:   49:	if( this->is_fixed_code_address() ) {
+       87:   49:	if( this->is_fixed_code_address() ) {
        22:   50:		if( info.dict.count( label ) && info.dict[ label ].value_type != CVALUE_TYPE::CV_UNKNOWN_INTEGER ){
         3:   51:			if( !( info.dict[ label ].value_type == CVALUE_TYPE::CV_INTEGER && info.dict[ label ].i == this->get_code_address() ) ){
     #####:   52:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
@@ -56,12 +56,12 @@
         -:   54:			}
         -:   55:		}
         -:   56:		else{
-       41:   57:			info.is_updated = true;
-       41:   58:			v.i = this->get_code_address();
-       41:   59:			v.value_type = CVALUE_TYPE::CV_INTEGER;
-       41:   60:			info.dict[ label ] = v;
+       45:   57:			info.is_updated = true;
+       45:   58:			v.i = this->get_code_address();
+       45:   59:			v.value_type = CVALUE_TYPE::CV_INTEGER;
+       45:   60:			info.dict[ label ] = v;
         -:   61:		}
-       44:   62:		this->is_data_fixed = true;
+       48:   62:		this->is_data_fixed = true;
         -:   63:	}
         -:   64:	else {
         -:   65:		if( info.dict.count( label ) ) {
@@ -76,5 +76,5 @@
        18:   74:		return false;
         -:   75:	}
         -:   76:	return check_all_fixed();
-      156:   77:}
+      158:   77:}
         -:   78:

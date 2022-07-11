@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_add_include_path.cpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -50,4 +50,4 @@
         6:   48:		log.write_message( "Add include path: " + v.s );
         -:   49:	}
         -:   50:	return true;
-      156:   51:}
+      158:   51:}

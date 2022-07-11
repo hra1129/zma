@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_error.hpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -13,11 +13,9 @@
         -:   11:// --------------------------------------------------------------------
         -:   12:class CZMA_PARSE_ERROR: public CZMA_PARSE {
         -:   13:public:
-        -:   14:	CZMA_REPEAT_T* p_repeat = nullptr;
-        -:   15:
-       26:   16:	using CZMA_PARSE::CZMA_PARSE;
-        -:   17:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
-       38:   18:	virtual bool is_parse_error( void ) {
-       38:   19:		return true;
-        -:   20:	}
-        -:   21:};
+       30:   14:	using CZMA_PARSE::CZMA_PARSE;
+        -:   15:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
+       38:   16:	virtual bool is_parse_error( void ) {
+       38:   17:		return true;
+        -:   18:	}
+        -:   19:};

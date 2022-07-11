@@ -5,6 +5,34 @@
 // --------------------------------------------------------------------
 
 #include "zma_information.hpp"
+#include "zma_parse.hpp"
+#include "zma_text.hpp"
+#include "zma_parse_process_link.hpp"
+
+// --------------------------------------------------------------------
+void CZMA_INFORMATION::set_evaluated_for_all_links( void ){
+
+	for( auto &link : this->link_list ){
+		if( !link.second->is_evaluated ){
+			this->is_updated = true;
+		}
+		link.second->is_evaluated = true;
+	}
+}
+
+
+// --------------------------------------------------------------------
+void CZMA_INFORMATION::check_link( std::string word ){
+	CZMA_PARSE_LINK *p_link;
+
+	if( this->link_list.count( word ) == 0 ){
+		//	‘¶İ‚µ‚È‚¢
+		return;
+	}
+	p_link = this->link_list[ word ];
+	p_link->is_evaluated = true;
+	p_link->is_used = true;
+}
 
 // --------------------------------------------------------------------
 bool CZMA_INFORMATION::get_label_value( CVALUE &result, std::string word ){
@@ -17,6 +45,7 @@ bool CZMA_INFORMATION::get_label_value( CVALUE &result, std::string word ){
 			s = s + scope[ i ] + ":";
 		}
 		s = s + word;
+		check_link( s );
 		if( this->dict.count( s ) ){
 			result = this->dict[ s ];
 			return true;

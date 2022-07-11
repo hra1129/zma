@@ -1,5 +1,5 @@
         -:    0:Source:../sub/zma_parse_process_repeat.hpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler parse
         -:    3:// ====================================================================
@@ -14,7 +14,7 @@
         -:   12:class CZMA_PARSE_REPEAT: public CZMA_PARSE {
         -:   13:public:
         -:   14:	std::vector< CZMA_TEXT * > m_text_list;		//	展開後のソースコード
-        -:   15:	bool is_loaded;								//	m_text_list に展開済みか否か
+        -:   15:	bool is_loaded = false;						//	m_text_list に展開済みか否か
         -:   16:
         -:   17:	std::string counter_symbol;
         -:   18:	int counter_end;
@@ -23,7 +23,7 @@
         -:   21:	CZMA_TEXT m_text;							//	展開前のソースコード
         -:   22:	CZMA_LOG log_header;
         -:   23:
-       75:   24:	using CZMA_PARSE::CZMA_PARSE;
+      100:   24:	using CZMA_PARSE::CZMA_PARSE;
         -:   25:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
         -:   26:	void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) override;
         -:   27:	std::vector< std::vector< std::string > > get_words( void );

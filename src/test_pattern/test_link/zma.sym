@@ -1,0 +1,4 @@
+SUB1 equ 00h
+SUB2 equ 09h
+SUB4_1 equ 0fh
+SUB4_2 equ 011h

@@ -1,5 +1,5 @@
         -:    0:Source:../zma_information.hpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	Z80 Macro Assembler dictionary
         -:    3:// ====================================================================
@@ -21,158 +21,148 @@
         -:   19:#define __ZMA_INFORMATION_HPP__
         -:   20:
         -:   21:class CZMA_PARSE_MACRO;
-        -:   22:
-        -:   23:// --------------------------------------------------------------------
-        -:   24://class CZMA_MACRO {
-        -:   25://public:
-        -:   26://	std::vector< CZMA_MACRO_ARG >	parameter_name_list;
-        -:   27://	std::vector<class CZMA_PARSE*>	m_text;
-        -:   28://};
+        -:   22:class CZMA_PARSE_LINK;
+        -:   23:
+        -:   24:// --------------------------------------------------------------------
+        4:   25:class CZMA_CHAR_SET {
+        -:   26:public:
+        -:   27:	std::vector< unsigned char >	ascii_to_map;
+        -:   28:};
         -:   29:
         -:   30:// --------------------------------------------------------------------
-        -:   31:class CZMA_REPEAT_T {
+      231:   31:class CZMA_INFORMATION {
         -:   32:public:
-        -:   33:	std::string						counter_symbol;
-        -:   34:	int								counter_end;
-        -:   35:	bool							is_counter_end_fixed;
-        -:   36:	std::string						scope_name;
-        -:   37:	std::vector<class CZMA_PARSE*>	m_text;
-        -:   38:
-        -:   39:	// --------------------------------------------------------------------
-        -:   40:	CZMA_REPEAT_T(): counter_symbol( "" ), counter_end( 0 ), is_counter_end_fixed( false ), scope_name( "" ) {
-        -:   41:	}
-        -:   42:};
-        -:   43:
-        -:   44:// --------------------------------------------------------------------
-        4:   45:class CZMA_CHAR_SET {
-        -:   46:public:
-        -:   47:	std::vector< unsigned char >	ascii_to_map;
-        -:   48:};
-        -:   49:
-        -:   50:// --------------------------------------------------------------------
-      228:   51:class CZMA_INFORMATION {
-        -:   52:public:
-        -:   53:	std::map< std::string, CVALUE >	dict;
-        -:   54:	std::map< std::string, CVALUE >	*p_sub_dict;
-        -:   55:	std::map< std::string, int >	sss_or_ddd_id { { "B", 0 }, { "C", 1 }, { "D", 2 }, { "E", 3 }, { "H", 4 }, { "L", 5 }, { "A", 7 }, };
-        -:   56:	std::map< std::string, int >	ix_hl{ { "IXH", 4 }, { "IXL", 5 }, };
-        -:   57:	std::map< std::string, int >	iy_hl{ { "IYH", 4 }, { "IYL", 5 }, };
-        -:   58:	std::map< std::string, int >	rp_id { { "BC", 0 }, { "DE", 1 }, { "HL", 2 }, { "SP", 3 }, };
-        -:   59:	std::map< std::string, int >	ix_rp_id{ { "BC", 0 }, { "DE", 1 }, { "IX", 2 }, { "SP", 3 }, };
-        -:   60:	std::map< std::string, int >	iy_rp_id{ { "BC", 0 }, { "DE", 1 }, { "IY", 2 }, { "SP", 3 }, };
-        -:   61:	std::map< std::string, int >	rp_with_af_id{ { "BC", 0 }, { "DE", 1 }, { "HL", 2 }, {"AF", 3 }, };
-        -:   62:	std::map< std::string, int >	ccc_id{ { "NZ", 0 }, { "Z", 1 }, { "NC", 2 }, { "C", 3 }, { "PO", 4 }, { "PE", 5 }, { "P", 6 }, { "M", 7 }, };
-        -:   63:	std::map< std::string, int >	cc2_id{ { "NZ", 0 }, { "Z", 1 }, { "NC", 2 }, { "C", 3 }, };
-        -:   64:	std::vector< std::string >		scope;
-        -:   65:	std::vector< std::string >		include_path;
+        -:   33:	std::map< std::string, CVALUE >	dict;
+        -:   34:	std::map< std::string, CVALUE >	*p_sub_dict;
+        -:   35:	std::map< std::string, int >	sss_or_ddd_id { { "B", 0 }, { "C", 1 }, { "D", 2 }, { "E", 3 }, { "H", 4 }, { "L", 5 }, { "A", 7 }, };
+        -:   36:	std::map< std::string, int >	ix_hl{ { "IXH", 4 }, { "IXL", 5 }, };
+        -:   37:	std::map< std::string, int >	iy_hl{ { "IYH", 4 }, { "IYL", 5 }, };
+        -:   38:	std::map< std::string, int >	rp_id { { "BC", 0 }, { "DE", 1 }, { "HL", 2 }, { "SP", 3 }, };
+        -:   39:	std::map< std::string, int >	ix_rp_id{ { "BC", 0 }, { "DE", 1 }, { "IX", 2 }, { "SP", 3 }, };
+        -:   40:	std::map< std::string, int >	iy_rp_id{ { "BC", 0 }, { "DE", 1 }, { "IY", 2 }, { "SP", 3 }, };
+        -:   41:	std::map< std::string, int >	rp_with_af_id{ { "BC", 0 }, { "DE", 1 }, { "HL", 2 }, {"AF", 3 }, };
+        -:   42:	std::map< std::string, int >	ccc_id{ { "NZ", 0 }, { "Z", 1 }, { "NC", 2 }, { "C", 3 }, { "PO", 4 }, { "PE", 5 }, { "P", 6 }, { "M", 7 }, };
+        -:   43:	std::map< std::string, int >	cc2_id{ { "NZ", 0 }, { "Z", 1 }, { "NC", 2 }, { "C", 3 }, };
+        -:   44:	std::vector< std::string >		scope;
+        -:   45:	std::vector< std::string >		include_path;
+        -:   46:
+        -:   47:	unsigned int auto_label_index;
+        -:   48:
+        -:   49:	bool		defs_is_space;		//	false: DEFS疑似命令は文字列配置(default), true: DEFS疑似命令は領域確保
+        -:   50:	bool		all_error_enable;	//	false: アドレス未確定以降のエラーを抑止, true: 全てのエラーを表示
+        -:   51:	bool		error_disable;
+        -:   52:
+        -:   53:	enum class OUTPUT_TYPE{
+        -:   54:		CZMA_BINARY,
+        -:   55:		CZMA_INTELHEX,
+        -:   56:	};
+        -:   57:	OUTPUT_TYPE	output_type;
+        -:   58:	CZMA_HEXFILE_WRITER hexfile;
+        -:   59:	bool is_updated;
+        -:   60:
+        -:   61:	std::map< std::string, CZMA_PARSE_MACRO* >	macro_list;
+        -:   62:	std::map< std::string, CZMA_PARSE_LINK * >	link_list;
+        -:   63:	std::map< std::string, CZMA_CHAR_SET >		char_set_list;
+        -:   64:	CZMA_CHAR_SET*								p_char_set;
+        -:   65:	std::string									s_char_set;
         -:   66:
-        -:   67:	unsigned int auto_label_index;
-        -:   68:
-        -:   69:	bool		defs_is_space;		//	false: DEFS疑似命令は文字列配置(default), true: DEFS疑似命令は領域確保
-        -:   70:	bool		all_error_enable;	//	false: アドレス未確定以降のエラーを抑止, true: 全てのエラーを表示
-        -:   71:	bool		error_disable;
-        -:   72:
-        -:   73:	enum class OUTPUT_TYPE{
-        -:   74:		CZMA_BINARY,
-        -:   75:		CZMA_INTELHEX,
-        -:   76:	};
-        -:   77:	OUTPUT_TYPE	output_type;
-        -:   78:	CZMA_HEXFILE_WRITER hexfile;
-        -:   79:	bool is_updated;
-        -:   80:
-        -:   81:	std::map< std::string, CZMA_PARSE_MACRO* >	macro_list;
-        -:   82:	std::map< std::string, CZMA_CHAR_SET >		char_set_list;
-        -:   83:	CZMA_CHAR_SET*								p_char_set;
-        -:   84:	std::string									s_char_set;
-        -:   85:
-        -:   86:	CZMA_ERROR									error;
-        -:   87:	std::ofstream								log;
-        -:   88:
-        -:   89:	// --------------------------------------------------------------------
-       78:   90:	CZMA_INFORMATION(): is_updated( false ), 
-        -:   91:			auto_label_index( 0 ), p_sub_dict( nullptr ),
-        -:   92:			p_char_set( nullptr ), defs_is_space(false),
-        -:   93:			output_type( OUTPUT_TYPE::CZMA_BINARY ),
-     1872:   94:			error_disable( false ), all_error_enable( false ) {
-       78:   95:	}
-        -:   96:
-        -:   97:	// --------------------------------------------------------------------
-      227:   98:	void clear( void ){
-      227:   99:		scope.clear();
-      227:  100:		p_char_set = nullptr;
-      227:  101:		s_char_set = "DEFAULT";
-      227:  102:		is_updated = false;
-      227:  103:		auto_label_index = 0;
-      227:  104:		error_disable = false;
-      227:  105:	}
-        -:  106:
-        -:  107:	// --------------------------------------------------------------------
-        -:  108:	unsigned int get_auto_label_index( void ) {
-      233:  109:		return auto_label_index++;
-        -:  110:	}
-        -:  111:
-        -:  112:	// --------------------------------------------------------------------
-        -:  113:	std::string get_scope_path( void );
-        -:  114:
-        -:  115:	// --------------------------------------------------------------------
-        -:  116:	bool get_label_value( CVALUE &result, std::string word );
-        -:  117:
-        -:  118:	// --------------------------------------------------------------------
-        -:  119:	bool is_sss_or_ddd( std::string word ) const {
-     8374:  120:		int d = (int)sss_or_ddd_id.count( word );
-        -:  121:		return d;
-        -:  122:	}
-        -:  123:
-        -:  124:	// --------------------------------------------------------------------
-        -:  125:	bool is_ix_hl( std::string word ) const {
-     2609:  126:		int d = (int)ix_hl.count( word );
-        -:  127:		return d;
-        -:  128:	}
-        -:  129:
-        -:  130:	// --------------------------------------------------------------------
-        -:  131:	bool is_iy_hl( std::string word ) const {
-     1689:  132:		int d = (int)iy_hl.count( word );
-        -:  133:		return d;
+        -:   67:	CZMA_ERROR									error;
+        -:   68:	std::ofstream								log;
+        -:   69:
+        -:   70:	// --------------------------------------------------------------------
+       79:   71:	CZMA_INFORMATION(): is_updated( false ), 
+        -:   72:			auto_label_index( 0 ), p_sub_dict( nullptr ),
+        -:   73:			p_char_set( nullptr ), defs_is_space(false),
+        -:   74:			output_type( OUTPUT_TYPE::CZMA_BINARY ),
+     1896:   75:			error_disable( false ), all_error_enable( false ) {
+       79:   76:	}
+        -:   77:
+        -:   78:	// --------------------------------------------------------------------
+      231:   79:	void clear( void ){
+      231:   80:		scope.clear();
+      231:   81:		p_char_set = nullptr;
+      231:   82:		s_char_set = "DEFAULT";
+      231:   83:		is_updated = false;
+      231:   84:		auto_label_index = 0;
+      231:   85:		error_disable = false;
+      231:   86:	}
+        -:   87:
+        -:   88:	// --------------------------------------------------------------------
+        -:   89:	unsigned int get_auto_label_index( void ) {
+      233:   90:		return auto_label_index++;
+        -:   91:	}
+        -:   92:
+        -:   93:	// --------------------------------------------------------------------
+        -:   94:	std::string get_scope_path( void );
+        -:   95:
+        -:   96:	// --------------------------------------------------------------------
+        -:   97:	//	全ての LINK について「評価済み」をマークする
+        -:   98:	void set_evaluated_for_all_links( void );
+        -:   99:
+        -:  100:	// --------------------------------------------------------------------
+        -:  101:	//	指定の名前 word が LINK の展開発動キーワードか調べる
+        -:  102:	//	展開発動キーワードなら、その LINK に「展開する」とマークする
+        -:  103:	void check_link( std::string word );
+        -:  104:
+        -:  105:	// --------------------------------------------------------------------
+        -:  106:	bool get_label_value( CVALUE &result, std::string word );
+        -:  107:
+        -:  108:	// --------------------------------------------------------------------
+        -:  109:	bool is_sss_or_ddd( std::string word ) const {
+     8421:  110:		int d = (int)sss_or_ddd_id.count( word );
+        -:  111:		return d;
+        -:  112:	}
+        -:  113:
+        -:  114:	// --------------------------------------------------------------------
+        -:  115:	bool is_ix_hl( std::string word ) const {
+     2626:  116:		int d = (int)ix_hl.count( word );
+        -:  117:		return d;
+        -:  118:	}
+        -:  119:
+        -:  120:	// --------------------------------------------------------------------
+        -:  121:	bool is_iy_hl( std::string word ) const {
+     1706:  122:		int d = (int)iy_hl.count( word );
+        -:  123:		return d;
+        -:  124:	}
+        -:  125:
+        -:  126:	// --------------------------------------------------------------------
+        -:  127:	bool is_rp( std::string word ) const {
+     1321:  128:		return (int)rp_id.count( word );
+        -:  129:	}
+        -:  130:
+        -:  131:	// --------------------------------------------------------------------
+        -:  132:	bool is_ix_rp( std::string word ) const{
+       36:  133:		return (int)ix_rp_id.count( word );
         -:  134:	}
         -:  135:
         -:  136:	// --------------------------------------------------------------------
-        -:  137:	bool is_rp( std::string word ) const {
-     1317:  138:		return (int)rp_id.count( word );
+        -:  137:	bool is_iy_rp( std::string word ) const{
+       36:  138:		return (int)iy_rp_id.count( word );
         -:  139:	}
         -:  140:
         -:  141:	// --------------------------------------------------------------------
-        -:  142:	bool is_ix_rp( std::string word ) const{
-       36:  143:		return (int)ix_rp_id.count( word );
+        -:  142:	bool is_rp_with_af( std::string word ) const {
+       72:  143:		return (int)rp_with_af_id.count( word );
         -:  144:	}
         -:  145:
         -:  146:	// --------------------------------------------------------------------
-        -:  147:	bool is_iy_rp( std::string word ) const{
-       36:  148:		return (int)iy_rp_id.count( word );
+        -:  147:	bool is_ccc( std::string word ) const {
+      153:  148:		return (int)ccc_id.count( word );
         -:  149:	}
         -:  150:
         -:  151:	// --------------------------------------------------------------------
-        -:  152:	bool is_rp_with_af( std::string word ) const {
-       72:  153:		return (int)rp_with_af_id.count( word );
+        -:  152:	bool is_cc2( std::string word ) const {
+       45:  153:		return (int)cc2_id.count( word );
         -:  154:	}
         -:  155:
         -:  156:	// --------------------------------------------------------------------
-        -:  157:	bool is_ccc( std::string word ) const {
-      153:  158:		return (int)ccc_id.count( word );
-        -:  159:	}
-        -:  160:
-        -:  161:	// --------------------------------------------------------------------
-        -:  162:	bool is_cc2( std::string word ) const {
-       45:  163:		return (int)cc2_id.count( word );
-        -:  164:	}
+        -:  157:	void add_include_path( const char *p_path, const char *p_sub_path = "" );
+        -:  158:
+        -:  159:	// --------------------------------------------------------------------
+        -:  160:	std::string dot( std::string s, int max_length );
+        -:  161:
+        -:  162:	// --------------------------------------------------------------------
+        -:  163:	void write( void );
+        -:  164:};
         -:  165:
-        -:  166:	// --------------------------------------------------------------------
-        -:  167:	void add_include_path( const char *p_path, const char *p_sub_path = "" );
-        -:  168:
-        -:  169:	// --------------------------------------------------------------------
-        -:  170:	std::string dot( std::string s, int max_length );
-        -:  171:
-        -:  172:	// --------------------------------------------------------------------
-        -:  173:	void write( void );
-        -:  174:};
-        -:  175:
-        -:  176:#endif
+        -:  166:#endif

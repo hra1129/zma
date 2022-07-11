@@ -163,6 +163,7 @@ bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
 	for( ; ; ) {
 		info.clear();
 		p_last_line = this->process( info, success_count, nullptr, false );
+		info.set_evaluated_for_all_links();
 		if( !info.is_updated ) {
 			break;
 		}

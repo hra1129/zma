@@ -12,7 +12,7 @@
 class CZMA_PARSE_REPEAT: public CZMA_PARSE {
 public:
 	std::vector< CZMA_TEXT * > m_text_list;		//	展開後のソースコード
-	bool is_loaded;								//	m_text_list に展開済みか否か
+	bool is_loaded = false;						//	m_text_list に展開済みか否か
 
 	std::string counter_symbol;
 	int counter_end;

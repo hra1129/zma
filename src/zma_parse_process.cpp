@@ -111,6 +111,7 @@
 #include "zma_parse_process_macro.hpp"
 #include "zma_parse_process_include.hpp"
 #include "zma_parse_process_chg_char_set.hpp"
+#include "zma_parse_process_link.hpp"
 
 // --------------------------------------------------------------------
 int CZMA_PARSE::number_of_error = 0;
@@ -216,6 +217,7 @@ static std::map< std::string, CZMA_COMMAND_TYPE > command_list = {
 	{ "MULUW", CZMA_COMMAND_TYPE::CZMA_MULUW },
 	{ "CHG_CHAR_SET", CZMA_COMMAND_TYPE::CZMA_CHG_CHAR_SET },
 	{ "MAPPING_CHAR", CZMA_COMMAND_TYPE::CZMA_MAPPING_CHAR },
+	{ "LINK", CZMA_COMMAND_TYPE::CZMA_LINK },
 };
 
 // --------------------------------------------------------------------
@@ -348,6 +350,7 @@ CZMA_PARSE* CZMA_PARSE::create( CZMA_INFORMATION& info, std::vector<std::string>
 		OPE_CASE( MULUW );
 		OPE_CASE( CHG_CHAR_SET );
 		OPE_CASE( MAPPING_CHAR );
+		OPE_CASE( LINK );
 	default:
 		break;
 	}

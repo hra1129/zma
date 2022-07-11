@@ -1,5 +1,5 @@
         -:    0:Source:../zma_text.cpp
-        -:    0:Programs:105
+        -:    0:Programs:106
         -:    1:// --------------------------------------------------------------------
         -:    2://	ZMA: CZMA_TEXT
         -:    3:// ====================================================================
@@ -13,50 +13,50 @@
         -:   11:// ----------------------------------------------------------------
         -:   12://	Constructor
         -:   13:// ----------------------------------------------------------------
-      707:   14:CZMA_TEXT::CZMA_TEXT() {
-      707:   15:	code_size = -1;
-      707:   16:	next_code_address = -1;
-      707:   17:}
+      712:   14:CZMA_TEXT::CZMA_TEXT() {
+      712:   15:	code_size = -1;
+      712:   16:	next_code_address = -1;
+      712:   17:}
         -:   18:
         -:   19:// ----------------------------------------------------------------
         -:   20://	Destructor
         -:   21:// ----------------------------------------------------------------
-      152:   22:CZMA_TEXT::~CZMA_TEXT() {
-    14118:   23:	for( auto p: m_text ) { 
-    14042:   24:		delete p; 
+      154:   22:CZMA_TEXT::~CZMA_TEXT() {
+    14147:   23:	for( auto p: m_text ) { 
+    14070:   24:		delete p; 
         -:   25:	}
-       76:   26:}
+       77:   26:}
         -:   27:
         -:   28:// ----------------------------------------------------------------
         -:   29://	code size
         -:   30:// ----------------------------------------------------------------
-      124:   31:void CZMA_TEXT::calc_code_size( void ) {
+      127:   31:void CZMA_TEXT::calc_code_size( void ) {
         -:   32:
-      124:   33:	code_size = 0;
-      248:   34:	for( auto &p : this->m_text ){
-      142:   35:		if( p->is_fixed_code_size() ){
-      124:   36:			code_size += p->get_code_size();
+      127:   33:	code_size = 0;
+      261:   34:	for( auto &p : this->m_text ){
+      152:   35:		if( p->is_fixed_code_size() ){
+      134:   36:			code_size += p->get_code_size();
         -:   37:		}
         -:   38:		else{
        18:   39:			code_size = -1;
        18:   40:			break;
         -:   41:		}
-      124:   42:		if( p->is_fixed_next_code_address() ){
-      121:   43:			next_code_address = p->get_next_code_address();
+      134:   42:		if( p->is_fixed_next_code_address() ){
+      131:   43:			next_code_address = p->get_next_code_address();
         -:   44:		}
         -:   45:		else{
         3:   46:			next_code_address = -1;
         -:   47:		}
         -:   48:	}
-      124:   49:}
+      127:   49:}
         -:   50:
         -:   51:// ----------------------------------------------------------------
         -:   52://	check data fixed
         -:   53:// ----------------------------------------------------------------
-      124:   54:bool CZMA_TEXT::check_data_fixed( void ){
+      127:   54:bool CZMA_TEXT::check_data_fixed( void ){
         -:   55:
-      250:   56:	for( auto &p : this->m_text ){
-      142:   57:		if( !p->check_data_fixed() ){
+      263:   56:	for( auto &p : this->m_text ){
+      152:   57:		if( !p->check_data_fixed() ){
         -:   58:			return false;
         -:   59:		}
         -:   60:	}
@@ -66,28 +66,28 @@
         -:   64:// ----------------------------------------------------------------
         -:   65://	File Load
         -:   66:// ----------------------------------------------------------------
-       89:   67:bool CZMA_TEXT::load( CZMA_INFORMATION &info, const char* p_file_name ) {
-       89:   68:	m_text.clear();
+       90:   67:bool CZMA_TEXT::load( CZMA_INFORMATION &info, const char* p_file_name ) {
+       90:   68:	m_text.clear();
         -:   69:	std::string s;
         -:   70:	CZMA_PARSE *p_parse;
         -:   71:	int line_no;
-       89:   72:	std::vector< std::string > words, labels;
+       90:   72:	std::vector< std::string > words, labels;
         -:   73:
-      178:   74:	std::ifstream file;
-       89:   75:	file.open( p_file_name );
-       89:   76:	if( !file ) {
+      180:   74:	std::ifstream file;
+       90:   75:	file.open( p_file_name );
+       90:   76:	if( !file ) {
         -:   77:		return false;
         -:   78:	}
         -:   79:	line_no = 1;
-    14392:   80:	for( ;; line_no++) {
-    28873:   81:		if(file.bad()) {
+    14437:   80:	for( ;; line_no++) {
+    28964:   81:		if(file.bad()) {
         -:   82:			break;
         -:   83:		}
-    28962:   84:		if(!std::getline( file, s )) {
+    29054:   84:		if(!std::getline( file, s )) {
         -:   85:			break;
         -:   86:		}
-    43176:   87:		words = CZMA_PARSE::get_word_split( s );
-    36539:   88:		if( words.size() > 2 && ( (words[ 1 ] == ":") || (words[ 1 ] == "::") ) ){
+    43311:   87:		words = CZMA_PARSE::get_word_split( s );
+    36641:   88:		if( words.size() > 2 && ( (words[ 1 ] == ":") || (words[ 1 ] == "::") ) ){
         6:   89:			labels.resize( 2 );
         6:   90:			labels[ 0 ] = words[ 0 ];
        12:   91:			labels[ 1 ] = words[ 1 ];
@@ -99,30 +99,30 @@
         6:   97:			m_text.push_back( p_parse );
         -:   98:		}
         -:   99:		else{
-    28772:  100:			p_parse = CZMA_PARSE::create( info, words, p_file_name, line_no );
-    14386:  101:			m_text.push_back( p_parse );
+    28862:  100:			p_parse = CZMA_PARSE::create( info, words, p_file_name, line_no );
+    14431:  101:			m_text.push_back( p_parse );
         -:  102:		}
         -:  103:	}
-       89:  104:	file.close();
+       90:  104:	file.close();
         -:  105:	return true;
         -:  106:}
         -:  107:
         -:  108:// --------------------------------------------------------------------
-     1650:  109:CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_count, CZMA_PARSE *p_prev_line, bool output_mode ) {
+     1663:  109:CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_count, CZMA_PARSE *p_prev_line, bool output_mode ) {
         -:  110:	CZMA_PARSE* p_prev;
         -:  111:	bool result;
         -:  112:	int nest_count = 0;
         -:  113:	p_prev = p_prev_line;
         -:  114:	result = true;
-     1650:  115:	success_count = 0;
-     1650:  116:	std::vector<std::string> words;
+     1663:  115:	success_count = 0;
+     1663:  116:	std::vector<std::string> words;
         -:  117:
-    46356:  118:	for( auto p = m_text.begin(); p != m_text.end(); ) {
-    44706:  119:		if( output_mode ) {
-    14858:  120:			(*p)->set_output_mode();
+    46511:  118:	for( auto p = m_text.begin(); p != m_text.end(); ) {
+    44848:  119:		if( output_mode ) {
+    14896:  120:			(*p)->set_output_mode();
         -:  121:		}
         -:  122:		//	パースエラーを起こした行の場合、再パースを試みる
-    44706:  123:		if( ( *p )->is_parse_error() ){
+    44848:  123:		if( ( *p )->is_parse_error() ){
        60:  124:			words = CZMA_PARSE::get_word_split( ( *p )->get_line() );
        20:  125:			CZMA_PARSE *p_parse = CZMA_PARSE::create( info, words, ( *p )->get_file_name(), ( *p )->get_line_no() );
        20:  126:			if( !( p_parse->is_parse_error() ) ){
@@ -134,78 +134,79 @@
         -:  132:			}
         -:  133:		}
         -:  134:		//	ブロックの外側の処理
-    44706:  135:		if( ( *p )->process( info, p_prev ) ){
-    24417:  136:			success_count++;
+    44848:  135:		if( ( *p )->process( info, p_prev ) ){
+    24533:  136:			success_count++;
         -:  137:		}
-    44706:  138:		p_prev = ( *p );
+    44848:  138:		p_prev = ( *p );
         -:  139:		p++;
         -:  140:	}
-     1650:  141:	return p_prev;
+     1663:  141:	return p_prev;
         -:  142:}
         -:  143:
         -:  144:// --------------------------------------------------------------------
-      503:  145:void CZMA_TEXT::analyze_structure( void ){
-      503:  146:	std::vector<CZMA_PARSE *>::iterator pp_current = this->m_text.begin();
+      504:  145:void CZMA_TEXT::analyze_structure( void ){
+      504:  146:	std::vector<CZMA_PARSE *>::iterator pp_current = this->m_text.begin();
         -:  147:
-    15348:  148:	while( pp_current != this->m_text.end() ){
-    14845:  149:		(*pp_current)->block_structure( this->m_text, pp_current );
+    15377:  148:	while( pp_current != this->m_text.end() ){
+    14873:  149:		(*pp_current)->block_structure( this->m_text, pp_current );
         -:  150:		pp_current++;
         -:  151:	}
-      503:  152:}
+      504:  152:}
         -:  153:
         -:  154:// --------------------------------------------------------------------
-       75:  155:bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
+       76:  155:bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
         -:  156:	unsigned int success_count;
         -:  157:	CZMA_PARSE* p_last_line;
         -:  158:
-       75:  159:	this->analyze_structure();
-       75:  160:	if( CZMA_PARSE::get_number_of_errors() ){
+       76:  159:	this->analyze_structure();
+       76:  160:	if( CZMA_PARSE::get_number_of_errors() ){
         -:  161:		return false;
         -:  162:	}
         -:  163:	for( ; ; ) {
-      153:  164:		info.clear();
-      153:  165:		p_last_line = this->process( info, success_count, nullptr, false );
-      153:  166:		if( !info.is_updated ) {
-        -:  167:			break;
-        -:  168:		}
-        -:  169:	}
-       74:  170:	info.clear();
-       74:  171:	p_last_line = this->process( info, success_count, nullptr, true );
-       74:  172:	if( p_last_line == nullptr || ((p_last_line->get_file_address() == 0) && (p_last_line->get_code_size() == 0)) ) {
-       13:  173:		std::cerr << "Code is not found.\n";
-        -:  174:		return false;
-        -:  175:	}
-      122:  176:	if( info.scope.size() > 0 ) {
-       15:  177:		p_last_line->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SCOPE_IS_NOT_CLOSED ) );
-        3:  178:		return false;
-        -:  179:	}
-       58:  180:	if( CZMA_PARSE::get_number_of_errors() ) {
-       20:  181:		std::cerr << "Found " << CZMA_PARSE::get_number_of_errors() << " error(s).\n";
-        -:  182:		return false;
-        -:  183:	}
-        -:  184:	return true;
-        -:  185:}
-        -:  186:
-        -:  187:// --------------------------------------------------------------------
-      542:  188:bool CZMA_TEXT::write( CZMA_INFORMATION& info, std::ofstream* f ) {
-        -:  189:	bool result;
-        -:  190:
-        -:  191:	result = true;
-    15440:  192:	for( auto &p: m_text ) {
-    14898:  193:		result = result && p->write_output_and_log( info, f );
-        -:  194:	}
-      542:  195:	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_INTELHEX ){
-        1:  196:		info.hexfile.flush( *f );
-        -:  197:	}
-      542:  198:	return result;
-        -:  199:}
-        -:  200:
-        -:  201:// --------------------------------------------------------------------
-       75:  202:bool CZMA_TEXT::save( CZMA_INFORMATION& info, const char* p_file_name ) {
-      150:  203:	std::ofstream f;
-        -:  204:
-       75:  205:	f.open( p_file_name, std::ios::out | std::ios::binary );
-       75:  206:	bool result = this->write( info, &f );
-       75:  207:	info.write();
-       75:  208:	return result;
-      156:  209:}
+      156:  164:		info.clear();
+      156:  165:		p_last_line = this->process( info, success_count, nullptr, false );
+      156:  166:		info.set_evaluated_for_all_links();
+      156:  167:		if( !info.is_updated ) {
+        -:  168:			break;
+        -:  169:		}
+        -:  170:	}
+       75:  171:	info.clear();
+       75:  172:	p_last_line = this->process( info, success_count, nullptr, true );
+       75:  173:	if( p_last_line == nullptr || ((p_last_line->get_file_address() == 0) && (p_last_line->get_code_size() == 0)) ) {
+       13:  174:		std::cerr << "Code is not found.\n";
+        -:  175:		return false;
+        -:  176:	}
+      124:  177:	if( info.scope.size() > 0 ) {
+       15:  178:		p_last_line->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SCOPE_IS_NOT_CLOSED ) );
+        3:  179:		return false;
+        -:  180:	}
+       59:  181:	if( CZMA_PARSE::get_number_of_errors() ) {
+       20:  182:		std::cerr << "Found " << CZMA_PARSE::get_number_of_errors() << " error(s).\n";
+        -:  183:		return false;
+        -:  184:	}
+        -:  185:	return true;
+        -:  186:}
+        -:  187:
+        -:  188:// --------------------------------------------------------------------
+      547:  189:bool CZMA_TEXT::write( CZMA_INFORMATION& info, std::ofstream* f ) {
+        -:  190:	bool result;
+        -:  191:
+        -:  192:	result = true;
+    15486:  193:	for( auto &p: m_text ) {
+    14939:  194:		result = result && p->write_output_and_log( info, f );
+        -:  195:	}
+      547:  196:	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_INTELHEX ){
+        1:  197:		info.hexfile.flush( *f );
+        -:  198:	}
+      547:  199:	return result;
+        -:  200:}
+        -:  201:
+        -:  202:// --------------------------------------------------------------------
+       76:  203:bool CZMA_TEXT::save( CZMA_INFORMATION& info, const char* p_file_name ) {
+      152:  204:	std::ofstream f;
+        -:  205:
+       76:  206:	f.open( p_file_name, std::ios::out | std::ios::binary );
+       76:  207:	bool result = this->write( info, &f );
+       76:  208:	info.write();
+       76:  209:	return result;
+      158:  210:}

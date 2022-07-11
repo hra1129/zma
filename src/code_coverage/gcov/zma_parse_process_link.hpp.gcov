@@ -1,0 +1,31 @@
+        -:    0:Source:../sub/zma_parse_process_link.hpp
+        -:    0:Programs:106
+        -:    1:// --------------------------------------------------------------------
+        -:    2://	Z80 Macro Assembler parse
+        -:    3:// ====================================================================
+        -:    4://	2019/05/04	t.hara
+        -:    5:// --------------------------------------------------------------------
+        -:    6:
+        -:    7:#pragma once
+        -:    8:
+        -:    9:#include "zma_parse_process.hpp"
+        -:   10:
+        -:   11:// --------------------------------------------------------------------
+        -:   12:class CZMA_PARSE_LINK: public CZMA_PARSE {
+        -:   13:public:
+        -:   14:	std::vector< std::string > trigger_name_list;
+        -:   15:	bool is_trigger_evaluated = false;			//	trigger_name_list が作成済みか否か
+        -:   16:
+        -:   17:	bool is_evaluated = false;					//	使用確認チェックを終えたか否か
+        -:   18:	bool is_used = false;						//	true:使用する, false:使用しない
+        -:   19:	CZMA_TEXT m_text;							//	展開前のソースコード
+        -:   20:	CZMA_LOG log_header;
+        -:   21:
+       12:   22:	using CZMA_PARSE::CZMA_PARSE;
+        -:   23:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
+        -:   24:	void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) override;
+        -:   25:	std::vector< std::vector< std::string > > get_words( void );
+        -:   26:	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
+        -:   27:};
+        -:   28:
+        -:   29:CLASS_CZMA_PARSE( ENDL );

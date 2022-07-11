@@ -19,27 +19,7 @@
 #define __ZMA_INFORMATION_HPP__
 
 class CZMA_PARSE_MACRO;
-
-// --------------------------------------------------------------------
-//class CZMA_MACRO {
-//public:
-//	std::vector< CZMA_MACRO_ARG >	parameter_name_list;
-//	std::vector<class CZMA_PARSE*>	m_text;
-//};
-
-// --------------------------------------------------------------------
-class CZMA_REPEAT_T {
-public:
-	std::string						counter_symbol;
-	int								counter_end;
-	bool							is_counter_end_fixed;
-	std::string						scope_name;
-	std::vector<class CZMA_PARSE*>	m_text;
-
-	// --------------------------------------------------------------------
-	CZMA_REPEAT_T(): counter_symbol( "" ), counter_end( 0 ), is_counter_end_fixed( false ), scope_name( "" ) {
-	}
-};
+class CZMA_PARSE_LINK;
 
 // --------------------------------------------------------------------
 class CZMA_CHAR_SET {
@@ -79,6 +59,7 @@ public:
 	bool is_updated;
 
 	std::map< std::string, CZMA_PARSE_MACRO* >	macro_list;
+	std::map< std::string, CZMA_PARSE_LINK * >	link_list;
 	std::map< std::string, CZMA_CHAR_SET >		char_set_list;
 	CZMA_CHAR_SET*								p_char_set;
 	std::string									s_char_set;
@@ -111,6 +92,15 @@ public:
 
 	// --------------------------------------------------------------------
 	std::string get_scope_path( void );
+
+	// --------------------------------------------------------------------
+	//	全ての LINK について「評価済み」をマークする
+	void set_evaluated_for_all_links( void );
+
+	// --------------------------------------------------------------------
+	//	指定の名前 word が LINK の展開発動キーワードか調べる
+	//	展開発動キーワードなら、その LINK に「展開する」とマークする
+	void check_link( std::string word );
 
 	// --------------------------------------------------------------------
 	bool get_label_value( CVALUE &result, std::string word );
