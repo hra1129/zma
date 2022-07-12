@@ -22,31 +22,31 @@
         -:   20://	LINK文は特殊な構造を持つのでこのメソッドを定義
         -:   21://	load 時は、このクラスは LINKの1行目単独を示している。
         -:   22://	この関数では、LINK～ENDL全体を示すように変更する。
-        4:   23:void CZMA_PARSE_LINK::block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ){
+        7:   23:void CZMA_PARSE_LINK::block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ){
         -:   24:
-        8:   25:	while( pp_current != m_text.end() ){
+       14:   25:	while( pp_current != m_text.end() ){
         -:   26:		//	ENDL か？
-       24:   27:		if( ( *pp_current )->words.size() > 0 && ( *pp_current )->words[ 0 ] == "ENDL" ){
+       42:   27:		if( ( *pp_current )->words.size() > 0 && ( *pp_current )->words[ 0 ] == "ENDL" ){
         -:   28:			//	ENDL自体はもう不要なので削除
-        4:   29:			pp_current = m_text.erase( pp_current );
-        4:   30:			break;
+        7:   29:			pp_current = m_text.erase( pp_current );
+        7:   30:			break;
         -:   31:		}
         -:   32:		//	中身を this->m_text に詰める
         -:   33:		pp_current++;
-       30:   34:		while( pp_current != m_text.end() ){
-       34:   35:			if( ( *pp_current )->words.size() == 0 ){
+       51:   34:		while( pp_current != m_text.end() ){
+       58:   35:			if( ( *pp_current )->words.size() == 0 ){
         -:   36:				//	through
         -:   37:			}
-       17:   38:			else if( ( *pp_current )->words[ 0 ] == "ENDL" ){
+       29:   38:			else if( ( *pp_current )->words[ 0 ] == "ENDL" ){
         -:   39:				break;
         -:   40:			}
-       13:   41:			( *pp_current )->block_structure( m_text, pp_current );
-       26:   42:			this->m_text.m_text.push_back( *pp_current );
-       13:   43:			pp_current = m_text.erase( pp_current );
+       22:   41:			( *pp_current )->block_structure( m_text, pp_current );
+       44:   42:			this->m_text.m_text.push_back( *pp_current );
+       22:   43:			pp_current = m_text.erase( pp_current );
         -:   44:		}
         -:   45:	}
         -:   46:	pp_current--;
-        4:   47:}
+        7:   47:}
         -:   48:
         -:   49:// --------------------------------------------------------------------
     #####:   50:std::vector< std::vector< std::string > > CZMA_PARSE_LINK::get_words( void ){
@@ -63,119 +63,129 @@
         -:   61:}
         -:   62:
         -:   63:// --------------------------------------------------------------------
-        4:   64:bool CZMA_PARSE_LINK::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
+        7:   64:bool CZMA_PARSE_LINK::write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) {
         -:   65:	bool result;
         -:   66:
         -:   67:	result = true;
-       10:   68:	for( auto &line : log_header ){
+       13:   68:	for( auto &line : log_header ){
         6:   69:		info.log << line << std::endl;
         -:   70:	}
-        4:   71:	result = this->m_text.write( info, f );
-        4:   72:	for( auto &line : log ) {
-    #####:   73:		info.log << line << std::endl;
+        7:   71:	result = this->m_text.write( info, f );
+       19:   72:	for( auto &line : log ) {
+       12:   73:		info.log << line << std::endl;
         -:   74:	}
-        4:   75:	return result;
+        7:   75:	return result;
         -:   76:}
         -:   77:
         -:   78:// --------------------------------------------------------------------
-       16:   79:bool CZMA_PARSE_LINK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       25:   79:bool CZMA_PARSE_LINK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   80:	std::string label;
         -:   81:	CVALUE v;
         -:   82:	int index;
         -:   83:	unsigned int sub_success_count;
         -:   84:	std::string s_scope, s_name;
-       16:   85:	std::vector< std::string > label_line;
+       25:   85:	std::vector< std::string > label_line;
         -:   86:
-       16:   87:	update_flags( &info, p_last_line );
-       16:   88:	if( !this->is_trigger_evaluated ) {
-        8:   89:		if( words.size() < 2 ) {
+       25:   87:	update_flags( &info, p_last_line );
+       25:   88:	if( !this->is_trigger_evaluated ) {
+       26:   89:		if( words.size() < 2 ) {
         -:   90:			//	LINK ラベル名 で、少なくとも 2[word] なければならない
     #####:   91:			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
     #####:   92:			return false;
         -:   93:		}
-        8:   94:		s_scope = info.get_scope_path();
-       23:   95:		for( index = 1; index < (int)words.size(); ){
-       15:   96:			s_name = s_scope + words[ index ];
-        5:   97:			this->trigger_name_list.push_back( s_name );
-       11:   98:			if( ( index + 1 ) < (int)words.size() && words[ index + 1 ] != "," ){
-    #####:   99:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-    #####:  100:				return false;
+       26:   94:		s_scope = info.get_scope_path();
+       28:   95:		for( index = 1; index < (int)words.size(); ){
+       42:   96:			s_name = s_scope + words[ index ];
+       14:   97:			this->trigger_name_list.push_back( s_name );
+       38:   98:			if( ( index + 1 ) < (int)words.size() && words[ index + 1 ] != "," ){
+       36:   99:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        6:  100:				return false;
         -:  101:			}
         -:  102:			//	info.link_list に名前リストを追加する。
         -:  103:			if( info.link_list.count( s_name ) ){
-    #####:  104:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
-    #####:  105:				return false;
+       12:  104:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
+        2:  105:				return false;
         -:  106:			}
-       10:  107:			info.link_list[ s_name ] = this;
+       12:  107:			info.link_list[ s_name ] = this;
         -:  108:			//	名前そのものと , の 2words
-        5:  109:			index += 2;
-        -:  110:		}
-        4:  111:		this->is_trigger_evaluated = true;
-        4:  112:		info.is_updated = true;
-        -:  113:	}
-        -:  114:	//	log
-       16:  115:	if( !is_analyze_phase && is_used ){
-        6:  116:		log_header.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        3:  117:		log_header.write_separator();
-        -:  118:	}
-        -:  119:
-       16:  120:	if( is_used ){
-        -:  121:		//	中身を処理する
-        9:  122:		p_last_line = this->m_text.process( info, sub_success_count, p_last_line, !is_analyze_phase );
-        -:  123:
-        -:  124:		//	データが確定したか確認する
-        9:  125:		if( !this->is_data_fixed ){
-        3:  126:			this->is_data_fixed = this->m_text.check_data_fixed();
-        3:  127:			if( this->is_data_fixed ){
-        3:  128:				info.is_updated = true;
-        -:  129:			}
-        -:  130:		}
-        -:  131:
-        -:  132:		//	コードサイズを計算する
-        9:  133:		if( this->code_size == -1 ){
-        3:  134:			this->m_text.calc_code_size();
-        3:  135:			this->code_size = this->m_text.get_code_size();
-        3:  136:			if( this->code_size != -1 ){
-        3:  137:				info.is_updated = true;
-        -:  138:			}
-        -:  139:		}
-        -:  140:
-        -:  141:		//	次のアドレスを計算する
-        9:  142:		if( this->next_code_address == -1 ){
-        3:  143:			if( p_last_line == nullptr ){
-    #####:  144:				this->next_code_address = 0;
-        -:  145:			}
-        -:  146:			else{
-        3:  147:				this->next_code_address = p_last_line->get_next_code_address();
+        -:  109:			index++;
+       12:  110:			if( index == (int)words.size() ){
+        -:  111:				break;
+        -:  112:			}
+        2:  113:			index++;
+        2:  114:			if( index >= (int)words.size() ){
+        5:  115:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        1:  116:				return false;
+        -:  117:			}
+        -:  118:		}
+        4:  119:		this->is_trigger_evaluated = true;
+        4:  120:		info.is_updated = true;
+        -:  121:	}
+        -:  122:	//	log
+       16:  123:	if( !is_analyze_phase && is_used ){
+        6:  124:		log_header.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+        3:  125:		log_header.write_separator();
+        6:  126:		log.write_message( "ENDL" );
+        3:  127:		log.write_separator();
+        -:  128:	}
+        -:  129:
+       16:  130:	if( is_used ){
+        -:  131:		//	中身を処理する
+        9:  132:		p_last_line = this->m_text.process( info, sub_success_count, p_last_line, !is_analyze_phase );
+        -:  133:
+        -:  134:		//	データが確定したか確認する
+        9:  135:		if( !this->is_data_fixed ){
+        3:  136:			this->is_data_fixed = this->m_text.check_data_fixed();
+        3:  137:			if( this->is_data_fixed ){
+        3:  138:				info.is_updated = true;
+        -:  139:			}
+        -:  140:		}
+        -:  141:
+        -:  142:		//	コードサイズを計算する
+        9:  143:		if( this->code_size == -1 ){
+        3:  144:			this->m_text.calc_code_size();
+        3:  145:			this->code_size = this->m_text.get_code_size();
+        3:  146:			if( this->code_size != -1 ){
+        3:  147:				info.is_updated = true;
         -:  148:			}
-        3:  149:			if( this->next_code_address != -1 ){
-        3:  150:				info.is_updated = true;
-        -:  151:			}
-        -:  152:		}
-        -:  153:	}
-        7:  154:	else if( is_evaluated ){
-        -:  155:		this->set_code_size( &info, 0 );
-        -:  156:
-        -:  157:		//	次のアドレスを計算する
-        3:  158:		if( this->next_code_address == -1 ){
-    #####:  159:			if( p_last_line == nullptr ){
-    #####:  160:				this->next_code_address = 0;
+        -:  149:		}
+        -:  150:
+        -:  151:		//	次のアドレスを計算する
+        9:  152:		if( this->next_code_address == -1 ){
+        3:  153:			if( p_last_line == nullptr ){
+    #####:  154:				this->next_code_address = 0;
+        -:  155:			}
+        -:  156:			else{
+        3:  157:				this->next_code_address = p_last_line->get_next_code_address();
+        -:  158:			}
+        3:  159:			if( this->next_code_address != -1 ){
+        3:  160:				info.is_updated = true;
         -:  161:			}
-        -:  162:			else{
-    #####:  163:				this->next_code_address = p_last_line->get_next_code_address();
-        -:  164:			}
-    #####:  165:			if( this->next_code_address != -1 ){
-    #####:  166:				info.is_updated = true;
-        -:  167:			}
-        -:  168:		}
-        -:  169:	}
-        -:  170:
-        -:  171:	return check_all_fixed();
-        -:  172:}
-        -:  173:
-        -:  174:// --------------------------------------------------------------------
-    #####:  175:bool CZMA_PARSE_ENDL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
-        -:  176:	//	本来、これは実行されるべきでないので、常にエラーを返す。
-    #####:  177:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SYNTAX_ERROR ) );
-    #####:  178:	return false;
-      158:  179:}
+        -:  162:		}
+        -:  163:	}
+        7:  164:	else if( is_evaluated ){
+        -:  165:		this->set_code_size( &info, 0 );
+        -:  166:
+        -:  167:		//	次のアドレスを計算する
+        3:  168:		if( this->next_code_address == -1 ){
+    #####:  169:			if( p_last_line == nullptr ){
+    #####:  170:				this->next_code_address = 0;
+        -:  171:			}
+        -:  172:			else{
+    #####:  173:				this->next_code_address = p_last_line->get_next_code_address();
+        -:  174:			}
+    #####:  175:			if( this->next_code_address != -1 ){
+    #####:  176:				info.is_updated = true;
+        -:  177:			}
+        -:  178:		}
+        -:  179:	}
+        -:  180:
+        -:  181:	return check_all_fixed();
+        -:  182:}
+        -:  183:
+        -:  184:// --------------------------------------------------------------------
+    #####:  185:bool CZMA_PARSE_ENDL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+        -:  186:	//	本来、これは実行されるべきでないので、常にエラーを返す。
+    #####:  187:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SYNTAX_ERROR ) );
+    #####:  188:	return false;
+      162:  189:}

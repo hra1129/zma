@@ -70,5 +70,24 @@ LINE# |OFFSET|ADDR|MNEMONIC
     47|      |    |SSSS :
       |      |    |  label address: 0xXXXXXX
 ------+------+----+----------------------------------
+    50|      |    |SPACE
+    50|ERROR |    |Illegal expression.: test1.asm(50)
+    53|      |    |SPACE "aaa"
+    53|ERROR |    |Illegal expression.: test1.asm(53)
+    56|      |    |SPACE - 1
+    56|ERROR |    |Illegal parameter.: test1.asm(56)
+    57|      |    |SPACE 999999
+    57|ERROR |    |Illegal parameter.: test1.asm(57)
+    60|      |    |SPACE 10,
+    60|ERROR |    |Illegal expression.: test1.asm(60)
+    63|      |    |SPACE 10, "aaa"
+    63|ERROR |    |Illegal expression.: test1.asm(63)
+    66|      |    |SPACE 10, - 1
+    66|ERROR |    |Illegal parameter.: test1.asm(66)
+    67|      |    |SPACE 10, 999999
+    67|ERROR |    |Illegal parameter.: test1.asm(67)
+    70|      |    |SPACE 0
+      |      |    |  No space was allocated.
+------+------+----+----------------------------------
 << label >>
 SSSS ... ????

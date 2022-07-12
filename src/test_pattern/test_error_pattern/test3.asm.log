@@ -32,12 +32,40 @@ LINE# |OFFSET|ADDR|MNEMONIC
     15|ERROR |    |Illegal operand.: test3.asm(15)
     18|      |    |ERROR AAA
     18|ERROR |    |Illegal parameter.: test3.asm(18)
-    21|      |    |XXX
-    21|ERROR |    |Invalid command.: test3.asm(21)
-    22|      |    |L1 :
+    19|      |    |MESSAGE AAA
+    19|ERROR |    |Illegal parameter.: test3.asm(19)
+    22|      |    |ERROR BBB
+    22|ERROR |    |Illegal parameter.: test3.asm(22)
+    23|      |    |MESSAGE BBB
+    23|ERROR |    |Illegal parameter.: test3.asm(23)
+    26|      |    |HOGE = BBB
+      |      |    |  Integer symbol [HOGE] = UNKNOWN
+------+------+----+----------------------------------
+    27|      |    |MOGE := BBB
+      |      |    |  Global integer symbol [MOGE] = UNKNOWN
+------+------+----+----------------------------------
+    28|      |    |S_HOGE = "aaa" + BBB
+      |      |    |  String symbol [S_HOGE] = UNKNOWN
+------+------+----+----------------------------------
+    29|      |    |S_MOGE := "aaa" + BBB
+      |      |    |  Global string symbol [S_MOGE] = UNKNOWN
+------+------+----+----------------------------------
+    32|      |    |XXX
+    32|ERROR |    |Invalid command.: test3.asm(32)
+    33|      |    |L1 :
       |      |    |  label [L1] address: 0x000010
 ------+------+----+----------------------------------
-    23|      |    |ERROR L1
-    23|ERROR |    |16: test3.asm(23)
+    34|      |    |ERROR L1
+    34|ERROR |    |16: test3.asm(34)
+    36|      |    |SPACE BBB
+    36|ERROR |    |Illegal expression.: test3.asm(36)
+    37|      |    |BBB :
+      |      |    |  label address: 0xXXXXXX
+------+------+----+----------------------------------
 << label >>
-L1 ... 16 ( 0x10 )
+BBB ...... ????
+HOGE ..... ????
+L1 ....... 16 ( 0x10 )
+MOGE ..... ????
+S_HOGE ... ????
+S_MOGE ... ????

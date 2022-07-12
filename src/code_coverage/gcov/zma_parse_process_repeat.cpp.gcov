@@ -243,4 +243,4 @@
         -:  241:	//	本来、これは実行されるべきでないので、常にエラーを返す。
       180:  242:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SYNTAX_ERROR ) );
        36:  243:	return false;
-      158:  244:}
+      162:  244:}

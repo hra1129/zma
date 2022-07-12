@@ -1,0 +1,22 @@
+Z80 Macro Assembler ZMA v1.0.16-beta
+=====================================================
+Programmed by t.hara
+
+  DEFS is DEFINE STRING (default).
+  OUTPUT TYPE: BINARY
+
+<< code >>
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     7|      |    |LINK SUB1,
+     7|ERROR |    |Multiple definition.: test1.asm(7)
+    13|      |    |CALL SUB1
+    13|ERROR |    |Illegal operand.: test1.asm(13)
+    17|      |    |LINK SUB2 .
+    17|ERROR |    |Illegal parameter.: test1.asm(17)
+    23|      |    |CALL SUB2
+    23|ERROR |    |Illegal operand.: test1.asm(23)
+    28|      |    |LINK SUB3_1 SUB3_2
+    28|ERROR |    |Illegal parameter.: test1.asm(28)
+    34|      |    |CALL SUB3_1
+    34|ERROR |    |Illegal operand.: test1.asm(34)

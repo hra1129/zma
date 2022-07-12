@@ -13,15 +13,19 @@ label_0x200::
 
 label_0x300:
 label_0x300 = 2
+label_0x300 = "2"
 
 label_0x400:
 label_0x400 := 2
+label_0x400 := "2"
 
 label_0x500::
 label_0x500 = 2
+label_0x500 = "2"
 
 label_0x600::
 label_0x600 := 2
+label_0x600 := "2"
 
 ;	ラベルの値が確定せずにエラー
 	defs	ll
@@ -50,3 +54,14 @@ label1_4 := $	aaa
 	org		0x500
 label2_3 = invalid_label
 label2_4 := invalid_label
+
+;	先に文字列で宣言した後にアドレスラベルとして宣言してエラー
+label3	= "abcd"
+label3:
+label3::
+label3	= 10
+
+label4	= 10
+label4	= "abcd"
+label4:
+label4::

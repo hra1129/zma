@@ -106,7 +106,15 @@ bool CZMA_PARSE_LINK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 			}
 			info.link_list[ s_name ] = this;
 			//	–¼‘O‚»‚Ì‚à‚Ì‚Æ , ‚Ì 2words
-			index += 2;
+			index++;
+			if( index == (int)words.size() ){
+				break;
+			}
+			index++;
+			if( index >= (int)words.size() ){
+				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+				return false;
+			}
 		}
 		this->is_trigger_evaluated = true;
 		info.is_updated = true;
@@ -115,6 +123,8 @@ bool CZMA_PARSE_LINK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line )
 	if( !is_analyze_phase && is_used ){
 		log_header.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 		log_header.write_separator();
+		log.write_message( "ENDL" );
+		log.write_separator();
 	}
 
 	if( is_used ){

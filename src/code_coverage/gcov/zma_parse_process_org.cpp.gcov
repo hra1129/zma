@@ -19,33 +19,33 @@
         -:   17:#include "zma_parse_process_org.hpp"
         -:   18:
         -:   19:// --------------------------------------------------------------------
-       95:   20:bool CZMA_PARSE_ORG::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      101:   20:bool CZMA_PARSE_ORG::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   21:	CVALUE address;
         -:   22:	int index;
         -:   23:
-       95:   24:	update_flags( &info, p_last_line );
-       95:   25:	index = this->expression( info, 1, address );
-       95:   26:	this->code_size = 0;
-       95:   27:	if( index == 0 ) {
+      101:   24:	update_flags( &info, p_last_line );
+      101:   25:	index = this->expression( info, 1, address );
+      101:   26:	this->code_size = 0;
+      101:   27:	if( index == 0 ) {
        40:   28:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         8:   29:		return false;
         -:   30:	}
-       87:   31:	if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
+       93:   31:	if( address.value_type != CVALUE_TYPE::CV_INTEGER ) {
        20:   32:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
         4:   33:		return false;
         -:   34:	}
-      166:   35:	if( index < (int)words.size() ) {
+      178:   35:	if( index < (int)words.size() ) {
        20:   36:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
         4:   37:		return false;
         -:   38:	}
-       79:   39:	this->is_data_fixed = true;
-       79:   40:	this->code_address = address.i;
-       79:   41:	this->next_code_address = address.i;
+       85:   39:	this->is_data_fixed = true;
+       85:   40:	this->code_address = address.i;
+       85:   41:	this->next_code_address = address.i;
         -:   42:	//	log
-       79:   43:	if( !this->is_analyze_phase ) {
-       52:   44:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       26:   45:		log.write_separator();
+       85:   43:	if( !this->is_analyze_phase ) {
+       56:   44:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       28:   45:		log.write_separator();
         -:   46:	}
         -:   47:	return check_all_fixed();
-      158:   48:}
+      162:   48:}
         -:   49:

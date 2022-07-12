@@ -30,108 +30,170 @@ LINE# |OFFSET|ADDR|MNEMONIC
 ------+------+----+----------------------------------
     15|      |    |LABEL_0X300 = 2
     15|ERROR |    |Multiple definition.: test1.asm(15)
-    17|      |    |LABEL_0X400 :
+    16|      |    |LABEL_0X300 = "2"
+      |      |    |  Integer symbol [LABEL_0X300] = 256 (0x100)
+------+------+----+----------------------------------
+    16|      |    |LABEL_0X300 = "2"
+    16|ERROR |    |Multiple definition.: test1.asm(16)
+    18|      |    |LABEL_0X400 :
       |      |    |  label [LABEL_0X400] address: 0x000100
 ------+------+----+----------------------------------
-    18|      |    |LABEL_0X400 := 2
+    19|      |    |LABEL_0X400 := 2
       |      |    |  Global integer symbol [LABEL_0X400] = 256 (0x100)
 ------+------+----+----------------------------------
-    18|      |    |LABEL_0X400 := 2
-    18|ERROR |    |Multiple definition.: test1.asm(18)
-    20|      |    |LABEL_0X500 ::
+    19|      |    |LABEL_0X400 := 2
+    19|ERROR |    |Multiple definition.: test1.asm(19)
+    20|      |    |LABEL_0X400 := "2"
+      |      |    |  Global integer symbol [LABEL_0X400] = 256 (0x100)
+------+------+----+----------------------------------
+    20|      |    |LABEL_0X400 := "2"
+    20|ERROR |    |Multiple definition.: test1.asm(20)
+    22|      |    |LABEL_0X500 ::
       |      |    |  global label [LABEL_0X500] address: 0x000100
 ------+------+----+----------------------------------
-    21|      |    |LABEL_0X500 = 2
+    23|      |    |LABEL_0X500 = 2
       |      |    |  Integer symbol [LABEL_0X500] = 256 (0x100)
 ------+------+----+----------------------------------
-    21|      |    |LABEL_0X500 = 2
-    21|ERROR |    |Multiple definition.: test1.asm(21)
-    23|      |    |LABEL_0X600 ::
+    23|      |    |LABEL_0X500 = 2
+    23|ERROR |    |Multiple definition.: test1.asm(23)
+    24|      |    |LABEL_0X500 = "2"
+      |      |    |  Integer symbol [LABEL_0X500] = 256 (0x100)
+------+------+----+----------------------------------
+    24|      |    |LABEL_0X500 = "2"
+    24|ERROR |    |Multiple definition.: test1.asm(24)
+    26|      |    |LABEL_0X600 ::
       |      |    |  global label [LABEL_0X600] address: 0x000100
 ------+------+----+----------------------------------
-    24|      |    |LABEL_0X600 := 2
+    27|      |    |LABEL_0X600 := 2
       |      |    |  Global integer symbol [LABEL_0X600] = 256 (0x100)
 ------+------+----+----------------------------------
-    24|      |    |LABEL_0X600 := 2
-    24|ERROR |    |Multiple definition.: test1.asm(24)
-    27|      |    |DEFS LL
-    27|ERROR |    |Illegal parameter.: test1.asm(27)
-    28|      |    |LL :
+    27|      |    |LABEL_0X600 := 2
+    27|ERROR |    |Multiple definition.: test1.asm(27)
+    28|      |    |LABEL_0X600 := "2"
+      |      |    |  Global integer symbol [LABEL_0X600] = 256 (0x100)
+------+------+----+----------------------------------
+    28|      |    |LABEL_0X600 := "2"
+    28|ERROR |    |Multiple definition.: test1.asm(28)
+    31|      |    |DEFS LL
+    31|ERROR |    |Illegal parameter.: test1.asm(31)
+    32|      |    |LL :
       |      |    |  label address: 0xXXXXXX
 ------+------+----+----------------------------------
-    30|      |    |LABEL_1 :
+    34|      |    |LABEL_1 :
       |      |    |  label address: 0xXXXXXX
 ------+------+----+----------------------------------
-    31|      |    |LABEL_2 ::
+    35|      |    |LABEL_2 ::
       |      |    |  global label address: 0xXXXXXX
 ------+------+----+----------------------------------
-    32|      |    |LABEL_3 = $
+    36|      |    |LABEL_3 = $
       |      |    |  Integer symbol [LABEL_3] = UNKNOWN
 ------+------+----+----------------------------------
-    33|      |    |LABEL_4 := FILE_ADDRESS
+    37|      |    |LABEL_4 := FILE_ADDRESS
       |      |    |  Global integer symbol [LABEL_4] = UNKNOWN
 ------+------+----+----------------------------------
-    36|      |    |ORG 0x200
+    40|      |    |ORG 0x200
 ------+------+----+----------------------------------
-    37|      |    |"Š¿Žš1" :
+    41|      |    |"Š¿Žš1" :
       |      |    |  label ["Š¿Žš1] address: 0x000200
 ------+------+----+----------------------------------
-    37|      |    |"Š¿Žš1" :
-    37|ERROR |    |Invalid command.: test1.asm(37)
-    38|      |    |"Š¿Žš2" ::
+    41|      |    |"Š¿Žš1" :
+    41|ERROR |    |Invalid command.: test1.asm(41)
+    42|      |    |"Š¿Žš2" ::
       |      |    |  global label ["Š¿Žš2] address: 0x000200
 ------+------+----+----------------------------------
-    38|      |    |"Š¿Žš2" ::
-    38|ERROR |    |Invalid command.: test1.asm(38)
-    39|      |    |"Š¿Žš3" = 1
+    42|      |    |"Š¿Žš2" ::
+    42|ERROR |    |Invalid command.: test1.asm(42)
+    43|      |    |"Š¿Žš3" = 1
       |      |    |  Symbol ["Š¿Žš3] = UNKNOWN
 ------+------+----+----------------------------------
-    39|      |    |"Š¿Žš3" = 1
-    39|ERROR |    |Invalid command.: test1.asm(39)
-    40|      |    |"Š¿Žš4" := 2
+    43|      |    |"Š¿Žš3" = 1
+    43|ERROR |    |Invalid command.: test1.asm(43)
+    44|      |    |"Š¿Žš4" := 2
       |      |    |  global symbol ["Š¿Žš4] = UNKNOWN
 ------+------+----+----------------------------------
-    40|      |    |"Š¿Žš4" := 2
-    40|ERROR |    |Invalid command.: test1.asm(40)
-    43|      |    |ORG 0x300
+    44|      |    |"Š¿Žš4" := 2
+    44|ERROR |    |Invalid command.: test1.asm(44)
+    47|      |    |ORG 0x300
 ------+------+----+----------------------------------
-    44|      |    |LABEL1_1 :
+    48|      |    |LABEL1_1 :
       |      |    |  label [LABEL1_1] address: 0x000300
 ------+------+----+----------------------------------
-    44|      |    |AAA
-    44|ERROR |    |Invalid command.: test1.asm(44)
-    45|      |    |LABEL1_2 ::
+    48|      |    |AAA
+    48|ERROR |    |Invalid command.: test1.asm(48)
+    49|      |    |LABEL1_2 ::
       |      |    |  global label [LABEL1_2] address: 0x000300
 ------+------+----+----------------------------------
-    45|      |    |AAA
-    45|ERROR |    |Invalid command.: test1.asm(45)
-    46|      |    |LABEL1_3 = $ AAA
+    49|      |    |AAA
+    49|ERROR |    |Invalid command.: test1.asm(49)
+    50|      |    |LABEL1_3 = $ AAA
       |      |    |  Integer symbol [LABEL1_3] = 768 (0x300)
 ------+------+----+----------------------------------
-    46|      |    |LABEL1_3 = $ AAA
-    46|ERROR |    |Multiple definition.: test1.asm(46)
-    47|      |    |LABEL1_4 := $ AAA
+    50|      |    |LABEL1_3 = $ AAA
+    50|ERROR |    |Multiple definition.: test1.asm(50)
+    51|      |    |LABEL1_4 := $ AAA
       |      |    |  Global integer symbol [LABEL1_4] = 768 (0x300)
 ------+------+----+----------------------------------
-    47|      |    |LABEL1_4 := $ AAA
-    47|ERROR |    |Multiple definition.: test1.asm(47)
-    50|      |    |ORG 0x500
+    51|      |    |LABEL1_4 := $ AAA
+    51|ERROR |    |Multiple definition.: test1.asm(51)
+    54|      |    |ORG 0x500
 ------+------+----+----------------------------------
-    51|      |    |LABEL2_3 = INVALID_LABEL
+    55|      |    |LABEL2_3 = INVALID_LABEL
       |      |    |  Symbol [LABEL2_3] = UNKNOWN
 ------+------+----+----------------------------------
-    51|      |    |LABEL2_3 = INVALID_LABEL
-    51|ERROR |    |Label is indeterminate.: test1.asm(51)
-    52|      |    |LABEL2_4 := INVALID_LABEL
+    55|      |    |LABEL2_3 = INVALID_LABEL
+    55|ERROR |    |Label is indeterminate.: test1.asm(55)
+    56|      |    |LABEL2_4 := INVALID_LABEL
       |      |    |  global symbol [LABEL2_4] = UNKNOWN
 ------+------+----+----------------------------------
-    52|      |    |LABEL2_4 := INVALID_LABEL
-    52|ERROR |    |Label is indeterminate.: test1.asm(52)
+    56|      |    |LABEL2_4 := INVALID_LABEL
+    56|ERROR |    |Label is indeterminate.: test1.asm(56)
+    59|      |    |LABEL3 = "abcd"
+      |      |    |  String symbol [LABEL3] = "abcd"
+------+------+----+----------------------------------
+    59|      |    |LABEL3 = "abcd"
+    59|ERROR |    |Multiple definition.: test1.asm(59)
+    60|      |    |LABEL3 :
+      |      |    |  label [LABEL3] address: 0x000500
+------+------+----+----------------------------------
+    60|      |    |LABEL3 :
+    60|ERROR |    |Multiple definition.: test1.asm(60)
+    61|      |    |LABEL3 ::
+      |      |    |  global label [LABEL3] address: 0x000500
+------+------+----+----------------------------------
+    61|      |    |LABEL3 ::
+    61|ERROR |    |Multiple definition.: test1.asm(61)
+    62|      |    |LABEL3 = 10
+      |      |    |  String symbol [LABEL3] = "abcd"
+------+------+----+----------------------------------
+    62|      |    |LABEL3 = 10
+    62|ERROR |    |Multiple definition.: test1.asm(62)
+    64|      |    |LABEL4 = 10
+      |      |    |  Integer symbol [LABEL4] = 10 (0xa)
+------+------+----+----------------------------------
+    64|      |    |LABEL4 = 10
+    64|ERROR |    |Multiple definition.: test1.asm(64)
+    65|      |    |LABEL4 = "abcd"
+      |      |    |  Integer symbol [LABEL4] = 10 (0xa)
+------+------+----+----------------------------------
+    65|      |    |LABEL4 = "abcd"
+    65|ERROR |    |Multiple definition.: test1.asm(65)
+    66|      |    |LABEL4 :
+      |      |    |  label [LABEL4] address: 0x000500
+------+------+----+----------------------------------
+    66|      |    |LABEL4 :
+    66|ERROR |    |Multiple definition.: test1.asm(66)
+    67|      |    |LABEL4 ::
+      |      |    |  global label [LABEL4] address: 0x000500
+------+------+----+----------------------------------
+    67|      |    |LABEL4 ::
+    67|ERROR |    |Multiple definition.: test1.asm(67)
 << label >>
 LABEL1_1 ...... 768 ( 0x300 )
 LABEL1_2 ...... 768 ( 0x300 )
 LABEL1_3 ...... 768 ( 0x300 )
 LABEL1_4 ...... 768 ( 0x300 )
+LABEL3 ........ "abcd"
+LABEL4 ........ 10 ( 0xa )
 LABEL_0X100 ... 256 ( 0x100 )
 LABEL_0X200 ... 256 ( 0x100 )
 LABEL_0X300 ... 256 ( 0x100 )

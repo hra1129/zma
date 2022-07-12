@@ -19,11 +19,11 @@
         -:   17:#include "zma_parse_process_blank.hpp"
         -:   18:
         -:   19:// --------------------------------------------------------------------
-    19374:   20:bool CZMA_PARSE_BLANK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+    19543:   20:bool CZMA_PARSE_BLANK::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   21:
-    19374:   22:	this->is_data_fixed = true;
-    19374:   23:	update_flags( &info, p_last_line );
+    19543:   22:	this->is_data_fixed = true;
+    19543:   23:	update_flags( &info, p_last_line );
         -:   24:	this->set_code_size( &info, 0 );
-    19374:   25:	return this->check_all_fixed();
-      158:   26:}
+    19543:   25:	return this->check_all_fixed();
+      162:   26:}
         -:   27:

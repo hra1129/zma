@@ -72,14 +72,14 @@
         -:   70:}
         -:   71:
         -:   72:// --------------------------------------------------------------------
-       79:   73:static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
+       81:   73:static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
         -:   74:	int i;
         -:   75:	std::string s_argument;
         -:   76:	std::vector<std::string> sa_options;
         -:   77:
-      393:   78:	for( i = 1; i < argc; i++ ){
-      159:   79:		s_argument = argv[ i ];
-      159:   80:		if( s_argument[ 0 ] == '-' || s_argument[ 0 ] == '/' ){
+      403:   78:	for( i = 1; i < argc; i++ ){
+      163:   79:		s_argument = argv[ i ];
+      163:   80:		if( s_argument[ 0 ] == '-' || s_argument[ 0 ] == '/' ){
         7:   81:			s_argument[ 0 ] = '-';
         -:   82:			std::transform( s_argument.begin(), s_argument.end(), s_argument.begin(), toupper );
        13:   83:			if( s_argument == "-H" || s_argument == "-HELP" ){
@@ -103,66 +103,66 @@
         -:  101:			}
         -:  102:		}
         -:  103:		else{
-      152:  104:			sa_options.push_back( s_argument );
+      156:  104:			sa_options.push_back( s_argument );
         -:  105:		}
         -:  106:	}
         -:  107:
-       77:  108:	if( info.defs_is_space ){
+       79:  108:	if( info.defs_is_space ){
         1:  109:		info.log << "  DEFS is DEFINE SPACE.\n";
         -:  110:	}
         -:  111:	else{
-       76:  112:		info.log << "  DEFS is DEFINE STRING (default).\n";
+       78:  112:		info.log << "  DEFS is DEFINE STRING (default).\n";
         -:  113:	}
         -:  114:
-       77:  115:	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_BINARY ){
-       76:  116:		info.log << "  OUTPUT TYPE: BINARY\n\n";
+       79:  115:	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_BINARY ){
+       78:  116:		info.log << "  OUTPUT TYPE: BINARY\n\n";
         -:  117:	}
         -:  118:	else{
         1:  119:		info.log << "  OUTPUT TYPE: INTEL HEX\n\n";
         -:  120:	}
-       77:  121:	return sa_options;
+       79:  121:	return sa_options;
         -:  122:}
         -:  123:
         -:  124:// --------------------------------------------------------------------
-       79:  125:int main( int argc, char *argv[] ) {
-       79:  126:    std::cout << "Z80 Macro Assembler ZMA " << p_version << "\n";
-       79:  127:	std::cout << "=====================================================\n";
-       79:  128:	std::cout << "Programmed by t.hara\n";
+       81:  125:int main( int argc, char *argv[] ) {
+       81:  126:    std::cout << "Z80 Macro Assembler ZMA " << p_version << "\n";
+       81:  127:	std::cout << "=====================================================\n";
+       81:  128:	std::cout << "Programmed by t.hara\n";
         -:  129:
-      156:  130:	CZMA_TEXT src;
-      156:  131:	CZMA_INFORMATION info;
-       77:  132:	std::vector< std::string > sa_options;
+      160:  130:	CZMA_TEXT src;
+      160:  131:	CZMA_INFORMATION info;
+       79:  132:	std::vector< std::string > sa_options;
         -:  133:
-       79:  134:	info.log.open( "zma.log", std::ios::out );
-       79:  135:	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
-       79:  136:	info.log << "=====================================================\n";
-       79:  137:	info.log << "Programmed by t.hara\n\n";
+       81:  134:	info.log.open( "zma.log", std::ios::out );
+       81:  135:	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
+       81:  136:	info.log << "=====================================================\n";
+       81:  137:	info.log << "Programmed by t.hara\n\n";
         -:  138:
-      156:  139:	sa_options = get_command_line_options( argc, argv, info );
-      154:  140:	if( sa_options.size() < 2 ) {
+      160:  139:	sa_options = get_command_line_options( argc, argv, info );
+      158:  140:	if( sa_options.size() < 2 ) {
         1:  141:		usage( argv[0] );
         -:  142:		return 1;
         -:  143:	}
         -:  144:
-       76:  145:	info.log << "<< code >>\n";
-       76:  146:	info.log << "LINE# |OFFSET|ADDR|MNEMONIC\n";
-       76:  147:	info.log << "======+======+====+==================================\n";
-       76:  148:	info.add_include_path( "./" );
-       76:  149:	info.add_include_path( argv[0], "include/" );
-      152:  150:	src.load( info, sa_options[0].c_str() );
+       78:  145:	info.log << "<< code >>\n";
+       78:  146:	info.log << "LINE# |OFFSET|ADDR|MNEMONIC\n";
+       78:  147:	info.log << "======+======+====+==================================\n";
+       78:  148:	info.add_include_path( "./" );
+       78:  149:	info.add_include_path( argv[0], "include/" );
+      156:  150:	src.load( info, sa_options[0].c_str() );
         -:  151:
         -:  152:	int return_code = 0;
-       76:  153:	if( src.all_process( info ) ) {
+       78:  153:	if( src.all_process( info ) ) {
         -:  154:		return_code = 0;
-       39:  155:		std::cout << "Success.\n";
+       40:  155:		std::cout << "Success.\n";
         -:  156:	}
         -:  157:	else {
         -:  158:		return_code = 1;
-       37:  159:		std::cout << "Failed.\n";
+       38:  159:		std::cout << "Failed.\n";
         -:  160:	}
-      152:  161:	if( !src.save( info, sa_options[1].c_str() ) ){
+      156:  161:	if( !src.save( info, sa_options[1].c_str() ) ){
         -:  162:		return_code = 1;
     #####:  163:		std::cout << "Save error.\n";
         -:  164:	}
         -:  165:	return return_code;
-      158:  166:}
+      162:  166:}

@@ -277,4 +277,4 @@
         -:  275:	}
       216:  276:	this->next_code_address = p_last_line->get_next_code_address();
         -:  277:	return result && check_all_fixed();
-      158:  278:}
+      162:  278:}

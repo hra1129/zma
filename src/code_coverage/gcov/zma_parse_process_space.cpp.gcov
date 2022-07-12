@@ -19,44 +19,44 @@
         -:   17:#include "zma_parse_process_space.hpp"
         -:   18:
         -:   19:// --------------------------------------------------------------------
-       30:   20:bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
+       70:   20:bool CZMA_PARSE_SPACE::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
         -:   21:	int i, space_size, value;
         -:   22:	CVALUE v;
         -:   23:
-       30:   24:	update_flags( &info, p_last_line );
-       30:   25:	if( !this->is_data_fixed ){
-       10:   26:		if( !this->is_fixed_code_size() ){
+       70:   24:	update_flags( &info, p_last_line );
+       70:   25:	if( !this->is_data_fixed ){
+       47:   26:		if( !this->is_fixed_code_size() ){
         -:   27:			//	サイズ
-       10:   28:			i = this->expression( info, 1, v );
-       10:   29:			if( i == 0 ){
-    #####:   30:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+       47:   28:			i = this->expression( info, 1, v );
+       47:   29:			if( i == 0 ){
+       25:   30:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   31:				data.clear();
-    #####:   32:				return false;
+        5:   32:				return false;
         -:   33:			}
-       10:   34:			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:   35:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:   36:				return false;
+       42:   34:			if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
+       35:   35:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        7:   36:				return false;
         -:   37:			}
-       10:   38:			if( v.i < 0 || v.i > 65536 ){
-    #####:   39:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-    #####:   40:				return false;
+       35:   38:			if( v.i < 0 || v.i > 65536 ){
+       40:   39:				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        8:   40:				return false;
         -:   41:			}
         -:   42:			space_size = v.i;
         -:   43:			//	, があるか？
-       25:   44:			if( i < (int)this->words.size() && this->words[ i ] == "," ){
-        5:   45:				i = this->expression( info, i + 1, v );
-        5:   46:				if( i == 0 ){
-    #####:   47:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+       75:   44:			if( i < (int)this->words.size() && this->words[ i ] == "," ){
+       21:   45:				i = this->expression( info, i + 1, v );
+       21:   46:				if( i == 0 ){
+       20:   47:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
         -:   48:					data.clear();
-    #####:   49:					return false;
+        4:   49:					return false;
         -:   50:				}
-        5:   51:				if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
-    #####:   52:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-    #####:   53:					return false;
+       17:   51:				if( v.value_type != CVALUE_TYPE::CV_INTEGER ){
+       20:   52:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
+        4:   53:					return false;
         -:   54:				}
-        5:   55:				if( v.i < 0 || v.i > 65536 ){
-    #####:   56:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-    #####:   57:					return false;
+       13:   55:				if( v.i < 0 || v.i > 65536 ){
+       40:   56:					put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        8:   57:					return false;
         -:   58:				}
         -:   59:				value = v.i;
         -:   60:			}
@@ -65,28 +65,28 @@
         -:   63:			}
         -:   64:			//	スペースを確保する
         -:   65:			this->set_code_size( &info, space_size );
-     1266:   66:			for( i = 0; i < space_size; i++ ){
+     1267:   66:			for( i = 0; i < space_size; i++ ){
      1256:   67:				this->data.push_back( value );
         -:   68:			}
-       10:   69:			this->is_data_fixed = true;
-       10:   70:			info.is_updated = true;
+       11:   69:			this->is_data_fixed = true;
+       11:   70:			info.is_updated = true;
         -:   71:		}
         -:   72:	}
         -:   73:
-       30:   74:	if( !is_analyze_phase ){
-       20:   75:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       10:   76:		if( this->get_code_size() ){
+       34:   74:	if( !is_analyze_phase ){
+       22:   75:		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       11:   76:		if( this->get_code_size() ){
        20:   77:			std::stringstream ss;
        50:   78:			log.write_message( "Allocate space: " + std::to_string( this->get_code_size() ) + "byte(s)" );
        20:   79:			ss << "Fill value    : " << (int)this->data[ 0 ] << "(0x" << std::setw(2) << std::setfill('0') << std::hex << (int)this->data[0] << ")";
        20:   80:			log.write_message( ss.str() );
         -:   81:		}
         -:   82:		else{
-    #####:   83:			log.write_message( "No space was allocated." );
+        2:   83:			log.write_message( "No space was allocated." );
         -:   84:		}
-       10:   85:		log.write_dump( this->code_address, this->file_address, this->data );
-       10:   86:		log.write_separator();
+       11:   85:		log.write_dump( this->code_address, this->file_address, this->data );
+       11:   86:		log.write_separator();
         -:   87:	}
         -:   88:	return check_all_fixed();
-      158:   89:}
+      162:   89:}
         -:   90:

@@ -19,28 +19,28 @@
         -:   17:#include "zma_parse_process_user_error.hpp"
         -:   18:
         -:   19:// --------------------------------------------------------------------
-       21:   20:bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       27:   20:bool CZMA_PARSE_USER_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   21:	CVALUE v;
         -:   22:
-       21:   23:	set_code_size( &info, 0 );
-       21:   24:	this->is_data_fixed = true;
-       21:   25:	update_flags( &info, p_last_line );
-       42:   26:	if( words.size() == 1 ) {
+       27:   23:	set_code_size( &info, 0 );
+       27:   24:	this->is_data_fixed = true;
+       27:   25:	update_flags( &info, p_last_line );
+       54:   26:	if( words.size() == 1 ) {
        15:   27:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::TOO_MANY_PARAMETERS ) );
         3:   28:		return false;
         -:   29:	}
-       18:   30:	if( this->expression( info, 1, v, false ) == 0 ) {
-       45:   31:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+       24:   30:	if( this->expression( info, 1, v, false ) == 0 ) {
+       55:   31:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
         -:   32:	}
-       18:   33:	else if( v.is_unknown() ){
-    #####:   34:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+       26:   33:	else if( v.is_unknown() ){
+       15:   34:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
         -:   35:	}
-        9:   36:	else if( v.is_string() ){
+       10:   36:	else if( v.is_string() ){
         6:   37:		put_error( v.s );
         -:   38:	}
         -:   39:	else {
         -:   40:		//	v.is_integer()
-       18:   41:		put_error( std::to_string( v.i ) );
+       21:   41:		put_error( std::to_string( v.i ) );
         -:   42:	}
         -:   43:	return false;
-      158:   44:}
+      162:   44:}

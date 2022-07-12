@@ -13,9 +13,9 @@
         -:   11:// --------------------------------------------------------------------
         -:   12:class CZMA_PARSE_ERROR: public CZMA_PARSE {
         -:   13:public:
-       30:   14:	using CZMA_PARSE::CZMA_PARSE;
+       34:   14:	using CZMA_PARSE::CZMA_PARSE;
         -:   15:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
-       38:   16:	virtual bool is_parse_error( void ) {
-       38:   17:		return true;
+       40:   16:	virtual bool is_parse_error( void ) {
+       40:   17:		return true;
         -:   18:	}
         -:   19:};

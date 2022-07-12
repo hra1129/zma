@@ -19,25 +19,25 @@
         -:   17:#include "zma_parse_process_or.hpp"
         -:   18:
         -:   19:// --------------------------------------------------------------------
-      192:   20:bool CZMA_PARSE_OR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      201:   20:bool CZMA_PARSE_OR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   21:
-      192:   22:	update_flags( &info, p_last_line );
-      192:   23:	if( this->opecode_a_source8( info, 0xB0 ) ) {
+      201:   22:	update_flags( &info, p_last_line );
+      201:   23:	if( this->opecode_a_source8( info, 0xB0 ) ) {
         -:   24:		//	log
-      102:   25:		if( !this->is_analyze_phase ) {
-       68:   26:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       68:   27:			if( data.size() == 2 ) {
+      105:   25:		if( !this->is_analyze_phase ) {
+       70:   26:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       70:   27:			if( data.size() == 2 ) {
        24:   28:				log.write_cycle_information( 10, 2 );			//	OR A, IXh
         -:   29:			}
         -:   30:			else {
-       44:   31:				log.write_cycle_information( 5, 1 );			//	OR A, r
+       46:   31:				log.write_cycle_information( 5, 1 );			//	OR A, r
         -:   32:			}
-       34:   33:			log.write_dump( this->code_address, this->file_address, this->data );
-       34:   34:			log.write_separator();
+       35:   33:			log.write_dump( this->code_address, this->file_address, this->data );
+       35:   34:			log.write_separator();
         -:   35:		}
         -:   36:		return check_all_fixed();
         -:   37:	}
-       90:   38:	if( this->opecode_a_n8( info, 0xF6 ) ) {
+       96:   38:	if( this->opecode_a_n8( info, 0xF6 ) ) {
         -:   39:		//	log
         9:   40:		if( !this->is_analyze_phase ) {
         6:   41:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -47,7 +47,7 @@
         -:   45:		}
         -:   46:		return check_all_fixed();
         -:   47:	}
-       81:   48:	if( this->opecode_a_memory_hl( info, 0xB6 ) ) {
+       87:   48:	if( this->opecode_a_memory_hl( info, 0xB6 ) ) {
         -:   49:		//	log
        27:   50:		if( !this->is_analyze_phase ) {
        18:   51:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -62,18 +62,18 @@
         -:   60:		}
         -:   61:		return check_all_fixed();
         -:   62:	}
-       54:   63:	if( this->opecode_source8( info, 0xB0 ) ) {
+       60:   63:	if( this->opecode_source8( info, 0xB0 ) ) {
         -:   64:		//	log
-       48:   65:		if( !this->is_analyze_phase ) {
-       32:   66:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-       32:   67:			if( data.size() == 2 ) {
+       54:   65:		if( !this->is_analyze_phase ) {
+       36:   66:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       36:   67:			if( data.size() == 2 ) {
         8:   68:				log.write_cycle_information( 10, 2 );			//	OR IXh
         -:   69:			}
         -:   70:			else {
-       24:   71:				log.write_cycle_information( 5, 1 );			//	OR r
+       28:   71:				log.write_cycle_information( 5, 1 );			//	OR r
         -:   72:			}
-       16:   73:			log.write_dump( this->code_address, this->file_address, this->data );
-       16:   74:			log.write_separator();
+       18:   73:			log.write_dump( this->code_address, this->file_address, this->data );
+       18:   74:			log.write_separator();
         -:   75:		}
         -:   76:		return check_all_fixed();
         -:   77:	}
@@ -89,5 +89,5 @@
         -:   87:	}
        15:   88:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
         3:   89:	return false;
-      158:   90:}
+      162:   90:}
         -:   91:

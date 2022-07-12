@@ -19,10 +19,10 @@
         -:   17:#include "zma_parse_process_call.hpp"
         -:   18:
         -:   19:// --------------------------------------------------------------------
-       93:   20:bool CZMA_PARSE_CALL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+      102:   20:bool CZMA_PARSE_CALL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   21:
-       93:   22:	update_flags( &info, p_last_line );
-       93:   23:	if( opecode_condition_address( info, 0xCD, 0xC4 ) ) {
+      102:   22:	update_flags( &info, p_last_line );
+      102:   23:	if( opecode_condition_address( info, 0xCD, 0xC4 ) ) {
         -:   24:		//	log
        80:   25:		if( !this->is_analyze_phase ) {
        54:   26:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
@@ -37,8 +37,8 @@
         -:   35:		}
         -:   36:		return check_all_fixed();
         -:   37:	}
-       65:   38:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ), info.all_error_enable, info.error_disable );
-       13:   39:	info.error_disable = true;
-       13:   40:	return false;
-      158:   41:}
+      110:   38:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ), info.all_error_enable, info.error_disable );
+       22:   39:	info.error_disable = true;
+       22:   40:	return false;
+      162:   41:}
         -:   42:

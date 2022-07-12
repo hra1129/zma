@@ -65,5 +65,5 @@
       230:   63:		log.write_separator();
         -:   64:	}
         -:   65:	return check_all_fixed();
-      158:   66:}
+      162:   66:}
         -:   67:

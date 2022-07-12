@@ -45,3 +45,26 @@
 	defs	ssss
 
 ssss:
+
+;	引数がない
+	space
+
+;	引数が文字列
+	space	"aaa"
+
+;	引数の値がおかしい
+	space	-1
+	space	999999
+
+;	引数がない
+	space	10,
+
+;	引数が文字列
+	space	10, "aaa"
+
+;	引数の値がおかしい
+	space	10, -1
+	space	10, 999999
+
+;	サイズゼロ
+	space	0
