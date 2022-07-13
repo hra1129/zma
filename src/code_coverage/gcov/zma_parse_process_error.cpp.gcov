@@ -19,10 +19,10 @@
         -:   17:#include "zma_parse_process_error.hpp"
         -:   18:
         -:   19:// --------------------------------------------------------------------
-       19:   20:bool CZMA_PARSE_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       24:   20:bool CZMA_PARSE_ERROR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   21:
-       19:   22:	set_code_size( &info, 0 );
-       19:   23:	update_flags( &info, p_last_line );
-       95:   24:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
-       19:   25:	return false;
-      162:   26:}
+       24:   22:	set_code_size( &info, 0 );
+       24:   23:	update_flags( &info, p_last_line );
+      120:   24:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::INVALID_COMMAND ) );
+       24:   25:	return false;
+      170:   26:}

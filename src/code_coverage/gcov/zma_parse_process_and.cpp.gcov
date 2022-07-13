@@ -88,5 +88,5 @@
         -:   86:	}
        15:   87:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
         3:   88:	return false;
-      162:   89:}
+      170:   89:}
         -:   90:

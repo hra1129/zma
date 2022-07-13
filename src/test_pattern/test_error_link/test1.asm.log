@@ -20,3 +20,5 @@ LINE# |OFFSET|ADDR|MNEMONIC
     28|ERROR |    |Illegal parameter.: test1.asm(28)
     34|      |    |CALL SUB3_1
     34|ERROR |    |Illegal operand.: test1.asm(34)
+    38|      |    |ENDL
+    38|ERROR |    |Invalid command.: test1.asm(38)

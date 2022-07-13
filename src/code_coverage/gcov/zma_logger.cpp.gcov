@@ -14,129 +14,129 @@
         -:   12:#include <sstream>
         -:   13:
         -:   14:// --------------------------------------------------------------------
-    19832:   15:std::string CZMA_LOG::convert_to_hex( int value, int columns ){
-    39664:   16:	std::stringstream s;
+    19888:   15:std::string CZMA_LOG::convert_to_hex( int value, int columns ){
+    39776:   16:	std::stringstream s;
         -:   17:
-    19832:   18:	if( value == -1 ){
+    19888:   18:	if( value == -1 ){
      6728:   19:		s << std::setw( columns ) << std::setfill( 'X' ) << "X";
         -:   20:	}
         -:   21:	else{
-    13104:   22:		s << std::setw( columns ) << std::hex << std::right << std::setfill( '0' ) << std::uppercase << value;
+    13160:   22:		s << std::setw( columns ) << std::hex << std::right << std::setfill( '0' ) << std::uppercase << value;
         -:   23:	}
-    19832:   24:	return s.str();
+    19888:   24:	return s.str();
         -:   25:}
         -:   26:
         -:   27:
         -:   28:// --------------------------------------------------------------------
-     8090:   29:void CZMA_LOG::write_separator( void ) {
-    16180:   30:	this->push_back( "------+------+----+----------------------------------" );
-     8090:   31:}
+     8145:   29:void CZMA_LOG::write_separator( void ) {
+    16290:   30:	this->push_back( "------+------+----+----------------------------------" );
+     8145:   31:}
         -:   32:
         -:   33:// --------------------------------------------------------------------
-     8497:   34:std::string CZMA_LOG::get_line_infomation( int line_no, int address, int offset, const std::string &s_line_image ){
-    16994:   35:	std::stringstream s;
+     8557:   34:std::string CZMA_LOG::get_line_infomation( int line_no, int address, int offset, const std::string &s_line_image ){
+    17114:   35:	std::stringstream s;
         -:   36:
-     8497:   37:	if( line_no < 0 ){
+     8557:   37:	if( line_no < 0 ){
     #####:   38:		s << "      |";
         -:   39:	}
         -:   40:	else{
-     8497:   41:		s << std::dec << std::setw( 6 ) << std::right << line_no << "|";
+     8557:   41:		s << std::dec << std::setw( 6 ) << std::right << line_no << "|";
         -:   42:	}
-     8497:   43:	if( offset < 0 ){
-     8497:   44:		s << "      |";
+     8557:   43:	if( offset < 0 ){
+     8557:   44:		s << "      |";
         -:   45:	}
         -:   46:	else{
     #####:   47:		s << std::hex << std::setw( 6 ) << std::setfill('0') << std::uppercase << std::right << offset << "|";
         -:   48:	}
-     8497:   49:	if( address < 0 ){
-     8497:   50:		s << "    |";
+     8557:   49:	if( address < 0 ){
+     8557:   50:		s << "    |";
         -:   51:	}
         -:   52:	else{
     #####:   53:		s << std::hex << std::setw( 4 ) << std::setfill( '0' ) << std::uppercase << std::right << address << "|";
         -:   54:	}
         -:   55:	s << s_line_image;
-     8497:   56:	return s.str();
+     8557:   56:	return s.str();
         -:   57:}
         -:   58:
         -:   59:// --------------------------------------------------------------------
-     8497:   60:void CZMA_LOG::write_line_infomation( int line_no, int address, int offset, const std::string &s_line_image ){
+     8557:   60:void CZMA_LOG::write_line_infomation( int line_no, int address, int offset, const std::string &s_line_image ){
         -:   61:
-    16994:   62:	this->push_back( get_line_infomation( line_no, -1, -1, s_line_image ) );
-     8497:   63:}
+    17114:   62:	this->push_back( get_line_infomation( line_no, -1, -1, s_line_image ) );
+     8557:   63:}
         -:   64:
         -:   65:// --------------------------------------------------------------------
-      417:   66:void CZMA_LOG::write_message( const std::string &s_message ){
-      834:   67:	std::stringstream s;
+      443:   66:void CZMA_LOG::write_message( const std::string &s_message ){
+      886:   67:	std::stringstream s;
         -:   68:
         -:   69:	s << "      |      |    |  " << s_message;
-      834:   70:	this->push_back( s.str() );
-      417:   71:}
+      886:   70:	this->push_back( s.str() );
+      443:   71:}
         -:   72:
         -:   73:// --------------------------------------------------------------------
-      398:   74:void CZMA_LOG::write_error_message( const char *p_file_name, int line_no, const std::string &s_message, bool is_all_error, bool error_disable ){
-      796:   75:	std::stringstream s, ss;
+      408:   74:void CZMA_LOG::write_error_message( const char *p_file_name, int line_no, const std::string &s_message, bool is_all_error, bool error_disable ){
+      816:   75:	std::stringstream s, ss;
         -:   76:
-      398:   77:	if( line_no < 0 ){
+      408:   77:	if( line_no < 0 ){
     #####:   78:		ss << s_message << ": " << p_file_name;
     #####:   79:		s << "      |ERROR |    |" << ss.str();
         -:   80:	}
         -:   81:	else{
-      796:   82:		ss << s_message << ": " << p_file_name << "(" << line_no << ")";
-      796:   83:		s << std::dec << std::setw( 6 ) << std::right << line_no << "|ERROR |    |" << ss.str();
+      816:   82:		ss << s_message << ": " << p_file_name << "(" << line_no << ")";
+      816:   83:		s << std::dec << std::setw( 6 ) << std::right << line_no << "|ERROR |    |" << ss.str();
         -:   84:	}
-      398:   85:	if( is_all_error || !error_disable ){
-      760:   86:		std::cerr << "ERROR:" << ss.str() << "\n";
+      408:   85:	if( is_all_error || !error_disable ){
+      776:   86:		std::cerr << "ERROR:" << ss.str() << "\n";
         -:   87:	}
-      796:   88:	this->push_back( s.str() );
-      398:   89:}
+      816:   88:	this->push_back( s.str() );
+      408:   89:}
         -:   90:
         -:   91:// --------------------------------------------------------------------
-     5143:   92:void CZMA_LOG::write_cycle_information( int z80_cycle, int r800_cycle, int z80_cycle2, int r800_cycle2, const std::string s_comment ){
-    10286:   93:	std::stringstream s;
+     5173:   92:void CZMA_LOG::write_cycle_information( int z80_cycle, int r800_cycle, int z80_cycle2, int r800_cycle2, const std::string s_comment ){
+    10346:   93:	std::stringstream s;
         -:   94:
-     5143:   95:	s << "      |      |    |  ";
-     5143:   96:	if( z80_cycle2 >= 0 ){
-      118:   97:		s << "Z80:" << ((z80_cycle == 0) ? '?' : z80_cycle) << "cyc/" << (( z80_cycle2 == 0) ? '?' : z80_cycle2) << "cyc ";
+     5173:   95:	s << "      |      |    |  ";
+     5173:   96:	if( z80_cycle2 >= 0 ){
+      120:   97:		s << "Z80:" << ((z80_cycle == 0) ? '?' : z80_cycle) << "cyc/" << (( z80_cycle2 == 0) ? '?' : z80_cycle2) << "cyc ";
         -:   98:	}
-     5084:   99:	else if( z80_cycle >= 0 ){
-     5072:  100:		s << "Z80:" << ( ( z80_cycle == 0 ) ? '?' : z80_cycle ) << "cyc ";
+     5113:   99:	else if( z80_cycle >= 0 ){
+     5101:  100:		s << "Z80:" << ( ( z80_cycle == 0 ) ? '?' : z80_cycle ) << "cyc ";
         -:  101:	}
         -:  102:	else{
        12:  103:		s << "Z80:--- ";
         -:  104:	}
-     5143:  105:	if( r800_cycle2 >= 0 ){
-      270:  106:		s << "R800:" << ((r800_cycle == 0) ? '?' : r800_cycle) << "cyc/" << ((r800_cycle2 == 0) ? '?' : r800_cycle2) << "cyc";
+     5173:  105:	if( r800_cycle2 >= 0 ){
+      272:  106:		s << "R800:" << ((r800_cycle == 0) ? '?' : r800_cycle) << "cyc/" << ((r800_cycle2 == 0) ? '?' : r800_cycle2) << "cyc";
         -:  107:	}
-     5008:  108:	else if( r800_cycle >= 0 ){
-     5008:  109:		s << "R800:" << ( ( r800_cycle == 0 ) ? '?' : r800_cycle ) << "cyc";
+     5037:  108:	else if( r800_cycle >= 0 ){
+     5037:  109:		s << "R800:" << ( ( r800_cycle == 0 ) ? '?' : r800_cycle ) << "cyc";
         -:  110:	}
         -:  111:	else{
     #####:  112:		s << "R800:---";
         -:  113:	}
         -:  114:	s << s_comment;
-    10286:  115:	this->push_back( s.str() );
-     5143:  116:}
+    10346:  115:	this->push_back( s.str() );
+     5173:  116:}
         -:  117:
         -:  118:// --------------------------------------------------------------------
-     7775:  119:void CZMA_LOG::write_dump( int address, int offset, std::vector<unsigned char> &data ){
+     7803:  119:void CZMA_LOG::write_dump( int address, int offset, std::vector<unsigned char> &data ){
         -:  120:	int count;
-    15550:  121:	std::stringstream line;
+    15606:  121:	std::stringstream line;
         -:  122:	count = 0;
-    40995:  123:	for( auto d : data ){
-    33220:  124:		if( count == 0 ){
-    49580:  125:			line << "      |" << convert_to_hex( offset, 6 ) << "|" << convert_to_hex( address, 4 ) << "| ";
+    41040:  123:	for( auto d : data ){
+    33237:  124:		if( count == 0 ){
+    49720:  125:			line << "      |" << convert_to_hex( offset, 6 ) << "|" << convert_to_hex( address, 4 ) << "| ";
         -:  126:		}
-    33220:  127:		line << " " << std::right << std::setw( 2 ) << std::hex << std::uppercase << std::setfill( '0' ) << (int)(d & 255);
-    33220:  128:		address++;
-    33220:  129:		offset++;
-    33220:  130:		count++;
-    33220:  131:		if( count == 8 ){
+    33237:  127:		line << " " << std::right << std::setw( 2 ) << std::hex << std::uppercase << std::setfill( '0' ) << (int)(d & 255);
+    33237:  128:		address++;
+    33237:  129:		offset++;
+    33237:  130:		count++;
+    33237:  131:		if( count == 8 ){
      4302:  132:			push_back( line.str() );
      4302:  133:			line.str( "" );
         -:  134:			count = 0;
         -:  135:		}
         -:  136:	}
-     7775:  137:	if( count != 0 ){
-    15530:  138:		push_back( line.str() );
+     7803:  137:	if( count != 0 ){
+    15586:  138:		push_back( line.str() );
         -:  139:	}
-     7937:  140:}
+     7973:  140:}

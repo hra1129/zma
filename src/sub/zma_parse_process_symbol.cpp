@@ -41,16 +41,13 @@ bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 					s << "Integer symbol [" << label << "] = " << v.i << " (0x" << std::hex << v.i << ")";
 				}
 			}
-			else if( v.is_string() ) {
+			else {	//if( v.is_string() ) {
 				if( v.is_unknown() ){
 					s << "String symbol [" << label << "] = UNKNOWN";
 				}
 				else{
 					s << "String symbol [" << label << "] = \"" << v.s << "\"";
 				}
-			}
-			else {
-				s << "Symbol [" << label << "] = UNKNOWN";
 			}
 		}
 		log.write_message( s.str() );
@@ -66,10 +63,6 @@ bool CZMA_PARSE_SYMBOL::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 		return false;
 	}
 	if( this->expression( info, 2, v ) ) {
-		if( v.value_type == CVALUE_TYPE::CV_UNKNOWN ) {
-			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
-			return false;
-		}
 		if( info.dict.count( label ) && !info.dict[ label ].is_unknown() ) {
 			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::MULTIPLE_DEFINITION ) );
 			return false;

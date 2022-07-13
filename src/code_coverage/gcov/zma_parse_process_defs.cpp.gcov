@@ -19,23 +19,23 @@
         -:   17:#include "zma_parse_process_defs.hpp"
         -:   18:
         -:   19:// --------------------------------------------------------------------
-       79:   20:bool CZMA_PARSE_DEFS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
+       80:   20:bool CZMA_PARSE_DEFS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
         -:   21:	CVALUE v;
         -:   22:	int index;
         -:   23:
-       79:   24:	update_flags( &info, p_last_line );
-       79:   25:	index = this->expression( info, 1, v );
-       79:   26:	if( index == 0 ) {
+       80:   24:	update_flags( &info, p_last_line );
+       80:   25:	index = this->expression( info, 1, v );
+       80:   26:	if( index == 0 ) {
        50:   27:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_EXPRESSION ) );
        10:   28:		return false;
         -:   29:	}
-      138:   30:	if( index < ( int) words.size() ) {
+      140:   30:	if( index < ( int) words.size() ) {
        20:   31:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
         4:   32:		return false;
         -:   33:	}
-      130:   34:	if( v.is_unknown() ){
-       25:   35:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
-        5:   36:		return false;
+      132:   34:	if( v.is_unknown() ){
+       30:   35:		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_PARAMETER ) );
+        6:   36:		return false;
         -:   37:	}
        60:   38:	if( v.is_integer() ) {
         4:   39:		v.value_type = CVALUE_TYPE::CV_STRING;
@@ -55,5 +55,5 @@
        19:   53:		log.write_separator();
         -:   54:	}
         -:   55:	return check_all_fixed();
-      162:   56:}
+      170:   56:}
         -:   57:

@@ -1,0 +1,118 @@
+test_align
+  test1.asm ............................ OK
+test_all_opecode
+  test1.asm ............................ OK
+  test2.asm ............................ OK
+test_binary_link
+  test1.asm ............................ OK
+test_char_map
+  test1.asm ............................ OK
+test_def
+  test1.asm ............................ OK
+test_error_address
+  test1.asm ............................ OK
+test_error_command
+  test1.asm ............................ OK
+test_error_def
+  test1.asm ............................ OK
+test_error_expression
+  test.asm ............................. OK
+test_error_if
+  test1.asm ............................ OK
+test_error_include
+  test1.asm ............................ OK
+  test2.asm ............................ OK
+test_error_label
+  test1.asm ............................ OK
+test_error_link
+  test1.asm ............................ OK
+test_error_macro
+  test1.asm ............................ OK
+  test2.asm ............................ OK
+  test3.asm ............................ OK
+  test4.asm ............................ OK
+  test5.asm ............................ OK
+  test6.asm ............................ OK
+  test7.asm ............................ OK
+  test8.asm ............................ OK
+  test9.asm ............................ OK
+test_error_opecode
+  test.asm ............................. OK
+  test1.asm ............................ OK
+test_error_org
+  test1.asm ............................ OK
+test_error_pattern
+  test3.asm ............................ OK
+test_error_repeat
+  test1.asm ............................ OK
+  test10.asm ........................... OK
+  test2.asm ............................ OK
+  test3.asm ............................ OK
+  test4.asm ............................ OK
+  test5.asm ............................ OK
+  test6.asm ............................ OK
+  test7.asm ............................ OK
+  test8.asm ............................ OK
+  test9.asm ............................ OK
+test_error_scope
+  test1.asm ............................ OK
+  test2.asm ............................ OK
+  test3.asm ............................ OK
+test_expression
+  test.asm ............................. OK
+test_help
+  test1.asm ............................ OK
+test_hexnumber
+  test1.asm ............................ OK
+test_if
+  test1.asm ............................ OK
+  test2.asm ............................ OK
+  test3.asm ............................ OK
+  test4.asm ............................ OK
+  test5.asm ............................ OK
+  test6.asm ............................ OK
+  test7.asm ............................ OK
+  test8.asm ............................ OK
+  test9.asm ............................ OK
+test_include
+  test1.asm ............................ OK
+  test2.asm ............................ OK
+  test3.asm ............................ OK
+test_index_reg
+  test1.asm ............................ OK
+test_jp_hl
+  test1.asm ............................ OK
+test_label
+  test1.asm ............................ OK
+test_link
+  test1.asm ............................ OK
+  test2.asm ............................ OK
+test_macro
+  test1.asm ............................ OK
+  test2.asm ............................ OK
+  test3.asm ............................ OK
+  test4.asm ............................ OK
+  test5.asm ............................ OK
+  test6.asm ............................ OK
+  test7.asm ............................ OK
+  test8.asm ............................ OK
+  test9.asm ............................ OK
+test_one_operand
+  test1.asm ............................ OK
+test_option_d
+  test.asm ............................. OK
+test_option_hex
+  test.asm ............................. OK
+test_repeat
+  test1.asm ............................ OK
+  test2.asm ............................ OK
+  test3.asm ............................ OK
+  test4.asm ............................ OK
+  test5.asm ............................ OK
+test_scope
+  test.asm ............................. OK
+test_space
+  test1.asm ............................ OK
+  test2.asm ............................ OK
+test_symbol
+  test.asm ............................. OK

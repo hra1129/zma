@@ -122,7 +122,6 @@ bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 		this->counter_symbol = info.get_scope_path() + words[ 1 ];
 		info.dict[this->counter_symbol] = v;
 
-		this->is_data_fixed = true;
 		info.is_updated = true;
 	}
 	else{
@@ -138,33 +137,15 @@ bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 
 	//	this->m_text_list が空っぽなら中身を詰める
 	if( !this->is_loaded ){
-		if( !this->is_counter_end_fixed ){
-			//	繰り返しカウンターがまだ評価完了していない
-			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::REPEAT_COUNTER_IS_NO_FIXED ) );
-			info.scope.pop_back();
-			return false;
-		}
 		for( i = 0; i < this->counter_end; i++ ){
 			info.dict[ this->counter_symbol ].i = i;
 			p_text = new CZMA_TEXT;
 			for( auto p : this->m_text.m_text ){
+				//	ここでは、 LABEL: COMMAND の形はあり得ない。m_text に登録済みの内容なので、 LABEL: と COMMAND に分解されている。
 				auto words_list = p->get_words();
 				for( auto &insert_line : words_list ){
-					if( insert_line.size() > 2 && ( ( insert_line[ 1 ] == ":" ) || ( insert_line[ 1 ] == "::" ) ) ){
-						label_line.resize( 2 );
-						label_line[ 0 ] = insert_line[ 0 ];
-						label_line[ 1 ] = insert_line[ 1 ];
-						p_parse = CZMA_PARSE::create( info, label_line, this->p_file_name, this->line_no );
-						p_text->m_text.push_back( p_parse );
-						insert_line.erase( insert_line.begin() );
-						insert_line.erase( insert_line.begin() );
-						p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
-						p_text->m_text.push_back( p_parse );
-					}
-					else{
-						p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
-						p_text->m_text.push_back( p_parse );
-					}
+					p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
+					p_text->m_text.push_back( p_parse );
 				}
 			}
 			p_text->analyze_structure();
@@ -181,9 +162,10 @@ bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 
 	//	データが確定したか確認する
 	if( !this->is_data_fixed ){
+		this->is_data_fixed = true;
 		for( auto p_text : this->m_text_list ){
 			for( auto p : p_text->m_text ){
-				this->is_data_fixed = this->is_data_fixed && p->is_fixed_code_size();
+				this->is_data_fixed = this->is_data_fixed && p->check_data_fixed();
 			}
 		}
 		if( this->is_data_fixed ){

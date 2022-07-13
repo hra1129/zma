@@ -247,119 +247,121 @@ LINE# |OFFSET|ADDR|MNEMONIC
    125|ERROR |    |Illegal operand.: test.asm(125)
    126|      |    |DEC A AAA
    126|ERROR |    |Illegal operand.: test.asm(126)
-   127|      |    |SRL A AAA
+   127|      |    |SLL A AAA
    127|ERROR |    |Illegal operand.: test.asm(127)
-   128|      |    |SRA A AAA
+   128|      |    |SRL A AAA
    128|ERROR |    |Illegal operand.: test.asm(128)
-   129|      |    |SLA A AAA
+   129|      |    |SRA A AAA
    129|ERROR |    |Illegal operand.: test.asm(129)
-   130|      |    |RR A AAA
+   130|      |    |SLA A AAA
    130|ERROR |    |Illegal operand.: test.asm(130)
-   131|      |    |RRC A AAA
+   131|      |    |RR A AAA
    131|ERROR |    |Illegal operand.: test.asm(131)
-   132|      |    |RRA AAA
+   132|      |    |RRC A AAA
    132|ERROR |    |Illegal operand.: test.asm(132)
-   133|      |    |RRCA AAA
+   133|      |    |RRA AAA
    133|ERROR |    |Illegal operand.: test.asm(133)
-   134|      |    |RL A AAA
+   134|      |    |RRCA AAA
    134|ERROR |    |Illegal operand.: test.asm(134)
-   135|      |    |RLC A AAA
+   135|      |    |RL A AAA
    135|ERROR |    |Illegal operand.: test.asm(135)
-   136|      |    |RLA AAA
+   136|      |    |RLC A AAA
    136|ERROR |    |Illegal operand.: test.asm(136)
-   137|      |    |RLCA AAA
+   137|      |    |RLA AAA
    137|ERROR |    |Illegal operand.: test.asm(137)
-   138|      |    |POP HL AAA
+   138|      |    |RLCA AAA
    138|ERROR |    |Illegal operand.: test.asm(138)
-   139|      |    |PUSH HL AAA
+   139|      |    |POP HL AAA
    139|ERROR |    |Illegal operand.: test.asm(139)
-   140|      |    |EX DE, HL AAA
+   140|      |    |PUSH HL AAA
    140|ERROR |    |Illegal operand.: test.asm(140)
-   141|      |    |EXX AAA
+   141|      |    |EX DE, HL AAA
    141|ERROR |    |Illegal operand.: test.asm(141)
-   142|      |    |LDDR AAA
+   142|      |    |EXX AAA
    142|ERROR |    |Illegal operand.: test.asm(142)
-   143|      |    |LDD AAA
+   143|      |    |LDDR AAA
    143|ERROR |    |Illegal operand.: test.asm(143)
-   144|      |    |LDIR AAA
+   144|      |    |LDD AAA
    144|ERROR |    |Illegal operand.: test.asm(144)
-   145|      |    |LDI AAA
+   145|      |    |LDIR AAA
    145|ERROR |    |Illegal operand.: test.asm(145)
-   148|      |    |RST
-   148|ERROR |    |Illegal operand.: test.asm(148)
-   149|      |    |RST +
-   149|ERROR |    |Illegal expression.: test.asm(149)
-   150|      |    |RST 0x12345
-   150|ERROR |    |Illegal operand.: test.asm(150)
-   151|      |    |RST "hoge"
-   151|ERROR |    |Illegal expression.: test.asm(151)
-   154|      |    |EX [ SP ], DE
-   154|ERROR |    |Illegal operand.: test.asm(154)
-   157|      |    |JR "hoge"
-   157|ERROR |    |Code address not yet determined.: test.asm(157)
-   158|      |    |JP "hoge"
-   158|ERROR |    |Illegal operand.: test.asm(158)
-   159|      |    |CALL "hoge"
+   146|      |    |LDI AAA
+   146|ERROR |    |Illegal operand.: test.asm(146)
+   149|      |    |RST
+   149|ERROR |    |Illegal operand.: test.asm(149)
+   150|      |    |RST +
+   150|ERROR |    |Illegal expression.: test.asm(150)
+   151|      |    |RST 0x12345
+   151|ERROR |    |Illegal operand.: test.asm(151)
+   152|      |    |RST "hoge"
+   152|ERROR |    |Illegal expression.: test.asm(152)
+   155|      |    |EX [ SP ], DE
+   155|ERROR |    |Illegal operand.: test.asm(155)
+   158|      |    |JR "hoge"
+   158|ERROR |    |Code address not yet determined.: test.asm(158)
+   159|      |    |JP "hoge"
    159|ERROR |    |Illegal operand.: test.asm(159)
-   162|      |    |ORG 256
+   160|      |    |CALL "hoge"
+   160|ERROR |    |Illegal operand.: test.asm(160)
+   163|      |    |ORG 256
 ------+------+----+----------------------------------
-   163|      |    |JR 127
-   163|ERROR |    |Out of range relative address.: test.asm(163)
-   164|      |    |JR 1000
+   164|      |    |JR 127
    164|ERROR |    |Out of range relative address.: test.asm(164)
-   167|      |    |LD IXH, IXH
-   167|ERROR |    |Illegal operand.: test.asm(167)
-   168|      |    |LD IXH, IXL
+   165|      |    |JR 1000
+   165|ERROR |    |Out of range relative address.: test.asm(165)
+   168|      |    |LD IXH, IXH
    168|ERROR |    |Illegal operand.: test.asm(168)
-   169|      |    |LD IXH, IYH
+   169|      |    |LD IXH, IXL
    169|ERROR |    |Illegal operand.: test.asm(169)
-   170|      |    |LD IXH, IYL
+   170|      |    |LD IXH, IYH
    170|ERROR |    |Illegal operand.: test.asm(170)
-   171|      |    |LD IXL, IXH
+   171|      |    |LD IXH, IYL
    171|ERROR |    |Illegal operand.: test.asm(171)
-   172|      |    |LD IXL, IXL
+   172|      |    |LD IXL, IXH
    172|ERROR |    |Illegal operand.: test.asm(172)
-   173|      |    |LD IXL, IYH
+   173|      |    |LD IXL, IXL
    173|ERROR |    |Illegal operand.: test.asm(173)
-   174|      |    |LD IXL, IYL
+   174|      |    |LD IXL, IYH
    174|ERROR |    |Illegal operand.: test.asm(174)
-   175|      |    |LD IYH, IXH
+   175|      |    |LD IXL, IYL
    175|ERROR |    |Illegal operand.: test.asm(175)
-   176|      |    |LD IYH, IXL
+   176|      |    |LD IYH, IXH
    176|ERROR |    |Illegal operand.: test.asm(176)
-   177|      |    |LD IYH, IYH
+   177|      |    |LD IYH, IXL
    177|ERROR |    |Illegal operand.: test.asm(177)
-   178|      |    |LD IYH, IYL
+   178|      |    |LD IYH, IYH
    178|ERROR |    |Illegal operand.: test.asm(178)
-   179|      |    |LD IYL, IXH
+   179|      |    |LD IYH, IYL
    179|ERROR |    |Illegal operand.: test.asm(179)
-   180|      |    |LD IYL, IXL
+   180|      |    |LD IYL, IXH
    180|ERROR |    |Illegal operand.: test.asm(180)
-   181|      |    |LD IYL, IYH
+   181|      |    |LD IYL, IXL
    181|ERROR |    |Illegal operand.: test.asm(181)
-   182|      |    |LD IYL, IYL
+   182|      |    |LD IYL, IYH
    182|ERROR |    |Illegal operand.: test.asm(182)
-   183|      |    |LD H, IXH
+   183|      |    |LD IYL, IYL
    183|ERROR |    |Illegal operand.: test.asm(183)
-   184|      |    |LD H, IXL
+   184|      |    |LD H, IXH
    184|ERROR |    |Illegal operand.: test.asm(184)
-   185|      |    |LD H, IYH
+   185|      |    |LD H, IXL
    185|ERROR |    |Illegal operand.: test.asm(185)
-   186|      |    |LD H, IYL
+   186|      |    |LD H, IYH
    186|ERROR |    |Illegal operand.: test.asm(186)
-   187|      |    |LD L, IXH
+   187|      |    |LD H, IYL
    187|ERROR |    |Illegal operand.: test.asm(187)
-   188|      |    |LD L, IXL
+   188|      |    |LD L, IXH
    188|ERROR |    |Illegal operand.: test.asm(188)
-   189|      |    |LD L, IYH
+   189|      |    |LD L, IXL
    189|ERROR |    |Illegal operand.: test.asm(189)
-   190|      |    |LD L, IYL
+   190|      |    |LD L, IYH
    190|ERROR |    |Illegal operand.: test.asm(190)
-   193|      |    |LD [ IX + 0 ], [ HL ]
-   193|ERROR |    |Illegal operand.: test.asm(193)
-   194|      |    |LD [ IX + 0 ], [ 123 ]
+   191|      |    |LD L, IYL
+   191|ERROR |    |Illegal operand.: test.asm(191)
+   194|      |    |LD [ IX + 0 ], [ HL ]
    194|ERROR |    |Illegal operand.: test.asm(194)
-   195|      |    |LD [ HL ], [ IX + 0 ]
+   195|      |    |LD [ IX + 0 ], [ 123 ]
    195|ERROR |    |Illegal operand.: test.asm(195)
-   196|      |    |LD [ 123 ], [ IX + 0 ]
+   196|      |    |LD [ HL ], [ IX + 0 ]
    196|ERROR |    |Illegal operand.: test.asm(196)
+   197|      |    |LD [ 123 ], [ IX + 0 ]
+   197|ERROR |    |Illegal operand.: test.asm(197)

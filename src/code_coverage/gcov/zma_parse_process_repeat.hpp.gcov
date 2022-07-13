@@ -23,11 +23,11 @@
         -:   21:	CZMA_TEXT m_text;							//	展開前のソースコード
         -:   22:	CZMA_LOG log_header;
         -:   23:
-      100:   24:	using CZMA_PARSE::CZMA_PARSE;
+      112:   24:	using CZMA_PARSE::CZMA_PARSE;
         -:   25:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
         -:   26:	void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) override;
         -:   27:	std::vector< std::vector< std::string > > get_words( void );
         -:   28:	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
         -:   29:};
         -:   30:
-       35:   31:CLASS_CZMA_PARSE( ENDR );
+       38:   31:CLASS_CZMA_PARSE( ENDR );

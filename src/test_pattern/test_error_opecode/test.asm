@@ -124,6 +124,7 @@
 	adc		a,a	aaa
 	add		a,a	aaa
 	dec		a	aaa
+	sll		a	aaa
 	srl		a	aaa
 	sra		a	aaa
 	sla		a	aaa

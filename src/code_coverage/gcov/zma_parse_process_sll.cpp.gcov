@@ -19,30 +19,30 @@
         -:   17:#include "zma_parse_process_sll.hpp"
         -:   18:
         -:   19:// --------------------------------------------------------------------
-        3:   20:bool CZMA_PARSE_SLL::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
+       30:   20:bool CZMA_PARSE_SLL::process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line ){
         -:   21:
-        3:   22:	update_flags( &info, p_last_line );
-        3:   23:	if( this->opecode_source8( info, 0xCB, 0x30 ) ){
+       30:   22:	update_flags( &info, p_last_line );
+       30:   23:	if( this->opecode_source8( info, 0xCB, 0x30 ) ){
         -:   24:		//	log
-        3:   25:		if( !this->is_analyze_phase ){
-        2:   26:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
-        2:   27:			if( data.size() == 2 ){
-    #####:   28:				if( this->data[ 1 ] == 0x36 ){
-    #####:   29:					log.write_cycle_information( 17, 8 );		//	SLL [HL]
+       27:   25:		if( !this->is_analyze_phase ){
+       18:   26:			log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
+       18:   27:			if( data.size() == 2 ){
+        8:   28:				if( this->data[ 1 ] == 0x36 ){
+        2:   29:					log.write_cycle_information( 17, 8 );		//	SLL [HL]
         -:   30:				}
         -:   31:				else{
-    #####:   32:					log.write_cycle_information( 10, 2 );		//	SLL	r
+       14:   32:					log.write_cycle_information( 10, 2 );		//	SLL	r
         -:   33:				}
         -:   34:			}
         -:   35:			else{
         2:   36:				log.write_cycle_information( 25, 10 );		//	SLL	[IX+d]
         -:   37:			}
-        1:   38:			log.write_dump( this->code_address, this->file_address, this->data );
-        1:   39:			log.write_separator();
+        9:   38:			log.write_dump( this->code_address, this->file_address, this->data );
+        9:   39:			log.write_separator();
         -:   40:		}
         -:   41:		return check_all_fixed();
         -:   42:	}
-    #####:   43:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
-    #####:   44:	return false;
-      162:   45:}
+       15:   43:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+        3:   44:	return false;
+      170:   45:}
         -:   46:

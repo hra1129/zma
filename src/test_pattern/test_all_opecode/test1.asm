@@ -4356,28 +4356,44 @@ label_jr_c:
 	nop
 
 ;	CB 30 00 00		未定義
-	defb	0xCB, 0x30, 0, 0
+	sll		b
+	nop
+	nop
 
 ;	CB 31 00 00		未定義
-	defb	0xCB, 0x31, 0, 0
+	sll		c
+	nop
+	nop
 
 ;	CB 32 00 00		未定義
-	defb	0xCB, 0x32, 0, 0
+	sll		d
+	nop
+	nop
 
 ;	CB 33 00 00		未定義
-	defb	0xCB, 0x33, 0, 0
+	sll		e
+	nop
+	nop
 
 ;	CB 34 00 00		未定義
-	defb	0xCB, 0x34, 0, 0
+	sll		h
+	nop
+	nop
 
 ;	CB 35 00 00		未定義
-	defb	0xCB, 0x35, 0, 0
+	sll		l
+	nop
+	nop
 
 ;	CB 36 00 00		未定義
-	defb	0xCB, 0x36, 0, 0
+	sll		[hl]
+	nop
+	nop
 
 ;	CB 37 00 00		未定義
-	defb	0xCB, 0x37, 0, 0
+	sll		a
+	nop
+	nop
 
 ;	CB 38 00 00
 	srl		b

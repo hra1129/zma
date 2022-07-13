@@ -26,7 +26,7 @@
         -:   24:};
         -:   25:
         -:   26:// --------------------------------------------------------------------
-   219803:   27:class CVALUE {
+   220249:   27:class CVALUE {
         -:   28:public:
         -:   29:	CVALUE_TYPE value_type;
         -:   30:
@@ -34,17 +34,17 @@
         -:   32:	std::string	s;
         -:   33:
         -:   34:	// --------------------------------------------------------------------
-   237566:   35:	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
+   237967:   35:	CVALUE(): value_type( CVALUE_TYPE::CV_UNKNOWN ), i( 0 ), s( "" ) {
         -:   36:	}
         -:   37:
         -:   38:	// --------------------------------------------------------------------
         -:   39:	bool is_unknown( void ) const{
-     9075:   40:		return ( ( (int)value_type & 0x100 ) == 0x100 );
+     9095:   40:		return ( ( (int)value_type & 0x100 ) == 0x100 );
         -:   41:	}
         -:   42:
         -:   43:	// --------------------------------------------------------------------
         -:   44:	bool is_integer( void ) const{
-   166288:   45:		return ( ( (int)value_type & 0xFF ) == 0x1 );
+   166294:   45:		return ( ( (int)value_type & 0xFF ) == 0x1 );
         -:   46:	}
         -:   47:
         -:   48:	// --------------------------------------------------------------------
@@ -54,7 +54,7 @@
         -:   52:
         -:   53:	// --------------------------------------------------------------------
         -:   54:	void inherit( CVALUE_TYPE base, CVALUE_TYPE inherit_a, CVALUE_TYPE inherit_b ){
-      415:   55:		value_type = (CVALUE_TYPE)( (int)base | ( ( (int)inherit_a | (int)inherit_b ) & 0x100 ) );
+      425:   55:		value_type = (CVALUE_TYPE)( (int)base | ( ( (int)inherit_a | (int)inherit_b ) & 0x100 ) );
         -:   56:	}
         -:   57:};
         -:   58:

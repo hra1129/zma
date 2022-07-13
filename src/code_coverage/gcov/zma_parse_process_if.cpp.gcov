@@ -437,4 +437,4 @@
         -:  435:	//	本来、これは実行されるべきでないので、常にエラーを返す。
        90:  436:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SYNTAX_ERROR ) );
        18:  437:	return false;
-      162:  438:}
+      170:  438:}
