@@ -86,8 +86,8 @@
         -:   84:			}
         -:   85:			else {
         -:   86:				//	v.is_string()
-       29:   87:				for( char &c : v.s ){
-       50:   88:					data.push_back( (unsigned char) c );
+       38:   87:				for( char &c : v.s ){
+       68:   88:					data.push_back( (unsigned char) c );
         -:   89:				}
         -:   90:			}
     16500:   91:			if( i >= (int)words.size() ){
@@ -103,5 +103,5 @@
      2366:  101:		log.write_separator();
         -:  102:	}
         -:  103:	return check_all_fixed();
-      170:  104:}
+      172:  104:}
         -:  105:

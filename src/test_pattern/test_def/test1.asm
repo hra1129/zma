@@ -20,7 +20,7 @@ label5:
 	defs	"mojiretsu"
 	ds		"mojiretsu"
 
-label6:		db	"1234"
+label6:		db	"1234\a\b\f\n\r\t\\\'\""
 label7::	db	100
 label8:		ld	a, b
 label9::	jp	label9

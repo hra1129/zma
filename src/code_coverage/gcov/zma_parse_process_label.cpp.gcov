@@ -76,5 +76,5 @@
        20:   74:		return false;
         -:   75:	}
         -:   76:	return check_all_fixed();
-      170:   77:}
+      172:   77:}
         -:   78:

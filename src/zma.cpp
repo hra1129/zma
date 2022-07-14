@@ -10,7 +10,7 @@
 #include <algorithm>
 #include "zma_text.hpp"
 
-static const char* p_version = "v1.0.16-beta";
+static const char* p_version = "v1.0.16";
 
 // --------------------------------------------------------------------
 static void usage( const char* p_name ) {

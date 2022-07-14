@@ -41,5 +41,5 @@
        18:   39:		log.write_separator();
         -:   40:	}
         -:   41:	return check_all_fixed();
-      170:   42:}
+      172:   42:}
         -:   43:

@@ -77,5 +77,5 @@
        10:   75:		log.write_separator();
         -:   76:	}
         -:   77:	return check_all_fixed();
-      170:   78:}
+      172:   78:}
         -:   79:

@@ -164,14 +164,14 @@
         -:  162:
         -:  163:	//	データが確定したか確認する
        72:  164:	if( !this->is_data_fixed ){
-       38:  165:		this->is_data_fixed = true;
-      510:  166:		for( auto p_text : this->m_text_list ){
-     1012:  167:			for( auto p : p_text->m_text ){
-      540:  168:				this->is_data_fixed = this->is_data_fixed && p->check_data_fixed();
+       36:  165:		this->is_data_fixed = true;
+      444:  166:		for( auto p_text : this->m_text_list ){
+      884:  167:			for( auto p : p_text->m_text ){
+      476:  168:				this->is_data_fixed = this->is_data_fixed && p->check_data_fixed();
         -:  169:			}
         -:  170:		}
-       38:  171:		if( this->is_data_fixed ){
-       16:  172:			info.is_updated = true;
+       36:  171:		if( this->is_data_fixed ){
+       17:  172:			info.is_updated = true;
         -:  173:		}
         -:  174:	}
         -:  175:
@@ -225,4 +225,4 @@
         -:  223:	//	本来、これは実行されるべきでないので、常にエラーを返す。
       180:  224:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SYNTAX_ERROR ) );
        36:  225:	return false;
-      170:  226:}
+      172:  226:}

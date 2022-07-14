@@ -12,15 +12,15 @@
         -:   10:#include "zma_parse_process_link.hpp"
         -:   11:
         -:   12:// --------------------------------------------------------------------
-      173:   13:void CZMA_INFORMATION::set_evaluated_for_all_links( void ){
+      175:   13:void CZMA_INFORMATION::set_evaluated_for_all_links( void ){
         -:   14:
-      196:   15:	for( auto &link : this->link_list ){
+      198:   15:	for( auto &link : this->link_list ){
        23:   16:		if( !link.second->is_evaluated ){
         3:   17:			this->is_updated = true;
         -:   18:		}
        23:   19:		link.second->is_evaluated = true;
         -:   20:	}
-      173:   21:}
+      175:   21:}
         -:   22:
         -:   23:
         -:   24:// --------------------------------------------------------------------
@@ -58,26 +58,26 @@
         -:   56:}
         -:   57:
         -:   58:// --------------------------------------------------------------------
-      714:   59:std::string CZMA_INFORMATION::get_scope_path( void ) {
-      714:   60:	std::string r = "";
-     1318:   61:	for( std::string s : scope ){
-     1812:   62:		r = r + s + ":";
+      718:   59:std::string CZMA_INFORMATION::get_scope_path( void ) {
+      718:   60:	std::string r = "";
+     1326:   61:	for( std::string s : scope ){
+     1824:   62:		r = r + s + ":";
         -:   63:	}
-      714:   64:	return r;
+      718:   64:	return r;
         -:   65:}
         -:   66:
         -:   67:// --------------------------------------------------------------------
-      165:   68:void CZMA_INFORMATION::add_include_path( const char *p_path, const char *p_sub_path ){
-      165:   69:	std::string s = p_path;
+      167:   68:void CZMA_INFORMATION::add_include_path( const char *p_path, const char *p_sub_path ){
+      167:   69:	std::string s = p_path;
         -:   70:
-      415:   71:	for( int i = (int)s.size() - 1; i >= 0; i-- ){
-      828:   72:		if( s[ i ] == '/' || s[ i ] == '\\' ){
-      492:   73:			s = s.substr( 0, i );
-      164:   74:			break;
+      420:   71:	for( int i = (int)s.size() - 1; i >= 0; i-- ){
+      838:   72:		if( s[ i ] == '/' || s[ i ] == '\\' ){
+      498:   73:			s = s.substr( 0, i );
+      166:   74:			break;
         -:   75:		}
         -:   76:	}
-      495:   77:	include_path.push_back( s + "/" + p_sub_path );
-      165:   78:}
+      501:   77:	include_path.push_back( s + "/" + p_sub_path );
+      167:   78:}
         -:   79:
         -:   80:// --------------------------------------------------------------------
       128:   81:std::string CZMA_INFORMATION::dot( std::string s, int max_length ){
@@ -90,12 +90,12 @@
         -:   88:}
         -:   89:
         -:   90:// --------------------------------------------------------------------
-       82:   91:void CZMA_INFORMATION::write( void ){
+       83:   91:void CZMA_INFORMATION::write( void ){
         -:   92:	int i, j;
         -:   93:	unsigned char c;
         -:   94:	std::string s;
-      163:   95:	std::stringstream s_dump;
-       82:   96:	if( dict.size() ){
+      165:   95:	std::stringstream s_dump;
+       83:   96:	if( dict.size() ){
        35:   97:		log << "<< label >>" << std::endl;
         -:   98:		size_t max_label_length = 0;
       419:   99:		for( auto item : dict ){
@@ -118,7 +118,7 @@
         -:  116:		}
         -:  117:	}
         -:  118:
-       82:  119:	if( char_set_list.size() ){
+       83:  119:	if( char_set_list.size() ){
         1:  120:		log << "<< character map >>" << std::endl;
         3:  121:		for( auto &item : char_set_list ){
         -:  122:			log << "[" << item.first << "]" << std::endl;
@@ -145,16 +145,16 @@
         -:  143:		}
         -:  144:	}
         -:  145:
-      163:  146:	std::ofstream sym_file;
-       82:  147:	sym_file.open( "zma.sym", std::ios::out );
-       82:  148:	if( !sym_file ){
+      165:  146:	std::ofstream sym_file;
+       83:  147:	sym_file.open( "zma.sym", std::ios::out );
+       83:  148:	if( !sym_file ){
         1:  149:		return;
         -:  150:	}
-      430:  151:	for( auto item : dict ){
+      431:  151:	for( auto item : dict ){
       126:  152:		if( item.second.value_type != CVALUE_TYPE::CV_INTEGER ){
        29:  153:			continue;
         -:  154:		}
        97:  155:		sym_file << item.first << " equ 0" << std::hex << item.second.i << "h" << std::endl;
         -:  156:	}
-       81:  157:	sym_file.close();
+       82:  157:	sym_file.close();
         -:  158:}

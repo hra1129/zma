@@ -5,6 +5,6 @@ LABEL3 equ 026h
 LABEL4 equ 030h
 LABEL5 equ 044h
 LABEL6 equ 06ah
-LABEL7 equ 06eh
-LABEL8 equ 06fh
-LABEL9 equ 070h
+LABEL7 equ 077h
+LABEL8 equ 078h
+LABEL9 equ 079h

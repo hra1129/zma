@@ -188,4 +188,4 @@
         -:  186:	//	本来、これは実行されるべきでないので、常にエラーを返す。
     #####:  187:	put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SYNTAX_ERROR ) );
     #####:  188:	return false;
-      170:  189:}
+      172:  189:}

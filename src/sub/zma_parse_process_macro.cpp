@@ -213,21 +213,9 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 						++word;
 					}
 				}
-				if( insert_line.size() > 2 && ( ( insert_line[ 1 ] == ":" ) || ( insert_line[ 1 ] == "::" ) ) ){
-					label_line.resize( 2 );
-					label_line[ 0 ] = insert_line[ 0 ];
-					label_line[ 1 ] = insert_line[ 1 ];
-					p_parse = CZMA_PARSE::create( info, label_line, this->p_file_name, this->line_no );
-					m_text.m_text.push_back( p_parse );
-					insert_line.erase( insert_line.begin() );
-					insert_line.erase( insert_line.begin() );
-					p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
-					m_text.m_text.push_back( p_parse );
-				}
-				else{
-					p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
-					m_text.m_text.push_back( p_parse );
-				}
+				//	LABEL: COMMAND のパターンはあり得ない。必ず、LABEL: か COMMAND に分けられている。
+				p_parse = CZMA_PARSE::create( info, insert_line, this->p_file_name, this->line_no );
+				m_text.m_text.push_back( p_parse );
 			}
 		}
 		m_text.analyze_structure();
@@ -238,8 +226,9 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 
 	p_last_line = m_text.process( info, success_count, p_last_line, !this->is_analyze_phase );
 	if( !this->is_data_fixed ) {
+		this->is_data_fixed = true;
 		for( auto p : m_text.m_text ) {
-			this->is_data_fixed = this->is_data_fixed && p->is_fixed_code_size();
+			this->is_data_fixed = this->is_data_fixed && p->check_data_fixed();
 		}
 		if( this->is_data_fixed ) {
 			info.is_updated = true;

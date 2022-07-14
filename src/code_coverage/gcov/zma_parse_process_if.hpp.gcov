@@ -15,7 +15,7 @@
         -:   13:	bool is_condition = false;
         -:   14:	CZMA_TEXT m_text;
         -:   15:
-      135:   16:	using CZMA_PARSE::CZMA_PARSE;
+      136:   16:	using CZMA_PARSE::CZMA_PARSE;
         -:   17:	bool process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line = nullptr ) override;
         -:   18:	void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) override;
         -:   19:	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
@@ -40,7 +40,7 @@
         -:   38:};
         -:   39:
         -:   40:// --------------------------------------------------------------------
-       70:   41:CLASS_CZMA_PARSE( ENDIF );
+       71:   41:CLASS_CZMA_PARSE( ENDIF );
         -:   42:
         -:   43:// --------------------------------------------------------------------
         -:   44:class CZMA_IF_BLOCK_T{
@@ -48,7 +48,7 @@
         -:   46:	CZMA_PARSE_IF *p_if;
         -:   47:	std::map< std::string, CVALUE >	dict;
         -:   48:
-      133:   49:	CZMA_IF_BLOCK_T(): p_if( nullptr ){
+      134:   49:	CZMA_IF_BLOCK_T(): p_if( nullptr ){
         -:   50:	}
         -:   51:};
         -:   52:
@@ -63,7 +63,7 @@
         -:   61:	void update_code_size( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line );
         -:   62:	std::vector< std::vector< std::string > > get_words( void ) override;
         -:   63:
-       63:   64:	using CZMA_PARSE::CZMA_PARSE;
+       64:   64:	using CZMA_PARSE::CZMA_PARSE;
         -:   65:	bool sub_process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line );
         -:   66:	bool process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line = nullptr ) override;
         -:   67:	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;

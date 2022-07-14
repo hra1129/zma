@@ -12,7 +12,7 @@
         -:   10:#include <algorithm>
         -:   11:#include "zma_text.hpp"
         -:   12:
-        -:   13:static const char* p_version = "v1.0.16-beta";
+        -:   13:static const char* p_version = "v1.0.16";
         -:   14:
         -:   15:// --------------------------------------------------------------------
         3:   16:static void usage( const char* p_name ) {
@@ -72,14 +72,14 @@
         -:   70:}
         -:   71:
         -:   72:// --------------------------------------------------------------------
-       85:   73:static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
+       86:   73:static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
         -:   74:	int i;
         -:   75:	std::string s_argument;
         -:   76:	std::vector<std::string> sa_options;
         -:   77:
-      423:   78:	for( i = 1; i < argc; i++ ){
-      171:   79:		s_argument = argv[ i ];
-      171:   80:		if( s_argument[ 0 ] == '-' || s_argument[ 0 ] == '/' ){
+      428:   78:	for( i = 1; i < argc; i++ ){
+      173:   79:		s_argument = argv[ i ];
+      173:   80:		if( s_argument[ 0 ] == '-' || s_argument[ 0 ] == '/' ){
         7:   81:			s_argument[ 0 ] = '-';
         -:   82:			std::transform( s_argument.begin(), s_argument.end(), s_argument.begin(), toupper );
        13:   83:			if( s_argument == "-H" || s_argument == "-HELP" ){
@@ -103,66 +103,66 @@
         -:  101:			}
         -:  102:		}
         -:  103:		else{
-      164:  104:			sa_options.push_back( s_argument );
+      166:  104:			sa_options.push_back( s_argument );
         -:  105:		}
         -:  106:	}
         -:  107:
-       83:  108:	if( info.defs_is_space ){
+       84:  108:	if( info.defs_is_space ){
         1:  109:		info.log << "  DEFS is DEFINE SPACE.\n";
         -:  110:	}
         -:  111:	else{
-       82:  112:		info.log << "  DEFS is DEFINE STRING (default).\n";
+       83:  112:		info.log << "  DEFS is DEFINE STRING (default).\n";
         -:  113:	}
         -:  114:
-       83:  115:	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_BINARY ){
-       82:  116:		info.log << "  OUTPUT TYPE: BINARY\n\n";
+       84:  115:	if( info.output_type == CZMA_INFORMATION::OUTPUT_TYPE::CZMA_BINARY ){
+       83:  116:		info.log << "  OUTPUT TYPE: BINARY\n\n";
         -:  117:	}
         -:  118:	else{
         1:  119:		info.log << "  OUTPUT TYPE: INTEL HEX\n\n";
         -:  120:	}
-       83:  121:	return sa_options;
+       84:  121:	return sa_options;
         -:  122:}
         -:  123:
         -:  124:// --------------------------------------------------------------------
-       85:  125:int main( int argc, char *argv[] ) {
-       85:  126:    std::cout << "Z80 Macro Assembler ZMA " << p_version << "\n";
-       85:  127:	std::cout << "=====================================================\n";
-       85:  128:	std::cout << "Programmed by t.hara\n";
+       86:  125:int main( int argc, char *argv[] ) {
+       86:  126:    std::cout << "Z80 Macro Assembler ZMA " << p_version << "\n";
+       86:  127:	std::cout << "=====================================================\n";
+       86:  128:	std::cout << "Programmed by t.hara\n";
         -:  129:
-      168:  130:	CZMA_TEXT src;
-      168:  131:	CZMA_INFORMATION info;
-       83:  132:	std::vector< std::string > sa_options;
+      170:  130:	CZMA_TEXT src;
+      170:  131:	CZMA_INFORMATION info;
+       84:  132:	std::vector< std::string > sa_options;
         -:  133:
-       85:  134:	info.log.open( "zma.log", std::ios::out );
-       85:  135:	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
-       85:  136:	info.log << "=====================================================\n";
-       85:  137:	info.log << "Programmed by t.hara\n\n";
+       86:  134:	info.log.open( "zma.log", std::ios::out );
+       86:  135:	info.log << "Z80 Macro Assembler ZMA " << p_version << "\n";
+       86:  136:	info.log << "=====================================================\n";
+       86:  137:	info.log << "Programmed by t.hara\n\n";
         -:  138:
-      168:  139:	sa_options = get_command_line_options( argc, argv, info );
-      166:  140:	if( sa_options.size() < 2 ) {
+      170:  139:	sa_options = get_command_line_options( argc, argv, info );
+      168:  140:	if( sa_options.size() < 2 ) {
         1:  141:		usage( argv[0] );
         -:  142:		return 1;
         -:  143:	}
         -:  144:
-       82:  145:	info.log << "<< code >>\n";
-       82:  146:	info.log << "LINE# |OFFSET|ADDR|MNEMONIC\n";
-       82:  147:	info.log << "======+======+====+==================================\n";
-       82:  148:	info.add_include_path( "./" );
-       82:  149:	info.add_include_path( argv[0], "include/" );
-      164:  150:	src.load( info, sa_options[0].c_str() );
+       83:  145:	info.log << "<< code >>\n";
+       83:  146:	info.log << "LINE# |OFFSET|ADDR|MNEMONIC\n";
+       83:  147:	info.log << "======+======+====+==================================\n";
+       83:  148:	info.add_include_path( "./" );
+       83:  149:	info.add_include_path( argv[0], "include/" );
+      166:  150:	src.load( info, sa_options[0].c_str() );
         -:  151:
         -:  152:	int return_code = 0;
-       82:  153:	if( src.all_process( info ) ) {
+       83:  153:	if( src.all_process( info ) ) {
         -:  154:		return_code = 0;
-       44:  155:		std::cout << "Success.\n";
+       45:  155:		std::cout << "Success.\n";
         -:  156:	}
         -:  157:	else {
         -:  158:		return_code = 1;
        38:  159:		std::cout << "Failed.\n";
         -:  160:	}
-      164:  161:	if( !src.save( info, sa_options[1].c_str() ) ){
+      166:  161:	if( !src.save( info, sa_options[1].c_str() ) ){
         -:  162:		return_code = 1;
     #####:  163:		std::cout << "Save error.\n";
         -:  164:	}
         -:  165:	return return_code;
-      170:  166:}
+      172:  166:}

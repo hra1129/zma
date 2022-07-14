@@ -30,7 +30,7 @@
         -:   28:};
         -:   29:
         -:   30:// --------------------------------------------------------------------
-      249:   31:class CZMA_INFORMATION {
+      252:   31:class CZMA_INFORMATION {
         -:   32:public:
         -:   33:	std::map< std::string, CVALUE >	dict;
         -:   34:	std::map< std::string, CVALUE >	*p_sub_dict;
@@ -70,26 +70,26 @@
         -:   68:	std::ofstream								log;
         -:   69:
         -:   70:	// --------------------------------------------------------------------
-       85:   71:	CZMA_INFORMATION(): is_updated( false ), 
+       86:   71:	CZMA_INFORMATION(): is_updated( false ), 
         -:   72:			auto_label_index( 0 ), p_sub_dict( nullptr ),
         -:   73:			p_char_set( nullptr ), defs_is_space(false),
         -:   74:			output_type( OUTPUT_TYPE::CZMA_BINARY ),
-     2040:   75:			error_disable( false ), all_error_enable( false ) {
-       85:   76:	}
+     2064:   75:			error_disable( false ), all_error_enable( false ) {
+       86:   76:	}
         -:   77:
         -:   78:	// --------------------------------------------------------------------
-      254:   79:	void clear( void ){
-      254:   80:		scope.clear();
-      254:   81:		p_char_set = nullptr;
-      254:   82:		s_char_set = "DEFAULT";
-      254:   83:		is_updated = false;
-      254:   84:		auto_label_index = 0;
-      254:   85:		error_disable = false;
-      254:   86:	}
+      257:   79:	void clear( void ){
+      257:   80:		scope.clear();
+      257:   81:		p_char_set = nullptr;
+      257:   82:		s_char_set = "DEFAULT";
+      257:   83:		is_updated = false;
+      257:   84:		auto_label_index = 0;
+      257:   85:		error_disable = false;
+      257:   86:	}
         -:   87:
         -:   88:	// --------------------------------------------------------------------
         -:   89:	unsigned int get_auto_label_index( void ) {
-      240:   90:		return auto_label_index++;
+      246:   90:		return auto_label_index++;
         -:   91:	}
         -:   92:
         -:   93:	// --------------------------------------------------------------------
@@ -109,19 +109,19 @@
         -:  107:
         -:  108:	// --------------------------------------------------------------------
         -:  109:	bool is_sss_or_ddd( std::string word ) const {
-     8576:  110:		int d = (int)sss_or_ddd_id.count( word );
+     8602:  110:		int d = (int)sss_or_ddd_id.count( word );
         -:  111:		return d;
         -:  112:	}
         -:  113:
         -:  114:	// --------------------------------------------------------------------
         -:  115:	bool is_ix_hl( std::string word ) const {
-     2655:  116:		int d = (int)ix_hl.count( word );
+     2661:  116:		int d = (int)ix_hl.count( word );
         -:  117:		return d;
         -:  118:	}
         -:  119:
         -:  120:	// --------------------------------------------------------------------
         -:  121:	bool is_iy_hl( std::string word ) const {
-     1735:  122:		int d = (int)iy_hl.count( word );
+     1741:  122:		int d = (int)iy_hl.count( word );
         -:  123:		return d;
         -:  124:	}
         -:  125:

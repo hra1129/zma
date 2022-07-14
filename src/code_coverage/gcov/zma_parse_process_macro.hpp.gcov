@@ -12,13 +12,13 @@
         -:   10:#include "zma_text.hpp"
         -:   11:
         -:   12:// --------------------------------------------------------------------
-      203:   13:class CZMA_MACRO_ARG{
+      206:   13:class CZMA_MACRO_ARG{
         -:   14:public:
         -:   15:	std::string		name;			//	引数の名前
         -:   16:	bool			is_through;		//	false: 普通の引数, true: @付き引数
         -:   17:
         -:   18:	// --------------------------------------------------------------------
-       94:   19:	CZMA_MACRO_ARG(): name( "" ), is_through( false ){
+       97:   19:	CZMA_MACRO_ARG(): name( "" ), is_through( false ){
         -:   20:	}
         -:   21:};
         -:   22:
@@ -29,14 +29,14 @@
         -:   27:	CZMA_TEXT m_text;											//	展開前のソースコード
         -:   28:	CZMA_LOG log_header;
         -:   29:
-       96:   30:	using CZMA_PARSE::CZMA_PARSE;
+       99:   30:	using CZMA_PARSE::CZMA_PARSE;
         -:   31:	bool process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line = nullptr ) override;
         -:   32:	void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) override;
         -:   33:	std::vector< std::vector< std::string > > get_words( void );
         -:   34:	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
         -:   35:};
         -:   36:
-       31:   37:CLASS_CZMA_PARSE( ENDM );
+       32:   37:CLASS_CZMA_PARSE( ENDM );
         -:   38:
         -:   39:// --------------------------------------------------------------------
         -:   40:class CZMA_PARSE_MACRO_INS: public CZMA_PARSE {
@@ -45,7 +45,7 @@
         -:   43:	CZMA_LOG log_header;
         -:   44:	bool is_loaded = false;
         -:   45:
-      154:   46:	using CZMA_PARSE::CZMA_PARSE;
+      158:   46:	using CZMA_PARSE::CZMA_PARSE;
         -:   47:	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
         -:   48:	bool write_output_and_log( CZMA_INFORMATION& info, std::ofstream* f ) override;
         -:   49:};
