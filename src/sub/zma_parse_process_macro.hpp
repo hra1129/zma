@@ -30,7 +30,7 @@ public:
 	using CZMA_PARSE::CZMA_PARSE;
 	bool process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line = nullptr ) override;
 	void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) override;
-	std::vector< std::vector< std::string > > get_words( void );
+	std::vector< std::vector< std::string > > get_words( void ) override;
 	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
 };
 
