@@ -79,8 +79,8 @@ c:\users\hra\documents\github\zma\src\release\zma_parse_process_outd.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_out.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_otir.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_otdr.obj
-c:\users\hra\documents\github\zma\src\release\zma_logger.obj
-c:\users\hra\documents\github\zma\src\release\zma_information.obj
+c:\users\hra\documents\github\zma\src\release\zma_hexfile.obj
+c:\users\hra\documents\github\zma\src\release\zma_error.obj
 c:\users\hra\documents\github\zma\src\release\zma.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_xor.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process_user_message.obj
@@ -103,8 +103,9 @@ c:\users\hra\documents\github\zma\src\release\zma_text.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_process.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse_expression.obj
 c:\users\hra\documents\github\zma\src\release\zma_parse.obj
-c:\users\hra\documents\github\zma\src\release\zma_error.obj
-c:\users\hra\documents\github\zma\src\release\zma_hexfile.obj
+c:\users\hra\documents\github\zma\src\release\zma_logger.obj
+c:\users\hra\documents\github\zma\src\release\zma_information.obj
+c:\users\hra\documents\github\zma\src\release\zma_parse_process_link.obj
 c:\users\hra\documents\github\zma\src\release\zma.exe
 c:\users\hra\documents\github\zma\src\release\zma.pdb
 c:\users\hra\documents\github\zma\src\release\zma.ipdb
