@@ -103,14 +103,3 @@ SRL16	macro	@reg16
 				error	"Unsupported argument \" + reg16 + "\" in SRL16 macro."
 			endif
 		endm
-
-; =============================================================================
-;	BYTE_ALIGN	align
-;
-;	アドレスが align で示される数値の倍数 になるまでパディングする
-; =============================================================================
-BYTE_ALIGN	MACRO	align
-			if FILE_ADDRESS % align
-				defs	" " * (align - (FILE_ADDRESS % align))
-			endif
-		endm
