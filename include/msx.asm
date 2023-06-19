@@ -1,7 +1,58 @@
 ; =============================================================================
 ;	MSX definition header file
-; -----------------------------------------------------------------------------
-;	2019/07/03	t.hara
+;
+;  Copyright (C) 2019-2023 Takayuki Hara (HRA!)
+;  All rights reserved.
+;                           https://github.com/hra1129/zma
+;
+;  本ソフトウェアおよび本ソフトウェアに基づいて作成された派生物は、以下の条件を
+;  満たす場合に限り、再頒布および使用が許可されます。
+;
+;  1.ソースコード形式で再頒布する場合、上記の著作権表示、本条件一覧、および下記
+;    免責条項をそのままの形で保持すること。
+;  2.バイナリ形式で再頒布する場合、頒布物に付属のドキュメント等の資料に、上記の
+;    著作権表示、本条件一覧、および下記免責条項を含めること。
+;  3.書面による事前の許可なしに、本ソフトウェアを販売、および商業的な製品や活動
+;    に使用しないこと。
+;
+;  本ソフトウェアは、著作権者によって「現状のまま」提供されています。著作権者は、
+;  特定目的への適合性の保証、商品性の保証、またそれに限定されない、いかなる明示
+;  的もしくは暗黙な保証責任も負いません。著作権者は、事由のいかんを問わず、損害
+;  発生の原因いかんを問わず、かつ責任の根拠が契約であるか厳格責任であるか（過失
+;  その他の）不法行為であるかを問わず、仮にそのような損害が発生する可能性を知ら
+;  されていたとしても、本ソフトウェアの使用によって発生した（代替品または代用サ
+;  ービスの調達、使用の喪失、データの喪失、利益の喪失、業務の中断も含め、またそ
+;  れに限定されない）直接損害、間接損害、偶発的な損害、特別損害、懲罰的損害、ま
+;  たは結果損害について、一切責任を負わないものとします。
+;
+;  Note that above Japanese version license is the formal document.
+;  The following translation is only for reference.
+;
+;  Redistribution and use of this software or any derivative works,
+;  are permitted provided that the following conditions are met:
+;
+;  1. Redistributions of source code must retain the above copyright
+;     notice, this list of conditions and the following disclaimer.
+;  2. Redistributions in binary form must reproduce the above
+;     copyright notice, this list of conditions and the following
+;     disclaimer in the documentation and/or other materials
+;     provided with the distribution.
+;  3. Redistributions may not be sold, nor may they be used in a
+;     commercial product or activity without specific prior written
+;     permission.
+;
+;  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+;  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+;  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+;  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+;  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+;  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+;  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+;  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+;  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+;  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+;  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+;  POSSIBILITY OF SUCH DAMAGE.
 ; =============================================================================
 
 ; =============================================================================
@@ -85,8 +136,23 @@ STRTMS						:= 0x0099
 ;	for GAME I/O access
 GTSTICK						:= 0x00D5
 GTTRIG						:= 0x00D8
-GTPAD						:= 0x00DB
-GRPDL						:= 0x00DE
+GTPAD						:= 0x00DB		; note: MSXturboRではライトペン(A=8～11)は常に0が返る
+GRPDL						:= 0x00DE		; note: MSXturboRでは常に0が返る
+
+TAPION						:= 0x00e1		; note: MSXturboRでは常にCy=1(エラー)が返る
+TAPIN						:= 0x00e4		; note: MSXturboRでは常にCy=1(エラー)が返る
+TAPIOF						:= 0x00e7		; note: MSXturboRでは常にCy=1(エラー)が返る
+TAPOON						:= 0x00ea		; note: MSXturboRでは常にCy=1(エラー)が返る
+TAPOUT						:= 0x00ed		; note: MSXturboRでは常にCy=1(エラー)が返る
+TAPOOF						:= 0x00f0		; note: MSXturboRでは常にCy=1(エラー)が返る
+STMOTR						:= 0x00f3		; note: MSXturboRでは何もせずに返る
+
+CHGCAP						:= 0x0132
+CHGSND						:= 0x0135
+RSLREG						:= 0x0138
+WSLREG						:= 0x013B
+RDVDP						:= 0x013E
+SNSMAT						:= 0x0141
 
 ;	for Disk access
 
@@ -109,6 +175,7 @@ PHYDIO						:= 0x0144		; Unpublished routine
 
 FORMAT						:= 0x0147
 CHKDEV						:= 0x014A
+ISFLIO						:= 0x014A
 PRINTC						:= 0x014D
 KILBUF						:= 0x0156
 CALBAS						:= 0x0159
@@ -120,18 +187,63 @@ EXTROM						:= 0x015F
 ;	SYSTEM WORK AREA
 ; =============================================================================
 
+H_PROMPT					:= 0xF24F		; hook: Disk change prompt (Require DISK DRIVE)
+
+DISKVE						:= 0xF323		; 2bytes (Require DISK DRIVE)
+BREAKV						:= 0xF325		; 2bytes (Require DISK DRIVE)
+RAMAD0						:= 0xF341		; 1byte, Page0 RAM Slot (Require DISK DRIVE)
+RAMAD1						:= 0xF342		; 1byte, Page1 RAM Slot (Require DISK DRIVE)
+RAMAD2						:= 0xF343		; 1byte, Page2 RAM Slot (Require DISK DRIVE)
+RAMAD3						:= 0xF344		; 1byte, Page3 RAM Slot (Require DISK DRIVE)
+MASTERS						:= 0xF348		; 1byte, MasterCartridgeSlot (Require DISK DRIVE)
+
+RDPRIM						:= 0xF380		; 5bytes, 基本スロットからの読み込み
+WRPRIM						:= 0xF385		; 7bytes, 基本スロットへの書き込み
+CLPRIM						:= 0xF38C		; 14bytes, 基本スロットコール
+
+CLIKSW						:= 0xF3DB		; 1byte, キークリックスイッチ (0=OFF, others=ON)
+CSRY						:= 0xF3DC		; 1byte, カーソルのY座標
+CSRX						:= 0xF3DD		; 1byte, カーソルのX座標
+CNSDFG						:= 0xF3DE		; 1byte, ファンクションキー表示スイッチ (0=ON, others=OFF)
+
+;	VDP Registeter backup area1
+RG0SAV						:= 0xF3DF		; VDP R#0
+RG1SAV						:= 0xF3E0		; VDP R#1
+RG2SAV						:= 0xF3E1		; VDP R#2
+RG3SAV						:= 0xF3E2		; VDP R#3
+RG4SAV						:= 0xF3E3		; VDP R#4
+RG5SAV						:= 0xF3E4		; VDP R#5
+RG6SAV						:= 0xF3E5		; VDP R#6
+RG7SAV						:= 0xF3E6		; VDP R#7
+STATFL						:= 0xF3E7		; VDP S#0
+
+FORCLR						:= 0xF3E9		; Fore ground color
+BAKCLR						:= 0xF3EA		; Back ground color
+BDRCLR						:= 0xF3EB		; Border color
+
+FNKSTR						:= 0xF87F		; 16byte * 10, ファンクションキーに対応する文字列
+
 ;	SUB-ROM SLOT
 ;	bit   7    6    5    4    3    2    1    0
 ;	    [ext][N/A][N/A][N/A][EXT.SLOT][BASESLOT]
 ;
 EXBRSA						:= 0xFAF8
 
+HOKVLD						:= 0xFB20
+
 ;	BASE SLOT EXTEND INFORMATION
 ;
+EXPTBL						:= 0xFCC1		; 4bytes, 各スロットの拡張の有無
 EXPTBL0						:= 0xFCC1		; [ext][N/A][N/A][N/A][EXT.SLOT][BASESLOT]	MAIN-ROM slot
 EXPTBL1						:= 0xFCC2		; [ext][N/A][N/A][N/A][N/A][N/A][N/A][N/A]	slot#1
 EXPTBL2						:= 0xFCC3		; [ext][N/A][N/A][N/A][N/A][N/A][N/A][N/A]	slot#2
 EXPTBL3						:= 0xFCC4		; [ext][N/A][N/A][N/A][N/A][N/A][N/A][N/A]	slot#3
+
+SLTTBL						:= 0xFCC5		; 4bytes, 各スロットの拡張スロットレジスタの現在の選択状況
+SLTATR						:= 0xFCC9		; 64bytes, 各スロット用の属性
+SLTWRK						:= 0xFD09		; 128bytes, 各スロット用の特定のワークエリアを確保
+PROCNM						:= 0xFD89		; 16bytes, 拡張ステートメント, 拡張デバイスの名前が入る, ASCIIZ
+DEVICE						:= 0xFD99		; 1byte, カートリッジ用の装置識別
 
 ;	MSX I/O INTERRUPT HOOK
 H_KEYI						:= 0xFD9A
@@ -147,44 +259,33 @@ HIMEM						:= 0xFC4A
 
 SCRMOD						:= 0xFCAF
 
-;	VDP Registeter backup area
-REG0SAV						:= 0xF3DF		; VDP R#0
-REG1SAV						:= 0xF3E0		; VDP R#1
-REG2SAV						:= 0xF3E1		; VDP R#2
-REG3SAV						:= 0xF3E2		; VDP R#3
-REG4SAV						:= 0xF3E3		; VDP R#4
-REG5SAV						:= 0xF3E4		; VDP R#5
-REG6SAV						:= 0xF3E5		; VDP R#6
-REG7SAV						:= 0xF3E6		; VDP R#7
-STATFL						:= 0xF3E7		; VDP S#0
-
-FORCLR						:= 0xF3E9		; Fore ground color
-BAKCLR						:= 0xF3EA		; Back ground color
-BDRCLR						:= 0xF3EB		; Border color
-
-REG8SAV						:= 0xFFE7		; VDP R#8
-REG9SAV						:= 0xFFE8		; VDP R#9
-REG10SAV					:= 0xFFE9		; VDP R#10
-REG11SAV					:= 0xFFEA		; VDP R#11
-REG12SAV					:= 0xFFEB		; VDP R#12
-REG13SAV					:= 0xFFEC		; VDP R#13
-REG14SAV					:= 0xFFED		; VDP R#14
-REG15SAV					:= 0xFFEE		; VDP R#15
-REG16SAV					:= 0xFFEF		; VDP R#16
-REG17SAV					:= 0xFFF0		; VDP R#17
-REG18SAV					:= 0xFFF1		; VDP R#18
-REG19SAV					:= 0xFFF2		; VDP R#19
-REG20SAV					:= 0xFFF3		; VDP R#20
-REG21SAV					:= 0xFFF4		; VDP R#21
-REG22SAV					:= 0xFFF5		; VDP R#22
-REG23SAV					:= 0xFFF6		; VDP R#23
-
-REG25SAV					:= 0xFFF8		; VDP R#25
-REG26SAV					:= 0xFFF9		; VDP R#26
-REG27SAV					:= 0xFFFA		; VDP R#27
-
 ;	Disk access
 H_PHYD						:= 0xFFA7		; hook PHYDIO
+
+EXTBIO						:= 0xFFCA
+
+;	VDP Registeter backup area2
+RG8SAV						:= 0xFFE7		; VDP R#8
+RG9SAV						:= 0xFFE8		; VDP R#9
+RG10SAV						:= 0xFFE9		; VDP R#10
+RG11SAV						:= 0xFFEA		; VDP R#11
+RG12SAV						:= 0xFFEB		; VDP R#12
+RG13SAV						:= 0xFFEC		; VDP R#13
+RG14SAV						:= 0xFFED		; VDP R#14
+RG15SAV						:= 0xFFEE		; VDP R#15
+RG16SAV						:= 0xFFEF		; VDP R#16
+RG17SAV						:= 0xFFF0		; VDP R#17
+RG18SAV						:= 0xFFF1		; VDP R#18
+RG19SAV						:= 0xFFF2		; VDP R#19
+RG20SAV						:= 0xFFF3		; VDP R#20
+RG21SAV						:= 0xFFF4		; VDP R#21
+RG22SAV						:= 0xFFF5		; VDP R#22
+RG23SAV						:= 0xFFF6		; VDP R#23
+
+RG25SAV						:= 0xFFF8		; VDP R#25
+RG26SAV						:= 0xFFF9		; VDP R#26
+RG27SAV						:= 0xFFFA		; VDP R#27
+
 
 ; =============================================================================
 ;	BDOS
