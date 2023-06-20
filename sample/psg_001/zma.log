@@ -1,0 +1,3743 @@
+Z80 Macro Assembler ZMA v1.0.16
+=====================================================
+Programmed by t.hara
+
+  DEFS is DEFINE STRING (default).
+  OUTPUT TYPE: BINARY
+
+<< code >>
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     7|      |    |INCLUDE "msx.asm" begin
+    61|      |    |IO_VDP_PORT0_MSX1_ADP := 0x88
+      |      |    |  Global integer symbol [IO_VDP_PORT0_MSX1_ADP] = 136 (0x88)
+------+------+----+----------------------------------
+    62|      |    |IO_VDP_PORT1_MSX1_ADP := 0x89
+      |      |    |  Global integer symbol [IO_VDP_PORT1_MSX1_ADP] = 137 (0x89)
+------+------+----+----------------------------------
+    63|      |    |IO_VDP_PORT2_MSX1_ADP := 0x8A
+      |      |    |  Global integer symbol [IO_VDP_PORT2_MSX1_ADP] = 138 (0x8a)
+------+------+----+----------------------------------
+    64|      |    |IO_VDP_PORT3_MSX1_ADP := 0x8B
+      |      |    |  Global integer symbol [IO_VDP_PORT3_MSX1_ADP] = 139 (0x8b)
+------+------+----+----------------------------------
+    65|      |    |IO_VDP_PORT0 := 0x98
+      |      |    |  Global integer symbol [IO_VDP_PORT0] = 152 (0x98)
+------+------+----+----------------------------------
+    66|      |    |IO_VDP_PORT1 := 0x99
+      |      |    |  Global integer symbol [IO_VDP_PORT1] = 153 (0x99)
+------+------+----+----------------------------------
+    67|      |    |IO_VDP_PORT2 := 0x9A
+      |      |    |  Global integer symbol [IO_VDP_PORT2] = 154 (0x9a)
+------+------+----+----------------------------------
+    68|      |    |IO_VDP_PORT3 := 0x9B
+      |      |    |  Global integer symbol [IO_VDP_PORT3] = 155 (0x9b)
+------+------+----+----------------------------------
+    70|      |    |IO_PSG_ADR := 0xA0
+      |      |    |  Global integer symbol [IO_PSG_ADR] = 160 (0xa0)
+------+------+----+----------------------------------
+    71|      |    |IO_PSG_DATA_WR := 0xA1
+      |      |    |  Global integer symbol [IO_PSG_DATA_WR] = 161 (0xa1)
+------+------+----+----------------------------------
+    72|      |    |IO_PSG_DATA_RD := 0xA2
+      |      |    |  Global integer symbol [IO_PSG_DATA_RD] = 162 (0xa2)
+------+------+----+----------------------------------
+    74|      |    |IO_BASE_SLOT := 0xA8
+      |      |    |  Global integer symbol [IO_BASE_SLOT] = 168 (0xa8)
+------+------+----+----------------------------------
+    76|      |    |IO_MEMMAP0 := 0xFC
+      |      |    |  Global integer symbol [IO_MEMMAP0] = 252 (0xfc)
+------+------+----+----------------------------------
+    77|      |    |IO_MEMMAP1 := 0xFD
+      |      |    |  Global integer symbol [IO_MEMMAP1] = 253 (0xfd)
+------+------+----+----------------------------------
+    78|      |    |IO_MEMMAP2 := 0xFE
+      |      |    |  Global integer symbol [IO_MEMMAP2] = 254 (0xfe)
+------+------+----+----------------------------------
+    79|      |    |IO_MEMMAP3 := 0xFF
+      |      |    |  Global integer symbol [IO_MEMMAP3] = 255 (0xff)
+------+------+----+----------------------------------
+    86|      |    |CHKRAM := 0x0000
+      |      |    |  Global integer symbol [CHKRAM] = 0 (0x0)
+------+------+----+----------------------------------
+    87|      |    |SYNCHR := 0x0008
+      |      |    |  Global integer symbol [SYNCHR] = 8 (0x8)
+------+------+----+----------------------------------
+    88|      |    |RDSLT := 0x000C
+      |      |    |  Global integer symbol [RDSLT] = 12 (0xc)
+------+------+----+----------------------------------
+    89|      |    |CHRGTR := 0x0010
+      |      |    |  Global integer symbol [CHRGTR] = 16 (0x10)
+------+------+----+----------------------------------
+    90|      |    |WRSLT := 0x0014
+      |      |    |  Global integer symbol [WRSLT] = 20 (0x14)
+------+------+----+----------------------------------
+    91|      |    |OUTDO := 0x0018
+      |      |    |  Global integer symbol [OUTDO] = 24 (0x18)
+------+------+----+----------------------------------
+    92|      |    |CALSLT := 0x001C
+      |      |    |  Global integer symbol [CALSLT] = 28 (0x1c)
+------+------+----+----------------------------------
+    93|      |    |DCOMPR := 0x0020
+      |      |    |  Global integer symbol [DCOMPR] = 32 (0x20)
+------+------+----+----------------------------------
+    94|      |    |ENASLT := 0x0024
+      |      |    |  Global integer symbol [ENASLT] = 36 (0x24)
+------+------+----+----------------------------------
+    95|      |    |GETYPR := 0x0028
+      |      |    |  Global integer symbol [GETYPR] = 40 (0x28)
+------+------+----+----------------------------------
+    96|      |    |CALLF := 0x0030
+      |      |    |  Global integer symbol [CALLF] = 48 (0x30)
+------+------+----+----------------------------------
+    97|      |    |KEYINT := 0x0038
+      |      |    |  Global integer symbol [KEYINT] = 56 (0x38)
+------+------+----+----------------------------------
+    98|      |    |INITIO := 0x003B
+      |      |    |  Global integer symbol [INITIO] = 59 (0x3b)
+------+------+----+----------------------------------
+    99|      |    |INIFNK := 0x003E
+      |      |    |  Global integer symbol [INIFNK] = 62 (0x3e)
+------+------+----+----------------------------------
+   102|      |    |DISSCR := 0x0041
+      |      |    |  Global integer symbol [DISSCR] = 65 (0x41)
+------+------+----+----------------------------------
+   103|      |    |ENASCR := 0x0047
+      |      |    |  Global integer symbol [ENASCR] = 71 (0x47)
+------+------+----+----------------------------------
+   104|      |    |RDVRM := 0x004A
+      |      |    |  Global integer symbol [RDVRM] = 74 (0x4a)
+------+------+----+----------------------------------
+   105|      |    |WRVRM := 0x004D
+      |      |    |  Global integer symbol [WRVRM] = 77 (0x4d)
+------+------+----+----------------------------------
+   106|      |    |SETRD := 0x0050
+      |      |    |  Global integer symbol [SETRD] = 80 (0x50)
+------+------+----+----------------------------------
+   107|      |    |SETWRT := 0x0053
+      |      |    |  Global integer symbol [SETWRT] = 83 (0x53)
+------+------+----+----------------------------------
+   108|      |    |FILVRM := 0x0056
+      |      |    |  Global integer symbol [FILVRM] = 86 (0x56)
+------+------+----+----------------------------------
+   109|      |    |LDIRMV := 0x0059
+      |      |    |  Global integer symbol [LDIRMV] = 89 (0x59)
+------+------+----+----------------------------------
+   110|      |    |LDIRVM := 0x005C
+      |      |    |  Global integer symbol [LDIRVM] = 92 (0x5c)
+------+------+----+----------------------------------
+   111|      |    |CHGMOD := 0x005F
+      |      |    |  Global integer symbol [CHGMOD] = 95 (0x5f)
+------+------+----+----------------------------------
+   112|      |    |CHGCLR := 0x0062
+      |      |    |  Global integer symbol [CHGCLR] = 98 (0x62)
+------+------+----+----------------------------------
+   113|      |    |NMI := 0x0066
+      |      |    |  Global integer symbol [NMI] = 102 (0x66)
+------+------+----+----------------------------------
+   114|      |    |CLRSPR := 0x0069
+      |      |    |  Global integer symbol [CLRSPR] = 105 (0x69)
+------+------+----+----------------------------------
+   115|      |    |INITTXT := 0x006C
+      |      |    |  Global integer symbol [INITTXT] = 108 (0x6c)
+------+------+----+----------------------------------
+   116|      |    |INIT32 := 0x006F
+      |      |    |  Global integer symbol [INIT32] = 111 (0x6f)
+------+------+----+----------------------------------
+   117|      |    |INIGRP := 0x0072
+      |      |    |  Global integer symbol [INIGRP] = 114 (0x72)
+------+------+----+----------------------------------
+   118|      |    |INIMLT := 0x0075
+      |      |    |  Global integer symbol [INIMLT] = 117 (0x75)
+------+------+----+----------------------------------
+   119|      |    |SETTXT := 0x0078
+      |      |    |  Global integer symbol [SETTXT] = 120 (0x78)
+------+------+----+----------------------------------
+   120|      |    |SETT32 := 0x007B
+      |      |    |  Global integer symbol [SETT32] = 123 (0x7b)
+------+------+----+----------------------------------
+   121|      |    |SETGRP := 0x007E
+      |      |    |  Global integer symbol [SETGRP] = 126 (0x7e)
+------+------+----+----------------------------------
+   122|      |    |SETMLT := 0x0081
+      |      |    |  Global integer symbol [SETMLT] = 129 (0x81)
+------+------+----+----------------------------------
+   123|      |    |CALPAT := 0x0084
+      |      |    |  Global integer symbol [CALPAT] = 132 (0x84)
+------+------+----+----------------------------------
+   124|      |    |CALATR := 0x0087
+      |      |    |  Global integer symbol [CALATR] = 135 (0x87)
+------+------+----+----------------------------------
+   125|      |    |GSPSIZ := 0x008A
+      |      |    |  Global integer symbol [GSPSIZ] = 138 (0x8a)
+------+------+----+----------------------------------
+   126|      |    |GRPPRT := 0x008D
+      |      |    |  Global integer symbol [GRPPRT] = 141 (0x8d)
+------+------+----+----------------------------------
+   129|      |    |GICINI := 0x0090
+      |      |    |  Global integer symbol [GICINI] = 144 (0x90)
+------+------+----+----------------------------------
+   130|      |    |WRTPSG := 0x0093
+      |      |    |  Global integer symbol [WRTPSG] = 147 (0x93)
+------+------+----+----------------------------------
+   131|      |    |RDPSG := 0x0096
+      |      |    |  Global integer symbol [RDPSG] = 150 (0x96)
+------+------+----+----------------------------------
+   132|      |    |STRTMS := 0x0099
+      |      |    |  Global integer symbol [STRTMS] = 153 (0x99)
+------+------+----+----------------------------------
+   137|      |    |GTSTICK := 0x00D5
+      |      |    |  Global integer symbol [GTSTICK] = 213 (0xd5)
+------+------+----+----------------------------------
+   138|      |    |GTTRIG := 0x00D8
+      |      |    |  Global integer symbol [GTTRIG] = 216 (0xd8)
+------+------+----+----------------------------------
+   139|      |    |GTPAD := 0x00DB
+      |      |    |  Global integer symbol [GTPAD] = 219 (0xdb)
+------+------+----+----------------------------------
+   140|      |    |GRPDL := 0x00DE
+      |      |    |  Global integer symbol [GRPDL] = 222 (0xde)
+------+------+----+----------------------------------
+   142|      |    |TAPION := 0x00E1
+      |      |    |  Global integer symbol [TAPION] = 225 (0xe1)
+------+------+----+----------------------------------
+   143|      |    |TAPIN := 0x00E4
+      |      |    |  Global integer symbol [TAPIN] = 228 (0xe4)
+------+------+----+----------------------------------
+   144|      |    |TAPIOF := 0x00E7
+      |      |    |  Global integer symbol [TAPIOF] = 231 (0xe7)
+------+------+----+----------------------------------
+   145|      |    |TAPOON := 0x00EA
+      |      |    |  Global integer symbol [TAPOON] = 234 (0xea)
+------+------+----+----------------------------------
+   146|      |    |TAPOUT := 0x00ED
+      |      |    |  Global integer symbol [TAPOUT] = 237 (0xed)
+------+------+----+----------------------------------
+   147|      |    |TAPOOF := 0x00F0
+      |      |    |  Global integer symbol [TAPOOF] = 240 (0xf0)
+------+------+----+----------------------------------
+   148|      |    |STMOTR := 0x00F3
+      |      |    |  Global integer symbol [STMOTR] = 243 (0xf3)
+------+------+----+----------------------------------
+   150|      |    |CHGCAP := 0x0132
+      |      |    |  Global integer symbol [CHGCAP] = 306 (0x132)
+------+------+----+----------------------------------
+   151|      |    |CHGSND := 0x0135
+      |      |    |  Global integer symbol [CHGSND] = 309 (0x135)
+------+------+----+----------------------------------
+   152|      |    |RSLREG := 0x0138
+      |      |    |  Global integer symbol [RSLREG] = 312 (0x138)
+------+------+----+----------------------------------
+   153|      |    |WSLREG := 0x013B
+      |      |    |  Global integer symbol [WSLREG] = 315 (0x13b)
+------+------+----+----------------------------------
+   154|      |    |RDVDP := 0x013E
+      |      |    |  Global integer symbol [RDVDP] = 318 (0x13e)
+------+------+----+----------------------------------
+   155|      |    |SNSMAT := 0x0141
+      |      |    |  Global integer symbol [SNSMAT] = 321 (0x141)
+------+------+----+----------------------------------
+   174|      |    |PHYDIO := 0x0144
+      |      |    |  Global integer symbol [PHYDIO] = 324 (0x144)
+------+------+----+----------------------------------
+   176|      |    |FORMAT := 0x0147
+      |      |    |  Global integer symbol [FORMAT] = 327 (0x147)
+------+------+----+----------------------------------
+   177|      |    |CHKDEV := 0x014A
+      |      |    |  Global integer symbol [CHKDEV] = 330 (0x14a)
+------+------+----+----------------------------------
+   178|      |    |ISFLIO := 0x014A
+      |      |    |  Global integer symbol [ISFLIO] = 330 (0x14a)
+------+------+----+----------------------------------
+   179|      |    |PRINTC := 0x014D
+      |      |    |  Global integer symbol [PRINTC] = 333 (0x14d)
+------+------+----+----------------------------------
+   180|      |    |KILBUF := 0x0156
+      |      |    |  Global integer symbol [KILBUF] = 342 (0x156)
+------+------+----+----------------------------------
+   181|      |    |CALBAS := 0x0159
+      |      |    |  Global integer symbol [CALBAS] = 345 (0x159)
+------+------+----+----------------------------------
+   182|      |    |SUBROM := 0x015C
+      |      |    |  Global integer symbol [SUBROM] = 348 (0x15c)
+------+------+----+----------------------------------
+   183|      |    |EXTROM := 0x015F
+      |      |    |  Global integer symbol [EXTROM] = 351 (0x15f)
+------+------+----+----------------------------------
+   190|      |    |H_PROMPT := 0xF24F
+      |      |    |  Global integer symbol [H_PROMPT] = 62031 (0xf24f)
+------+------+----+----------------------------------
+   192|      |    |DISKVE := 0xF323
+      |      |    |  Global integer symbol [DISKVE] = 62243 (0xf323)
+------+------+----+----------------------------------
+   193|      |    |BREAKV := 0xF325
+      |      |    |  Global integer symbol [BREAKV] = 62245 (0xf325)
+------+------+----+----------------------------------
+   194|      |    |RAMAD0 := 0xF341
+      |      |    |  Global integer symbol [RAMAD0] = 62273 (0xf341)
+------+------+----+----------------------------------
+   195|      |    |RAMAD1 := 0xF342
+      |      |    |  Global integer symbol [RAMAD1] = 62274 (0xf342)
+------+------+----+----------------------------------
+   196|      |    |RAMAD2 := 0xF343
+      |      |    |  Global integer symbol [RAMAD2] = 62275 (0xf343)
+------+------+----+----------------------------------
+   197|      |    |RAMAD3 := 0xF344
+      |      |    |  Global integer symbol [RAMAD3] = 62276 (0xf344)
+------+------+----+----------------------------------
+   198|      |    |MASTERS := 0xF348
+      |      |    |  Global integer symbol [MASTERS] = 62280 (0xf348)
+------+------+----+----------------------------------
+   200|      |    |RDPRIM := 0xF380
+      |      |    |  Global integer symbol [RDPRIM] = 62336 (0xf380)
+------+------+----+----------------------------------
+   201|      |    |WRPRIM := 0xF385
+      |      |    |  Global integer symbol [WRPRIM] = 62341 (0xf385)
+------+------+----+----------------------------------
+   202|      |    |CLPRIM := 0xF38C
+      |      |    |  Global integer symbol [CLPRIM] = 62348 (0xf38c)
+------+------+----+----------------------------------
+   204|      |    |CLIKSW := 0xF3DB
+      |      |    |  Global integer symbol [CLIKSW] = 62427 (0xf3db)
+------+------+----+----------------------------------
+   205|      |    |CSRY := 0xF3DC
+      |      |    |  Global integer symbol [CSRY] = 62428 (0xf3dc)
+------+------+----+----------------------------------
+   206|      |    |CSRX := 0xF3DD
+      |      |    |  Global integer symbol [CSRX] = 62429 (0xf3dd)
+------+------+----+----------------------------------
+   207|      |    |CNSDFG := 0xF3DE
+      |      |    |  Global integer symbol [CNSDFG] = 62430 (0xf3de)
+------+------+----+----------------------------------
+   210|      |    |RG0SAV := 0xF3DF
+      |      |    |  Global integer symbol [RG0SAV] = 62431 (0xf3df)
+------+------+----+----------------------------------
+   211|      |    |RG1SAV := 0xF3E0
+      |      |    |  Global integer symbol [RG1SAV] = 62432 (0xf3e0)
+------+------+----+----------------------------------
+   212|      |    |RG2SAV := 0xF3E1
+      |      |    |  Global integer symbol [RG2SAV] = 62433 (0xf3e1)
+------+------+----+----------------------------------
+   213|      |    |RG3SAV := 0xF3E2
+      |      |    |  Global integer symbol [RG3SAV] = 62434 (0xf3e2)
+------+------+----+----------------------------------
+   214|      |    |RG4SAV := 0xF3E3
+      |      |    |  Global integer symbol [RG4SAV] = 62435 (0xf3e3)
+------+------+----+----------------------------------
+   215|      |    |RG5SAV := 0xF3E4
+      |      |    |  Global integer symbol [RG5SAV] = 62436 (0xf3e4)
+------+------+----+----------------------------------
+   216|      |    |RG6SAV := 0xF3E5
+      |      |    |  Global integer symbol [RG6SAV] = 62437 (0xf3e5)
+------+------+----+----------------------------------
+   217|      |    |RG7SAV := 0xF3E6
+      |      |    |  Global integer symbol [RG7SAV] = 62438 (0xf3e6)
+------+------+----+----------------------------------
+   218|      |    |STATFL := 0xF3E7
+      |      |    |  Global integer symbol [STATFL] = 62439 (0xf3e7)
+------+------+----+----------------------------------
+   220|      |    |FORCLR := 0xF3E9
+      |      |    |  Global integer symbol [FORCLR] = 62441 (0xf3e9)
+------+------+----+----------------------------------
+   221|      |    |BAKCLR := 0xF3EA
+      |      |    |  Global integer symbol [BAKCLR] = 62442 (0xf3ea)
+------+------+----+----------------------------------
+   222|      |    |BDRCLR := 0xF3EB
+      |      |    |  Global integer symbol [BDRCLR] = 62443 (0xf3eb)
+------+------+----+----------------------------------
+   224|      |    |FNKSTR := 0xF87F
+      |      |    |  Global integer symbol [FNKSTR] = 63615 (0xf87f)
+------+------+----+----------------------------------
+   230|      |    |EXBRSA := 0xFAF8
+      |      |    |  Global integer symbol [EXBRSA] = 64248 (0xfaf8)
+------+------+----+----------------------------------
+   232|      |    |HOKVLD := 0xFB20
+      |      |    |  Global integer symbol [HOKVLD] = 64288 (0xfb20)
+------+------+----+----------------------------------
+   236|      |    |EXPTBL := 0xFCC1
+      |      |    |  Global integer symbol [EXPTBL] = 64705 (0xfcc1)
+------+------+----+----------------------------------
+   237|      |    |EXPTBL0 := 0xFCC1
+      |      |    |  Global integer symbol [EXPTBL0] = 64705 (0xfcc1)
+------+------+----+----------------------------------
+   238|      |    |EXPTBL1 := 0xFCC2
+      |      |    |  Global integer symbol [EXPTBL1] = 64706 (0xfcc2)
+------+------+----+----------------------------------
+   239|      |    |EXPTBL2 := 0xFCC3
+      |      |    |  Global integer symbol [EXPTBL2] = 64707 (0xfcc3)
+------+------+----+----------------------------------
+   240|      |    |EXPTBL3 := 0xFCC4
+      |      |    |  Global integer symbol [EXPTBL3] = 64708 (0xfcc4)
+------+------+----+----------------------------------
+   242|      |    |SLTTBL := 0xFCC5
+      |      |    |  Global integer symbol [SLTTBL] = 64709 (0xfcc5)
+------+------+----+----------------------------------
+   243|      |    |SLTATR := 0xFCC9
+      |      |    |  Global integer symbol [SLTATR] = 64713 (0xfcc9)
+------+------+----+----------------------------------
+   244|      |    |SLTWRK := 0xFD09
+      |      |    |  Global integer symbol [SLTWRK] = 64777 (0xfd09)
+------+------+----+----------------------------------
+   245|      |    |PROCNM := 0xFD89
+      |      |    |  Global integer symbol [PROCNM] = 64905 (0xfd89)
+------+------+----+----------------------------------
+   246|      |    |DEVICE := 0xFD99
+      |      |    |  Global integer symbol [DEVICE] = 64921 (0xfd99)
+------+------+----+----------------------------------
+   249|      |    |H_KEYI := 0xFD9A
+      |      |    |  Global integer symbol [H_KEYI] = 64922 (0xfd9a)
+------+------+----+----------------------------------
+   254|      |    |H_TIMI := 0xFD9F
+      |      |    |  Global integer symbol [H_TIMI] = 64927 (0xfd9f)
+------+------+----+----------------------------------
+   258|      |    |HIMEM := 0xFC4A
+      |      |    |  Global integer symbol [HIMEM] = 64586 (0xfc4a)
+------+------+----+----------------------------------
+   260|      |    |SCRMOD := 0xFCAF
+      |      |    |  Global integer symbol [SCRMOD] = 64687 (0xfcaf)
+------+------+----+----------------------------------
+   263|      |    |H_PHYD := 0xFFA7
+      |      |    |  Global integer symbol [H_PHYD] = 65447 (0xffa7)
+------+------+----+----------------------------------
+   265|      |    |EXTBIO := 0xFFCA
+      |      |    |  Global integer symbol [EXTBIO] = 65482 (0xffca)
+------+------+----+----------------------------------
+   268|      |    |RG8SAV := 0xFFE7
+      |      |    |  Global integer symbol [RG8SAV] = 65511 (0xffe7)
+------+------+----+----------------------------------
+   269|      |    |RG9SAV := 0xFFE8
+      |      |    |  Global integer symbol [RG9SAV] = 65512 (0xffe8)
+------+------+----+----------------------------------
+   270|      |    |RG10SAV := 0xFFE9
+      |      |    |  Global integer symbol [RG10SAV] = 65513 (0xffe9)
+------+------+----+----------------------------------
+   271|      |    |RG11SAV := 0xFFEA
+      |      |    |  Global integer symbol [RG11SAV] = 65514 (0xffea)
+------+------+----+----------------------------------
+   272|      |    |RG12SAV := 0xFFEB
+      |      |    |  Global integer symbol [RG12SAV] = 65515 (0xffeb)
+------+------+----+----------------------------------
+   273|      |    |RG13SAV := 0xFFEC
+      |      |    |  Global integer symbol [RG13SAV] = 65516 (0xffec)
+------+------+----+----------------------------------
+   274|      |    |RG14SAV := 0xFFED
+      |      |    |  Global integer symbol [RG14SAV] = 65517 (0xffed)
+------+------+----+----------------------------------
+   275|      |    |RG15SAV := 0xFFEE
+      |      |    |  Global integer symbol [RG15SAV] = 65518 (0xffee)
+------+------+----+----------------------------------
+   276|      |    |RG16SAV := 0xFFEF
+      |      |    |  Global integer symbol [RG16SAV] = 65519 (0xffef)
+------+------+----+----------------------------------
+   277|      |    |RG17SAV := 0xFFF0
+      |      |    |  Global integer symbol [RG17SAV] = 65520 (0xfff0)
+------+------+----+----------------------------------
+   278|      |    |RG18SAV := 0xFFF1
+      |      |    |  Global integer symbol [RG18SAV] = 65521 (0xfff1)
+------+------+----+----------------------------------
+   279|      |    |RG19SAV := 0xFFF2
+      |      |    |  Global integer symbol [RG19SAV] = 65522 (0xfff2)
+------+------+----+----------------------------------
+   280|      |    |RG20SAV := 0xFFF3
+      |      |    |  Global integer symbol [RG20SAV] = 65523 (0xfff3)
+------+------+----+----------------------------------
+   281|      |    |RG21SAV := 0xFFF4
+      |      |    |  Global integer symbol [RG21SAV] = 65524 (0xfff4)
+------+------+----+----------------------------------
+   282|      |    |RG22SAV := 0xFFF5
+      |      |    |  Global integer symbol [RG22SAV] = 65525 (0xfff5)
+------+------+----+----------------------------------
+   283|      |    |RG23SAV := 0xFFF6
+      |      |    |  Global integer symbol [RG23SAV] = 65526 (0xfff6)
+------+------+----+----------------------------------
+   285|      |    |RG25SAV := 0xFFF8
+      |      |    |  Global integer symbol [RG25SAV] = 65528 (0xfff8)
+------+------+----+----------------------------------
+   286|      |    |RG26SAV := 0xFFF9
+      |      |    |  Global integer symbol [RG26SAV] = 65529 (0xfff9)
+------+------+----+----------------------------------
+   287|      |    |RG27SAV := 0xFFFA
+      |      |    |  Global integer symbol [RG27SAV] = 65530 (0xfffa)
+------+------+----+----------------------------------
+   293|      |    |BDOS_ON_MSXDOS := 0x0005
+      |      |    |  Global integer symbol [BDOS_ON_MSXDOS] = 5 (0x5)
+------+------+----+----------------------------------
+   294|      |    |BDOS_ON_DISKBASIC := 0xF37D
+      |      |    |  Global integer symbol [BDOS_ON_DISKBASIC] = 62333 (0xf37d)
+------+------+----+----------------------------------
+   296|      |    |BDOS_FUNC_SYSTEM_RESET := 0x00
+      |      |    |  Global integer symbol [BDOS_FUNC_SYSTEM_RESET] = 0 (0x0)
+------+------+----+----------------------------------
+   297|      |    |BDOS_FUNC_GETC := 0x01
+      |      |    |  Global integer symbol [BDOS_FUNC_GETC] = 1 (0x1)
+------+------+----+----------------------------------
+   298|      |    |BDOS_FUNC_PUTC := 0x02
+      |      |    |  Global integer symbol [BDOS_FUNC_PUTC] = 2 (0x2)
+------+------+----+----------------------------------
+   299|      |    |BDOS_FUNC_DEV_GETC := 0x03
+      |      |    |  Global integer symbol [BDOS_FUNC_DEV_GETC] = 3 (0x3)
+------+------+----+----------------------------------
+   300|      |    |BDOS_FUNC_DEV_PUTC := 0x04
+      |      |    |  Global integer symbol [BDOS_FUNC_DEV_PUTC] = 4 (0x4)
+------+------+----+----------------------------------
+   301|      |    |BDOS_FUNC_PRT_PUTC := 0x05
+      |      |    |  Global integer symbol [BDOS_FUNC_PRT_PUTC] = 5 (0x5)
+------+------+----+----------------------------------
+   302|      |    |BDOS_FUNC_DIRECT_CON_IO := 0x06
+      |      |    |  Global integer symbol [BDOS_FUNC_DIRECT_CON_IO] = 6 (0x6)
+------+------+----+----------------------------------
+   303|      |    |BDOS_FUNC_DIRECT_CON_GETC := 0x07
+      |      |    |  Global integer symbol [BDOS_FUNC_DIRECT_CON_GETC] = 7 (0x7)
+------+------+----+----------------------------------
+   304|      |    |BDOS_FUNC_DIRECT_CON_GETC_WOE := 0x08
+      |      |    |  Global integer symbol [BDOS_FUNC_DIRECT_CON_GETC_WOE] = 8 (0x8)
+------+------+----+----------------------------------
+   305|      |    |BDOS_FUNC_STR_OUT := 0x09
+      |      |    |  Global integer symbol [BDOS_FUNC_STR_OUT] = 9 (0x9)
+------+------+----+----------------------------------
+   306|      |    |BDOS_FUNC_BUF_LINE_INPUT := 0x0A
+      |      |    |  Global integer symbol [BDOS_FUNC_BUF_LINE_INPUT] = 10 (0xa)
+------+------+----+----------------------------------
+   307|      |    |BDOS_FUNC_CON_STATUS := 0x0B
+      |      |    |  Global integer symbol [BDOS_FUNC_CON_STATUS] = 11 (0xb)
+------+------+----+----------------------------------
+   309|      |    |BDOS_FUNC_VERSION := 0x0C
+      |      |    |  Global integer symbol [BDOS_FUNC_VERSION] = 12 (0xc)
+------+------+----+----------------------------------
+   310|      |    |BDOS_FUNC_DISK_RESET := 0x0D
+      |      |    |  Global integer symbol [BDOS_FUNC_DISK_RESET] = 13 (0xd)
+------+------+----+----------------------------------
+   311|      |    |BDOS_FUNC_SELECT_DISK := 0x0E
+      |      |    |  Global integer symbol [BDOS_FUNC_SELECT_DISK] = 14 (0xe)
+------+------+----+----------------------------------
+   313|      |    |BDOS_FUNC_FCB_OPEN_FILE := 0x0F
+      |      |    |  Global integer symbol [BDOS_FUNC_FCB_OPEN_FILE] = 15 (0xf)
+------+------+----+----------------------------------
+   314|      |    |BDOS_FUNC_FCB_CLOSE_FILE := 0x10
+      |      |    |  Global integer symbol [BDOS_FUNC_FCB_CLOSE_FILE] = 16 (0x10)
+------+------+----+----------------------------------
+   315|      |    |BDOS_FUNC_FCB_FIND_1ST := 0x11
+      |      |    |  Global integer symbol [BDOS_FUNC_FCB_FIND_1ST] = 17 (0x11)
+------+------+----+----------------------------------
+   316|      |    |BDOS_FUNC_FCB_FIND_NEXT := 0x12
+      |      |    |  Global integer symbol [BDOS_FUNC_FCB_FIND_NEXT] = 18 (0x12)
+------+------+----+----------------------------------
+   317|      |    |BDOS_FUNC_FCB_DELETE_FILE := 0x13
+      |      |    |  Global integer symbol [BDOS_FUNC_FCB_DELETE_FILE] = 19 (0x13)
+------+------+----+----------------------------------
+   318|      |    |BDOS_FUNC_FCB_SEQ_READ := 0x14
+      |      |    |  Global integer symbol [BDOS_FUNC_FCB_SEQ_READ] = 20 (0x14)
+------+------+----+----------------------------------
+   319|      |    |BDOS_FUNC_FCB_SEQ_WRITE := 0x15
+      |      |    |  Global integer symbol [BDOS_FUNC_FCB_SEQ_WRITE] = 21 (0x15)
+------+------+----+----------------------------------
+   320|      |    |BDOS_FUNC_FCB_CREATE_FILE := 0x16
+      |      |    |  Global integer symbol [BDOS_FUNC_FCB_CREATE_FILE] = 22 (0x16)
+------+------+----+----------------------------------
+   321|      |    |BDOS_FUNC_FCB_RENAME_FILE := 0x17
+      |      |    |  Global integer symbol [BDOS_FUNC_FCB_RENAME_FILE] = 23 (0x17)
+------+------+----+----------------------------------
+   323|      |    |BDOS_FUNC_GET_LOGIN_VECTOR := 0x18
+      |      |    |  Global integer symbol [BDOS_FUNC_GET_LOGIN_VECTOR] = 24 (0x18)
+------+------+----+----------------------------------
+   324|      |    |BDOS_FUNC_GET_CURRENT_DRIVE := 0x19
+      |      |    |  Global integer symbol [BDOS_FUNC_GET_CURRENT_DRIVE] = 25 (0x19)
+------+------+----+----------------------------------
+   325|      |    |BDOS_FUNC_SET_DTA := 0x1A
+      |      |    |  Global integer symbol [BDOS_FUNC_SET_DTA] = 26 (0x1a)
+------+------+----+----------------------------------
+   326|      |    |BDOS_FUNC_GET_ALLOC_INFO := 0x1B
+      |      |    |  Global integer symbol [BDOS_FUNC_GET_ALLOC_INFO] = 27 (0x1b)
+------+------+----+----------------------------------
+   328|      |    |BDOS_FUNC_RND_READ := 0x21
+      |      |    |  Global integer symbol [BDOS_FUNC_RND_READ] = 33 (0x21)
+------+------+----+----------------------------------
+   329|      |    |BDOS_FUNC_RND_WRITE := 0x22
+      |      |    |  Global integer symbol [BDOS_FUNC_RND_WRITE] = 34 (0x22)
+------+------+----+----------------------------------
+   330|      |    |BDOS_FUNC_GET_FILE_SIZE := 0x23
+      |      |    |  Global integer symbol [BDOS_FUNC_GET_FILE_SIZE] = 35 (0x23)
+------+------+----+----------------------------------
+   331|      |    |BDOS_FUNC_SET_RND_RECORD := 0x24
+      |      |    |  Global integer symbol [BDOS_FUNC_SET_RND_RECORD] = 36 (0x24)
+------+------+----+----------------------------------
+   333|      |    |BDOS_FUNC_RND_BLOCK_WRITE := 0x26
+      |      |    |  Global integer symbol [BDOS_FUNC_RND_BLOCK_WRITE] = 38 (0x26)
+------+------+----+----------------------------------
+   334|      |    |BDOS_FUNC_RND_BLOCK_READ := 0x27
+      |      |    |  Global integer symbol [BDOS_FUNC_RND_BLOCK_READ] = 39 (0x27)
+------+------+----+----------------------------------
+   335|      |    |BDOS_FUNC_RND_WRITE_ZERO_FILL := 0x28
+      |      |    |  Global integer symbol [BDOS_FUNC_RND_WRITE_ZERO_FILL] = 40 (0x28)
+------+------+----+----------------------------------
+   337|      |    |BDOS_FUNC_GET_DATE := 0x2A
+      |      |    |  Global integer symbol [BDOS_FUNC_GET_DATE] = 42 (0x2a)
+------+------+----+----------------------------------
+   338|      |    |BDOS_FUNC_SET_DATE := 0x2B
+      |      |    |  Global integer symbol [BDOS_FUNC_SET_DATE] = 43 (0x2b)
+------+------+----+----------------------------------
+   339|      |    |BDOS_FUNC_GET_TIME := 0x2C
+      |      |    |  Global integer symbol [BDOS_FUNC_GET_TIME] = 44 (0x2c)
+------+------+----+----------------------------------
+   340|      |    |BDOS_FUNC_SET_TIME := 0x2D
+      |      |    |  Global integer symbol [BDOS_FUNC_SET_TIME] = 45 (0x2d)
+------+------+----+----------------------------------
+   341|      |    |BDOS_FUNC_SET_VERIFY_FLAG := 0x2E
+      |      |    |  Global integer symbol [BDOS_FUNC_SET_VERIFY_FLAG] = 46 (0x2e)
+------+------+----+----------------------------------
+   343|      |    |BDOS_FUNC_ABS_SECTOR_READ := 0x2F
+      |      |    |  Global integer symbol [BDOS_FUNC_ABS_SECTOR_READ] = 47 (0x2f)
+------+------+----+----------------------------------
+   344|      |    |BDOS_FUNC_ABS_SECTOR_WRITE := 0x30
+      |      |    |  Global integer symbol [BDOS_FUNC_ABS_SECTOR_WRITE] = 48 (0x30)
+------+------+----+----------------------------------
+   347|      |    |BDOS_FUNC_GET_DISK_PARAM := 0x31
+      |      |    |  Global integer symbol [BDOS_FUNC_GET_DISK_PARAM] = 49 (0x31)
+------+------+----+----------------------------------
+   349|      |    |BDOS_FUNC_FIND_1ST := 0x40
+      |      |    |  Global integer symbol [BDOS_FUNC_FIND_1ST] = 64 (0x40)
+------+------+----+----------------------------------
+   350|      |    |BDOS_FUNC_FIND_NEXT := 0x41
+      |      |    |  Global integer symbol [BDOS_FUNC_FIND_NEXT] = 65 (0x41)
+------+------+----+----------------------------------
+   351|      |    |BDOS_FUNC_FIND_NEW := 0x42
+      |      |    |  Global integer symbol [BDOS_FUNC_FIND_NEW] = 66 (0x42)
+------+------+----+----------------------------------
+   353|      |    |BDOS_FUNC_FILE_HANDLE_OPEN := 0x43
+      |      |    |  Global integer symbol [BDOS_FUNC_FILE_HANDLE_OPEN] = 67 (0x43)
+------+------+----+----------------------------------
+   354|      |    |BDOS_FUNC_FILE_HANDLE_CREATE := 0x44
+      |      |    |  Global integer symbol [BDOS_FUNC_FILE_HANDLE_CREATE] = 68 (0x44)
+------+------+----+----------------------------------
+   355|      |    |BDOS_FUNC_FILE_HANDLE_CLOSE := 0x45
+      |      |    |  Global integer symbol [BDOS_FUNC_FILE_HANDLE_CLOSE] = 69 (0x45)
+------+------+----+----------------------------------
+   356|      |    |BDOS_FUNC_FILE_HANDLE_ENSURE := 0x46
+      |      |    |  Global integer symbol [BDOS_FUNC_FILE_HANDLE_ENSURE] = 70 (0x46)
+------+------+----+----------------------------------
+   357|      |    |BDOS_FUNC_FILE_HANDLE_DUPLICATE := 0x47
+      |      |    |  Global integer symbol [BDOS_FUNC_FILE_HANDLE_DUPLICATE] = 71 (0x47)
+------+------+----+----------------------------------
+   358|      |    |BDOS_FUNC_FILE_HANDLE_READ := 0x48
+      |      |    |  Global integer symbol [BDOS_FUNC_FILE_HANDLE_READ] = 72 (0x48)
+------+------+----+----------------------------------
+   359|      |    |BDOS_FUNC_FILE_HANDLE_WRITE := 0x49
+      |      |    |  Global integer symbol [BDOS_FUNC_FILE_HANDLE_WRITE] = 73 (0x49)
+------+------+----+----------------------------------
+   360|      |    |BDOS_FUNC_MOVE_FILE_HANDLE_PTR := 0x4A
+      |      |    |  Global integer symbol [BDOS_FUNC_MOVE_FILE_HANDLE_PTR] = 74 (0x4a)
+------+------+----+----------------------------------
+   361|      |    |BDOS_FUNC_IO_CTRL := 0x4B
+      |      |    |  Global integer symbol [BDOS_FUNC_IO_CTRL] = 75 (0x4b)
+------+------+----+----------------------------------
+   362|      |    |BDOS_FUNC_FILE_HANDLE_TEST := 0x4C
+      |      |    |  Global integer symbol [BDOS_FUNC_FILE_HANDLE_TEST] = 76 (0x4c)
+------+------+----+----------------------------------
+   368|      |    |BDOS_FUNC_FORMAT_DISK := 0x67
+      |      |    |  Global integer symbol [BDOS_FUNC_FORMAT_DISK] = 103 (0x67)
+------+------+----+----------------------------------
+   369|      |    |BDOS_FUNC_RAM_DISK := 0x68
+      |      |    |  Global integer symbol [BDOS_FUNC_RAM_DISK] = 104 (0x68)
+------+------+----+----------------------------------
+   370|      |    |BDOS_FUNC_ALLOC_SECTOR_BUFFER := 0x69
+      |      |    |  Global integer symbol [BDOS_FUNC_ALLOC_SECTOR_BUFFER] = 105 (0x69)
+------+------+----+----------------------------------
+   371|      |    |BDOS_FUNC_LOGICAL_DRV_ASSIGN := 0x6A
+      |      |    |  Global integer symbol [BDOS_FUNC_LOGICAL_DRV_ASSIGN] = 106 (0x6a)
+------+------+----+----------------------------------
+   373|      |    |BDOS_FUNC_GET_ENV_ITEM := 0x6B
+      |      |    |  Global integer symbol [BDOS_FUNC_GET_ENV_ITEM] = 107 (0x6b)
+------+------+----+----------------------------------
+   374|      |    |BDOS_FUNC_SET_ENV_ITEM := 0x6C
+      |      |    |  Global integer symbol [BDOS_FUNC_SET_ENV_ITEM] = 108 (0x6c)
+------+------+----+----------------------------------
+   375|      |    |BDOS_FUNC_FIND_ENV_ITEM := 0x6D
+      |      |    |  Global integer symbol [BDOS_FUNC_FIND_ENV_ITEM] = 109 (0x6d)
+------+------+----+----------------------------------
+   377|      |    |BDOS_FUNC_DISK_CHECK_STATUS := 0x6E
+      |      |    |  Global integer symbol [BDOS_FUNC_DISK_CHECK_STATUS] = 110 (0x6e)
+------+------+----+----------------------------------
+   378|      |    |BDOS_FUNC_GET_MSXDOS_VERSION := 0x6F
+      |      |    |  Global integer symbol [BDOS_FUNC_GET_MSXDOS_VERSION] = 111 (0x6f)
+------+------+----+----------------------------------
+   379|      |    |BDOS_FUNC_REDIRECTION_STATUS := 0x70
+      |      |    |  Global integer symbol [BDOS_FUNC_REDIRECTION_STATUS] = 112 (0x70)
+------+------+----+----------------------------------
+   386|      |    |SC0_W40_PAT_NAME := 0x0000
+      |      |    |  Global integer symbol [SC0_W40_PAT_NAME] = 0 (0x0)
+------+------+----+----------------------------------
+   387|      |    |SC0_W40_PAT_GEN := 0x0800
+      |      |    |  Global integer symbol [SC0_W40_PAT_GEN] = 2048 (0x800)
+------+------+----+----------------------------------
+   390|      |    |SC0_W80_PAT_NAME := 0x0000
+      |      |    |  Global integer symbol [SC0_W80_PAT_NAME] = 0 (0x0)
+------+------+----+----------------------------------
+   391|      |    |SC0_W80_BLINK := 0x0800
+      |      |    |  Global integer symbol [SC0_W80_BLINK] = 2048 (0x800)
+------+------+----+----------------------------------
+   392|      |    |SC0_W80_PAT_GEN := 0x1000
+      |      |    |  Global integer symbol [SC0_W80_PAT_GEN] = 4096 (0x1000)
+------+------+----+----------------------------------
+   395|      |    |SC1_PAT_GEN := 0x0000
+      |      |    |  Global integer symbol [SC1_PAT_GEN] = 0 (0x0)
+------+------+----+----------------------------------
+   396|      |    |SC1_PAT_NAME := 0x1800
+      |      |    |  Global integer symbol [SC1_PAT_NAME] = 6144 (0x1800)
+------+------+----+----------------------------------
+   397|      |    |SC1_SPR_ATTR := 0x1B00
+      |      |    |  Global integer symbol [SC1_SPR_ATTR] = 6912 (0x1b00)
+------+------+----+----------------------------------
+   398|      |    |SC1_SPR_GEN := 0x3800
+      |      |    |  Global integer symbol [SC1_SPR_GEN] = 14336 (0x3800)
+------+------+----+----------------------------------
+   401|      |    |SC2_PAT_GEN0 := 0x0000
+      |      |    |  Global integer symbol [SC2_PAT_GEN0] = 0 (0x0)
+------+------+----+----------------------------------
+   402|      |    |SC2_PAT_GEN1 := 0x0800
+      |      |    |  Global integer symbol [SC2_PAT_GEN1] = 2048 (0x800)
+------+------+----+----------------------------------
+   403|      |    |SC2_PAT_GEN2 := 0x1000
+      |      |    |  Global integer symbol [SC2_PAT_GEN2] = 4096 (0x1000)
+------+------+----+----------------------------------
+   404|      |    |SC2_PAT_NAME := 0x1800
+      |      |    |  Global integer symbol [SC2_PAT_NAME] = 6144 (0x1800)
+------+------+----+----------------------------------
+   405|      |    |SC2_SPR_ATTR := 0x1B00
+      |      |    |  Global integer symbol [SC2_SPR_ATTR] = 6912 (0x1b00)
+------+------+----+----------------------------------
+   406|      |    |SC2_PAT_COL0 := 0x2000
+      |      |    |  Global integer symbol [SC2_PAT_COL0] = 8192 (0x2000)
+------+------+----+----------------------------------
+   407|      |    |SC2_PAT_COL1 := 0x2800
+      |      |    |  Global integer symbol [SC2_PAT_COL1] = 10240 (0x2800)
+------+------+----+----------------------------------
+   408|      |    |SC2_PAT_COL2 := 0x3000
+      |      |    |  Global integer symbol [SC2_PAT_COL2] = 12288 (0x3000)
+------+------+----+----------------------------------
+   409|      |    |SC2_SPR_GEN := 0x3800
+      |      |    |  Global integer symbol [SC2_SPR_GEN] = 14336 (0x3800)
+------+------+----+----------------------------------
+   412|      |    |SC3_PAT_GEN := 0x0000
+      |      |    |  Global integer symbol [SC3_PAT_GEN] = 0 (0x0)
+------+------+----+----------------------------------
+   413|      |    |SC3_PAT_NAME := 0x0800
+      |      |    |  Global integer symbol [SC3_PAT_NAME] = 2048 (0x800)
+------+------+----+----------------------------------
+   414|      |    |SC3_SPR_ATTR := 0x1B00
+      |      |    |  Global integer symbol [SC3_SPR_ATTR] = 6912 (0x1b00)
+------+------+----+----------------------------------
+   415|      |    |SC3_SPR_GEN := 0x3800
+      |      |    |  Global integer symbol [SC3_SPR_GEN] = 14336 (0x3800)
+------+------+----+----------------------------------
+   418|      |    |SC4_PAT_GEN0 := 0x0000
+      |      |    |  Global integer symbol [SC4_PAT_GEN0] = 0 (0x0)
+------+------+----+----------------------------------
+   419|      |    |SC4_PAT_GEN1 := 0x0800
+      |      |    |  Global integer symbol [SC4_PAT_GEN1] = 2048 (0x800)
+------+------+----+----------------------------------
+   420|      |    |SC4_PAT_GEN2 := 0x1000
+      |      |    |  Global integer symbol [SC4_PAT_GEN2] = 4096 (0x1000)
+------+------+----+----------------------------------
+   421|      |    |SC4_PAT_NAME := 0x1800
+      |      |    |  Global integer symbol [SC4_PAT_NAME] = 6144 (0x1800)
+------+------+----+----------------------------------
+   422|      |    |SC4_SPR_COL := 0x1C00
+      |      |    |  Global integer symbol [SC4_SPR_COL] = 7168 (0x1c00)
+------+------+----+----------------------------------
+   423|      |    |SC4_SPR_ATTR := 0x1E00
+      |      |    |  Global integer symbol [SC4_SPR_ATTR] = 7680 (0x1e00)
+------+------+----+----------------------------------
+   424|      |    |SC4_PAT_COL0 := 0x2000
+      |      |    |  Global integer symbol [SC4_PAT_COL0] = 8192 (0x2000)
+------+------+----+----------------------------------
+   425|      |    |SC4_PAT_COL1 := 0x2800
+      |      |    |  Global integer symbol [SC4_PAT_COL1] = 10240 (0x2800)
+------+------+----+----------------------------------
+   426|      |    |SC4_PAT_COL2 := 0x3000
+      |      |    |  Global integer symbol [SC4_PAT_COL2] = 12288 (0x3000)
+------+------+----+----------------------------------
+   427|      |    |SC4_SPR_GEN := 0x3800
+      |      |    |  Global integer symbol [SC4_SPR_GEN] = 14336 (0x3800)
+------+------+----+----------------------------------
+   430|      |    |SC5_PAT_NAME := 0x0000
+      |      |    |  Global integer symbol [SC5_PAT_NAME] = 0 (0x0)
+------+------+----+----------------------------------
+   431|      |    |SC5_SPR_COL := 0x7400
+      |      |    |  Global integer symbol [SC5_SPR_COL] = 29696 (0x7400)
+------+------+----+----------------------------------
+   432|      |    |SC5_SPR_ATTR := 0x7600
+      |      |    |  Global integer symbol [SC5_SPR_ATTR] = 30208 (0x7600)
+------+------+----+----------------------------------
+   433|      |    |SC5_SPR_GEN := 0x7800
+      |      |    |  Global integer symbol [SC5_SPR_GEN] = 30720 (0x7800)
+------+------+----+----------------------------------
+   436|      |    |SC6_PAT_NAME := 0x0000
+      |      |    |  Global integer symbol [SC6_PAT_NAME] = 0 (0x0)
+------+------+----+----------------------------------
+   437|      |    |SC6_SPR_COL := 0x7400
+      |      |    |  Global integer symbol [SC6_SPR_COL] = 29696 (0x7400)
+------+------+----+----------------------------------
+   438|      |    |SC6_SPR_ATTR := 0x7600
+      |      |    |  Global integer symbol [SC6_SPR_ATTR] = 30208 (0x7600)
+------+------+----+----------------------------------
+   439|      |    |SC6_SPR_GEN := 0x7800
+      |      |    |  Global integer symbol [SC6_SPR_GEN] = 30720 (0x7800)
+------+------+----+----------------------------------
+   444|      |    |VDPCMD_HMMC := 0b1111_0000
+      |      |    |  Global integer symbol [VDPCMD_HMMC] = 240 (0xf0)
+------+------+----+----------------------------------
+   445|      |    |VDPCMD_YMMM := 0b1110_0000
+      |      |    |  Global integer symbol [VDPCMD_YMMM] = 224 (0xe0)
+------+------+----+----------------------------------
+   446|      |    |VDPCMD_HMMM := 0b1101_0000
+      |      |    |  Global integer symbol [VDPCMD_HMMM] = 208 (0xd0)
+------+------+----+----------------------------------
+   447|      |    |VDPCMD_HMMV := 0b1100_0000
+      |      |    |  Global integer symbol [VDPCMD_HMMV] = 192 (0xc0)
+------+------+----+----------------------------------
+   448|      |    |VDPCMD_LMMC := 0b1011_0000
+      |      |    |  Global integer symbol [VDPCMD_LMMC] = 176 (0xb0)
+------+------+----+----------------------------------
+   449|      |    |VDPCMD_LMCM := 0b1010_0000
+      |      |    |  Global integer symbol [VDPCMD_LMCM] = 160 (0xa0)
+------+------+----+----------------------------------
+   450|      |    |VDPCMD_LMMM := 0b1001_0000
+      |      |    |  Global integer symbol [VDPCMD_LMMM] = 144 (0x90)
+------+------+----+----------------------------------
+   451|      |    |VDPCMD_LMMV := 0b1000_0000
+      |      |    |  Global integer symbol [VDPCMD_LMMV] = 128 (0x80)
+------+------+----+----------------------------------
+   452|      |    |VDPCMD_LINE := 0b0111_0000
+      |      |    |  Global integer symbol [VDPCMD_LINE] = 112 (0x70)
+------+------+----+----------------------------------
+   453|      |    |VDPCMD_SRCH := 0b0110_0000
+      |      |    |  Global integer symbol [VDPCMD_SRCH] = 96 (0x60)
+------+------+----+----------------------------------
+   454|      |    |VDPCMD_PSET := 0b0101_0000
+      |      |    |  Global integer symbol [VDPCMD_PSET] = 80 (0x50)
+------+------+----+----------------------------------
+   455|      |    |VDPCMD_POINT := 0b0100_0000
+      |      |    |  Global integer symbol [VDPCMD_POINT] = 64 (0x40)
+------+------+----+----------------------------------
+   456|      |    |VDPCMD_STOP := 0b0000_0000
+      |      |    |  Global integer symbol [VDPCMD_STOP] = 0 (0x0)
+------+------+----+----------------------------------
+   458|      |    |VDPROP_IMP := 0x0000
+      |      |    |  Global integer symbol [VDPROP_IMP] = 0 (0x0)
+------+------+----+----------------------------------
+   459|      |    |VDPROP_AND := 0x0001
+      |      |    |  Global integer symbol [VDPROP_AND] = 1 (0x1)
+------+------+----+----------------------------------
+   460|      |    |VDPROP_OR := 0x0010
+      |      |    |  Global integer symbol [VDPROP_OR] = 16 (0x10)
+------+------+----+----------------------------------
+   461|      |    |VDPROP_EOR := 0x0011
+      |      |    |  Global integer symbol [VDPROP_EOR] = 17 (0x11)
+------+------+----+----------------------------------
+   462|      |    |VDPROP_NOT := 0x0100
+      |      |    |  Global integer symbol [VDPROP_NOT] = 256 (0x100)
+------+------+----+----------------------------------
+   463|      |    |VDPROP_TIMP := 0x1000
+      |      |    |  Global integer symbol [VDPROP_TIMP] = 4096 (0x1000)
+------+------+----+----------------------------------
+   464|      |    |VDPROP_TAND := 0x1001
+      |      |    |  Global integer symbol [VDPROP_TAND] = 4097 (0x1001)
+------+------+----+----------------------------------
+   465|      |    |VDPROP_TOR := 0x1010
+      |      |    |  Global integer symbol [VDPROP_TOR] = 4112 (0x1010)
+------+------+----+----------------------------------
+   466|      |    |VDPROP_TEOR := 0x1011
+      |      |    |  Global integer symbol [VDPROP_TEOR] = 4113 (0x1011)
+------+------+----+----------------------------------
+   467|      |    |VDPROP_TNOT := 0x1100
+      |      |    |  Global integer symbol [VDPROP_TNOT] = 4352 (0x1100)
+------+------+----+----------------------------------
+   472|      |    |ROM_HEADER MACRO INIT
+------+------+----+----------------------------------
+   481|      |    |BSAVE_HEADER MACRO SADDR, EADDR, EXEC
+------+------+----+----------------------------------
+   488|      |    |ROM_ALIGN MACRO
+------+------+----+----------------------------------
+   494|      |    |USE_WAIT_VDP_COMMAND MACRO INTR_CTRL
+------+------+----+----------------------------------
+   534|      |    |USE_VDP_COMMAND MACRO INTR_CTRL
+------+------+----+----------------------------------
+     7|      |    |INCLUDE "msx.asm" end
+     9|      |    |ORG 0x4000
+------+------+----+----------------------------------
+    10|      |    |ROM_HEADER ENTRY_POINT
+      |      |    |  Intra-macro scope: @MACRO0:
+    10|      |    |DEFS "AB"
+      |000000|4000|  41 42
+------+------+----+----------------------------------
+    10|      |    |DEFW ENTRY_POINT
+      |000002|4002|  10 40
+------+------+----+----------------------------------
+    10|      |    |DEFW 0
+      |000004|4004|  00 00
+------+------+----+----------------------------------
+    10|      |    |DEFW 0
+      |000006|4006|  00 00
+------+------+----+----------------------------------
+    10|      |    |DEFW 0
+      |000008|4008|  00 00
+------+------+----+----------------------------------
+    10|      |    |DEFB 0, 0, 0, 0, 0, 0
+      |00000A|400A|  00 00 00 00 00 00
+------+------+----+----------------------------------
+    10|      |    |ROM_HEADER ENTRY_POINT
+      |      |    |  Exit scope: @MACRO0:
+------+------+----+----------------------------------
+    15|      |    |ENTRY_POINT ::
+      |      |    |  global label [ENTRY_POINT] address: 0x004010
+------+------+----+----------------------------------
+    16|      |    |LD SP, [ HIMEM ]
+      |      |    |  Z80:22cyc R800:8cyc
+      |000010|4010|  ED 7B 4A FC
+------+------+----+----------------------------------
+    17|      |    |CALL INITIALIZE
+      |      |    |  Z80:18cyc R800:5cyc
+      |000014|4014|  CD 1C 40
+------+------+----+----------------------------------
+    18|      |    |CALL MAIN
+      |      |    |  Z80:18cyc R800:5cyc
+      |000017|4017|  CD 42 40
+------+------+----+----------------------------------
+    19|      |    |JR ENTRY_POINT
+      |      |    |  Z80:13cyc R800:3cyc
+      |00001A|401A|  18 F4
+------+------+----+----------------------------------
+    24|      |    |SCOPE SC_INITIALIZE
+      |      |    |  Enter scope: SC_INITIALIZE:
+------+------+----+----------------------------------
+    25|      |    |INITIALIZE ::
+      |      |    |  global label [INITIALIZE] address: 0x00401c
+------+------+----+----------------------------------
+    27|      |    |XOR A, A
+      |      |    |  Z80:5cyc R800:1cyc
+      |00001C|401C|  AF
+------+------+----+----------------------------------
+    28|      |    |LD [ SEC_COUNTER ], A
+      |      |    |  Z80:14cyc R800:6cyc
+      |00001D|401D|  32 05 C0
+------+------+----+----------------------------------
+    29|      |    |LD [ MUSIC_INDEX ], A
+      |      |    |  Z80:14cyc R800:6cyc
+      |000020|4020|  32 06 C0
+------+------+----+----------------------------------
+    32|      |    |CALL GICINI
+      |      |    |  Z80:18cyc R800:5cyc
+      |000023|4023|  CD 90 00
+------+------+----+----------------------------------
+    35|      |    |DI
+      |      |    |  Z80:5cyc R800:2cyc
+      |000026|4026|  F3
+------+------+----+----------------------------------
+    36|      |    |LD HL, H_TIMI
+      |      |    |  Z80:11cyc R800:3cyc
+      |000027|4027|  21 9F FD
+------+------+----+----------------------------------
+    37|      |    |LD DE, OLD_H_TIMI
+      |      |    |  Z80:11cyc R800:3cyc
+      |00002A|402A|  11 00 C0
+------+------+----+----------------------------------
+    38|      |    |LD BC, 5
+      |      |    |  Z80:11cyc R800:3cyc
+      |00002D|402D|  01 05 00
+------+------+----+----------------------------------
+    39|      |    |LDIR
+      |      |    |  Z80:23cyc/18cyc R800:7cyc
+      |000030|4030|  ED B0
+------+------+----+----------------------------------
+    41|      |    |LD HL, NEW_H_TIMI
+      |      |    |  Z80:11cyc R800:3cyc
+      |000032|4032|  21 3F 40
+------+------+----+----------------------------------
+    42|      |    |LD DE, H_TIMI
+      |      |    |  Z80:11cyc R800:3cyc
+      |000035|4035|  11 9F FD
+------+------+----+----------------------------------
+    43|      |    |LD BC, 3
+      |      |    |  Z80:11cyc R800:3cyc
+      |000038|4038|  01 03 00
+------+------+----+----------------------------------
+    44|      |    |LDIR
+      |      |    |  Z80:23cyc/18cyc R800:7cyc
+      |00003B|403B|  ED B0
+------+------+----+----------------------------------
+    45|      |    |EI
+      |      |    |  Z80:5cyc R800:1cyc
+      |00003D|403D|  FB
+------+------+----+----------------------------------
+    47|      |    |RET
+      |      |    |  Z80:11cyc R800:5cyc
+      |00003E|403E|  C9
+------+------+----+----------------------------------
+    48|      |    |ENDSCOPE
+      |      |    |  Exit scope: SC_INITIALIZE:
+------+------+----+----------------------------------
+    53|      |    |NEW_H_TIMI ::
+      |      |    |  global label [NEW_H_TIMI] address: 0x00403f
+------+------+----+----------------------------------
+    54|      |    |JP INTERRUPT_HANDLER
+      |      |    |  Z80:11cyc R800:5cyc
+      |00003F|403F|  C3 45 40
+------+------+----+----------------------------------
+    59|      |    |SCOPE SC_MAIN
+      |      |    |  Enter scope: SC_MAIN:
+------+------+----+----------------------------------
+    60|      |    |MAIN ::
+      |      |    |  global label [MAIN] address: 0x004042
+------+------+----+----------------------------------
+    61|      |    |END_LOOP :
+      |      |    |  label [SC_MAIN:END_LOOP] address: 0x004042
+------+------+----+----------------------------------
+    62|      |    |JP END_LOOP
+      |      |    |  Z80:11cyc R800:5cyc
+      |000042|4042|  C3 42 40
+------+------+----+----------------------------------
+    63|      |    |ENDSCOPE
+      |      |    |  Exit scope: SC_MAIN:
+------+------+----+----------------------------------
+    68|      |    |SCOPE SC_INTERRUPT_HANDLER
+      |      |    |  Enter scope: SC_INTERRUPT_HANDLER:
+------+------+----+----------------------------------
+    69|      |    |INTERRUPT_HANDLER ::
+      |      |    |  global label [INTERRUPT_HANDLER] address: 0x004045
+------+------+----+----------------------------------
+    70|      |    |PUSH HL
+      |      |    |  Z80:12cyc R800:6cyc
+      |000045|4045|  E5
+------+------+----+----------------------------------
+    71|      |    |PUSH AF
+      |      |    |  Z80:12cyc R800:6cyc
+      |000046|4046|  F5
+------+------+----+----------------------------------
+    74|      |    |LD A, [ SEC_COUNTER ]
+      |      |    |  Z80:14cyc R800:6cyc
+      |000047|4047|  3A 05 C0
+------+------+----+----------------------------------
+    75|      |    |INC A
+      |      |    |  Z80:5cyc R800:1cyc
+      |00004A|404A|  3C
+------+------+----+----------------------------------
+    76|      |    |LD [ SEC_COUNTER ], A
+      |      |    |  Z80:14cyc R800:6cyc
+      |00004B|404B|  32 05 C0
+------+------+----+----------------------------------
+    77|      |    |CP A, 60
+      |      |    |  Z80:8cyc R800:2cyc
+      |00004E|404E|  FE 3C
+------+------+----+----------------------------------
+    78|      |    |JP NZ, EXIT
+      |      |    |  Z80:11cyc R800:5cyc/3cyc
+      |000050|4050|  C2 5E 40
+------+------+----+----------------------------------
+    80|      |    |XOR A, A
+      |      |    |  Z80:5cyc R800:1cyc
+      |000053|4053|  AF
+------+------+----+----------------------------------
+    81|      |    |LD [ SEC_COUNTER ], A
+      |      |    |  Z80:14cyc R800:6cyc
+      |000054|4054|  32 05 C0
+------+------+----+----------------------------------
+    84|      |    |PUSH BC
+      |      |    |  Z80:12cyc R800:6cyc
+      |000057|4057|  C5
+------+------+----+----------------------------------
+    85|      |    |PUSH DE
+      |      |    |  Z80:12cyc R800:6cyc
+      |000058|4058|  D5
+------+------+----+----------------------------------
+    86|      |    |CALL PLAY_MUSIC
+      |      |    |  Z80:18cyc R800:5cyc
+      |000059|4059|  CD 63 40
+------+------+----+----------------------------------
+    87|      |    |POP DE
+      |      |    |  Z80:11cyc R800:5cyc
+      |00005C|405C|  D1
+------+------+----+----------------------------------
+    88|      |    |POP BC
+      |      |    |  Z80:11cyc R800:5cyc
+      |00005D|405D|  C1
+------+------+----+----------------------------------
+    90|      |    |EXIT :
+      |      |    |  label [SC_INTERRUPT_HANDLER:EXIT] address: 0x00405e
+------+------+----+----------------------------------
+    91|      |    |POP AF
+      |      |    |  Z80:11cyc R800:5cyc
+      |00005E|405E|  F1
+------+------+----+----------------------------------
+    92|      |    |POP HL
+      |      |    |  Z80:11cyc R800:5cyc
+      |00005F|405F|  E1
+------+------+----+----------------------------------
+    93|      |    |JP OLD_H_TIMI
+      |      |    |  Z80:11cyc R800:5cyc
+      |000060|4060|  C3 00 C0
+------+------+----+----------------------------------
+    94|      |    |ENDSCOPE
+      |      |    |  Exit scope: SC_INTERRUPT_HANDLER:
+------+------+----+----------------------------------
+    99|      |    |SCOPE SC_PLAY_MUSIC
+      |      |    |  Enter scope: SC_PLAY_MUSIC:
+------+------+----+----------------------------------
+   100|      |    |PLAY_MUSIC ::
+      |      |    |  global label [PLAY_MUSIC] address: 0x004063
+------+------+----+----------------------------------
+   102|      |    |LD A, [ MUSIC_INDEX ]
+      |      |    |  Z80:14cyc R800:6cyc
+      |000063|4063|  3A 06 C0
+------+------+----+----------------------------------
+   103|      |    |LD C, A
+      |      |    |  Z80:5cyc R800:2cyc
+      |000066|4066|  4F
+------+------+----+----------------------------------
+   104|      |    |INC A
+      |      |    |  Z80:5cyc R800:1cyc
+      |000067|4067|  3C
+------+------+----+----------------------------------
+   105|      |    |LD [ MUSIC_INDEX ], A
+      |      |    |  Z80:14cyc R800:6cyc
+      |000068|4068|  32 06 C0
+------+------+----+----------------------------------
+   106|      |    |LD B, 0
+      |      |    |  Z80:8cyc R800:2cyc
+      |00006B|406B|  06 00
+------+------+----+----------------------------------
+   107|      |    |LD HL, MUSIC_TABLE
+      |      |    |  Z80:11cyc R800:3cyc
+      |00006D|406D|  21 71 41
+------+------+----+----------------------------------
+   108|      |    |ADD HL, BC
+      |      |    |  Z80:12cyc R800:1cyc
+      |000070|4070|  09
+------+------+----+----------------------------------
+   109|      |    |LD A, [ HL ]
+      |      |    |  Z80:8cyc R800:4cyc
+      |000071|4071|  7E
+------+------+----+----------------------------------
+   110|      |    |CP A, T_R
+      |      |    |  Z80:8cyc R800:2cyc
+      |000072|4072|  FE FE
+------+------+----+----------------------------------
+   111|      |    |JP Z, REST_PROCESS
+      |      |    |  Z80:11cyc R800:5cyc/3cyc
+      |000074|4074|  CA 9E 40
+------+------+----+----------------------------------
+   112|      |    |JP NC, REWIND_PROCESS
+      |      |    |  Z80:11cyc R800:5cyc/3cyc
+      |000077|4077|  D2 AA 40
+------+------+----+----------------------------------
+   113|      |    |TONE_PROCESS :
+      |      |    |  label [SC_PLAY_MUSIC:TONE_PROCESS] address: 0x00407a
+------+------+----+----------------------------------
+   115|      |    |LD C, A
+      |      |    |  Z80:5cyc R800:2cyc
+      |00007A|407A|  4F
+------+------+----+----------------------------------
+   116|      |    |LD HL, TONE_TABLE
+      |      |    |  Z80:11cyc R800:3cyc
+      |00007B|407B|  21 B1 40
+------+------+----+----------------------------------
+   117|      |    |ADD HL, BC
+      |      |    |  Z80:12cyc R800:1cyc
+      |00007E|407E|  09
+------+------+----+----------------------------------
+   118|      |    |ADD HL, BC
+      |      |    |  Z80:12cyc R800:1cyc
+      |00007F|407F|  09
+------+------+----+----------------------------------
+   119|      |    |LD E, [ HL ]
+      |      |    |  Z80:8cyc R800:4cyc
+      |000080|4080|  5E
+------+------+----+----------------------------------
+   120|      |    |INC HL
+      |      |    |  Z80:7cyc R800:1cyc
+      |000081|4081|  23
+------+------+----+----------------------------------
+   121|      |    |LD D, [ HL ]
+      |      |    |  Z80:8cyc R800:4cyc
+      |000082|4082|  56
+------+------+----+----------------------------------
+   123|      |    |LD C, IO_PSG_ADR
+      |      |    |  Z80:8cyc R800:2cyc
+      |000083|4083|  0E A0
+------+------+----+----------------------------------
+   124|      |    |XOR A, A
+      |      |    |  Z80:5cyc R800:1cyc
+      |000085|4085|  AF
+------+------+----+----------------------------------
+   125|      |    |OUT [ C ], A
+      |      |    |  Z80:14cyc R800:10cyc/9cyc
+      |000086|4086|  ED 79
+------+------+----+----------------------------------
+   126|      |    |INC C
+      |      |    |  Z80:5cyc R800:1cyc
+      |000088|4088|  0C
+------+------+----+----------------------------------
+   127|      |    |OUT [ C ], E
+      |      |    |  Z80:14cyc R800:10cyc/9cyc
+      |000089|4089|  ED 59
+------+------+----+----------------------------------
+   128|      |    |DEC C
+      |      |    |  Z80:5cyc R800:1cyc
+      |00008B|408B|  0D
+------+------+----+----------------------------------
+   130|      |    |INC A
+      |      |    |  Z80:5cyc R800:1cyc
+      |00008C|408C|  3C
+------+------+----+----------------------------------
+   131|      |    |OUT [ C ], A
+      |      |    |  Z80:14cyc R800:10cyc/9cyc
+      |00008D|408D|  ED 79
+------+------+----+----------------------------------
+   132|      |    |INC C
+      |      |    |  Z80:5cyc R800:1cyc
+      |00008F|408F|  0C
+------+------+----+----------------------------------
+   133|      |    |OUT [ C ], D
+      |      |    |  Z80:14cyc R800:10cyc/9cyc
+      |000090|4090|  ED 51
+------+------+----+----------------------------------
+   134|      |    |DEC C
+      |      |    |  Z80:5cyc R800:1cyc
+      |000092|4092|  0D
+------+------+----+----------------------------------
+   136|      |    |LD A, 8
+      |      |    |  Z80:8cyc R800:2cyc
+      |000093|4093|  3E 08
+------+------+----+----------------------------------
+   137|      |    |OUT [ C ], A
+      |      |    |  Z80:14cyc R800:10cyc/9cyc
+      |000095|4095|  ED 79
+------+------+----+----------------------------------
+   138|      |    |INC C
+      |      |    |  Z80:5cyc R800:1cyc
+      |000097|4097|  0C
+------+------+----+----------------------------------
+   139|      |    |LD A, 15
+      |      |    |  Z80:8cyc R800:2cyc
+      |000098|4098|  3E 0F
+------+------+----+----------------------------------
+   140|      |    |OUT [ C ], A
+      |      |    |  Z80:14cyc R800:10cyc/9cyc
+      |00009A|409A|  ED 79
+------+------+----+----------------------------------
+   141|      |    |DEC C
+      |      |    |  Z80:5cyc R800:1cyc
+      |00009C|409C|  0D
+------+------+----+----------------------------------
+   142|      |    |RET
+      |      |    |  Z80:11cyc R800:5cyc
+      |00009D|409D|  C9
+------+------+----+----------------------------------
+   143|      |    |REST_PROCESS :
+      |      |    |  label [SC_PLAY_MUSIC:REST_PROCESS] address: 0x00409e
+------+------+----+----------------------------------
+   145|      |    |LD C, IO_PSG_ADR
+      |      |    |  Z80:8cyc R800:2cyc
+      |00009E|409E|  0E A0
+------+------+----+----------------------------------
+   146|      |    |LD A, 8
+      |      |    |  Z80:8cyc R800:2cyc
+      |0000A0|40A0|  3E 08
+------+------+----+----------------------------------
+   147|      |    |OUT [ C ], A
+      |      |    |  Z80:14cyc R800:10cyc/9cyc
+      |0000A2|40A2|  ED 79
+------+------+----+----------------------------------
+   148|      |    |INC C
+      |      |    |  Z80:5cyc R800:1cyc
+      |0000A4|40A4|  0C
+------+------+----+----------------------------------
+   149|      |    |LD A, 0
+      |      |    |  Z80:8cyc R800:2cyc
+      |0000A5|40A5|  3E 00
+------+------+----+----------------------------------
+   150|      |    |OUT [ C ], A
+      |      |    |  Z80:14cyc R800:10cyc/9cyc
+      |0000A7|40A7|  ED 79
+------+------+----+----------------------------------
+   151|      |    |RET
+      |      |    |  Z80:11cyc R800:5cyc
+      |0000A9|40A9|  C9
+------+------+----+----------------------------------
+   152|      |    |REWIND_PROCESS :
+      |      |    |  label [SC_PLAY_MUSIC:REWIND_PROCESS] address: 0x0040aa
+------+------+----+----------------------------------
+   153|      |    |XOR A, A
+      |      |    |  Z80:5cyc R800:1cyc
+      |0000AA|40AA|  AF
+------+------+----+----------------------------------
+   154|      |    |LD [ MUSIC_INDEX ], A
+      |      |    |  Z80:14cyc R800:6cyc
+      |0000AB|40AB|  32 06 C0
+------+------+----+----------------------------------
+   155|      |    |JP PLAY_MUSIC
+      |      |    |  Z80:11cyc R800:5cyc
+      |0000AE|40AE|  C3 63 40
+------+------+----+----------------------------------
+   156|      |    |ENDSCOPE
+      |      |    |  Exit scope: SC_PLAY_MUSIC:
+------+------+----+----------------------------------
+   161|      |    |TONE_TABLE ::
+      |      |    |  global label [TONE_TABLE] address: 0x0040b1
+------+------+----+----------------------------------
+   162|      |    |DW 0xD5C, 0xC9D, 0xBE7, 0xB3C, 0xA9B, 0xA02, 0x973, 0x8EB, 0x86B, 0x7F2, 0x780, 0x714
+      |0000B1|40B1|  5C 0D 9D 0C E7 0B 3C 0B
+      |0000B9|40B9|  9B 0A 02 0A 73 09 EB 08
+      |0000C1|40C1|  6B 08 F2 07 80 07 14 07
+------+------+----+----------------------------------
+   163|      |    |DW 0x6AE, 0x64E, 0x5F4, 0x59E, 0x54D, 0x501, 0x4B9, 0x475, 0x435, 0x3F9, 0x3C0, 0x38A
+      |0000C9|40C9|  AE 06 4E 06 F4 05 9E 05
+      |0000D1|40D1|  4D 05 01 05 B9 04 75 04
+      |0000D9|40D9|  35 04 F9 03 C0 03 8A 03
+------+------+----+----------------------------------
+   164|      |    |DW 0x357, 0x327, 0x2FA, 0x2CF, 0x2A7, 0x281, 0x25D, 0x23B, 0x21B, 0x1FC, 0x1E0, 0x1C5
+      |0000E1|40E1|  57 03 27 03 FA 02 CF 02
+      |0000E9|40E9|  A7 02 81 02 5D 02 3B 02
+      |0000F1|40F1|  1B 02 FC 01 E0 01 C5 01
+------+------+----+----------------------------------
+   165|      |    |DW 0x1AC, 0x194, 0x17D, 0x168, 0x153, 0x140, 0x12E, 0x11D, 0x10D, 0xFE, 0xF0, 0xE2
+      |0000F9|40F9|  AC 01 94 01 7D 01 68 01
+      |000101|4101|  53 01 40 01 2E 01 1D 01
+      |000109|4109|  0D 01 FE 00 F0 00 E2 00
+------+------+----+----------------------------------
+   166|      |    |DW 0xD6, 0xCA, 0xBE, 0xB4, 0xAA, 0xA0, 0x97, 0x8F, 0x87, 0x7F, 0x78, 0x71
+      |000111|4111|  D6 00 CA 00 BE 00 B4 00
+      |000119|4119|  AA 00 A0 00 97 00 8F 00
+      |000121|4121|  87 00 7F 00 78 00 71 00
+------+------+----+----------------------------------
+   167|      |    |DW 0x6B, 0x65, 0x5F, 0x5A, 0x55, 0x50, 0x4C, 0x47, 0x43, 0x40, 0x3C, 0x39
+      |000129|4129|  6B 00 65 00 5F 00 5A 00
+      |000131|4131|  55 00 50 00 4C 00 47 00
+      |000139|4139|  43 00 40 00 3C 00 39 00
+------+------+----+----------------------------------
+   168|      |    |DW 0x35, 0x32, 0x30, 0x2D, 0x2A, 0x28, 0x26, 0x24, 0x22, 0x20, 0x1E, 0x1C
+      |000141|4141|  35 00 32 00 30 00 2D 00
+      |000149|4149|  2A 00 28 00 26 00 24 00
+      |000151|4151|  22 00 20 00 1E 00 1C 00
+------+------+----+----------------------------------
+   169|      |    |DW 0x1B, 0x19, 0x18, 0x16, 0x15, 0x14, 0x13, 0x12, 0x11, 0x10, 0xF, 0xE
+      |000159|4159|  1B 00 19 00 18 00 16 00
+      |000161|4161|  15 00 14 00 13 00 12 00
+      |000169|4169|  11 00 10 00 0F 00 0E 00
+------+------+----+----------------------------------
+   171|      |    |T_C := 0
+      |      |    |  Global integer symbol [T_C] = 0 (0x0)
+------+------+----+----------------------------------
+   172|      |    |T_CS := 1
+      |      |    |  Global integer symbol [T_CS] = 1 (0x1)
+------+------+----+----------------------------------
+   173|      |    |T_D := 2
+      |      |    |  Global integer symbol [T_D] = 2 (0x2)
+------+------+----+----------------------------------
+   174|      |    |T_DS := 3
+      |      |    |  Global integer symbol [T_DS] = 3 (0x3)
+------+------+----+----------------------------------
+   175|      |    |T_E := 4
+      |      |    |  Global integer symbol [T_E] = 4 (0x4)
+------+------+----+----------------------------------
+   176|      |    |T_F := 5
+      |      |    |  Global integer symbol [T_F] = 5 (0x5)
+------+------+----+----------------------------------
+   177|      |    |T_FS := 6
+      |      |    |  Global integer symbol [T_FS] = 6 (0x6)
+------+------+----+----------------------------------
+   178|      |    |T_G := 7
+      |      |    |  Global integer symbol [T_G] = 7 (0x7)
+------+------+----+----------------------------------
+   179|      |    |T_GS := 8
+      |      |    |  Global integer symbol [T_GS] = 8 (0x8)
+------+------+----+----------------------------------
+   180|      |    |T_A := 9
+      |      |    |  Global integer symbol [T_A] = 9 (0x9)
+------+------+----+----------------------------------
+   181|      |    |T_AS := 10
+      |      |    |  Global integer symbol [T_AS] = 10 (0xa)
+------+------+----+----------------------------------
+   182|      |    |T_B := 11
+      |      |    |  Global integer symbol [T_B] = 11 (0xb)
+------+------+----+----------------------------------
+   183|      |    |O1 := 0 * 12
+      |      |    |  Global integer symbol [O1] = 0 (0x0)
+------+------+----+----------------------------------
+   184|      |    |O2 := 1 * 12
+      |      |    |  Global integer symbol [O2] = 12 (0xc)
+------+------+----+----------------------------------
+   185|      |    |O3 := 2 * 12
+      |      |    |  Global integer symbol [O3] = 24 (0x18)
+------+------+----+----------------------------------
+   186|      |    |O4 := 3 * 12
+      |      |    |  Global integer symbol [O4] = 36 (0x24)
+------+------+----+----------------------------------
+   187|      |    |O5 := 4 * 12
+      |      |    |  Global integer symbol [O5] = 48 (0x30)
+------+------+----+----------------------------------
+   188|      |    |O6 := 5 * 12
+      |      |    |  Global integer symbol [O6] = 60 (0x3c)
+------+------+----+----------------------------------
+   189|      |    |O7 := 6 * 12
+      |      |    |  Global integer symbol [O7] = 72 (0x48)
+------+------+----+----------------------------------
+   190|      |    |O8 := 7 * 12
+      |      |    |  Global integer symbol [O8] = 84 (0x54)
+------+------+----+----------------------------------
+   191|      |    |T_R := 254
+      |      |    |  Global integer symbol [T_R] = 254 (0xfe)
+------+------+----+----------------------------------
+   192|      |    |T_END := 255
+      |      |    |  Global integer symbol [T_END] = 255 (0xff)
+------+------+----+----------------------------------
+   194|      |    |MUSIC_TABLE ::
+      |      |    |  global label [MUSIC_TABLE] address: 0x004171
+------+------+----+----------------------------------
+   195|      |    |DB O4 + T_C, O4 + T_D, O4 + T_E, T_R
+      |000171|4171|  24 26 28 FE
+------+------+----+----------------------------------
+   196|      |    |DB O4 + T_C, O4 + T_D, O4 + T_E, T_R
+      |000175|4175|  24 26 28 FE
+------+------+----+----------------------------------
+   197|      |    |DB O4 + T_G, O4 + T_E, O4 + T_D, O4 + T_C
+      |000179|4179|  2B 28 26 24
+------+------+----+----------------------------------
+   198|      |    |DB O4 + T_D, O4 + T_E, O4 + T_D, T_R, T_END
+      |00017D|417D|  26 28 26 FE FF
+------+------+----+----------------------------------
+   203|      |    |ROM_ALIGN
+      |      |    |  Intra-macro scope: @MACRO1:
+   203|      |    |DEFS " " * ( 16384 - ( FILE_ADDRESS % 16384 ) )
+      |000182|4182|  20 20 20 20 20 20 20 20
+      |00018A|418A|  20 20 20 20 20 20 20 20
+      |000192|4192|  20 20 20 20 20 20 20 20
+      |00019A|419A|  20 20 20 20 20 20 20 20
+      |0001A2|41A2|  20 20 20 20 20 20 20 20
+      |0001AA|41AA|  20 20 20 20 20 20 20 20
+      |0001B2|41B2|  20 20 20 20 20 20 20 20
+      |0001BA|41BA|  20 20 20 20 20 20 20 20
+      |0001C2|41C2|  20 20 20 20 20 20 20 20
+      |0001CA|41CA|  20 20 20 20 20 20 20 20
+      |0001D2|41D2|  20 20 20 20 20 20 20 20
+      |0001DA|41DA|  20 20 20 20 20 20 20 20
+      |0001E2|41E2|  20 20 20 20 20 20 20 20
+      |0001EA|41EA|  20 20 20 20 20 20 20 20
+      |0001F2|41F2|  20 20 20 20 20 20 20 20
+      |0001FA|41FA|  20 20 20 20 20 20 20 20
+      |000202|4202|  20 20 20 20 20 20 20 20
+      |00020A|420A|  20 20 20 20 20 20 20 20
+      |000212|4212|  20 20 20 20 20 20 20 20
+      |00021A|421A|  20 20 20 20 20 20 20 20
+      |000222|4222|  20 20 20 20 20 20 20 20
+      |00022A|422A|  20 20 20 20 20 20 20 20
+      |000232|4232|  20 20 20 20 20 20 20 20
+      |00023A|423A|  20 20 20 20 20 20 20 20
+      |000242|4242|  20 20 20 20 20 20 20 20
+      |00024A|424A|  20 20 20 20 20 20 20 20
+      |000252|4252|  20 20 20 20 20 20 20 20
+      |00025A|425A|  20 20 20 20 20 20 20 20
+      |000262|4262|  20 20 20 20 20 20 20 20
+      |00026A|426A|  20 20 20 20 20 20 20 20
+      |000272|4272|  20 20 20 20 20 20 20 20
+      |00027A|427A|  20 20 20 20 20 20 20 20
+      |000282|4282|  20 20 20 20 20 20 20 20
+      |00028A|428A|  20 20 20 20 20 20 20 20
+      |000292|4292|  20 20 20 20 20 20 20 20
+      |00029A|429A|  20 20 20 20 20 20 20 20
+      |0002A2|42A2|  20 20 20 20 20 20 20 20
+      |0002AA|42AA|  20 20 20 20 20 20 20 20
+      |0002B2|42B2|  20 20 20 20 20 20 20 20
+      |0002BA|42BA|  20 20 20 20 20 20 20 20
+      |0002C2|42C2|  20 20 20 20 20 20 20 20
+      |0002CA|42CA|  20 20 20 20 20 20 20 20
+      |0002D2|42D2|  20 20 20 20 20 20 20 20
+      |0002DA|42DA|  20 20 20 20 20 20 20 20
+      |0002E2|42E2|  20 20 20 20 20 20 20 20
+      |0002EA|42EA|  20 20 20 20 20 20 20 20
+      |0002F2|42F2|  20 20 20 20 20 20 20 20
+      |0002FA|42FA|  20 20 20 20 20 20 20 20
+      |000302|4302|  20 20 20 20 20 20 20 20
+      |00030A|430A|  20 20 20 20 20 20 20 20
+      |000312|4312|  20 20 20 20 20 20 20 20
+      |00031A|431A|  20 20 20 20 20 20 20 20
+      |000322|4322|  20 20 20 20 20 20 20 20
+      |00032A|432A|  20 20 20 20 20 20 20 20
+      |000332|4332|  20 20 20 20 20 20 20 20
+      |00033A|433A|  20 20 20 20 20 20 20 20
+      |000342|4342|  20 20 20 20 20 20 20 20
+      |00034A|434A|  20 20 20 20 20 20 20 20
+      |000352|4352|  20 20 20 20 20 20 20 20
+      |00035A|435A|  20 20 20 20 20 20 20 20
+      |000362|4362|  20 20 20 20 20 20 20 20
+      |00036A|436A|  20 20 20 20 20 20 20 20
+      |000372|4372|  20 20 20 20 20 20 20 20
+      |00037A|437A|  20 20 20 20 20 20 20 20
+      |000382|4382|  20 20 20 20 20 20 20 20
+      |00038A|438A|  20 20 20 20 20 20 20 20
+      |000392|4392|  20 20 20 20 20 20 20 20
+      |00039A|439A|  20 20 20 20 20 20 20 20
+      |0003A2|43A2|  20 20 20 20 20 20 20 20
+      |0003AA|43AA|  20 20 20 20 20 20 20 20
+      |0003B2|43B2|  20 20 20 20 20 20 20 20
+      |0003BA|43BA|  20 20 20 20 20 20 20 20
+      |0003C2|43C2|  20 20 20 20 20 20 20 20
+      |0003CA|43CA|  20 20 20 20 20 20 20 20
+      |0003D2|43D2|  20 20 20 20 20 20 20 20
+      |0003DA|43DA|  20 20 20 20 20 20 20 20
+      |0003E2|43E2|  20 20 20 20 20 20 20 20
+      |0003EA|43EA|  20 20 20 20 20 20 20 20
+      |0003F2|43F2|  20 20 20 20 20 20 20 20
+      |0003FA|43FA|  20 20 20 20 20 20 20 20
+      |000402|4402|  20 20 20 20 20 20 20 20
+      |00040A|440A|  20 20 20 20 20 20 20 20
+      |000412|4412|  20 20 20 20 20 20 20 20
+      |00041A|441A|  20 20 20 20 20 20 20 20
+      |000422|4422|  20 20 20 20 20 20 20 20
+      |00042A|442A|  20 20 20 20 20 20 20 20
+      |000432|4432|  20 20 20 20 20 20 20 20
+      |00043A|443A|  20 20 20 20 20 20 20 20
+      |000442|4442|  20 20 20 20 20 20 20 20
+      |00044A|444A|  20 20 20 20 20 20 20 20
+      |000452|4452|  20 20 20 20 20 20 20 20
+      |00045A|445A|  20 20 20 20 20 20 20 20
+      |000462|4462|  20 20 20 20 20 20 20 20
+      |00046A|446A|  20 20 20 20 20 20 20 20
+      |000472|4472|  20 20 20 20 20 20 20 20
+      |00047A|447A|  20 20 20 20 20 20 20 20
+      |000482|4482|  20 20 20 20 20 20 20 20
+      |00048A|448A|  20 20 20 20 20 20 20 20
+      |000492|4492|  20 20 20 20 20 20 20 20
+      |00049A|449A|  20 20 20 20 20 20 20 20
+      |0004A2|44A2|  20 20 20 20 20 20 20 20
+      |0004AA|44AA|  20 20 20 20 20 20 20 20
+      |0004B2|44B2|  20 20 20 20 20 20 20 20
+      |0004BA|44BA|  20 20 20 20 20 20 20 20
+      |0004C2|44C2|  20 20 20 20 20 20 20 20
+      |0004CA|44CA|  20 20 20 20 20 20 20 20
+      |0004D2|44D2|  20 20 20 20 20 20 20 20
+      |0004DA|44DA|  20 20 20 20 20 20 20 20
+      |0004E2|44E2|  20 20 20 20 20 20 20 20
+      |0004EA|44EA|  20 20 20 20 20 20 20 20
+      |0004F2|44F2|  20 20 20 20 20 20 20 20
+      |0004FA|44FA|  20 20 20 20 20 20 20 20
+      |000502|4502|  20 20 20 20 20 20 20 20
+      |00050A|450A|  20 20 20 20 20 20 20 20
+      |000512|4512|  20 20 20 20 20 20 20 20
+      |00051A|451A|  20 20 20 20 20 20 20 20
+      |000522|4522|  20 20 20 20 20 20 20 20
+      |00052A|452A|  20 20 20 20 20 20 20 20
+      |000532|4532|  20 20 20 20 20 20 20 20
+      |00053A|453A|  20 20 20 20 20 20 20 20
+      |000542|4542|  20 20 20 20 20 20 20 20
+      |00054A|454A|  20 20 20 20 20 20 20 20
+      |000552|4552|  20 20 20 20 20 20 20 20
+      |00055A|455A|  20 20 20 20 20 20 20 20
+      |000562|4562|  20 20 20 20 20 20 20 20
+      |00056A|456A|  20 20 20 20 20 20 20 20
+      |000572|4572|  20 20 20 20 20 20 20 20
+      |00057A|457A|  20 20 20 20 20 20 20 20
+      |000582|4582|  20 20 20 20 20 20 20 20
+      |00058A|458A|  20 20 20 20 20 20 20 20
+      |000592|4592|  20 20 20 20 20 20 20 20
+      |00059A|459A|  20 20 20 20 20 20 20 20
+      |0005A2|45A2|  20 20 20 20 20 20 20 20
+      |0005AA|45AA|  20 20 20 20 20 20 20 20
+      |0005B2|45B2|  20 20 20 20 20 20 20 20
+      |0005BA|45BA|  20 20 20 20 20 20 20 20
+      |0005C2|45C2|  20 20 20 20 20 20 20 20
+      |0005CA|45CA|  20 20 20 20 20 20 20 20
+      |0005D2|45D2|  20 20 20 20 20 20 20 20
+      |0005DA|45DA|  20 20 20 20 20 20 20 20
+      |0005E2|45E2|  20 20 20 20 20 20 20 20
+      |0005EA|45EA|  20 20 20 20 20 20 20 20
+      |0005F2|45F2|  20 20 20 20 20 20 20 20
+      |0005FA|45FA|  20 20 20 20 20 20 20 20
+      |000602|4602|  20 20 20 20 20 20 20 20
+      |00060A|460A|  20 20 20 20 20 20 20 20
+      |000612|4612|  20 20 20 20 20 20 20 20
+      |00061A|461A|  20 20 20 20 20 20 20 20
+      |000622|4622|  20 20 20 20 20 20 20 20
+      |00062A|462A|  20 20 20 20 20 20 20 20
+      |000632|4632|  20 20 20 20 20 20 20 20
+      |00063A|463A|  20 20 20 20 20 20 20 20
+      |000642|4642|  20 20 20 20 20 20 20 20
+      |00064A|464A|  20 20 20 20 20 20 20 20
+      |000652|4652|  20 20 20 20 20 20 20 20
+      |00065A|465A|  20 20 20 20 20 20 20 20
+      |000662|4662|  20 20 20 20 20 20 20 20
+      |00066A|466A|  20 20 20 20 20 20 20 20
+      |000672|4672|  20 20 20 20 20 20 20 20
+      |00067A|467A|  20 20 20 20 20 20 20 20
+      |000682|4682|  20 20 20 20 20 20 20 20
+      |00068A|468A|  20 20 20 20 20 20 20 20
+      |000692|4692|  20 20 20 20 20 20 20 20
+      |00069A|469A|  20 20 20 20 20 20 20 20
+      |0006A2|46A2|  20 20 20 20 20 20 20 20
+      |0006AA|46AA|  20 20 20 20 20 20 20 20
+      |0006B2|46B2|  20 20 20 20 20 20 20 20
+      |0006BA|46BA|  20 20 20 20 20 20 20 20
+      |0006C2|46C2|  20 20 20 20 20 20 20 20
+      |0006CA|46CA|  20 20 20 20 20 20 20 20
+      |0006D2|46D2|  20 20 20 20 20 20 20 20
+      |0006DA|46DA|  20 20 20 20 20 20 20 20
+      |0006E2|46E2|  20 20 20 20 20 20 20 20
+      |0006EA|46EA|  20 20 20 20 20 20 20 20
+      |0006F2|46F2|  20 20 20 20 20 20 20 20
+      |0006FA|46FA|  20 20 20 20 20 20 20 20
+      |000702|4702|  20 20 20 20 20 20 20 20
+      |00070A|470A|  20 20 20 20 20 20 20 20
+      |000712|4712|  20 20 20 20 20 20 20 20
+      |00071A|471A|  20 20 20 20 20 20 20 20
+      |000722|4722|  20 20 20 20 20 20 20 20
+      |00072A|472A|  20 20 20 20 20 20 20 20
+      |000732|4732|  20 20 20 20 20 20 20 20
+      |00073A|473A|  20 20 20 20 20 20 20 20
+      |000742|4742|  20 20 20 20 20 20 20 20
+      |00074A|474A|  20 20 20 20 20 20 20 20
+      |000752|4752|  20 20 20 20 20 20 20 20
+      |00075A|475A|  20 20 20 20 20 20 20 20
+      |000762|4762|  20 20 20 20 20 20 20 20
+      |00076A|476A|  20 20 20 20 20 20 20 20
+      |000772|4772|  20 20 20 20 20 20 20 20
+      |00077A|477A|  20 20 20 20 20 20 20 20
+      |000782|4782|  20 20 20 20 20 20 20 20
+      |00078A|478A|  20 20 20 20 20 20 20 20
+      |000792|4792|  20 20 20 20 20 20 20 20
+      |00079A|479A|  20 20 20 20 20 20 20 20
+      |0007A2|47A2|  20 20 20 20 20 20 20 20
+      |0007AA|47AA|  20 20 20 20 20 20 20 20
+      |0007B2|47B2|  20 20 20 20 20 20 20 20
+      |0007BA|47BA|  20 20 20 20 20 20 20 20
+      |0007C2|47C2|  20 20 20 20 20 20 20 20
+      |0007CA|47CA|  20 20 20 20 20 20 20 20
+      |0007D2|47D2|  20 20 20 20 20 20 20 20
+      |0007DA|47DA|  20 20 20 20 20 20 20 20
+      |0007E2|47E2|  20 20 20 20 20 20 20 20
+      |0007EA|47EA|  20 20 20 20 20 20 20 20
+      |0007F2|47F2|  20 20 20 20 20 20 20 20
+      |0007FA|47FA|  20 20 20 20 20 20 20 20
+      |000802|4802|  20 20 20 20 20 20 20 20
+      |00080A|480A|  20 20 20 20 20 20 20 20
+      |000812|4812|  20 20 20 20 20 20 20 20
+      |00081A|481A|  20 20 20 20 20 20 20 20
+      |000822|4822|  20 20 20 20 20 20 20 20
+      |00082A|482A|  20 20 20 20 20 20 20 20
+      |000832|4832|  20 20 20 20 20 20 20 20
+      |00083A|483A|  20 20 20 20 20 20 20 20
+      |000842|4842|  20 20 20 20 20 20 20 20
+      |00084A|484A|  20 20 20 20 20 20 20 20
+      |000852|4852|  20 20 20 20 20 20 20 20
+      |00085A|485A|  20 20 20 20 20 20 20 20
+      |000862|4862|  20 20 20 20 20 20 20 20
+      |00086A|486A|  20 20 20 20 20 20 20 20
+      |000872|4872|  20 20 20 20 20 20 20 20
+      |00087A|487A|  20 20 20 20 20 20 20 20
+      |000882|4882|  20 20 20 20 20 20 20 20
+      |00088A|488A|  20 20 20 20 20 20 20 20
+      |000892|4892|  20 20 20 20 20 20 20 20
+      |00089A|489A|  20 20 20 20 20 20 20 20
+      |0008A2|48A2|  20 20 20 20 20 20 20 20
+      |0008AA|48AA|  20 20 20 20 20 20 20 20
+      |0008B2|48B2|  20 20 20 20 20 20 20 20
+      |0008BA|48BA|  20 20 20 20 20 20 20 20
+      |0008C2|48C2|  20 20 20 20 20 20 20 20
+      |0008CA|48CA|  20 20 20 20 20 20 20 20
+      |0008D2|48D2|  20 20 20 20 20 20 20 20
+      |0008DA|48DA|  20 20 20 20 20 20 20 20
+      |0008E2|48E2|  20 20 20 20 20 20 20 20
+      |0008EA|48EA|  20 20 20 20 20 20 20 20
+      |0008F2|48F2|  20 20 20 20 20 20 20 20
+      |0008FA|48FA|  20 20 20 20 20 20 20 20
+      |000902|4902|  20 20 20 20 20 20 20 20
+      |00090A|490A|  20 20 20 20 20 20 20 20
+      |000912|4912|  20 20 20 20 20 20 20 20
+      |00091A|491A|  20 20 20 20 20 20 20 20
+      |000922|4922|  20 20 20 20 20 20 20 20
+      |00092A|492A|  20 20 20 20 20 20 20 20
+      |000932|4932|  20 20 20 20 20 20 20 20
+      |00093A|493A|  20 20 20 20 20 20 20 20
+      |000942|4942|  20 20 20 20 20 20 20 20
+      |00094A|494A|  20 20 20 20 20 20 20 20
+      |000952|4952|  20 20 20 20 20 20 20 20
+      |00095A|495A|  20 20 20 20 20 20 20 20
+      |000962|4962|  20 20 20 20 20 20 20 20
+      |00096A|496A|  20 20 20 20 20 20 20 20
+      |000972|4972|  20 20 20 20 20 20 20 20
+      |00097A|497A|  20 20 20 20 20 20 20 20
+      |000982|4982|  20 20 20 20 20 20 20 20
+      |00098A|498A|  20 20 20 20 20 20 20 20
+      |000992|4992|  20 20 20 20 20 20 20 20
+      |00099A|499A|  20 20 20 20 20 20 20 20
+      |0009A2|49A2|  20 20 20 20 20 20 20 20
+      |0009AA|49AA|  20 20 20 20 20 20 20 20
+      |0009B2|49B2|  20 20 20 20 20 20 20 20
+      |0009BA|49BA|  20 20 20 20 20 20 20 20
+      |0009C2|49C2|  20 20 20 20 20 20 20 20
+      |0009CA|49CA|  20 20 20 20 20 20 20 20
+      |0009D2|49D2|  20 20 20 20 20 20 20 20
+      |0009DA|49DA|  20 20 20 20 20 20 20 20
+      |0009E2|49E2|  20 20 20 20 20 20 20 20
+      |0009EA|49EA|  20 20 20 20 20 20 20 20
+      |0009F2|49F2|  20 20 20 20 20 20 20 20
+      |0009FA|49FA|  20 20 20 20 20 20 20 20
+      |000A02|4A02|  20 20 20 20 20 20 20 20
+      |000A0A|4A0A|  20 20 20 20 20 20 20 20
+      |000A12|4A12|  20 20 20 20 20 20 20 20
+      |000A1A|4A1A|  20 20 20 20 20 20 20 20
+      |000A22|4A22|  20 20 20 20 20 20 20 20
+      |000A2A|4A2A|  20 20 20 20 20 20 20 20
+      |000A32|4A32|  20 20 20 20 20 20 20 20
+      |000A3A|4A3A|  20 20 20 20 20 20 20 20
+      |000A42|4A42|  20 20 20 20 20 20 20 20
+      |000A4A|4A4A|  20 20 20 20 20 20 20 20
+      |000A52|4A52|  20 20 20 20 20 20 20 20
+      |000A5A|4A5A|  20 20 20 20 20 20 20 20
+      |000A62|4A62|  20 20 20 20 20 20 20 20
+      |000A6A|4A6A|  20 20 20 20 20 20 20 20
+      |000A72|4A72|  20 20 20 20 20 20 20 20
+      |000A7A|4A7A|  20 20 20 20 20 20 20 20
+      |000A82|4A82|  20 20 20 20 20 20 20 20
+      |000A8A|4A8A|  20 20 20 20 20 20 20 20
+      |000A92|4A92|  20 20 20 20 20 20 20 20
+      |000A9A|4A9A|  20 20 20 20 20 20 20 20
+      |000AA2|4AA2|  20 20 20 20 20 20 20 20
+      |000AAA|4AAA|  20 20 20 20 20 20 20 20
+      |000AB2|4AB2|  20 20 20 20 20 20 20 20
+      |000ABA|4ABA|  20 20 20 20 20 20 20 20
+      |000AC2|4AC2|  20 20 20 20 20 20 20 20
+      |000ACA|4ACA|  20 20 20 20 20 20 20 20
+      |000AD2|4AD2|  20 20 20 20 20 20 20 20
+      |000ADA|4ADA|  20 20 20 20 20 20 20 20
+      |000AE2|4AE2|  20 20 20 20 20 20 20 20
+      |000AEA|4AEA|  20 20 20 20 20 20 20 20
+      |000AF2|4AF2|  20 20 20 20 20 20 20 20
+      |000AFA|4AFA|  20 20 20 20 20 20 20 20
+      |000B02|4B02|  20 20 20 20 20 20 20 20
+      |000B0A|4B0A|  20 20 20 20 20 20 20 20
+      |000B12|4B12|  20 20 20 20 20 20 20 20
+      |000B1A|4B1A|  20 20 20 20 20 20 20 20
+      |000B22|4B22|  20 20 20 20 20 20 20 20
+      |000B2A|4B2A|  20 20 20 20 20 20 20 20
+      |000B32|4B32|  20 20 20 20 20 20 20 20
+      |000B3A|4B3A|  20 20 20 20 20 20 20 20
+      |000B42|4B42|  20 20 20 20 20 20 20 20
+      |000B4A|4B4A|  20 20 20 20 20 20 20 20
+      |000B52|4B52|  20 20 20 20 20 20 20 20
+      |000B5A|4B5A|  20 20 20 20 20 20 20 20
+      |000B62|4B62|  20 20 20 20 20 20 20 20
+      |000B6A|4B6A|  20 20 20 20 20 20 20 20
+      |000B72|4B72|  20 20 20 20 20 20 20 20
+      |000B7A|4B7A|  20 20 20 20 20 20 20 20
+      |000B82|4B82|  20 20 20 20 20 20 20 20
+      |000B8A|4B8A|  20 20 20 20 20 20 20 20
+      |000B92|4B92|  20 20 20 20 20 20 20 20
+      |000B9A|4B9A|  20 20 20 20 20 20 20 20
+      |000BA2|4BA2|  20 20 20 20 20 20 20 20
+      |000BAA|4BAA|  20 20 20 20 20 20 20 20
+      |000BB2|4BB2|  20 20 20 20 20 20 20 20
+      |000BBA|4BBA|  20 20 20 20 20 20 20 20
+      |000BC2|4BC2|  20 20 20 20 20 20 20 20
+      |000BCA|4BCA|  20 20 20 20 20 20 20 20
+      |000BD2|4BD2|  20 20 20 20 20 20 20 20
+      |000BDA|4BDA|  20 20 20 20 20 20 20 20
+      |000BE2|4BE2|  20 20 20 20 20 20 20 20
+      |000BEA|4BEA|  20 20 20 20 20 20 20 20
+      |000BF2|4BF2|  20 20 20 20 20 20 20 20
+      |000BFA|4BFA|  20 20 20 20 20 20 20 20
+      |000C02|4C02|  20 20 20 20 20 20 20 20
+      |000C0A|4C0A|  20 20 20 20 20 20 20 20
+      |000C12|4C12|  20 20 20 20 20 20 20 20
+      |000C1A|4C1A|  20 20 20 20 20 20 20 20
+      |000C22|4C22|  20 20 20 20 20 20 20 20
+      |000C2A|4C2A|  20 20 20 20 20 20 20 20
+      |000C32|4C32|  20 20 20 20 20 20 20 20
+      |000C3A|4C3A|  20 20 20 20 20 20 20 20
+      |000C42|4C42|  20 20 20 20 20 20 20 20
+      |000C4A|4C4A|  20 20 20 20 20 20 20 20
+      |000C52|4C52|  20 20 20 20 20 20 20 20
+      |000C5A|4C5A|  20 20 20 20 20 20 20 20
+      |000C62|4C62|  20 20 20 20 20 20 20 20
+      |000C6A|4C6A|  20 20 20 20 20 20 20 20
+      |000C72|4C72|  20 20 20 20 20 20 20 20
+      |000C7A|4C7A|  20 20 20 20 20 20 20 20
+      |000C82|4C82|  20 20 20 20 20 20 20 20
+      |000C8A|4C8A|  20 20 20 20 20 20 20 20
+      |000C92|4C92|  20 20 20 20 20 20 20 20
+      |000C9A|4C9A|  20 20 20 20 20 20 20 20
+      |000CA2|4CA2|  20 20 20 20 20 20 20 20
+      |000CAA|4CAA|  20 20 20 20 20 20 20 20
+      |000CB2|4CB2|  20 20 20 20 20 20 20 20
+      |000CBA|4CBA|  20 20 20 20 20 20 20 20
+      |000CC2|4CC2|  20 20 20 20 20 20 20 20
+      |000CCA|4CCA|  20 20 20 20 20 20 20 20
+      |000CD2|4CD2|  20 20 20 20 20 20 20 20
+      |000CDA|4CDA|  20 20 20 20 20 20 20 20
+      |000CE2|4CE2|  20 20 20 20 20 20 20 20
+      |000CEA|4CEA|  20 20 20 20 20 20 20 20
+      |000CF2|4CF2|  20 20 20 20 20 20 20 20
+      |000CFA|4CFA|  20 20 20 20 20 20 20 20
+      |000D02|4D02|  20 20 20 20 20 20 20 20
+      |000D0A|4D0A|  20 20 20 20 20 20 20 20
+      |000D12|4D12|  20 20 20 20 20 20 20 20
+      |000D1A|4D1A|  20 20 20 20 20 20 20 20
+      |000D22|4D22|  20 20 20 20 20 20 20 20
+      |000D2A|4D2A|  20 20 20 20 20 20 20 20
+      |000D32|4D32|  20 20 20 20 20 20 20 20
+      |000D3A|4D3A|  20 20 20 20 20 20 20 20
+      |000D42|4D42|  20 20 20 20 20 20 20 20
+      |000D4A|4D4A|  20 20 20 20 20 20 20 20
+      |000D52|4D52|  20 20 20 20 20 20 20 20
+      |000D5A|4D5A|  20 20 20 20 20 20 20 20
+      |000D62|4D62|  20 20 20 20 20 20 20 20
+      |000D6A|4D6A|  20 20 20 20 20 20 20 20
+      |000D72|4D72|  20 20 20 20 20 20 20 20
+      |000D7A|4D7A|  20 20 20 20 20 20 20 20
+      |000D82|4D82|  20 20 20 20 20 20 20 20
+      |000D8A|4D8A|  20 20 20 20 20 20 20 20
+      |000D92|4D92|  20 20 20 20 20 20 20 20
+      |000D9A|4D9A|  20 20 20 20 20 20 20 20
+      |000DA2|4DA2|  20 20 20 20 20 20 20 20
+      |000DAA|4DAA|  20 20 20 20 20 20 20 20
+      |000DB2|4DB2|  20 20 20 20 20 20 20 20
+      |000DBA|4DBA|  20 20 20 20 20 20 20 20
+      |000DC2|4DC2|  20 20 20 20 20 20 20 20
+      |000DCA|4DCA|  20 20 20 20 20 20 20 20
+      |000DD2|4DD2|  20 20 20 20 20 20 20 20
+      |000DDA|4DDA|  20 20 20 20 20 20 20 20
+      |000DE2|4DE2|  20 20 20 20 20 20 20 20
+      |000DEA|4DEA|  20 20 20 20 20 20 20 20
+      |000DF2|4DF2|  20 20 20 20 20 20 20 20
+      |000DFA|4DFA|  20 20 20 20 20 20 20 20
+      |000E02|4E02|  20 20 20 20 20 20 20 20
+      |000E0A|4E0A|  20 20 20 20 20 20 20 20
+      |000E12|4E12|  20 20 20 20 20 20 20 20
+      |000E1A|4E1A|  20 20 20 20 20 20 20 20
+      |000E22|4E22|  20 20 20 20 20 20 20 20
+      |000E2A|4E2A|  20 20 20 20 20 20 20 20
+      |000E32|4E32|  20 20 20 20 20 20 20 20
+      |000E3A|4E3A|  20 20 20 20 20 20 20 20
+      |000E42|4E42|  20 20 20 20 20 20 20 20
+      |000E4A|4E4A|  20 20 20 20 20 20 20 20
+      |000E52|4E52|  20 20 20 20 20 20 20 20
+      |000E5A|4E5A|  20 20 20 20 20 20 20 20
+      |000E62|4E62|  20 20 20 20 20 20 20 20
+      |000E6A|4E6A|  20 20 20 20 20 20 20 20
+      |000E72|4E72|  20 20 20 20 20 20 20 20
+      |000E7A|4E7A|  20 20 20 20 20 20 20 20
+      |000E82|4E82|  20 20 20 20 20 20 20 20
+      |000E8A|4E8A|  20 20 20 20 20 20 20 20
+      |000E92|4E92|  20 20 20 20 20 20 20 20
+      |000E9A|4E9A|  20 20 20 20 20 20 20 20
+      |000EA2|4EA2|  20 20 20 20 20 20 20 20
+      |000EAA|4EAA|  20 20 20 20 20 20 20 20
+      |000EB2|4EB2|  20 20 20 20 20 20 20 20
+      |000EBA|4EBA|  20 20 20 20 20 20 20 20
+      |000EC2|4EC2|  20 20 20 20 20 20 20 20
+      |000ECA|4ECA|  20 20 20 20 20 20 20 20
+      |000ED2|4ED2|  20 20 20 20 20 20 20 20
+      |000EDA|4EDA|  20 20 20 20 20 20 20 20
+      |000EE2|4EE2|  20 20 20 20 20 20 20 20
+      |000EEA|4EEA|  20 20 20 20 20 20 20 20
+      |000EF2|4EF2|  20 20 20 20 20 20 20 20
+      |000EFA|4EFA|  20 20 20 20 20 20 20 20
+      |000F02|4F02|  20 20 20 20 20 20 20 20
+      |000F0A|4F0A|  20 20 20 20 20 20 20 20
+      |000F12|4F12|  20 20 20 20 20 20 20 20
+      |000F1A|4F1A|  20 20 20 20 20 20 20 20
+      |000F22|4F22|  20 20 20 20 20 20 20 20
+      |000F2A|4F2A|  20 20 20 20 20 20 20 20
+      |000F32|4F32|  20 20 20 20 20 20 20 20
+      |000F3A|4F3A|  20 20 20 20 20 20 20 20
+      |000F42|4F42|  20 20 20 20 20 20 20 20
+      |000F4A|4F4A|  20 20 20 20 20 20 20 20
+      |000F52|4F52|  20 20 20 20 20 20 20 20
+      |000F5A|4F5A|  20 20 20 20 20 20 20 20
+      |000F62|4F62|  20 20 20 20 20 20 20 20
+      |000F6A|4F6A|  20 20 20 20 20 20 20 20
+      |000F72|4F72|  20 20 20 20 20 20 20 20
+      |000F7A|4F7A|  20 20 20 20 20 20 20 20
+      |000F82|4F82|  20 20 20 20 20 20 20 20
+      |000F8A|4F8A|  20 20 20 20 20 20 20 20
+      |000F92|4F92|  20 20 20 20 20 20 20 20
+      |000F9A|4F9A|  20 20 20 20 20 20 20 20
+      |000FA2|4FA2|  20 20 20 20 20 20 20 20
+      |000FAA|4FAA|  20 20 20 20 20 20 20 20
+      |000FB2|4FB2|  20 20 20 20 20 20 20 20
+      |000FBA|4FBA|  20 20 20 20 20 20 20 20
+      |000FC2|4FC2|  20 20 20 20 20 20 20 20
+      |000FCA|4FCA|  20 20 20 20 20 20 20 20
+      |000FD2|4FD2|  20 20 20 20 20 20 20 20
+      |000FDA|4FDA|  20 20 20 20 20 20 20 20
+      |000FE2|4FE2|  20 20 20 20 20 20 20 20
+      |000FEA|4FEA|  20 20 20 20 20 20 20 20
+      |000FF2|4FF2|  20 20 20 20 20 20 20 20
+      |000FFA|4FFA|  20 20 20 20 20 20 20 20
+      |001002|5002|  20 20 20 20 20 20 20 20
+      |00100A|500A|  20 20 20 20 20 20 20 20
+      |001012|5012|  20 20 20 20 20 20 20 20
+      |00101A|501A|  20 20 20 20 20 20 20 20
+      |001022|5022|  20 20 20 20 20 20 20 20
+      |00102A|502A|  20 20 20 20 20 20 20 20
+      |001032|5032|  20 20 20 20 20 20 20 20
+      |00103A|503A|  20 20 20 20 20 20 20 20
+      |001042|5042|  20 20 20 20 20 20 20 20
+      |00104A|504A|  20 20 20 20 20 20 20 20
+      |001052|5052|  20 20 20 20 20 20 20 20
+      |00105A|505A|  20 20 20 20 20 20 20 20
+      |001062|5062|  20 20 20 20 20 20 20 20
+      |00106A|506A|  20 20 20 20 20 20 20 20
+      |001072|5072|  20 20 20 20 20 20 20 20
+      |00107A|507A|  20 20 20 20 20 20 20 20
+      |001082|5082|  20 20 20 20 20 20 20 20
+      |00108A|508A|  20 20 20 20 20 20 20 20
+      |001092|5092|  20 20 20 20 20 20 20 20
+      |00109A|509A|  20 20 20 20 20 20 20 20
+      |0010A2|50A2|  20 20 20 20 20 20 20 20
+      |0010AA|50AA|  20 20 20 20 20 20 20 20
+      |0010B2|50B2|  20 20 20 20 20 20 20 20
+      |0010BA|50BA|  20 20 20 20 20 20 20 20
+      |0010C2|50C2|  20 20 20 20 20 20 20 20
+      |0010CA|50CA|  20 20 20 20 20 20 20 20
+      |0010D2|50D2|  20 20 20 20 20 20 20 20
+      |0010DA|50DA|  20 20 20 20 20 20 20 20
+      |0010E2|50E2|  20 20 20 20 20 20 20 20
+      |0010EA|50EA|  20 20 20 20 20 20 20 20
+      |0010F2|50F2|  20 20 20 20 20 20 20 20
+      |0010FA|50FA|  20 20 20 20 20 20 20 20
+      |001102|5102|  20 20 20 20 20 20 20 20
+      |00110A|510A|  20 20 20 20 20 20 20 20
+      |001112|5112|  20 20 20 20 20 20 20 20
+      |00111A|511A|  20 20 20 20 20 20 20 20
+      |001122|5122|  20 20 20 20 20 20 20 20
+      |00112A|512A|  20 20 20 20 20 20 20 20
+      |001132|5132|  20 20 20 20 20 20 20 20
+      |00113A|513A|  20 20 20 20 20 20 20 20
+      |001142|5142|  20 20 20 20 20 20 20 20
+      |00114A|514A|  20 20 20 20 20 20 20 20
+      |001152|5152|  20 20 20 20 20 20 20 20
+      |00115A|515A|  20 20 20 20 20 20 20 20
+      |001162|5162|  20 20 20 20 20 20 20 20
+      |00116A|516A|  20 20 20 20 20 20 20 20
+      |001172|5172|  20 20 20 20 20 20 20 20
+      |00117A|517A|  20 20 20 20 20 20 20 20
+      |001182|5182|  20 20 20 20 20 20 20 20
+      |00118A|518A|  20 20 20 20 20 20 20 20
+      |001192|5192|  20 20 20 20 20 20 20 20
+      |00119A|519A|  20 20 20 20 20 20 20 20
+      |0011A2|51A2|  20 20 20 20 20 20 20 20
+      |0011AA|51AA|  20 20 20 20 20 20 20 20
+      |0011B2|51B2|  20 20 20 20 20 20 20 20
+      |0011BA|51BA|  20 20 20 20 20 20 20 20
+      |0011C2|51C2|  20 20 20 20 20 20 20 20
+      |0011CA|51CA|  20 20 20 20 20 20 20 20
+      |0011D2|51D2|  20 20 20 20 20 20 20 20
+      |0011DA|51DA|  20 20 20 20 20 20 20 20
+      |0011E2|51E2|  20 20 20 20 20 20 20 20
+      |0011EA|51EA|  20 20 20 20 20 20 20 20
+      |0011F2|51F2|  20 20 20 20 20 20 20 20
+      |0011FA|51FA|  20 20 20 20 20 20 20 20
+      |001202|5202|  20 20 20 20 20 20 20 20
+      |00120A|520A|  20 20 20 20 20 20 20 20
+      |001212|5212|  20 20 20 20 20 20 20 20
+      |00121A|521A|  20 20 20 20 20 20 20 20
+      |001222|5222|  20 20 20 20 20 20 20 20
+      |00122A|522A|  20 20 20 20 20 20 20 20
+      |001232|5232|  20 20 20 20 20 20 20 20
+      |00123A|523A|  20 20 20 20 20 20 20 20
+      |001242|5242|  20 20 20 20 20 20 20 20
+      |00124A|524A|  20 20 20 20 20 20 20 20
+      |001252|5252|  20 20 20 20 20 20 20 20
+      |00125A|525A|  20 20 20 20 20 20 20 20
+      |001262|5262|  20 20 20 20 20 20 20 20
+      |00126A|526A|  20 20 20 20 20 20 20 20
+      |001272|5272|  20 20 20 20 20 20 20 20
+      |00127A|527A|  20 20 20 20 20 20 20 20
+      |001282|5282|  20 20 20 20 20 20 20 20
+      |00128A|528A|  20 20 20 20 20 20 20 20
+      |001292|5292|  20 20 20 20 20 20 20 20
+      |00129A|529A|  20 20 20 20 20 20 20 20
+      |0012A2|52A2|  20 20 20 20 20 20 20 20
+      |0012AA|52AA|  20 20 20 20 20 20 20 20
+      |0012B2|52B2|  20 20 20 20 20 20 20 20
+      |0012BA|52BA|  20 20 20 20 20 20 20 20
+      |0012C2|52C2|  20 20 20 20 20 20 20 20
+      |0012CA|52CA|  20 20 20 20 20 20 20 20
+      |0012D2|52D2|  20 20 20 20 20 20 20 20
+      |0012DA|52DA|  20 20 20 20 20 20 20 20
+      |0012E2|52E2|  20 20 20 20 20 20 20 20
+      |0012EA|52EA|  20 20 20 20 20 20 20 20
+      |0012F2|52F2|  20 20 20 20 20 20 20 20
+      |0012FA|52FA|  20 20 20 20 20 20 20 20
+      |001302|5302|  20 20 20 20 20 20 20 20
+      |00130A|530A|  20 20 20 20 20 20 20 20
+      |001312|5312|  20 20 20 20 20 20 20 20
+      |00131A|531A|  20 20 20 20 20 20 20 20
+      |001322|5322|  20 20 20 20 20 20 20 20
+      |00132A|532A|  20 20 20 20 20 20 20 20
+      |001332|5332|  20 20 20 20 20 20 20 20
+      |00133A|533A|  20 20 20 20 20 20 20 20
+      |001342|5342|  20 20 20 20 20 20 20 20
+      |00134A|534A|  20 20 20 20 20 20 20 20
+      |001352|5352|  20 20 20 20 20 20 20 20
+      |00135A|535A|  20 20 20 20 20 20 20 20
+      |001362|5362|  20 20 20 20 20 20 20 20
+      |00136A|536A|  20 20 20 20 20 20 20 20
+      |001372|5372|  20 20 20 20 20 20 20 20
+      |00137A|537A|  20 20 20 20 20 20 20 20
+      |001382|5382|  20 20 20 20 20 20 20 20
+      |00138A|538A|  20 20 20 20 20 20 20 20
+      |001392|5392|  20 20 20 20 20 20 20 20
+      |00139A|539A|  20 20 20 20 20 20 20 20
+      |0013A2|53A2|  20 20 20 20 20 20 20 20
+      |0013AA|53AA|  20 20 20 20 20 20 20 20
+      |0013B2|53B2|  20 20 20 20 20 20 20 20
+      |0013BA|53BA|  20 20 20 20 20 20 20 20
+      |0013C2|53C2|  20 20 20 20 20 20 20 20
+      |0013CA|53CA|  20 20 20 20 20 20 20 20
+      |0013D2|53D2|  20 20 20 20 20 20 20 20
+      |0013DA|53DA|  20 20 20 20 20 20 20 20
+      |0013E2|53E2|  20 20 20 20 20 20 20 20
+      |0013EA|53EA|  20 20 20 20 20 20 20 20
+      |0013F2|53F2|  20 20 20 20 20 20 20 20
+      |0013FA|53FA|  20 20 20 20 20 20 20 20
+      |001402|5402|  20 20 20 20 20 20 20 20
+      |00140A|540A|  20 20 20 20 20 20 20 20
+      |001412|5412|  20 20 20 20 20 20 20 20
+      |00141A|541A|  20 20 20 20 20 20 20 20
+      |001422|5422|  20 20 20 20 20 20 20 20
+      |00142A|542A|  20 20 20 20 20 20 20 20
+      |001432|5432|  20 20 20 20 20 20 20 20
+      |00143A|543A|  20 20 20 20 20 20 20 20
+      |001442|5442|  20 20 20 20 20 20 20 20
+      |00144A|544A|  20 20 20 20 20 20 20 20
+      |001452|5452|  20 20 20 20 20 20 20 20
+      |00145A|545A|  20 20 20 20 20 20 20 20
+      |001462|5462|  20 20 20 20 20 20 20 20
+      |00146A|546A|  20 20 20 20 20 20 20 20
+      |001472|5472|  20 20 20 20 20 20 20 20
+      |00147A|547A|  20 20 20 20 20 20 20 20
+      |001482|5482|  20 20 20 20 20 20 20 20
+      |00148A|548A|  20 20 20 20 20 20 20 20
+      |001492|5492|  20 20 20 20 20 20 20 20
+      |00149A|549A|  20 20 20 20 20 20 20 20
+      |0014A2|54A2|  20 20 20 20 20 20 20 20
+      |0014AA|54AA|  20 20 20 20 20 20 20 20
+      |0014B2|54B2|  20 20 20 20 20 20 20 20
+      |0014BA|54BA|  20 20 20 20 20 20 20 20
+      |0014C2|54C2|  20 20 20 20 20 20 20 20
+      |0014CA|54CA|  20 20 20 20 20 20 20 20
+      |0014D2|54D2|  20 20 20 20 20 20 20 20
+      |0014DA|54DA|  20 20 20 20 20 20 20 20
+      |0014E2|54E2|  20 20 20 20 20 20 20 20
+      |0014EA|54EA|  20 20 20 20 20 20 20 20
+      |0014F2|54F2|  20 20 20 20 20 20 20 20
+      |0014FA|54FA|  20 20 20 20 20 20 20 20
+      |001502|5502|  20 20 20 20 20 20 20 20
+      |00150A|550A|  20 20 20 20 20 20 20 20
+      |001512|5512|  20 20 20 20 20 20 20 20
+      |00151A|551A|  20 20 20 20 20 20 20 20
+      |001522|5522|  20 20 20 20 20 20 20 20
+      |00152A|552A|  20 20 20 20 20 20 20 20
+      |001532|5532|  20 20 20 20 20 20 20 20
+      |00153A|553A|  20 20 20 20 20 20 20 20
+      |001542|5542|  20 20 20 20 20 20 20 20
+      |00154A|554A|  20 20 20 20 20 20 20 20
+      |001552|5552|  20 20 20 20 20 20 20 20
+      |00155A|555A|  20 20 20 20 20 20 20 20
+      |001562|5562|  20 20 20 20 20 20 20 20
+      |00156A|556A|  20 20 20 20 20 20 20 20
+      |001572|5572|  20 20 20 20 20 20 20 20
+      |00157A|557A|  20 20 20 20 20 20 20 20
+      |001582|5582|  20 20 20 20 20 20 20 20
+      |00158A|558A|  20 20 20 20 20 20 20 20
+      |001592|5592|  20 20 20 20 20 20 20 20
+      |00159A|559A|  20 20 20 20 20 20 20 20
+      |0015A2|55A2|  20 20 20 20 20 20 20 20
+      |0015AA|55AA|  20 20 20 20 20 20 20 20
+      |0015B2|55B2|  20 20 20 20 20 20 20 20
+      |0015BA|55BA|  20 20 20 20 20 20 20 20
+      |0015C2|55C2|  20 20 20 20 20 20 20 20
+      |0015CA|55CA|  20 20 20 20 20 20 20 20
+      |0015D2|55D2|  20 20 20 20 20 20 20 20
+      |0015DA|55DA|  20 20 20 20 20 20 20 20
+      |0015E2|55E2|  20 20 20 20 20 20 20 20
+      |0015EA|55EA|  20 20 20 20 20 20 20 20
+      |0015F2|55F2|  20 20 20 20 20 20 20 20
+      |0015FA|55FA|  20 20 20 20 20 20 20 20
+      |001602|5602|  20 20 20 20 20 20 20 20
+      |00160A|560A|  20 20 20 20 20 20 20 20
+      |001612|5612|  20 20 20 20 20 20 20 20
+      |00161A|561A|  20 20 20 20 20 20 20 20
+      |001622|5622|  20 20 20 20 20 20 20 20
+      |00162A|562A|  20 20 20 20 20 20 20 20
+      |001632|5632|  20 20 20 20 20 20 20 20
+      |00163A|563A|  20 20 20 20 20 20 20 20
+      |001642|5642|  20 20 20 20 20 20 20 20
+      |00164A|564A|  20 20 20 20 20 20 20 20
+      |001652|5652|  20 20 20 20 20 20 20 20
+      |00165A|565A|  20 20 20 20 20 20 20 20
+      |001662|5662|  20 20 20 20 20 20 20 20
+      |00166A|566A|  20 20 20 20 20 20 20 20
+      |001672|5672|  20 20 20 20 20 20 20 20
+      |00167A|567A|  20 20 20 20 20 20 20 20
+      |001682|5682|  20 20 20 20 20 20 20 20
+      |00168A|568A|  20 20 20 20 20 20 20 20
+      |001692|5692|  20 20 20 20 20 20 20 20
+      |00169A|569A|  20 20 20 20 20 20 20 20
+      |0016A2|56A2|  20 20 20 20 20 20 20 20
+      |0016AA|56AA|  20 20 20 20 20 20 20 20
+      |0016B2|56B2|  20 20 20 20 20 20 20 20
+      |0016BA|56BA|  20 20 20 20 20 20 20 20
+      |0016C2|56C2|  20 20 20 20 20 20 20 20
+      |0016CA|56CA|  20 20 20 20 20 20 20 20
+      |0016D2|56D2|  20 20 20 20 20 20 20 20
+      |0016DA|56DA|  20 20 20 20 20 20 20 20
+      |0016E2|56E2|  20 20 20 20 20 20 20 20
+      |0016EA|56EA|  20 20 20 20 20 20 20 20
+      |0016F2|56F2|  20 20 20 20 20 20 20 20
+      |0016FA|56FA|  20 20 20 20 20 20 20 20
+      |001702|5702|  20 20 20 20 20 20 20 20
+      |00170A|570A|  20 20 20 20 20 20 20 20
+      |001712|5712|  20 20 20 20 20 20 20 20
+      |00171A|571A|  20 20 20 20 20 20 20 20
+      |001722|5722|  20 20 20 20 20 20 20 20
+      |00172A|572A|  20 20 20 20 20 20 20 20
+      |001732|5732|  20 20 20 20 20 20 20 20
+      |00173A|573A|  20 20 20 20 20 20 20 20
+      |001742|5742|  20 20 20 20 20 20 20 20
+      |00174A|574A|  20 20 20 20 20 20 20 20
+      |001752|5752|  20 20 20 20 20 20 20 20
+      |00175A|575A|  20 20 20 20 20 20 20 20
+      |001762|5762|  20 20 20 20 20 20 20 20
+      |00176A|576A|  20 20 20 20 20 20 20 20
+      |001772|5772|  20 20 20 20 20 20 20 20
+      |00177A|577A|  20 20 20 20 20 20 20 20
+      |001782|5782|  20 20 20 20 20 20 20 20
+      |00178A|578A|  20 20 20 20 20 20 20 20
+      |001792|5792|  20 20 20 20 20 20 20 20
+      |00179A|579A|  20 20 20 20 20 20 20 20
+      |0017A2|57A2|  20 20 20 20 20 20 20 20
+      |0017AA|57AA|  20 20 20 20 20 20 20 20
+      |0017B2|57B2|  20 20 20 20 20 20 20 20
+      |0017BA|57BA|  20 20 20 20 20 20 20 20
+      |0017C2|57C2|  20 20 20 20 20 20 20 20
+      |0017CA|57CA|  20 20 20 20 20 20 20 20
+      |0017D2|57D2|  20 20 20 20 20 20 20 20
+      |0017DA|57DA|  20 20 20 20 20 20 20 20
+      |0017E2|57E2|  20 20 20 20 20 20 20 20
+      |0017EA|57EA|  20 20 20 20 20 20 20 20
+      |0017F2|57F2|  20 20 20 20 20 20 20 20
+      |0017FA|57FA|  20 20 20 20 20 20 20 20
+      |001802|5802|  20 20 20 20 20 20 20 20
+      |00180A|580A|  20 20 20 20 20 20 20 20
+      |001812|5812|  20 20 20 20 20 20 20 20
+      |00181A|581A|  20 20 20 20 20 20 20 20
+      |001822|5822|  20 20 20 20 20 20 20 20
+      |00182A|582A|  20 20 20 20 20 20 20 20
+      |001832|5832|  20 20 20 20 20 20 20 20
+      |00183A|583A|  20 20 20 20 20 20 20 20
+      |001842|5842|  20 20 20 20 20 20 20 20
+      |00184A|584A|  20 20 20 20 20 20 20 20
+      |001852|5852|  20 20 20 20 20 20 20 20
+      |00185A|585A|  20 20 20 20 20 20 20 20
+      |001862|5862|  20 20 20 20 20 20 20 20
+      |00186A|586A|  20 20 20 20 20 20 20 20
+      |001872|5872|  20 20 20 20 20 20 20 20
+      |00187A|587A|  20 20 20 20 20 20 20 20
+      |001882|5882|  20 20 20 20 20 20 20 20
+      |00188A|588A|  20 20 20 20 20 20 20 20
+      |001892|5892|  20 20 20 20 20 20 20 20
+      |00189A|589A|  20 20 20 20 20 20 20 20
+      |0018A2|58A2|  20 20 20 20 20 20 20 20
+      |0018AA|58AA|  20 20 20 20 20 20 20 20
+      |0018B2|58B2|  20 20 20 20 20 20 20 20
+      |0018BA|58BA|  20 20 20 20 20 20 20 20
+      |0018C2|58C2|  20 20 20 20 20 20 20 20
+      |0018CA|58CA|  20 20 20 20 20 20 20 20
+      |0018D2|58D2|  20 20 20 20 20 20 20 20
+      |0018DA|58DA|  20 20 20 20 20 20 20 20
+      |0018E2|58E2|  20 20 20 20 20 20 20 20
+      |0018EA|58EA|  20 20 20 20 20 20 20 20
+      |0018F2|58F2|  20 20 20 20 20 20 20 20
+      |0018FA|58FA|  20 20 20 20 20 20 20 20
+      |001902|5902|  20 20 20 20 20 20 20 20
+      |00190A|590A|  20 20 20 20 20 20 20 20
+      |001912|5912|  20 20 20 20 20 20 20 20
+      |00191A|591A|  20 20 20 20 20 20 20 20
+      |001922|5922|  20 20 20 20 20 20 20 20
+      |00192A|592A|  20 20 20 20 20 20 20 20
+      |001932|5932|  20 20 20 20 20 20 20 20
+      |00193A|593A|  20 20 20 20 20 20 20 20
+      |001942|5942|  20 20 20 20 20 20 20 20
+      |00194A|594A|  20 20 20 20 20 20 20 20
+      |001952|5952|  20 20 20 20 20 20 20 20
+      |00195A|595A|  20 20 20 20 20 20 20 20
+      |001962|5962|  20 20 20 20 20 20 20 20
+      |00196A|596A|  20 20 20 20 20 20 20 20
+      |001972|5972|  20 20 20 20 20 20 20 20
+      |00197A|597A|  20 20 20 20 20 20 20 20
+      |001982|5982|  20 20 20 20 20 20 20 20
+      |00198A|598A|  20 20 20 20 20 20 20 20
+      |001992|5992|  20 20 20 20 20 20 20 20
+      |00199A|599A|  20 20 20 20 20 20 20 20
+      |0019A2|59A2|  20 20 20 20 20 20 20 20
+      |0019AA|59AA|  20 20 20 20 20 20 20 20
+      |0019B2|59B2|  20 20 20 20 20 20 20 20
+      |0019BA|59BA|  20 20 20 20 20 20 20 20
+      |0019C2|59C2|  20 20 20 20 20 20 20 20
+      |0019CA|59CA|  20 20 20 20 20 20 20 20
+      |0019D2|59D2|  20 20 20 20 20 20 20 20
+      |0019DA|59DA|  20 20 20 20 20 20 20 20
+      |0019E2|59E2|  20 20 20 20 20 20 20 20
+      |0019EA|59EA|  20 20 20 20 20 20 20 20
+      |0019F2|59F2|  20 20 20 20 20 20 20 20
+      |0019FA|59FA|  20 20 20 20 20 20 20 20
+      |001A02|5A02|  20 20 20 20 20 20 20 20
+      |001A0A|5A0A|  20 20 20 20 20 20 20 20
+      |001A12|5A12|  20 20 20 20 20 20 20 20
+      |001A1A|5A1A|  20 20 20 20 20 20 20 20
+      |001A22|5A22|  20 20 20 20 20 20 20 20
+      |001A2A|5A2A|  20 20 20 20 20 20 20 20
+      |001A32|5A32|  20 20 20 20 20 20 20 20
+      |001A3A|5A3A|  20 20 20 20 20 20 20 20
+      |001A42|5A42|  20 20 20 20 20 20 20 20
+      |001A4A|5A4A|  20 20 20 20 20 20 20 20
+      |001A52|5A52|  20 20 20 20 20 20 20 20
+      |001A5A|5A5A|  20 20 20 20 20 20 20 20
+      |001A62|5A62|  20 20 20 20 20 20 20 20
+      |001A6A|5A6A|  20 20 20 20 20 20 20 20
+      |001A72|5A72|  20 20 20 20 20 20 20 20
+      |001A7A|5A7A|  20 20 20 20 20 20 20 20
+      |001A82|5A82|  20 20 20 20 20 20 20 20
+      |001A8A|5A8A|  20 20 20 20 20 20 20 20
+      |001A92|5A92|  20 20 20 20 20 20 20 20
+      |001A9A|5A9A|  20 20 20 20 20 20 20 20
+      |001AA2|5AA2|  20 20 20 20 20 20 20 20
+      |001AAA|5AAA|  20 20 20 20 20 20 20 20
+      |001AB2|5AB2|  20 20 20 20 20 20 20 20
+      |001ABA|5ABA|  20 20 20 20 20 20 20 20
+      |001AC2|5AC2|  20 20 20 20 20 20 20 20
+      |001ACA|5ACA|  20 20 20 20 20 20 20 20
+      |001AD2|5AD2|  20 20 20 20 20 20 20 20
+      |001ADA|5ADA|  20 20 20 20 20 20 20 20
+      |001AE2|5AE2|  20 20 20 20 20 20 20 20
+      |001AEA|5AEA|  20 20 20 20 20 20 20 20
+      |001AF2|5AF2|  20 20 20 20 20 20 20 20
+      |001AFA|5AFA|  20 20 20 20 20 20 20 20
+      |001B02|5B02|  20 20 20 20 20 20 20 20
+      |001B0A|5B0A|  20 20 20 20 20 20 20 20
+      |001B12|5B12|  20 20 20 20 20 20 20 20
+      |001B1A|5B1A|  20 20 20 20 20 20 20 20
+      |001B22|5B22|  20 20 20 20 20 20 20 20
+      |001B2A|5B2A|  20 20 20 20 20 20 20 20
+      |001B32|5B32|  20 20 20 20 20 20 20 20
+      |001B3A|5B3A|  20 20 20 20 20 20 20 20
+      |001B42|5B42|  20 20 20 20 20 20 20 20
+      |001B4A|5B4A|  20 20 20 20 20 20 20 20
+      |001B52|5B52|  20 20 20 20 20 20 20 20
+      |001B5A|5B5A|  20 20 20 20 20 20 20 20
+      |001B62|5B62|  20 20 20 20 20 20 20 20
+      |001B6A|5B6A|  20 20 20 20 20 20 20 20
+      |001B72|5B72|  20 20 20 20 20 20 20 20
+      |001B7A|5B7A|  20 20 20 20 20 20 20 20
+      |001B82|5B82|  20 20 20 20 20 20 20 20
+      |001B8A|5B8A|  20 20 20 20 20 20 20 20
+      |001B92|5B92|  20 20 20 20 20 20 20 20
+      |001B9A|5B9A|  20 20 20 20 20 20 20 20
+      |001BA2|5BA2|  20 20 20 20 20 20 20 20
+      |001BAA|5BAA|  20 20 20 20 20 20 20 20
+      |001BB2|5BB2|  20 20 20 20 20 20 20 20
+      |001BBA|5BBA|  20 20 20 20 20 20 20 20
+      |001BC2|5BC2|  20 20 20 20 20 20 20 20
+      |001BCA|5BCA|  20 20 20 20 20 20 20 20
+      |001BD2|5BD2|  20 20 20 20 20 20 20 20
+      |001BDA|5BDA|  20 20 20 20 20 20 20 20
+      |001BE2|5BE2|  20 20 20 20 20 20 20 20
+      |001BEA|5BEA|  20 20 20 20 20 20 20 20
+      |001BF2|5BF2|  20 20 20 20 20 20 20 20
+      |001BFA|5BFA|  20 20 20 20 20 20 20 20
+      |001C02|5C02|  20 20 20 20 20 20 20 20
+      |001C0A|5C0A|  20 20 20 20 20 20 20 20
+      |001C12|5C12|  20 20 20 20 20 20 20 20
+      |001C1A|5C1A|  20 20 20 20 20 20 20 20
+      |001C22|5C22|  20 20 20 20 20 20 20 20
+      |001C2A|5C2A|  20 20 20 20 20 20 20 20
+      |001C32|5C32|  20 20 20 20 20 20 20 20
+      |001C3A|5C3A|  20 20 20 20 20 20 20 20
+      |001C42|5C42|  20 20 20 20 20 20 20 20
+      |001C4A|5C4A|  20 20 20 20 20 20 20 20
+      |001C52|5C52|  20 20 20 20 20 20 20 20
+      |001C5A|5C5A|  20 20 20 20 20 20 20 20
+      |001C62|5C62|  20 20 20 20 20 20 20 20
+      |001C6A|5C6A|  20 20 20 20 20 20 20 20
+      |001C72|5C72|  20 20 20 20 20 20 20 20
+      |001C7A|5C7A|  20 20 20 20 20 20 20 20
+      |001C82|5C82|  20 20 20 20 20 20 20 20
+      |001C8A|5C8A|  20 20 20 20 20 20 20 20
+      |001C92|5C92|  20 20 20 20 20 20 20 20
+      |001C9A|5C9A|  20 20 20 20 20 20 20 20
+      |001CA2|5CA2|  20 20 20 20 20 20 20 20
+      |001CAA|5CAA|  20 20 20 20 20 20 20 20
+      |001CB2|5CB2|  20 20 20 20 20 20 20 20
+      |001CBA|5CBA|  20 20 20 20 20 20 20 20
+      |001CC2|5CC2|  20 20 20 20 20 20 20 20
+      |001CCA|5CCA|  20 20 20 20 20 20 20 20
+      |001CD2|5CD2|  20 20 20 20 20 20 20 20
+      |001CDA|5CDA|  20 20 20 20 20 20 20 20
+      |001CE2|5CE2|  20 20 20 20 20 20 20 20
+      |001CEA|5CEA|  20 20 20 20 20 20 20 20
+      |001CF2|5CF2|  20 20 20 20 20 20 20 20
+      |001CFA|5CFA|  20 20 20 20 20 20 20 20
+      |001D02|5D02|  20 20 20 20 20 20 20 20
+      |001D0A|5D0A|  20 20 20 20 20 20 20 20
+      |001D12|5D12|  20 20 20 20 20 20 20 20
+      |001D1A|5D1A|  20 20 20 20 20 20 20 20
+      |001D22|5D22|  20 20 20 20 20 20 20 20
+      |001D2A|5D2A|  20 20 20 20 20 20 20 20
+      |001D32|5D32|  20 20 20 20 20 20 20 20
+      |001D3A|5D3A|  20 20 20 20 20 20 20 20
+      |001D42|5D42|  20 20 20 20 20 20 20 20
+      |001D4A|5D4A|  20 20 20 20 20 20 20 20
+      |001D52|5D52|  20 20 20 20 20 20 20 20
+      |001D5A|5D5A|  20 20 20 20 20 20 20 20
+      |001D62|5D62|  20 20 20 20 20 20 20 20
+      |001D6A|5D6A|  20 20 20 20 20 20 20 20
+      |001D72|5D72|  20 20 20 20 20 20 20 20
+      |001D7A|5D7A|  20 20 20 20 20 20 20 20
+      |001D82|5D82|  20 20 20 20 20 20 20 20
+      |001D8A|5D8A|  20 20 20 20 20 20 20 20
+      |001D92|5D92|  20 20 20 20 20 20 20 20
+      |001D9A|5D9A|  20 20 20 20 20 20 20 20
+      |001DA2|5DA2|  20 20 20 20 20 20 20 20
+      |001DAA|5DAA|  20 20 20 20 20 20 20 20
+      |001DB2|5DB2|  20 20 20 20 20 20 20 20
+      |001DBA|5DBA|  20 20 20 20 20 20 20 20
+      |001DC2|5DC2|  20 20 20 20 20 20 20 20
+      |001DCA|5DCA|  20 20 20 20 20 20 20 20
+      |001DD2|5DD2|  20 20 20 20 20 20 20 20
+      |001DDA|5DDA|  20 20 20 20 20 20 20 20
+      |001DE2|5DE2|  20 20 20 20 20 20 20 20
+      |001DEA|5DEA|  20 20 20 20 20 20 20 20
+      |001DF2|5DF2|  20 20 20 20 20 20 20 20
+      |001DFA|5DFA|  20 20 20 20 20 20 20 20
+      |001E02|5E02|  20 20 20 20 20 20 20 20
+      |001E0A|5E0A|  20 20 20 20 20 20 20 20
+      |001E12|5E12|  20 20 20 20 20 20 20 20
+      |001E1A|5E1A|  20 20 20 20 20 20 20 20
+      |001E22|5E22|  20 20 20 20 20 20 20 20
+      |001E2A|5E2A|  20 20 20 20 20 20 20 20
+      |001E32|5E32|  20 20 20 20 20 20 20 20
+      |001E3A|5E3A|  20 20 20 20 20 20 20 20
+      |001E42|5E42|  20 20 20 20 20 20 20 20
+      |001E4A|5E4A|  20 20 20 20 20 20 20 20
+      |001E52|5E52|  20 20 20 20 20 20 20 20
+      |001E5A|5E5A|  20 20 20 20 20 20 20 20
+      |001E62|5E62|  20 20 20 20 20 20 20 20
+      |001E6A|5E6A|  20 20 20 20 20 20 20 20
+      |001E72|5E72|  20 20 20 20 20 20 20 20
+      |001E7A|5E7A|  20 20 20 20 20 20 20 20
+      |001E82|5E82|  20 20 20 20 20 20 20 20
+      |001E8A|5E8A|  20 20 20 20 20 20 20 20
+      |001E92|5E92|  20 20 20 20 20 20 20 20
+      |001E9A|5E9A|  20 20 20 20 20 20 20 20
+      |001EA2|5EA2|  20 20 20 20 20 20 20 20
+      |001EAA|5EAA|  20 20 20 20 20 20 20 20
+      |001EB2|5EB2|  20 20 20 20 20 20 20 20
+      |001EBA|5EBA|  20 20 20 20 20 20 20 20
+      |001EC2|5EC2|  20 20 20 20 20 20 20 20
+      |001ECA|5ECA|  20 20 20 20 20 20 20 20
+      |001ED2|5ED2|  20 20 20 20 20 20 20 20
+      |001EDA|5EDA|  20 20 20 20 20 20 20 20
+      |001EE2|5EE2|  20 20 20 20 20 20 20 20
+      |001EEA|5EEA|  20 20 20 20 20 20 20 20
+      |001EF2|5EF2|  20 20 20 20 20 20 20 20
+      |001EFA|5EFA|  20 20 20 20 20 20 20 20
+      |001F02|5F02|  20 20 20 20 20 20 20 20
+      |001F0A|5F0A|  20 20 20 20 20 20 20 20
+      |001F12|5F12|  20 20 20 20 20 20 20 20
+      |001F1A|5F1A|  20 20 20 20 20 20 20 20
+      |001F22|5F22|  20 20 20 20 20 20 20 20
+      |001F2A|5F2A|  20 20 20 20 20 20 20 20
+      |001F32|5F32|  20 20 20 20 20 20 20 20
+      |001F3A|5F3A|  20 20 20 20 20 20 20 20
+      |001F42|5F42|  20 20 20 20 20 20 20 20
+      |001F4A|5F4A|  20 20 20 20 20 20 20 20
+      |001F52|5F52|  20 20 20 20 20 20 20 20
+      |001F5A|5F5A|  20 20 20 20 20 20 20 20
+      |001F62|5F62|  20 20 20 20 20 20 20 20
+      |001F6A|5F6A|  20 20 20 20 20 20 20 20
+      |001F72|5F72|  20 20 20 20 20 20 20 20
+      |001F7A|5F7A|  20 20 20 20 20 20 20 20
+      |001F82|5F82|  20 20 20 20 20 20 20 20
+      |001F8A|5F8A|  20 20 20 20 20 20 20 20
+      |001F92|5F92|  20 20 20 20 20 20 20 20
+      |001F9A|5F9A|  20 20 20 20 20 20 20 20
+      |001FA2|5FA2|  20 20 20 20 20 20 20 20
+      |001FAA|5FAA|  20 20 20 20 20 20 20 20
+      |001FB2|5FB2|  20 20 20 20 20 20 20 20
+      |001FBA|5FBA|  20 20 20 20 20 20 20 20
+      |001FC2|5FC2|  20 20 20 20 20 20 20 20
+      |001FCA|5FCA|  20 20 20 20 20 20 20 20
+      |001FD2|5FD2|  20 20 20 20 20 20 20 20
+      |001FDA|5FDA|  20 20 20 20 20 20 20 20
+      |001FE2|5FE2|  20 20 20 20 20 20 20 20
+      |001FEA|5FEA|  20 20 20 20 20 20 20 20
+      |001FF2|5FF2|  20 20 20 20 20 20 20 20
+      |001FFA|5FFA|  20 20 20 20 20 20 20 20
+      |002002|6002|  20 20 20 20 20 20 20 20
+      |00200A|600A|  20 20 20 20 20 20 20 20
+      |002012|6012|  20 20 20 20 20 20 20 20
+      |00201A|601A|  20 20 20 20 20 20 20 20
+      |002022|6022|  20 20 20 20 20 20 20 20
+      |00202A|602A|  20 20 20 20 20 20 20 20
+      |002032|6032|  20 20 20 20 20 20 20 20
+      |00203A|603A|  20 20 20 20 20 20 20 20
+      |002042|6042|  20 20 20 20 20 20 20 20
+      |00204A|604A|  20 20 20 20 20 20 20 20
+      |002052|6052|  20 20 20 20 20 20 20 20
+      |00205A|605A|  20 20 20 20 20 20 20 20
+      |002062|6062|  20 20 20 20 20 20 20 20
+      |00206A|606A|  20 20 20 20 20 20 20 20
+      |002072|6072|  20 20 20 20 20 20 20 20
+      |00207A|607A|  20 20 20 20 20 20 20 20
+      |002082|6082|  20 20 20 20 20 20 20 20
+      |00208A|608A|  20 20 20 20 20 20 20 20
+      |002092|6092|  20 20 20 20 20 20 20 20
+      |00209A|609A|  20 20 20 20 20 20 20 20
+      |0020A2|60A2|  20 20 20 20 20 20 20 20
+      |0020AA|60AA|  20 20 20 20 20 20 20 20
+      |0020B2|60B2|  20 20 20 20 20 20 20 20
+      |0020BA|60BA|  20 20 20 20 20 20 20 20
+      |0020C2|60C2|  20 20 20 20 20 20 20 20
+      |0020CA|60CA|  20 20 20 20 20 20 20 20
+      |0020D2|60D2|  20 20 20 20 20 20 20 20
+      |0020DA|60DA|  20 20 20 20 20 20 20 20
+      |0020E2|60E2|  20 20 20 20 20 20 20 20
+      |0020EA|60EA|  20 20 20 20 20 20 20 20
+      |0020F2|60F2|  20 20 20 20 20 20 20 20
+      |0020FA|60FA|  20 20 20 20 20 20 20 20
+      |002102|6102|  20 20 20 20 20 20 20 20
+      |00210A|610A|  20 20 20 20 20 20 20 20
+      |002112|6112|  20 20 20 20 20 20 20 20
+      |00211A|611A|  20 20 20 20 20 20 20 20
+      |002122|6122|  20 20 20 20 20 20 20 20
+      |00212A|612A|  20 20 20 20 20 20 20 20
+      |002132|6132|  20 20 20 20 20 20 20 20
+      |00213A|613A|  20 20 20 20 20 20 20 20
+      |002142|6142|  20 20 20 20 20 20 20 20
+      |00214A|614A|  20 20 20 20 20 20 20 20
+      |002152|6152|  20 20 20 20 20 20 20 20
+      |00215A|615A|  20 20 20 20 20 20 20 20
+      |002162|6162|  20 20 20 20 20 20 20 20
+      |00216A|616A|  20 20 20 20 20 20 20 20
+      |002172|6172|  20 20 20 20 20 20 20 20
+      |00217A|617A|  20 20 20 20 20 20 20 20
+      |002182|6182|  20 20 20 20 20 20 20 20
+      |00218A|618A|  20 20 20 20 20 20 20 20
+      |002192|6192|  20 20 20 20 20 20 20 20
+      |00219A|619A|  20 20 20 20 20 20 20 20
+      |0021A2|61A2|  20 20 20 20 20 20 20 20
+      |0021AA|61AA|  20 20 20 20 20 20 20 20
+      |0021B2|61B2|  20 20 20 20 20 20 20 20
+      |0021BA|61BA|  20 20 20 20 20 20 20 20
+      |0021C2|61C2|  20 20 20 20 20 20 20 20
+      |0021CA|61CA|  20 20 20 20 20 20 20 20
+      |0021D2|61D2|  20 20 20 20 20 20 20 20
+      |0021DA|61DA|  20 20 20 20 20 20 20 20
+      |0021E2|61E2|  20 20 20 20 20 20 20 20
+      |0021EA|61EA|  20 20 20 20 20 20 20 20
+      |0021F2|61F2|  20 20 20 20 20 20 20 20
+      |0021FA|61FA|  20 20 20 20 20 20 20 20
+      |002202|6202|  20 20 20 20 20 20 20 20
+      |00220A|620A|  20 20 20 20 20 20 20 20
+      |002212|6212|  20 20 20 20 20 20 20 20
+      |00221A|621A|  20 20 20 20 20 20 20 20
+      |002222|6222|  20 20 20 20 20 20 20 20
+      |00222A|622A|  20 20 20 20 20 20 20 20
+      |002232|6232|  20 20 20 20 20 20 20 20
+      |00223A|623A|  20 20 20 20 20 20 20 20
+      |002242|6242|  20 20 20 20 20 20 20 20
+      |00224A|624A|  20 20 20 20 20 20 20 20
+      |002252|6252|  20 20 20 20 20 20 20 20
+      |00225A|625A|  20 20 20 20 20 20 20 20
+      |002262|6262|  20 20 20 20 20 20 20 20
+      |00226A|626A|  20 20 20 20 20 20 20 20
+      |002272|6272|  20 20 20 20 20 20 20 20
+      |00227A|627A|  20 20 20 20 20 20 20 20
+      |002282|6282|  20 20 20 20 20 20 20 20
+      |00228A|628A|  20 20 20 20 20 20 20 20
+      |002292|6292|  20 20 20 20 20 20 20 20
+      |00229A|629A|  20 20 20 20 20 20 20 20
+      |0022A2|62A2|  20 20 20 20 20 20 20 20
+      |0022AA|62AA|  20 20 20 20 20 20 20 20
+      |0022B2|62B2|  20 20 20 20 20 20 20 20
+      |0022BA|62BA|  20 20 20 20 20 20 20 20
+      |0022C2|62C2|  20 20 20 20 20 20 20 20
+      |0022CA|62CA|  20 20 20 20 20 20 20 20
+      |0022D2|62D2|  20 20 20 20 20 20 20 20
+      |0022DA|62DA|  20 20 20 20 20 20 20 20
+      |0022E2|62E2|  20 20 20 20 20 20 20 20
+      |0022EA|62EA|  20 20 20 20 20 20 20 20
+      |0022F2|62F2|  20 20 20 20 20 20 20 20
+      |0022FA|62FA|  20 20 20 20 20 20 20 20
+      |002302|6302|  20 20 20 20 20 20 20 20
+      |00230A|630A|  20 20 20 20 20 20 20 20
+      |002312|6312|  20 20 20 20 20 20 20 20
+      |00231A|631A|  20 20 20 20 20 20 20 20
+      |002322|6322|  20 20 20 20 20 20 20 20
+      |00232A|632A|  20 20 20 20 20 20 20 20
+      |002332|6332|  20 20 20 20 20 20 20 20
+      |00233A|633A|  20 20 20 20 20 20 20 20
+      |002342|6342|  20 20 20 20 20 20 20 20
+      |00234A|634A|  20 20 20 20 20 20 20 20
+      |002352|6352|  20 20 20 20 20 20 20 20
+      |00235A|635A|  20 20 20 20 20 20 20 20
+      |002362|6362|  20 20 20 20 20 20 20 20
+      |00236A|636A|  20 20 20 20 20 20 20 20
+      |002372|6372|  20 20 20 20 20 20 20 20
+      |00237A|637A|  20 20 20 20 20 20 20 20
+      |002382|6382|  20 20 20 20 20 20 20 20
+      |00238A|638A|  20 20 20 20 20 20 20 20
+      |002392|6392|  20 20 20 20 20 20 20 20
+      |00239A|639A|  20 20 20 20 20 20 20 20
+      |0023A2|63A2|  20 20 20 20 20 20 20 20
+      |0023AA|63AA|  20 20 20 20 20 20 20 20
+      |0023B2|63B2|  20 20 20 20 20 20 20 20
+      |0023BA|63BA|  20 20 20 20 20 20 20 20
+      |0023C2|63C2|  20 20 20 20 20 20 20 20
+      |0023CA|63CA|  20 20 20 20 20 20 20 20
+      |0023D2|63D2|  20 20 20 20 20 20 20 20
+      |0023DA|63DA|  20 20 20 20 20 20 20 20
+      |0023E2|63E2|  20 20 20 20 20 20 20 20
+      |0023EA|63EA|  20 20 20 20 20 20 20 20
+      |0023F2|63F2|  20 20 20 20 20 20 20 20
+      |0023FA|63FA|  20 20 20 20 20 20 20 20
+      |002402|6402|  20 20 20 20 20 20 20 20
+      |00240A|640A|  20 20 20 20 20 20 20 20
+      |002412|6412|  20 20 20 20 20 20 20 20
+      |00241A|641A|  20 20 20 20 20 20 20 20
+      |002422|6422|  20 20 20 20 20 20 20 20
+      |00242A|642A|  20 20 20 20 20 20 20 20
+      |002432|6432|  20 20 20 20 20 20 20 20
+      |00243A|643A|  20 20 20 20 20 20 20 20
+      |002442|6442|  20 20 20 20 20 20 20 20
+      |00244A|644A|  20 20 20 20 20 20 20 20
+      |002452|6452|  20 20 20 20 20 20 20 20
+      |00245A|645A|  20 20 20 20 20 20 20 20
+      |002462|6462|  20 20 20 20 20 20 20 20
+      |00246A|646A|  20 20 20 20 20 20 20 20
+      |002472|6472|  20 20 20 20 20 20 20 20
+      |00247A|647A|  20 20 20 20 20 20 20 20
+      |002482|6482|  20 20 20 20 20 20 20 20
+      |00248A|648A|  20 20 20 20 20 20 20 20
+      |002492|6492|  20 20 20 20 20 20 20 20
+      |00249A|649A|  20 20 20 20 20 20 20 20
+      |0024A2|64A2|  20 20 20 20 20 20 20 20
+      |0024AA|64AA|  20 20 20 20 20 20 20 20
+      |0024B2|64B2|  20 20 20 20 20 20 20 20
+      |0024BA|64BA|  20 20 20 20 20 20 20 20
+      |0024C2|64C2|  20 20 20 20 20 20 20 20
+      |0024CA|64CA|  20 20 20 20 20 20 20 20
+      |0024D2|64D2|  20 20 20 20 20 20 20 20
+      |0024DA|64DA|  20 20 20 20 20 20 20 20
+      |0024E2|64E2|  20 20 20 20 20 20 20 20
+      |0024EA|64EA|  20 20 20 20 20 20 20 20
+      |0024F2|64F2|  20 20 20 20 20 20 20 20
+      |0024FA|64FA|  20 20 20 20 20 20 20 20
+      |002502|6502|  20 20 20 20 20 20 20 20
+      |00250A|650A|  20 20 20 20 20 20 20 20
+      |002512|6512|  20 20 20 20 20 20 20 20
+      |00251A|651A|  20 20 20 20 20 20 20 20
+      |002522|6522|  20 20 20 20 20 20 20 20
+      |00252A|652A|  20 20 20 20 20 20 20 20
+      |002532|6532|  20 20 20 20 20 20 20 20
+      |00253A|653A|  20 20 20 20 20 20 20 20
+      |002542|6542|  20 20 20 20 20 20 20 20
+      |00254A|654A|  20 20 20 20 20 20 20 20
+      |002552|6552|  20 20 20 20 20 20 20 20
+      |00255A|655A|  20 20 20 20 20 20 20 20
+      |002562|6562|  20 20 20 20 20 20 20 20
+      |00256A|656A|  20 20 20 20 20 20 20 20
+      |002572|6572|  20 20 20 20 20 20 20 20
+      |00257A|657A|  20 20 20 20 20 20 20 20
+      |002582|6582|  20 20 20 20 20 20 20 20
+      |00258A|658A|  20 20 20 20 20 20 20 20
+      |002592|6592|  20 20 20 20 20 20 20 20
+      |00259A|659A|  20 20 20 20 20 20 20 20
+      |0025A2|65A2|  20 20 20 20 20 20 20 20
+      |0025AA|65AA|  20 20 20 20 20 20 20 20
+      |0025B2|65B2|  20 20 20 20 20 20 20 20
+      |0025BA|65BA|  20 20 20 20 20 20 20 20
+      |0025C2|65C2|  20 20 20 20 20 20 20 20
+      |0025CA|65CA|  20 20 20 20 20 20 20 20
+      |0025D2|65D2|  20 20 20 20 20 20 20 20
+      |0025DA|65DA|  20 20 20 20 20 20 20 20
+      |0025E2|65E2|  20 20 20 20 20 20 20 20
+      |0025EA|65EA|  20 20 20 20 20 20 20 20
+      |0025F2|65F2|  20 20 20 20 20 20 20 20
+      |0025FA|65FA|  20 20 20 20 20 20 20 20
+      |002602|6602|  20 20 20 20 20 20 20 20
+      |00260A|660A|  20 20 20 20 20 20 20 20
+      |002612|6612|  20 20 20 20 20 20 20 20
+      |00261A|661A|  20 20 20 20 20 20 20 20
+      |002622|6622|  20 20 20 20 20 20 20 20
+      |00262A|662A|  20 20 20 20 20 20 20 20
+      |002632|6632|  20 20 20 20 20 20 20 20
+      |00263A|663A|  20 20 20 20 20 20 20 20
+      |002642|6642|  20 20 20 20 20 20 20 20
+      |00264A|664A|  20 20 20 20 20 20 20 20
+      |002652|6652|  20 20 20 20 20 20 20 20
+      |00265A|665A|  20 20 20 20 20 20 20 20
+      |002662|6662|  20 20 20 20 20 20 20 20
+      |00266A|666A|  20 20 20 20 20 20 20 20
+      |002672|6672|  20 20 20 20 20 20 20 20
+      |00267A|667A|  20 20 20 20 20 20 20 20
+      |002682|6682|  20 20 20 20 20 20 20 20
+      |00268A|668A|  20 20 20 20 20 20 20 20
+      |002692|6692|  20 20 20 20 20 20 20 20
+      |00269A|669A|  20 20 20 20 20 20 20 20
+      |0026A2|66A2|  20 20 20 20 20 20 20 20
+      |0026AA|66AA|  20 20 20 20 20 20 20 20
+      |0026B2|66B2|  20 20 20 20 20 20 20 20
+      |0026BA|66BA|  20 20 20 20 20 20 20 20
+      |0026C2|66C2|  20 20 20 20 20 20 20 20
+      |0026CA|66CA|  20 20 20 20 20 20 20 20
+      |0026D2|66D2|  20 20 20 20 20 20 20 20
+      |0026DA|66DA|  20 20 20 20 20 20 20 20
+      |0026E2|66E2|  20 20 20 20 20 20 20 20
+      |0026EA|66EA|  20 20 20 20 20 20 20 20
+      |0026F2|66F2|  20 20 20 20 20 20 20 20
+      |0026FA|66FA|  20 20 20 20 20 20 20 20
+      |002702|6702|  20 20 20 20 20 20 20 20
+      |00270A|670A|  20 20 20 20 20 20 20 20
+      |002712|6712|  20 20 20 20 20 20 20 20
+      |00271A|671A|  20 20 20 20 20 20 20 20
+      |002722|6722|  20 20 20 20 20 20 20 20
+      |00272A|672A|  20 20 20 20 20 20 20 20
+      |002732|6732|  20 20 20 20 20 20 20 20
+      |00273A|673A|  20 20 20 20 20 20 20 20
+      |002742|6742|  20 20 20 20 20 20 20 20
+      |00274A|674A|  20 20 20 20 20 20 20 20
+      |002752|6752|  20 20 20 20 20 20 20 20
+      |00275A|675A|  20 20 20 20 20 20 20 20
+      |002762|6762|  20 20 20 20 20 20 20 20
+      |00276A|676A|  20 20 20 20 20 20 20 20
+      |002772|6772|  20 20 20 20 20 20 20 20
+      |00277A|677A|  20 20 20 20 20 20 20 20
+      |002782|6782|  20 20 20 20 20 20 20 20
+      |00278A|678A|  20 20 20 20 20 20 20 20
+      |002792|6792|  20 20 20 20 20 20 20 20
+      |00279A|679A|  20 20 20 20 20 20 20 20
+      |0027A2|67A2|  20 20 20 20 20 20 20 20
+      |0027AA|67AA|  20 20 20 20 20 20 20 20
+      |0027B2|67B2|  20 20 20 20 20 20 20 20
+      |0027BA|67BA|  20 20 20 20 20 20 20 20
+      |0027C2|67C2|  20 20 20 20 20 20 20 20
+      |0027CA|67CA|  20 20 20 20 20 20 20 20
+      |0027D2|67D2|  20 20 20 20 20 20 20 20
+      |0027DA|67DA|  20 20 20 20 20 20 20 20
+      |0027E2|67E2|  20 20 20 20 20 20 20 20
+      |0027EA|67EA|  20 20 20 20 20 20 20 20
+      |0027F2|67F2|  20 20 20 20 20 20 20 20
+      |0027FA|67FA|  20 20 20 20 20 20 20 20
+      |002802|6802|  20 20 20 20 20 20 20 20
+      |00280A|680A|  20 20 20 20 20 20 20 20
+      |002812|6812|  20 20 20 20 20 20 20 20
+      |00281A|681A|  20 20 20 20 20 20 20 20
+      |002822|6822|  20 20 20 20 20 20 20 20
+      |00282A|682A|  20 20 20 20 20 20 20 20
+      |002832|6832|  20 20 20 20 20 20 20 20
+      |00283A|683A|  20 20 20 20 20 20 20 20
+      |002842|6842|  20 20 20 20 20 20 20 20
+      |00284A|684A|  20 20 20 20 20 20 20 20
+      |002852|6852|  20 20 20 20 20 20 20 20
+      |00285A|685A|  20 20 20 20 20 20 20 20
+      |002862|6862|  20 20 20 20 20 20 20 20
+      |00286A|686A|  20 20 20 20 20 20 20 20
+      |002872|6872|  20 20 20 20 20 20 20 20
+      |00287A|687A|  20 20 20 20 20 20 20 20
+      |002882|6882|  20 20 20 20 20 20 20 20
+      |00288A|688A|  20 20 20 20 20 20 20 20
+      |002892|6892|  20 20 20 20 20 20 20 20
+      |00289A|689A|  20 20 20 20 20 20 20 20
+      |0028A2|68A2|  20 20 20 20 20 20 20 20
+      |0028AA|68AA|  20 20 20 20 20 20 20 20
+      |0028B2|68B2|  20 20 20 20 20 20 20 20
+      |0028BA|68BA|  20 20 20 20 20 20 20 20
+      |0028C2|68C2|  20 20 20 20 20 20 20 20
+      |0028CA|68CA|  20 20 20 20 20 20 20 20
+      |0028D2|68D2|  20 20 20 20 20 20 20 20
+      |0028DA|68DA|  20 20 20 20 20 20 20 20
+      |0028E2|68E2|  20 20 20 20 20 20 20 20
+      |0028EA|68EA|  20 20 20 20 20 20 20 20
+      |0028F2|68F2|  20 20 20 20 20 20 20 20
+      |0028FA|68FA|  20 20 20 20 20 20 20 20
+      |002902|6902|  20 20 20 20 20 20 20 20
+      |00290A|690A|  20 20 20 20 20 20 20 20
+      |002912|6912|  20 20 20 20 20 20 20 20
+      |00291A|691A|  20 20 20 20 20 20 20 20
+      |002922|6922|  20 20 20 20 20 20 20 20
+      |00292A|692A|  20 20 20 20 20 20 20 20
+      |002932|6932|  20 20 20 20 20 20 20 20
+      |00293A|693A|  20 20 20 20 20 20 20 20
+      |002942|6942|  20 20 20 20 20 20 20 20
+      |00294A|694A|  20 20 20 20 20 20 20 20
+      |002952|6952|  20 20 20 20 20 20 20 20
+      |00295A|695A|  20 20 20 20 20 20 20 20
+      |002962|6962|  20 20 20 20 20 20 20 20
+      |00296A|696A|  20 20 20 20 20 20 20 20
+      |002972|6972|  20 20 20 20 20 20 20 20
+      |00297A|697A|  20 20 20 20 20 20 20 20
+      |002982|6982|  20 20 20 20 20 20 20 20
+      |00298A|698A|  20 20 20 20 20 20 20 20
+      |002992|6992|  20 20 20 20 20 20 20 20
+      |00299A|699A|  20 20 20 20 20 20 20 20
+      |0029A2|69A2|  20 20 20 20 20 20 20 20
+      |0029AA|69AA|  20 20 20 20 20 20 20 20
+      |0029B2|69B2|  20 20 20 20 20 20 20 20
+      |0029BA|69BA|  20 20 20 20 20 20 20 20
+      |0029C2|69C2|  20 20 20 20 20 20 20 20
+      |0029CA|69CA|  20 20 20 20 20 20 20 20
+      |0029D2|69D2|  20 20 20 20 20 20 20 20
+      |0029DA|69DA|  20 20 20 20 20 20 20 20
+      |0029E2|69E2|  20 20 20 20 20 20 20 20
+      |0029EA|69EA|  20 20 20 20 20 20 20 20
+      |0029F2|69F2|  20 20 20 20 20 20 20 20
+      |0029FA|69FA|  20 20 20 20 20 20 20 20
+      |002A02|6A02|  20 20 20 20 20 20 20 20
+      |002A0A|6A0A|  20 20 20 20 20 20 20 20
+      |002A12|6A12|  20 20 20 20 20 20 20 20
+      |002A1A|6A1A|  20 20 20 20 20 20 20 20
+      |002A22|6A22|  20 20 20 20 20 20 20 20
+      |002A2A|6A2A|  20 20 20 20 20 20 20 20
+      |002A32|6A32|  20 20 20 20 20 20 20 20
+      |002A3A|6A3A|  20 20 20 20 20 20 20 20
+      |002A42|6A42|  20 20 20 20 20 20 20 20
+      |002A4A|6A4A|  20 20 20 20 20 20 20 20
+      |002A52|6A52|  20 20 20 20 20 20 20 20
+      |002A5A|6A5A|  20 20 20 20 20 20 20 20
+      |002A62|6A62|  20 20 20 20 20 20 20 20
+      |002A6A|6A6A|  20 20 20 20 20 20 20 20
+      |002A72|6A72|  20 20 20 20 20 20 20 20
+      |002A7A|6A7A|  20 20 20 20 20 20 20 20
+      |002A82|6A82|  20 20 20 20 20 20 20 20
+      |002A8A|6A8A|  20 20 20 20 20 20 20 20
+      |002A92|6A92|  20 20 20 20 20 20 20 20
+      |002A9A|6A9A|  20 20 20 20 20 20 20 20
+      |002AA2|6AA2|  20 20 20 20 20 20 20 20
+      |002AAA|6AAA|  20 20 20 20 20 20 20 20
+      |002AB2|6AB2|  20 20 20 20 20 20 20 20
+      |002ABA|6ABA|  20 20 20 20 20 20 20 20
+      |002AC2|6AC2|  20 20 20 20 20 20 20 20
+      |002ACA|6ACA|  20 20 20 20 20 20 20 20
+      |002AD2|6AD2|  20 20 20 20 20 20 20 20
+      |002ADA|6ADA|  20 20 20 20 20 20 20 20
+      |002AE2|6AE2|  20 20 20 20 20 20 20 20
+      |002AEA|6AEA|  20 20 20 20 20 20 20 20
+      |002AF2|6AF2|  20 20 20 20 20 20 20 20
+      |002AFA|6AFA|  20 20 20 20 20 20 20 20
+      |002B02|6B02|  20 20 20 20 20 20 20 20
+      |002B0A|6B0A|  20 20 20 20 20 20 20 20
+      |002B12|6B12|  20 20 20 20 20 20 20 20
+      |002B1A|6B1A|  20 20 20 20 20 20 20 20
+      |002B22|6B22|  20 20 20 20 20 20 20 20
+      |002B2A|6B2A|  20 20 20 20 20 20 20 20
+      |002B32|6B32|  20 20 20 20 20 20 20 20
+      |002B3A|6B3A|  20 20 20 20 20 20 20 20
+      |002B42|6B42|  20 20 20 20 20 20 20 20
+      |002B4A|6B4A|  20 20 20 20 20 20 20 20
+      |002B52|6B52|  20 20 20 20 20 20 20 20
+      |002B5A|6B5A|  20 20 20 20 20 20 20 20
+      |002B62|6B62|  20 20 20 20 20 20 20 20
+      |002B6A|6B6A|  20 20 20 20 20 20 20 20
+      |002B72|6B72|  20 20 20 20 20 20 20 20
+      |002B7A|6B7A|  20 20 20 20 20 20 20 20
+      |002B82|6B82|  20 20 20 20 20 20 20 20
+      |002B8A|6B8A|  20 20 20 20 20 20 20 20
+      |002B92|6B92|  20 20 20 20 20 20 20 20
+      |002B9A|6B9A|  20 20 20 20 20 20 20 20
+      |002BA2|6BA2|  20 20 20 20 20 20 20 20
+      |002BAA|6BAA|  20 20 20 20 20 20 20 20
+      |002BB2|6BB2|  20 20 20 20 20 20 20 20
+      |002BBA|6BBA|  20 20 20 20 20 20 20 20
+      |002BC2|6BC2|  20 20 20 20 20 20 20 20
+      |002BCA|6BCA|  20 20 20 20 20 20 20 20
+      |002BD2|6BD2|  20 20 20 20 20 20 20 20
+      |002BDA|6BDA|  20 20 20 20 20 20 20 20
+      |002BE2|6BE2|  20 20 20 20 20 20 20 20
+      |002BEA|6BEA|  20 20 20 20 20 20 20 20
+      |002BF2|6BF2|  20 20 20 20 20 20 20 20
+      |002BFA|6BFA|  20 20 20 20 20 20 20 20
+      |002C02|6C02|  20 20 20 20 20 20 20 20
+      |002C0A|6C0A|  20 20 20 20 20 20 20 20
+      |002C12|6C12|  20 20 20 20 20 20 20 20
+      |002C1A|6C1A|  20 20 20 20 20 20 20 20
+      |002C22|6C22|  20 20 20 20 20 20 20 20
+      |002C2A|6C2A|  20 20 20 20 20 20 20 20
+      |002C32|6C32|  20 20 20 20 20 20 20 20
+      |002C3A|6C3A|  20 20 20 20 20 20 20 20
+      |002C42|6C42|  20 20 20 20 20 20 20 20
+      |002C4A|6C4A|  20 20 20 20 20 20 20 20
+      |002C52|6C52|  20 20 20 20 20 20 20 20
+      |002C5A|6C5A|  20 20 20 20 20 20 20 20
+      |002C62|6C62|  20 20 20 20 20 20 20 20
+      |002C6A|6C6A|  20 20 20 20 20 20 20 20
+      |002C72|6C72|  20 20 20 20 20 20 20 20
+      |002C7A|6C7A|  20 20 20 20 20 20 20 20
+      |002C82|6C82|  20 20 20 20 20 20 20 20
+      |002C8A|6C8A|  20 20 20 20 20 20 20 20
+      |002C92|6C92|  20 20 20 20 20 20 20 20
+      |002C9A|6C9A|  20 20 20 20 20 20 20 20
+      |002CA2|6CA2|  20 20 20 20 20 20 20 20
+      |002CAA|6CAA|  20 20 20 20 20 20 20 20
+      |002CB2|6CB2|  20 20 20 20 20 20 20 20
+      |002CBA|6CBA|  20 20 20 20 20 20 20 20
+      |002CC2|6CC2|  20 20 20 20 20 20 20 20
+      |002CCA|6CCA|  20 20 20 20 20 20 20 20
+      |002CD2|6CD2|  20 20 20 20 20 20 20 20
+      |002CDA|6CDA|  20 20 20 20 20 20 20 20
+      |002CE2|6CE2|  20 20 20 20 20 20 20 20
+      |002CEA|6CEA|  20 20 20 20 20 20 20 20
+      |002CF2|6CF2|  20 20 20 20 20 20 20 20
+      |002CFA|6CFA|  20 20 20 20 20 20 20 20
+      |002D02|6D02|  20 20 20 20 20 20 20 20
+      |002D0A|6D0A|  20 20 20 20 20 20 20 20
+      |002D12|6D12|  20 20 20 20 20 20 20 20
+      |002D1A|6D1A|  20 20 20 20 20 20 20 20
+      |002D22|6D22|  20 20 20 20 20 20 20 20
+      |002D2A|6D2A|  20 20 20 20 20 20 20 20
+      |002D32|6D32|  20 20 20 20 20 20 20 20
+      |002D3A|6D3A|  20 20 20 20 20 20 20 20
+      |002D42|6D42|  20 20 20 20 20 20 20 20
+      |002D4A|6D4A|  20 20 20 20 20 20 20 20
+      |002D52|6D52|  20 20 20 20 20 20 20 20
+      |002D5A|6D5A|  20 20 20 20 20 20 20 20
+      |002D62|6D62|  20 20 20 20 20 20 20 20
+      |002D6A|6D6A|  20 20 20 20 20 20 20 20
+      |002D72|6D72|  20 20 20 20 20 20 20 20
+      |002D7A|6D7A|  20 20 20 20 20 20 20 20
+      |002D82|6D82|  20 20 20 20 20 20 20 20
+      |002D8A|6D8A|  20 20 20 20 20 20 20 20
+      |002D92|6D92|  20 20 20 20 20 20 20 20
+      |002D9A|6D9A|  20 20 20 20 20 20 20 20
+      |002DA2|6DA2|  20 20 20 20 20 20 20 20
+      |002DAA|6DAA|  20 20 20 20 20 20 20 20
+      |002DB2|6DB2|  20 20 20 20 20 20 20 20
+      |002DBA|6DBA|  20 20 20 20 20 20 20 20
+      |002DC2|6DC2|  20 20 20 20 20 20 20 20
+      |002DCA|6DCA|  20 20 20 20 20 20 20 20
+      |002DD2|6DD2|  20 20 20 20 20 20 20 20
+      |002DDA|6DDA|  20 20 20 20 20 20 20 20
+      |002DE2|6DE2|  20 20 20 20 20 20 20 20
+      |002DEA|6DEA|  20 20 20 20 20 20 20 20
+      |002DF2|6DF2|  20 20 20 20 20 20 20 20
+      |002DFA|6DFA|  20 20 20 20 20 20 20 20
+      |002E02|6E02|  20 20 20 20 20 20 20 20
+      |002E0A|6E0A|  20 20 20 20 20 20 20 20
+      |002E12|6E12|  20 20 20 20 20 20 20 20
+      |002E1A|6E1A|  20 20 20 20 20 20 20 20
+      |002E22|6E22|  20 20 20 20 20 20 20 20
+      |002E2A|6E2A|  20 20 20 20 20 20 20 20
+      |002E32|6E32|  20 20 20 20 20 20 20 20
+      |002E3A|6E3A|  20 20 20 20 20 20 20 20
+      |002E42|6E42|  20 20 20 20 20 20 20 20
+      |002E4A|6E4A|  20 20 20 20 20 20 20 20
+      |002E52|6E52|  20 20 20 20 20 20 20 20
+      |002E5A|6E5A|  20 20 20 20 20 20 20 20
+      |002E62|6E62|  20 20 20 20 20 20 20 20
+      |002E6A|6E6A|  20 20 20 20 20 20 20 20
+      |002E72|6E72|  20 20 20 20 20 20 20 20
+      |002E7A|6E7A|  20 20 20 20 20 20 20 20
+      |002E82|6E82|  20 20 20 20 20 20 20 20
+      |002E8A|6E8A|  20 20 20 20 20 20 20 20
+      |002E92|6E92|  20 20 20 20 20 20 20 20
+      |002E9A|6E9A|  20 20 20 20 20 20 20 20
+      |002EA2|6EA2|  20 20 20 20 20 20 20 20
+      |002EAA|6EAA|  20 20 20 20 20 20 20 20
+      |002EB2|6EB2|  20 20 20 20 20 20 20 20
+      |002EBA|6EBA|  20 20 20 20 20 20 20 20
+      |002EC2|6EC2|  20 20 20 20 20 20 20 20
+      |002ECA|6ECA|  20 20 20 20 20 20 20 20
+      |002ED2|6ED2|  20 20 20 20 20 20 20 20
+      |002EDA|6EDA|  20 20 20 20 20 20 20 20
+      |002EE2|6EE2|  20 20 20 20 20 20 20 20
+      |002EEA|6EEA|  20 20 20 20 20 20 20 20
+      |002EF2|6EF2|  20 20 20 20 20 20 20 20
+      |002EFA|6EFA|  20 20 20 20 20 20 20 20
+      |002F02|6F02|  20 20 20 20 20 20 20 20
+      |002F0A|6F0A|  20 20 20 20 20 20 20 20
+      |002F12|6F12|  20 20 20 20 20 20 20 20
+      |002F1A|6F1A|  20 20 20 20 20 20 20 20
+      |002F22|6F22|  20 20 20 20 20 20 20 20
+      |002F2A|6F2A|  20 20 20 20 20 20 20 20
+      |002F32|6F32|  20 20 20 20 20 20 20 20
+      |002F3A|6F3A|  20 20 20 20 20 20 20 20
+      |002F42|6F42|  20 20 20 20 20 20 20 20
+      |002F4A|6F4A|  20 20 20 20 20 20 20 20
+      |002F52|6F52|  20 20 20 20 20 20 20 20
+      |002F5A|6F5A|  20 20 20 20 20 20 20 20
+      |002F62|6F62|  20 20 20 20 20 20 20 20
+      |002F6A|6F6A|  20 20 20 20 20 20 20 20
+      |002F72|6F72|  20 20 20 20 20 20 20 20
+      |002F7A|6F7A|  20 20 20 20 20 20 20 20
+      |002F82|6F82|  20 20 20 20 20 20 20 20
+      |002F8A|6F8A|  20 20 20 20 20 20 20 20
+      |002F92|6F92|  20 20 20 20 20 20 20 20
+      |002F9A|6F9A|  20 20 20 20 20 20 20 20
+      |002FA2|6FA2|  20 20 20 20 20 20 20 20
+      |002FAA|6FAA|  20 20 20 20 20 20 20 20
+      |002FB2|6FB2|  20 20 20 20 20 20 20 20
+      |002FBA|6FBA|  20 20 20 20 20 20 20 20
+      |002FC2|6FC2|  20 20 20 20 20 20 20 20
+      |002FCA|6FCA|  20 20 20 20 20 20 20 20
+      |002FD2|6FD2|  20 20 20 20 20 20 20 20
+      |002FDA|6FDA|  20 20 20 20 20 20 20 20
+      |002FE2|6FE2|  20 20 20 20 20 20 20 20
+      |002FEA|6FEA|  20 20 20 20 20 20 20 20
+      |002FF2|6FF2|  20 20 20 20 20 20 20 20
+      |002FFA|6FFA|  20 20 20 20 20 20 20 20
+      |003002|7002|  20 20 20 20 20 20 20 20
+      |00300A|700A|  20 20 20 20 20 20 20 20
+      |003012|7012|  20 20 20 20 20 20 20 20
+      |00301A|701A|  20 20 20 20 20 20 20 20
+      |003022|7022|  20 20 20 20 20 20 20 20
+      |00302A|702A|  20 20 20 20 20 20 20 20
+      |003032|7032|  20 20 20 20 20 20 20 20
+      |00303A|703A|  20 20 20 20 20 20 20 20
+      |003042|7042|  20 20 20 20 20 20 20 20
+      |00304A|704A|  20 20 20 20 20 20 20 20
+      |003052|7052|  20 20 20 20 20 20 20 20
+      |00305A|705A|  20 20 20 20 20 20 20 20
+      |003062|7062|  20 20 20 20 20 20 20 20
+      |00306A|706A|  20 20 20 20 20 20 20 20
+      |003072|7072|  20 20 20 20 20 20 20 20
+      |00307A|707A|  20 20 20 20 20 20 20 20
+      |003082|7082|  20 20 20 20 20 20 20 20
+      |00308A|708A|  20 20 20 20 20 20 20 20
+      |003092|7092|  20 20 20 20 20 20 20 20
+      |00309A|709A|  20 20 20 20 20 20 20 20
+      |0030A2|70A2|  20 20 20 20 20 20 20 20
+      |0030AA|70AA|  20 20 20 20 20 20 20 20
+      |0030B2|70B2|  20 20 20 20 20 20 20 20
+      |0030BA|70BA|  20 20 20 20 20 20 20 20
+      |0030C2|70C2|  20 20 20 20 20 20 20 20
+      |0030CA|70CA|  20 20 20 20 20 20 20 20
+      |0030D2|70D2|  20 20 20 20 20 20 20 20
+      |0030DA|70DA|  20 20 20 20 20 20 20 20
+      |0030E2|70E2|  20 20 20 20 20 20 20 20
+      |0030EA|70EA|  20 20 20 20 20 20 20 20
+      |0030F2|70F2|  20 20 20 20 20 20 20 20
+      |0030FA|70FA|  20 20 20 20 20 20 20 20
+      |003102|7102|  20 20 20 20 20 20 20 20
+      |00310A|710A|  20 20 20 20 20 20 20 20
+      |003112|7112|  20 20 20 20 20 20 20 20
+      |00311A|711A|  20 20 20 20 20 20 20 20
+      |003122|7122|  20 20 20 20 20 20 20 20
+      |00312A|712A|  20 20 20 20 20 20 20 20
+      |003132|7132|  20 20 20 20 20 20 20 20
+      |00313A|713A|  20 20 20 20 20 20 20 20
+      |003142|7142|  20 20 20 20 20 20 20 20
+      |00314A|714A|  20 20 20 20 20 20 20 20
+      |003152|7152|  20 20 20 20 20 20 20 20
+      |00315A|715A|  20 20 20 20 20 20 20 20
+      |003162|7162|  20 20 20 20 20 20 20 20
+      |00316A|716A|  20 20 20 20 20 20 20 20
+      |003172|7172|  20 20 20 20 20 20 20 20
+      |00317A|717A|  20 20 20 20 20 20 20 20
+      |003182|7182|  20 20 20 20 20 20 20 20
+      |00318A|718A|  20 20 20 20 20 20 20 20
+      |003192|7192|  20 20 20 20 20 20 20 20
+      |00319A|719A|  20 20 20 20 20 20 20 20
+      |0031A2|71A2|  20 20 20 20 20 20 20 20
+      |0031AA|71AA|  20 20 20 20 20 20 20 20
+      |0031B2|71B2|  20 20 20 20 20 20 20 20
+      |0031BA|71BA|  20 20 20 20 20 20 20 20
+      |0031C2|71C2|  20 20 20 20 20 20 20 20
+      |0031CA|71CA|  20 20 20 20 20 20 20 20
+      |0031D2|71D2|  20 20 20 20 20 20 20 20
+      |0031DA|71DA|  20 20 20 20 20 20 20 20
+      |0031E2|71E2|  20 20 20 20 20 20 20 20
+      |0031EA|71EA|  20 20 20 20 20 20 20 20
+      |0031F2|71F2|  20 20 20 20 20 20 20 20
+      |0031FA|71FA|  20 20 20 20 20 20 20 20
+      |003202|7202|  20 20 20 20 20 20 20 20
+      |00320A|720A|  20 20 20 20 20 20 20 20
+      |003212|7212|  20 20 20 20 20 20 20 20
+      |00321A|721A|  20 20 20 20 20 20 20 20
+      |003222|7222|  20 20 20 20 20 20 20 20
+      |00322A|722A|  20 20 20 20 20 20 20 20
+      |003232|7232|  20 20 20 20 20 20 20 20
+      |00323A|723A|  20 20 20 20 20 20 20 20
+      |003242|7242|  20 20 20 20 20 20 20 20
+      |00324A|724A|  20 20 20 20 20 20 20 20
+      |003252|7252|  20 20 20 20 20 20 20 20
+      |00325A|725A|  20 20 20 20 20 20 20 20
+      |003262|7262|  20 20 20 20 20 20 20 20
+      |00326A|726A|  20 20 20 20 20 20 20 20
+      |003272|7272|  20 20 20 20 20 20 20 20
+      |00327A|727A|  20 20 20 20 20 20 20 20
+      |003282|7282|  20 20 20 20 20 20 20 20
+      |00328A|728A|  20 20 20 20 20 20 20 20
+      |003292|7292|  20 20 20 20 20 20 20 20
+      |00329A|729A|  20 20 20 20 20 20 20 20
+      |0032A2|72A2|  20 20 20 20 20 20 20 20
+      |0032AA|72AA|  20 20 20 20 20 20 20 20
+      |0032B2|72B2|  20 20 20 20 20 20 20 20
+      |0032BA|72BA|  20 20 20 20 20 20 20 20
+      |0032C2|72C2|  20 20 20 20 20 20 20 20
+      |0032CA|72CA|  20 20 20 20 20 20 20 20
+      |0032D2|72D2|  20 20 20 20 20 20 20 20
+      |0032DA|72DA|  20 20 20 20 20 20 20 20
+      |0032E2|72E2|  20 20 20 20 20 20 20 20
+      |0032EA|72EA|  20 20 20 20 20 20 20 20
+      |0032F2|72F2|  20 20 20 20 20 20 20 20
+      |0032FA|72FA|  20 20 20 20 20 20 20 20
+      |003302|7302|  20 20 20 20 20 20 20 20
+      |00330A|730A|  20 20 20 20 20 20 20 20
+      |003312|7312|  20 20 20 20 20 20 20 20
+      |00331A|731A|  20 20 20 20 20 20 20 20
+      |003322|7322|  20 20 20 20 20 20 20 20
+      |00332A|732A|  20 20 20 20 20 20 20 20
+      |003332|7332|  20 20 20 20 20 20 20 20
+      |00333A|733A|  20 20 20 20 20 20 20 20
+      |003342|7342|  20 20 20 20 20 20 20 20
+      |00334A|734A|  20 20 20 20 20 20 20 20
+      |003352|7352|  20 20 20 20 20 20 20 20
+      |00335A|735A|  20 20 20 20 20 20 20 20
+      |003362|7362|  20 20 20 20 20 20 20 20
+      |00336A|736A|  20 20 20 20 20 20 20 20
+      |003372|7372|  20 20 20 20 20 20 20 20
+      |00337A|737A|  20 20 20 20 20 20 20 20
+      |003382|7382|  20 20 20 20 20 20 20 20
+      |00338A|738A|  20 20 20 20 20 20 20 20
+      |003392|7392|  20 20 20 20 20 20 20 20
+      |00339A|739A|  20 20 20 20 20 20 20 20
+      |0033A2|73A2|  20 20 20 20 20 20 20 20
+      |0033AA|73AA|  20 20 20 20 20 20 20 20
+      |0033B2|73B2|  20 20 20 20 20 20 20 20
+      |0033BA|73BA|  20 20 20 20 20 20 20 20
+      |0033C2|73C2|  20 20 20 20 20 20 20 20
+      |0033CA|73CA|  20 20 20 20 20 20 20 20
+      |0033D2|73D2|  20 20 20 20 20 20 20 20
+      |0033DA|73DA|  20 20 20 20 20 20 20 20
+      |0033E2|73E2|  20 20 20 20 20 20 20 20
+      |0033EA|73EA|  20 20 20 20 20 20 20 20
+      |0033F2|73F2|  20 20 20 20 20 20 20 20
+      |0033FA|73FA|  20 20 20 20 20 20 20 20
+      |003402|7402|  20 20 20 20 20 20 20 20
+      |00340A|740A|  20 20 20 20 20 20 20 20
+      |003412|7412|  20 20 20 20 20 20 20 20
+      |00341A|741A|  20 20 20 20 20 20 20 20
+      |003422|7422|  20 20 20 20 20 20 20 20
+      |00342A|742A|  20 20 20 20 20 20 20 20
+      |003432|7432|  20 20 20 20 20 20 20 20
+      |00343A|743A|  20 20 20 20 20 20 20 20
+      |003442|7442|  20 20 20 20 20 20 20 20
+      |00344A|744A|  20 20 20 20 20 20 20 20
+      |003452|7452|  20 20 20 20 20 20 20 20
+      |00345A|745A|  20 20 20 20 20 20 20 20
+      |003462|7462|  20 20 20 20 20 20 20 20
+      |00346A|746A|  20 20 20 20 20 20 20 20
+      |003472|7472|  20 20 20 20 20 20 20 20
+      |00347A|747A|  20 20 20 20 20 20 20 20
+      |003482|7482|  20 20 20 20 20 20 20 20
+      |00348A|748A|  20 20 20 20 20 20 20 20
+      |003492|7492|  20 20 20 20 20 20 20 20
+      |00349A|749A|  20 20 20 20 20 20 20 20
+      |0034A2|74A2|  20 20 20 20 20 20 20 20
+      |0034AA|74AA|  20 20 20 20 20 20 20 20
+      |0034B2|74B2|  20 20 20 20 20 20 20 20
+      |0034BA|74BA|  20 20 20 20 20 20 20 20
+      |0034C2|74C2|  20 20 20 20 20 20 20 20
+      |0034CA|74CA|  20 20 20 20 20 20 20 20
+      |0034D2|74D2|  20 20 20 20 20 20 20 20
+      |0034DA|74DA|  20 20 20 20 20 20 20 20
+      |0034E2|74E2|  20 20 20 20 20 20 20 20
+      |0034EA|74EA|  20 20 20 20 20 20 20 20
+      |0034F2|74F2|  20 20 20 20 20 20 20 20
+      |0034FA|74FA|  20 20 20 20 20 20 20 20
+      |003502|7502|  20 20 20 20 20 20 20 20
+      |00350A|750A|  20 20 20 20 20 20 20 20
+      |003512|7512|  20 20 20 20 20 20 20 20
+      |00351A|751A|  20 20 20 20 20 20 20 20
+      |003522|7522|  20 20 20 20 20 20 20 20
+      |00352A|752A|  20 20 20 20 20 20 20 20
+      |003532|7532|  20 20 20 20 20 20 20 20
+      |00353A|753A|  20 20 20 20 20 20 20 20
+      |003542|7542|  20 20 20 20 20 20 20 20
+      |00354A|754A|  20 20 20 20 20 20 20 20
+      |003552|7552|  20 20 20 20 20 20 20 20
+      |00355A|755A|  20 20 20 20 20 20 20 20
+      |003562|7562|  20 20 20 20 20 20 20 20
+      |00356A|756A|  20 20 20 20 20 20 20 20
+      |003572|7572|  20 20 20 20 20 20 20 20
+      |00357A|757A|  20 20 20 20 20 20 20 20
+      |003582|7582|  20 20 20 20 20 20 20 20
+      |00358A|758A|  20 20 20 20 20 20 20 20
+      |003592|7592|  20 20 20 20 20 20 20 20
+      |00359A|759A|  20 20 20 20 20 20 20 20
+      |0035A2|75A2|  20 20 20 20 20 20 20 20
+      |0035AA|75AA|  20 20 20 20 20 20 20 20
+      |0035B2|75B2|  20 20 20 20 20 20 20 20
+      |0035BA|75BA|  20 20 20 20 20 20 20 20
+      |0035C2|75C2|  20 20 20 20 20 20 20 20
+      |0035CA|75CA|  20 20 20 20 20 20 20 20
+      |0035D2|75D2|  20 20 20 20 20 20 20 20
+      |0035DA|75DA|  20 20 20 20 20 20 20 20
+      |0035E2|75E2|  20 20 20 20 20 20 20 20
+      |0035EA|75EA|  20 20 20 20 20 20 20 20
+      |0035F2|75F2|  20 20 20 20 20 20 20 20
+      |0035FA|75FA|  20 20 20 20 20 20 20 20
+      |003602|7602|  20 20 20 20 20 20 20 20
+      |00360A|760A|  20 20 20 20 20 20 20 20
+      |003612|7612|  20 20 20 20 20 20 20 20
+      |00361A|761A|  20 20 20 20 20 20 20 20
+      |003622|7622|  20 20 20 20 20 20 20 20
+      |00362A|762A|  20 20 20 20 20 20 20 20
+      |003632|7632|  20 20 20 20 20 20 20 20
+      |00363A|763A|  20 20 20 20 20 20 20 20
+      |003642|7642|  20 20 20 20 20 20 20 20
+      |00364A|764A|  20 20 20 20 20 20 20 20
+      |003652|7652|  20 20 20 20 20 20 20 20
+      |00365A|765A|  20 20 20 20 20 20 20 20
+      |003662|7662|  20 20 20 20 20 20 20 20
+      |00366A|766A|  20 20 20 20 20 20 20 20
+      |003672|7672|  20 20 20 20 20 20 20 20
+      |00367A|767A|  20 20 20 20 20 20 20 20
+      |003682|7682|  20 20 20 20 20 20 20 20
+      |00368A|768A|  20 20 20 20 20 20 20 20
+      |003692|7692|  20 20 20 20 20 20 20 20
+      |00369A|769A|  20 20 20 20 20 20 20 20
+      |0036A2|76A2|  20 20 20 20 20 20 20 20
+      |0036AA|76AA|  20 20 20 20 20 20 20 20
+      |0036B2|76B2|  20 20 20 20 20 20 20 20
+      |0036BA|76BA|  20 20 20 20 20 20 20 20
+      |0036C2|76C2|  20 20 20 20 20 20 20 20
+      |0036CA|76CA|  20 20 20 20 20 20 20 20
+      |0036D2|76D2|  20 20 20 20 20 20 20 20
+      |0036DA|76DA|  20 20 20 20 20 20 20 20
+      |0036E2|76E2|  20 20 20 20 20 20 20 20
+      |0036EA|76EA|  20 20 20 20 20 20 20 20
+      |0036F2|76F2|  20 20 20 20 20 20 20 20
+      |0036FA|76FA|  20 20 20 20 20 20 20 20
+      |003702|7702|  20 20 20 20 20 20 20 20
+      |00370A|770A|  20 20 20 20 20 20 20 20
+      |003712|7712|  20 20 20 20 20 20 20 20
+      |00371A|771A|  20 20 20 20 20 20 20 20
+      |003722|7722|  20 20 20 20 20 20 20 20
+      |00372A|772A|  20 20 20 20 20 20 20 20
+      |003732|7732|  20 20 20 20 20 20 20 20
+      |00373A|773A|  20 20 20 20 20 20 20 20
+      |003742|7742|  20 20 20 20 20 20 20 20
+      |00374A|774A|  20 20 20 20 20 20 20 20
+      |003752|7752|  20 20 20 20 20 20 20 20
+      |00375A|775A|  20 20 20 20 20 20 20 20
+      |003762|7762|  20 20 20 20 20 20 20 20
+      |00376A|776A|  20 20 20 20 20 20 20 20
+      |003772|7772|  20 20 20 20 20 20 20 20
+      |00377A|777A|  20 20 20 20 20 20 20 20
+      |003782|7782|  20 20 20 20 20 20 20 20
+      |00378A|778A|  20 20 20 20 20 20 20 20
+      |003792|7792|  20 20 20 20 20 20 20 20
+      |00379A|779A|  20 20 20 20 20 20 20 20
+      |0037A2|77A2|  20 20 20 20 20 20 20 20
+      |0037AA|77AA|  20 20 20 20 20 20 20 20
+      |0037B2|77B2|  20 20 20 20 20 20 20 20
+      |0037BA|77BA|  20 20 20 20 20 20 20 20
+      |0037C2|77C2|  20 20 20 20 20 20 20 20
+      |0037CA|77CA|  20 20 20 20 20 20 20 20
+      |0037D2|77D2|  20 20 20 20 20 20 20 20
+      |0037DA|77DA|  20 20 20 20 20 20 20 20
+      |0037E2|77E2|  20 20 20 20 20 20 20 20
+      |0037EA|77EA|  20 20 20 20 20 20 20 20
+      |0037F2|77F2|  20 20 20 20 20 20 20 20
+      |0037FA|77FA|  20 20 20 20 20 20 20 20
+      |003802|7802|  20 20 20 20 20 20 20 20
+      |00380A|780A|  20 20 20 20 20 20 20 20
+      |003812|7812|  20 20 20 20 20 20 20 20
+      |00381A|781A|  20 20 20 20 20 20 20 20
+      |003822|7822|  20 20 20 20 20 20 20 20
+      |00382A|782A|  20 20 20 20 20 20 20 20
+      |003832|7832|  20 20 20 20 20 20 20 20
+      |00383A|783A|  20 20 20 20 20 20 20 20
+      |003842|7842|  20 20 20 20 20 20 20 20
+      |00384A|784A|  20 20 20 20 20 20 20 20
+      |003852|7852|  20 20 20 20 20 20 20 20
+      |00385A|785A|  20 20 20 20 20 20 20 20
+      |003862|7862|  20 20 20 20 20 20 20 20
+      |00386A|786A|  20 20 20 20 20 20 20 20
+      |003872|7872|  20 20 20 20 20 20 20 20
+      |00387A|787A|  20 20 20 20 20 20 20 20
+      |003882|7882|  20 20 20 20 20 20 20 20
+      |00388A|788A|  20 20 20 20 20 20 20 20
+      |003892|7892|  20 20 20 20 20 20 20 20
+      |00389A|789A|  20 20 20 20 20 20 20 20
+      |0038A2|78A2|  20 20 20 20 20 20 20 20
+      |0038AA|78AA|  20 20 20 20 20 20 20 20
+      |0038B2|78B2|  20 20 20 20 20 20 20 20
+      |0038BA|78BA|  20 20 20 20 20 20 20 20
+      |0038C2|78C2|  20 20 20 20 20 20 20 20
+      |0038CA|78CA|  20 20 20 20 20 20 20 20
+      |0038D2|78D2|  20 20 20 20 20 20 20 20
+      |0038DA|78DA|  20 20 20 20 20 20 20 20
+      |0038E2|78E2|  20 20 20 20 20 20 20 20
+      |0038EA|78EA|  20 20 20 20 20 20 20 20
+      |0038F2|78F2|  20 20 20 20 20 20 20 20
+      |0038FA|78FA|  20 20 20 20 20 20 20 20
+      |003902|7902|  20 20 20 20 20 20 20 20
+      |00390A|790A|  20 20 20 20 20 20 20 20
+      |003912|7912|  20 20 20 20 20 20 20 20
+      |00391A|791A|  20 20 20 20 20 20 20 20
+      |003922|7922|  20 20 20 20 20 20 20 20
+      |00392A|792A|  20 20 20 20 20 20 20 20
+      |003932|7932|  20 20 20 20 20 20 20 20
+      |00393A|793A|  20 20 20 20 20 20 20 20
+      |003942|7942|  20 20 20 20 20 20 20 20
+      |00394A|794A|  20 20 20 20 20 20 20 20
+      |003952|7952|  20 20 20 20 20 20 20 20
+      |00395A|795A|  20 20 20 20 20 20 20 20
+      |003962|7962|  20 20 20 20 20 20 20 20
+      |00396A|796A|  20 20 20 20 20 20 20 20
+      |003972|7972|  20 20 20 20 20 20 20 20
+      |00397A|797A|  20 20 20 20 20 20 20 20
+      |003982|7982|  20 20 20 20 20 20 20 20
+      |00398A|798A|  20 20 20 20 20 20 20 20
+      |003992|7992|  20 20 20 20 20 20 20 20
+      |00399A|799A|  20 20 20 20 20 20 20 20
+      |0039A2|79A2|  20 20 20 20 20 20 20 20
+      |0039AA|79AA|  20 20 20 20 20 20 20 20
+      |0039B2|79B2|  20 20 20 20 20 20 20 20
+      |0039BA|79BA|  20 20 20 20 20 20 20 20
+      |0039C2|79C2|  20 20 20 20 20 20 20 20
+      |0039CA|79CA|  20 20 20 20 20 20 20 20
+      |0039D2|79D2|  20 20 20 20 20 20 20 20
+      |0039DA|79DA|  20 20 20 20 20 20 20 20
+      |0039E2|79E2|  20 20 20 20 20 20 20 20
+      |0039EA|79EA|  20 20 20 20 20 20 20 20
+      |0039F2|79F2|  20 20 20 20 20 20 20 20
+      |0039FA|79FA|  20 20 20 20 20 20 20 20
+      |003A02|7A02|  20 20 20 20 20 20 20 20
+      |003A0A|7A0A|  20 20 20 20 20 20 20 20
+      |003A12|7A12|  20 20 20 20 20 20 20 20
+      |003A1A|7A1A|  20 20 20 20 20 20 20 20
+      |003A22|7A22|  20 20 20 20 20 20 20 20
+      |003A2A|7A2A|  20 20 20 20 20 20 20 20
+      |003A32|7A32|  20 20 20 20 20 20 20 20
+      |003A3A|7A3A|  20 20 20 20 20 20 20 20
+      |003A42|7A42|  20 20 20 20 20 20 20 20
+      |003A4A|7A4A|  20 20 20 20 20 20 20 20
+      |003A52|7A52|  20 20 20 20 20 20 20 20
+      |003A5A|7A5A|  20 20 20 20 20 20 20 20
+      |003A62|7A62|  20 20 20 20 20 20 20 20
+      |003A6A|7A6A|  20 20 20 20 20 20 20 20
+      |003A72|7A72|  20 20 20 20 20 20 20 20
+      |003A7A|7A7A|  20 20 20 20 20 20 20 20
+      |003A82|7A82|  20 20 20 20 20 20 20 20
+      |003A8A|7A8A|  20 20 20 20 20 20 20 20
+      |003A92|7A92|  20 20 20 20 20 20 20 20
+      |003A9A|7A9A|  20 20 20 20 20 20 20 20
+      |003AA2|7AA2|  20 20 20 20 20 20 20 20
+      |003AAA|7AAA|  20 20 20 20 20 20 20 20
+      |003AB2|7AB2|  20 20 20 20 20 20 20 20
+      |003ABA|7ABA|  20 20 20 20 20 20 20 20
+      |003AC2|7AC2|  20 20 20 20 20 20 20 20
+      |003ACA|7ACA|  20 20 20 20 20 20 20 20
+      |003AD2|7AD2|  20 20 20 20 20 20 20 20
+      |003ADA|7ADA|  20 20 20 20 20 20 20 20
+      |003AE2|7AE2|  20 20 20 20 20 20 20 20
+      |003AEA|7AEA|  20 20 20 20 20 20 20 20
+      |003AF2|7AF2|  20 20 20 20 20 20 20 20
+      |003AFA|7AFA|  20 20 20 20 20 20 20 20
+      |003B02|7B02|  20 20 20 20 20 20 20 20
+      |003B0A|7B0A|  20 20 20 20 20 20 20 20
+      |003B12|7B12|  20 20 20 20 20 20 20 20
+      |003B1A|7B1A|  20 20 20 20 20 20 20 20
+      |003B22|7B22|  20 20 20 20 20 20 20 20
+      |003B2A|7B2A|  20 20 20 20 20 20 20 20
+      |003B32|7B32|  20 20 20 20 20 20 20 20
+      |003B3A|7B3A|  20 20 20 20 20 20 20 20
+      |003B42|7B42|  20 20 20 20 20 20 20 20
+      |003B4A|7B4A|  20 20 20 20 20 20 20 20
+      |003B52|7B52|  20 20 20 20 20 20 20 20
+      |003B5A|7B5A|  20 20 20 20 20 20 20 20
+      |003B62|7B62|  20 20 20 20 20 20 20 20
+      |003B6A|7B6A|  20 20 20 20 20 20 20 20
+      |003B72|7B72|  20 20 20 20 20 20 20 20
+      |003B7A|7B7A|  20 20 20 20 20 20 20 20
+      |003B82|7B82|  20 20 20 20 20 20 20 20
+      |003B8A|7B8A|  20 20 20 20 20 20 20 20
+      |003B92|7B92|  20 20 20 20 20 20 20 20
+      |003B9A|7B9A|  20 20 20 20 20 20 20 20
+      |003BA2|7BA2|  20 20 20 20 20 20 20 20
+      |003BAA|7BAA|  20 20 20 20 20 20 20 20
+      |003BB2|7BB2|  20 20 20 20 20 20 20 20
+      |003BBA|7BBA|  20 20 20 20 20 20 20 20
+      |003BC2|7BC2|  20 20 20 20 20 20 20 20
+      |003BCA|7BCA|  20 20 20 20 20 20 20 20
+      |003BD2|7BD2|  20 20 20 20 20 20 20 20
+      |003BDA|7BDA|  20 20 20 20 20 20 20 20
+      |003BE2|7BE2|  20 20 20 20 20 20 20 20
+      |003BEA|7BEA|  20 20 20 20 20 20 20 20
+      |003BF2|7BF2|  20 20 20 20 20 20 20 20
+      |003BFA|7BFA|  20 20 20 20 20 20 20 20
+      |003C02|7C02|  20 20 20 20 20 20 20 20
+      |003C0A|7C0A|  20 20 20 20 20 20 20 20
+      |003C12|7C12|  20 20 20 20 20 20 20 20
+      |003C1A|7C1A|  20 20 20 20 20 20 20 20
+      |003C22|7C22|  20 20 20 20 20 20 20 20
+      |003C2A|7C2A|  20 20 20 20 20 20 20 20
+      |003C32|7C32|  20 20 20 20 20 20 20 20
+      |003C3A|7C3A|  20 20 20 20 20 20 20 20
+      |003C42|7C42|  20 20 20 20 20 20 20 20
+      |003C4A|7C4A|  20 20 20 20 20 20 20 20
+      |003C52|7C52|  20 20 20 20 20 20 20 20
+      |003C5A|7C5A|  20 20 20 20 20 20 20 20
+      |003C62|7C62|  20 20 20 20 20 20 20 20
+      |003C6A|7C6A|  20 20 20 20 20 20 20 20
+      |003C72|7C72|  20 20 20 20 20 20 20 20
+      |003C7A|7C7A|  20 20 20 20 20 20 20 20
+      |003C82|7C82|  20 20 20 20 20 20 20 20
+      |003C8A|7C8A|  20 20 20 20 20 20 20 20
+      |003C92|7C92|  20 20 20 20 20 20 20 20
+      |003C9A|7C9A|  20 20 20 20 20 20 20 20
+      |003CA2|7CA2|  20 20 20 20 20 20 20 20
+      |003CAA|7CAA|  20 20 20 20 20 20 20 20
+      |003CB2|7CB2|  20 20 20 20 20 20 20 20
+      |003CBA|7CBA|  20 20 20 20 20 20 20 20
+      |003CC2|7CC2|  20 20 20 20 20 20 20 20
+      |003CCA|7CCA|  20 20 20 20 20 20 20 20
+      |003CD2|7CD2|  20 20 20 20 20 20 20 20
+      |003CDA|7CDA|  20 20 20 20 20 20 20 20
+      |003CE2|7CE2|  20 20 20 20 20 20 20 20
+      |003CEA|7CEA|  20 20 20 20 20 20 20 20
+      |003CF2|7CF2|  20 20 20 20 20 20 20 20
+      |003CFA|7CFA|  20 20 20 20 20 20 20 20
+      |003D02|7D02|  20 20 20 20 20 20 20 20
+      |003D0A|7D0A|  20 20 20 20 20 20 20 20
+      |003D12|7D12|  20 20 20 20 20 20 20 20
+      |003D1A|7D1A|  20 20 20 20 20 20 20 20
+      |003D22|7D22|  20 20 20 20 20 20 20 20
+      |003D2A|7D2A|  20 20 20 20 20 20 20 20
+      |003D32|7D32|  20 20 20 20 20 20 20 20
+      |003D3A|7D3A|  20 20 20 20 20 20 20 20
+      |003D42|7D42|  20 20 20 20 20 20 20 20
+      |003D4A|7D4A|  20 20 20 20 20 20 20 20
+      |003D52|7D52|  20 20 20 20 20 20 20 20
+      |003D5A|7D5A|  20 20 20 20 20 20 20 20
+      |003D62|7D62|  20 20 20 20 20 20 20 20
+      |003D6A|7D6A|  20 20 20 20 20 20 20 20
+      |003D72|7D72|  20 20 20 20 20 20 20 20
+      |003D7A|7D7A|  20 20 20 20 20 20 20 20
+      |003D82|7D82|  20 20 20 20 20 20 20 20
+      |003D8A|7D8A|  20 20 20 20 20 20 20 20
+      |003D92|7D92|  20 20 20 20 20 20 20 20
+      |003D9A|7D9A|  20 20 20 20 20 20 20 20
+      |003DA2|7DA2|  20 20 20 20 20 20 20 20
+      |003DAA|7DAA|  20 20 20 20 20 20 20 20
+      |003DB2|7DB2|  20 20 20 20 20 20 20 20
+      |003DBA|7DBA|  20 20 20 20 20 20 20 20
+      |003DC2|7DC2|  20 20 20 20 20 20 20 20
+      |003DCA|7DCA|  20 20 20 20 20 20 20 20
+      |003DD2|7DD2|  20 20 20 20 20 20 20 20
+      |003DDA|7DDA|  20 20 20 20 20 20 20 20
+      |003DE2|7DE2|  20 20 20 20 20 20 20 20
+      |003DEA|7DEA|  20 20 20 20 20 20 20 20
+      |003DF2|7DF2|  20 20 20 20 20 20 20 20
+      |003DFA|7DFA|  20 20 20 20 20 20 20 20
+      |003E02|7E02|  20 20 20 20 20 20 20 20
+      |003E0A|7E0A|  20 20 20 20 20 20 20 20
+      |003E12|7E12|  20 20 20 20 20 20 20 20
+      |003E1A|7E1A|  20 20 20 20 20 20 20 20
+      |003E22|7E22|  20 20 20 20 20 20 20 20
+      |003E2A|7E2A|  20 20 20 20 20 20 20 20
+      |003E32|7E32|  20 20 20 20 20 20 20 20
+      |003E3A|7E3A|  20 20 20 20 20 20 20 20
+      |003E42|7E42|  20 20 20 20 20 20 20 20
+      |003E4A|7E4A|  20 20 20 20 20 20 20 20
+      |003E52|7E52|  20 20 20 20 20 20 20 20
+      |003E5A|7E5A|  20 20 20 20 20 20 20 20
+      |003E62|7E62|  20 20 20 20 20 20 20 20
+      |003E6A|7E6A|  20 20 20 20 20 20 20 20
+      |003E72|7E72|  20 20 20 20 20 20 20 20
+      |003E7A|7E7A|  20 20 20 20 20 20 20 20
+      |003E82|7E82|  20 20 20 20 20 20 20 20
+      |003E8A|7E8A|  20 20 20 20 20 20 20 20
+      |003E92|7E92|  20 20 20 20 20 20 20 20
+      |003E9A|7E9A|  20 20 20 20 20 20 20 20
+      |003EA2|7EA2|  20 20 20 20 20 20 20 20
+      |003EAA|7EAA|  20 20 20 20 20 20 20 20
+      |003EB2|7EB2|  20 20 20 20 20 20 20 20
+      |003EBA|7EBA|  20 20 20 20 20 20 20 20
+      |003EC2|7EC2|  20 20 20 20 20 20 20 20
+      |003ECA|7ECA|  20 20 20 20 20 20 20 20
+      |003ED2|7ED2|  20 20 20 20 20 20 20 20
+      |003EDA|7EDA|  20 20 20 20 20 20 20 20
+      |003EE2|7EE2|  20 20 20 20 20 20 20 20
+      |003EEA|7EEA|  20 20 20 20 20 20 20 20
+      |003EF2|7EF2|  20 20 20 20 20 20 20 20
+      |003EFA|7EFA|  20 20 20 20 20 20 20 20
+      |003F02|7F02|  20 20 20 20 20 20 20 20
+      |003F0A|7F0A|  20 20 20 20 20 20 20 20
+      |003F12|7F12|  20 20 20 20 20 20 20 20
+      |003F1A|7F1A|  20 20 20 20 20 20 20 20
+      |003F22|7F22|  20 20 20 20 20 20 20 20
+      |003F2A|7F2A|  20 20 20 20 20 20 20 20
+      |003F32|7F32|  20 20 20 20 20 20 20 20
+      |003F3A|7F3A|  20 20 20 20 20 20 20 20
+      |003F42|7F42|  20 20 20 20 20 20 20 20
+      |003F4A|7F4A|  20 20 20 20 20 20 20 20
+      |003F52|7F52|  20 20 20 20 20 20 20 20
+      |003F5A|7F5A|  20 20 20 20 20 20 20 20
+      |003F62|7F62|  20 20 20 20 20 20 20 20
+      |003F6A|7F6A|  20 20 20 20 20 20 20 20
+      |003F72|7F72|  20 20 20 20 20 20 20 20
+      |003F7A|7F7A|  20 20 20 20 20 20 20 20
+      |003F82|7F82|  20 20 20 20 20 20 20 20
+      |003F8A|7F8A|  20 20 20 20 20 20 20 20
+      |003F92|7F92|  20 20 20 20 20 20 20 20
+      |003F9A|7F9A|  20 20 20 20 20 20 20 20
+      |003FA2|7FA2|  20 20 20 20 20 20 20 20
+      |003FAA|7FAA|  20 20 20 20 20 20 20 20
+      |003FB2|7FB2|  20 20 20 20 20 20 20 20
+      |003FBA|7FBA|  20 20 20 20 20 20 20 20
+      |003FC2|7FC2|  20 20 20 20 20 20 20 20
+      |003FCA|7FCA|  20 20 20 20 20 20 20 20
+      |003FD2|7FD2|  20 20 20 20 20 20 20 20
+      |003FDA|7FDA|  20 20 20 20 20 20 20 20
+      |003FE2|7FE2|  20 20 20 20 20 20 20 20
+      |003FEA|7FEA|  20 20 20 20 20 20 20 20
+      |003FF2|7FF2|  20 20 20 20 20 20 20 20
+      |003FFA|7FFA|  20 20 20 20 20 20
+------+------+----+----------------------------------
+   203|      |    |ROM_ALIGN
+      |      |    |  Exit scope: @MACRO1:
+------+------+----+----------------------------------
+   208|      |    |OLD_H_TIMI := 0xC000
+      |      |    |  Global integer symbol [OLD_H_TIMI] = 49152 (0xc000)
+------+------+----+----------------------------------
+   209|      |    |SEC_COUNTER := OLD_H_TIMI + 5
+      |      |    |  Global integer symbol [SEC_COUNTER] = 49157 (0xc005)
+------+------+----+----------------------------------
+   210|      |    |MUSIC_INDEX := SEC_COUNTER + 1
+      |      |    |  Global integer symbol [MUSIC_INDEX] = 49158 (0xc006)
+------+------+----+----------------------------------
+<< label >>
+BAKCLR ............................ 62442 ( 0xf3ea )
+BDOS_FUNC_ABS_SECTOR_READ ......... 47 ( 0x2f )
+BDOS_FUNC_ABS_SECTOR_WRITE ........ 48 ( 0x30 )
+BDOS_FUNC_ALLOC_SECTOR_BUFFER ..... 105 ( 0x69 )
+BDOS_FUNC_BUF_LINE_INPUT .......... 10 ( 0xa )
+BDOS_FUNC_CON_STATUS .............. 11 ( 0xb )
+BDOS_FUNC_DEV_GETC ................ 3 ( 0x3 )
+BDOS_FUNC_DEV_PUTC ................ 4 ( 0x4 )
+BDOS_FUNC_DIRECT_CON_GETC ......... 7 ( 0x7 )
+BDOS_FUNC_DIRECT_CON_GETC_WOE ..... 8 ( 0x8 )
+BDOS_FUNC_DIRECT_CON_IO ........... 6 ( 0x6 )
+BDOS_FUNC_DISK_CHECK_STATUS ....... 110 ( 0x6e )
+BDOS_FUNC_DISK_RESET .............. 13 ( 0xd )
+BDOS_FUNC_FCB_CLOSE_FILE .......... 16 ( 0x10 )
+BDOS_FUNC_FCB_CREATE_FILE ......... 22 ( 0x16 )
+BDOS_FUNC_FCB_DELETE_FILE ......... 19 ( 0x13 )
+BDOS_FUNC_FCB_FIND_1ST ............ 17 ( 0x11 )
+BDOS_FUNC_FCB_FIND_NEXT ........... 18 ( 0x12 )
+BDOS_FUNC_FCB_OPEN_FILE ........... 15 ( 0xf )
+BDOS_FUNC_FCB_RENAME_FILE ......... 23 ( 0x17 )
+BDOS_FUNC_FCB_SEQ_READ ............ 20 ( 0x14 )
+BDOS_FUNC_FCB_SEQ_WRITE ........... 21 ( 0x15 )
+BDOS_FUNC_FILE_HANDLE_CLOSE ....... 69 ( 0x45 )
+BDOS_FUNC_FILE_HANDLE_CREATE ...... 68 ( 0x44 )
+BDOS_FUNC_FILE_HANDLE_DUPLICATE ... 71 ( 0x47 )
+BDOS_FUNC_FILE_HANDLE_ENSURE ...... 70 ( 0x46 )
+BDOS_FUNC_FILE_HANDLE_OPEN ........ 67 ( 0x43 )
+BDOS_FUNC_FILE_HANDLE_READ ........ 72 ( 0x48 )
+BDOS_FUNC_FILE_HANDLE_TEST ........ 76 ( 0x4c )
+BDOS_FUNC_FILE_HANDLE_WRITE ....... 73 ( 0x49 )
+BDOS_FUNC_FIND_1ST ................ 64 ( 0x40 )
+BDOS_FUNC_FIND_ENV_ITEM ........... 109 ( 0x6d )
+BDOS_FUNC_FIND_NEW ................ 66 ( 0x42 )
+BDOS_FUNC_FIND_NEXT ............... 65 ( 0x41 )
+BDOS_FUNC_FORMAT_DISK ............. 103 ( 0x67 )
+BDOS_FUNC_GETC .................... 1 ( 0x1 )
+BDOS_FUNC_GET_ALLOC_INFO .......... 27 ( 0x1b )
+BDOS_FUNC_GET_CURRENT_DRIVE ....... 25 ( 0x19 )
+BDOS_FUNC_GET_DATE ................ 42 ( 0x2a )
+BDOS_FUNC_GET_DISK_PARAM .......... 49 ( 0x31 )
+BDOS_FUNC_GET_ENV_ITEM ............ 107 ( 0x6b )
+BDOS_FUNC_GET_FILE_SIZE ........... 35 ( 0x23 )
+BDOS_FUNC_GET_LOGIN_VECTOR ........ 24 ( 0x18 )
+BDOS_FUNC_GET_MSXDOS_VERSION ...... 111 ( 0x6f )
+BDOS_FUNC_GET_TIME ................ 44 ( 0x2c )
+BDOS_FUNC_IO_CTRL ................. 75 ( 0x4b )
+BDOS_FUNC_LOGICAL_DRV_ASSIGN ...... 106 ( 0x6a )
+BDOS_FUNC_MOVE_FILE_HANDLE_PTR .... 74 ( 0x4a )
+BDOS_FUNC_PRT_PUTC ................ 5 ( 0x5 )
+BDOS_FUNC_PUTC .................... 2 ( 0x2 )
+BDOS_FUNC_RAM_DISK ................ 104 ( 0x68 )
+BDOS_FUNC_REDIRECTION_STATUS ...... 112 ( 0x70 )
+BDOS_FUNC_RND_BLOCK_READ .......... 39 ( 0x27 )
+BDOS_FUNC_RND_BLOCK_WRITE ......... 38 ( 0x26 )
+BDOS_FUNC_RND_READ ................ 33 ( 0x21 )
+BDOS_FUNC_RND_WRITE ............... 34 ( 0x22 )
+BDOS_FUNC_RND_WRITE_ZERO_FILL ..... 40 ( 0x28 )
+BDOS_FUNC_SELECT_DISK ............. 14 ( 0xe )
+BDOS_FUNC_SET_DATE ................ 43 ( 0x2b )
+BDOS_FUNC_SET_DTA ................. 26 ( 0x1a )
+BDOS_FUNC_SET_ENV_ITEM ............ 108 ( 0x6c )
+BDOS_FUNC_SET_RND_RECORD .......... 36 ( 0x24 )
+BDOS_FUNC_SET_TIME ................ 45 ( 0x2d )
+BDOS_FUNC_SET_VERIFY_FLAG ......... 46 ( 0x2e )
+BDOS_FUNC_STR_OUT ................. 9 ( 0x9 )
+BDOS_FUNC_SYSTEM_RESET ............ 0 ( 0x0 )
+BDOS_FUNC_VERSION ................. 12 ( 0xc )
+BDOS_ON_DISKBASIC ................. 62333 ( 0xf37d )
+BDOS_ON_MSXDOS .................... 5 ( 0x5 )
+BDRCLR ............................ 62443 ( 0xf3eb )
+BREAKV ............................ 62245 ( 0xf325 )
+CALATR ............................ 135 ( 0x87 )
+CALBAS ............................ 345 ( 0x159 )
+CALLF ............................. 48 ( 0x30 )
+CALPAT ............................ 132 ( 0x84 )
+CALSLT ............................ 28 ( 0x1c )
+CHGCAP ............................ 306 ( 0x132 )
+CHGCLR ............................ 98 ( 0x62 )
+CHGMOD ............................ 95 ( 0x5f )
+CHGSND ............................ 309 ( 0x135 )
+CHKDEV ............................ 330 ( 0x14a )
+CHKRAM ............................ 0 ( 0x0 )
+CHRGTR ............................ 16 ( 0x10 )
+CLIKSW ............................ 62427 ( 0xf3db )
+CLPRIM ............................ 62348 ( 0xf38c )
+CLRSPR ............................ 105 ( 0x69 )
+CNSDFG ............................ 62430 ( 0xf3de )
+CSRX .............................. 62429 ( 0xf3dd )
+CSRY .............................. 62428 ( 0xf3dc )
+DCOMPR ............................ 32 ( 0x20 )
+DEVICE ............................ 64921 ( 0xfd99 )
+DISKVE ............................ 62243 ( 0xf323 )
+DISSCR ............................ 65 ( 0x41 )
+ENASCR ............................ 71 ( 0x47 )
+ENASLT ............................ 36 ( 0x24 )
+ENTRY_POINT ....................... 16400 ( 0x4010 )
+EXBRSA ............................ 64248 ( 0xfaf8 )
+EXPTBL ............................ 64705 ( 0xfcc1 )
+EXPTBL0 ........................... 64705 ( 0xfcc1 )
+EXPTBL1 ........................... 64706 ( 0xfcc2 )
+EXPTBL2 ........................... 64707 ( 0xfcc3 )
+EXPTBL3 ........................... 64708 ( 0xfcc4 )
+EXTBIO ............................ 65482 ( 0xffca )
+EXTROM ............................ 351 ( 0x15f )
+FILVRM ............................ 86 ( 0x56 )
+FNKSTR ............................ 63615 ( 0xf87f )
+FORCLR ............................ 62441 ( 0xf3e9 )
+FORMAT ............................ 327 ( 0x147 )
+GETYPR ............................ 40 ( 0x28 )
+GICINI ............................ 144 ( 0x90 )
+GRPDL ............................. 222 ( 0xde )
+GRPPRT ............................ 141 ( 0x8d )
+GSPSIZ ............................ 138 ( 0x8a )
+GTPAD ............................. 219 ( 0xdb )
+GTSTICK ........................... 213 ( 0xd5 )
+GTTRIG ............................ 216 ( 0xd8 )
+HIMEM ............................. 64586 ( 0xfc4a )
+HOKVLD ............................ 64288 ( 0xfb20 )
+H_KEYI ............................ 64922 ( 0xfd9a )
+H_PHYD ............................ 65447 ( 0xffa7 )
+H_PROMPT .......................... 62031 ( 0xf24f )
+H_TIMI ............................ 64927 ( 0xfd9f )
+INIFNK ............................ 62 ( 0x3e )
+INIGRP ............................ 114 ( 0x72 )
+INIMLT ............................ 117 ( 0x75 )
+INIT32 ............................ 111 ( 0x6f )
+INITIALIZE ........................ 16412 ( 0x401c )
+INITIO ............................ 59 ( 0x3b )
+INITTXT ........................... 108 ( 0x6c )
+INTERRUPT_HANDLER ................. 16453 ( 0x4045 )
+IO_BASE_SLOT ...................... 168 ( 0xa8 )
+IO_MEMMAP0 ........................ 252 ( 0xfc )
+IO_MEMMAP1 ........................ 253 ( 0xfd )
+IO_MEMMAP2 ........................ 254 ( 0xfe )
+IO_MEMMAP3 ........................ 255 ( 0xff )
+IO_PSG_ADR ........................ 160 ( 0xa0 )
+IO_PSG_DATA_RD .................... 162 ( 0xa2 )
+IO_PSG_DATA_WR .................... 161 ( 0xa1 )
+IO_VDP_PORT0 ...................... 152 ( 0x98 )
+IO_VDP_PORT0_MSX1_ADP ............. 136 ( 0x88 )
+IO_VDP_PORT1 ...................... 153 ( 0x99 )
+IO_VDP_PORT1_MSX1_ADP ............. 137 ( 0x89 )
+IO_VDP_PORT2 ...................... 154 ( 0x9a )
+IO_VDP_PORT2_MSX1_ADP ............. 138 ( 0x8a )
+IO_VDP_PORT3 ...................... 155 ( 0x9b )
+IO_VDP_PORT3_MSX1_ADP ............. 139 ( 0x8b )
+ISFLIO ............................ 330 ( 0x14a )
+KEYINT ............................ 56 ( 0x38 )
+KILBUF ............................ 342 ( 0x156 )
+LDIRMV ............................ 89 ( 0x59 )
+LDIRVM ............................ 92 ( 0x5c )
+MAIN .............................. 16450 ( 0x4042 )
+MASTERS ........................... 62280 ( 0xf348 )
+MUSIC_INDEX ....................... 49158 ( 0xc006 )
+MUSIC_TABLE ....................... 16753 ( 0x4171 )
+NEW_H_TIMI ........................ 16447 ( 0x403f )
+NMI ............................... 102 ( 0x66 )
+O1 ................................ 0 ( 0x0 )
+O2 ................................ 12 ( 0xc )
+O3 ................................ 24 ( 0x18 )
+O4 ................................ 36 ( 0x24 )
+O5 ................................ 48 ( 0x30 )
+O6 ................................ 60 ( 0x3c )
+O7 ................................ 72 ( 0x48 )
+O8 ................................ 84 ( 0x54 )
+OLD_H_TIMI ........................ 49152 ( 0xc000 )
+OUTDO ............................. 24 ( 0x18 )
+PHYDIO ............................ 324 ( 0x144 )
+PLAY_MUSIC ........................ 16483 ( 0x4063 )
+PRINTC ............................ 333 ( 0x14d )
+PROCNM ............................ 64905 ( 0xfd89 )
+RAMAD0 ............................ 62273 ( 0xf341 )
+RAMAD1 ............................ 62274 ( 0xf342 )
+RAMAD2 ............................ 62275 ( 0xf343 )
+RAMAD3 ............................ 62276 ( 0xf344 )
+RDPRIM ............................ 62336 ( 0xf380 )
+RDPSG ............................. 150 ( 0x96 )
+RDSLT ............................. 12 ( 0xc )
+RDVDP ............................. 318 ( 0x13e )
+RDVRM ............................. 74 ( 0x4a )
+RG0SAV ............................ 62431 ( 0xf3df )
+RG10SAV ........................... 65513 ( 0xffe9 )
+RG11SAV ........................... 65514 ( 0xffea )
+RG12SAV ........................... 65515 ( 0xffeb )
+RG13SAV ........................... 65516 ( 0xffec )
+RG14SAV ........................... 65517 ( 0xffed )
+RG15SAV ........................... 65518 ( 0xffee )
+RG16SAV ........................... 65519 ( 0xffef )
+RG17SAV ........................... 65520 ( 0xfff0 )
+RG18SAV ........................... 65521 ( 0xfff1 )
+RG19SAV ........................... 65522 ( 0xfff2 )
+RG1SAV ............................ 62432 ( 0xf3e0 )
+RG20SAV ........................... 65523 ( 0xfff3 )
+RG21SAV ........................... 65524 ( 0xfff4 )
+RG22SAV ........................... 65525 ( 0xfff5 )
+RG23SAV ........................... 65526 ( 0xfff6 )
+RG25SAV ........................... 65528 ( 0xfff8 )
+RG26SAV ........................... 65529 ( 0xfff9 )
+RG27SAV ........................... 65530 ( 0xfffa )
+RG2SAV ............................ 62433 ( 0xf3e1 )
+RG3SAV ............................ 62434 ( 0xf3e2 )
+RG4SAV ............................ 62435 ( 0xf3e3 )
+RG5SAV ............................ 62436 ( 0xf3e4 )
+RG6SAV ............................ 62437 ( 0xf3e5 )
+RG7SAV ............................ 62438 ( 0xf3e6 )
+RG8SAV ............................ 65511 ( 0xffe7 )
+RG9SAV ............................ 65512 ( 0xffe8 )
+RSLREG ............................ 312 ( 0x138 )
+SC0_W40_PAT_GEN ................... 2048 ( 0x800 )
+SC0_W40_PAT_NAME .................. 0 ( 0x0 )
+SC0_W80_BLINK ..................... 2048 ( 0x800 )
+SC0_W80_PAT_GEN ................... 4096 ( 0x1000 )
+SC0_W80_PAT_NAME .................. 0 ( 0x0 )
+SC1_PAT_GEN ....................... 0 ( 0x0 )
+SC1_PAT_NAME ...................... 6144 ( 0x1800 )
+SC1_SPR_ATTR ...................... 6912 ( 0x1b00 )
+SC1_SPR_GEN ....................... 14336 ( 0x3800 )
+SC2_PAT_COL0 ...................... 8192 ( 0x2000 )
+SC2_PAT_COL1 ...................... 10240 ( 0x2800 )
+SC2_PAT_COL2 ...................... 12288 ( 0x3000 )
+SC2_PAT_GEN0 ...................... 0 ( 0x0 )
+SC2_PAT_GEN1 ...................... 2048 ( 0x800 )
+SC2_PAT_GEN2 ...................... 4096 ( 0x1000 )
+SC2_PAT_NAME ...................... 6144 ( 0x1800 )
+SC2_SPR_ATTR ...................... 6912 ( 0x1b00 )
+SC2_SPR_GEN ....................... 14336 ( 0x3800 )
+SC3_PAT_GEN ....................... 0 ( 0x0 )
+SC3_PAT_NAME ...................... 2048 ( 0x800 )
+SC3_SPR_ATTR ...................... 6912 ( 0x1b00 )
+SC3_SPR_GEN ....................... 14336 ( 0x3800 )
+SC4_PAT_COL0 ...................... 8192 ( 0x2000 )
+SC4_PAT_COL1 ...................... 10240 ( 0x2800 )
+SC4_PAT_COL2 ...................... 12288 ( 0x3000 )
+SC4_PAT_GEN0 ...................... 0 ( 0x0 )
+SC4_PAT_GEN1 ...................... 2048 ( 0x800 )
+SC4_PAT_GEN2 ...................... 4096 ( 0x1000 )
+SC4_PAT_NAME ...................... 6144 ( 0x1800 )
+SC4_SPR_ATTR ...................... 7680 ( 0x1e00 )
+SC4_SPR_COL ....................... 7168 ( 0x1c00 )
+SC4_SPR_GEN ....................... 14336 ( 0x3800 )
+SC5_PAT_NAME ...................... 0 ( 0x0 )
+SC5_SPR_ATTR ...................... 30208 ( 0x7600 )
+SC5_SPR_COL ....................... 29696 ( 0x7400 )
+SC5_SPR_GEN ....................... 30720 ( 0x7800 )
+SC6_PAT_NAME ...................... 0 ( 0x0 )
+SC6_SPR_ATTR ...................... 30208 ( 0x7600 )
+SC6_SPR_COL ....................... 29696 ( 0x7400 )
+SC6_SPR_GEN ....................... 30720 ( 0x7800 )
+SCRMOD ............................ 64687 ( 0xfcaf )
+SC_INTERRUPT_HANDLER:EXIT ......... 16478 ( 0x405e )
+SC_MAIN:END_LOOP .................. 16450 ( 0x4042 )
+SC_PLAY_MUSIC:REST_PROCESS ........ 16542 ( 0x409e )
+SC_PLAY_MUSIC:REWIND_PROCESS ...... 16554 ( 0x40aa )
+SC_PLAY_MUSIC:TONE_PROCESS ........ 16506 ( 0x407a )
+SEC_COUNTER ....................... 49157 ( 0xc005 )
+SETGRP ............................ 126 ( 0x7e )
+SETMLT ............................ 129 ( 0x81 )
+SETRD ............................. 80 ( 0x50 )
+SETT32 ............................ 123 ( 0x7b )
+SETTXT ............................ 120 ( 0x78 )
+SETWRT ............................ 83 ( 0x53 )
+SLTATR ............................ 64713 ( 0xfcc9 )
+SLTTBL ............................ 64709 ( 0xfcc5 )
+SLTWRK ............................ 64777 ( 0xfd09 )
+SNSMAT ............................ 321 ( 0x141 )
+STATFL ............................ 62439 ( 0xf3e7 )
+STMOTR ............................ 243 ( 0xf3 )
+STRTMS ............................ 153 ( 0x99 )
+SUBROM ............................ 348 ( 0x15c )
+SYNCHR ............................ 8 ( 0x8 )
+TAPIN ............................. 228 ( 0xe4 )
+TAPIOF ............................ 231 ( 0xe7 )
+TAPION ............................ 225 ( 0xe1 )
+TAPOOF ............................ 240 ( 0xf0 )
+TAPOON ............................ 234 ( 0xea )
+TAPOUT ............................ 237 ( 0xed )
+TONE_TABLE ........................ 16561 ( 0x40b1 )
+T_A ............................... 9 ( 0x9 )
+T_AS .............................. 10 ( 0xa )
+T_B ............................... 11 ( 0xb )
+T_C ............................... 0 ( 0x0 )
+T_CS .............................. 1 ( 0x1 )
+T_D ............................... 2 ( 0x2 )
+T_DS .............................. 3 ( 0x3 )
+T_E ............................... 4 ( 0x4 )
+T_END ............................. 255 ( 0xff )
+T_F ............................... 5 ( 0x5 )
+T_FS .............................. 6 ( 0x6 )
+T_G ............................... 7 ( 0x7 )
+T_GS .............................. 8 ( 0x8 )
+T_R ............................... 254 ( 0xfe )
+VDPCMD_HMMC ....................... 240 ( 0xf0 )
+VDPCMD_HMMM ....................... 208 ( 0xd0 )
+VDPCMD_HMMV ....................... 192 ( 0xc0 )
+VDPCMD_LINE ....................... 112 ( 0x70 )
+VDPCMD_LMCM ....................... 160 ( 0xa0 )
+VDPCMD_LMMC ....................... 176 ( 0xb0 )
+VDPCMD_LMMM ....................... 144 ( 0x90 )
+VDPCMD_LMMV ....................... 128 ( 0x80 )
+VDPCMD_POINT ...................... 64 ( 0x40 )
+VDPCMD_PSET ....................... 80 ( 0x50 )
+VDPCMD_SRCH ....................... 96 ( 0x60 )
+VDPCMD_STOP ....................... 0 ( 0x0 )
+VDPCMD_YMMM ....................... 224 ( 0xe0 )
+VDPROP_AND ........................ 1 ( 0x1 )
+VDPROP_EOR ........................ 17 ( 0x11 )
+VDPROP_IMP ........................ 0 ( 0x0 )
+VDPROP_NOT ........................ 256 ( 0x100 )
+VDPROP_OR ......................... 16 ( 0x10 )
+VDPROP_TAND ....................... 4097 ( 0x1001 )
+VDPROP_TEOR ....................... 4113 ( 0x1011 )
+VDPROP_TIMP ....................... 4096 ( 0x1000 )
+VDPROP_TNOT ....................... 4352 ( 0x1100 )
+VDPROP_TOR ........................ 4112 ( 0x1010 )
+WRPRIM ............................ 62341 ( 0xf385 )
+WRSLT ............................. 20 ( 0x14 )
+WRTPSG ............................ 147 ( 0x93 )
+WRVRM ............................. 77 ( 0x4d )
+WSLREG ............................ 315 ( 0x13b )
