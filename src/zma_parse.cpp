@@ -1386,7 +1386,7 @@ bool CZMA_PARSE::opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1
 			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 			return false;
 		}
-		if( n.i < -128 || n.i > 127 ) {
+		if( n.i < -128 || n.i > 255 ) {
 			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::OUT_OF_RANGE_RELATIVE_ADDRESS ), info.all_error_enable, info.error_disable );
 			info.error_disable = true;
 			return false;
