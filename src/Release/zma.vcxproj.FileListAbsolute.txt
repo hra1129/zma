@@ -1,2 +1,3 @@
 C:\Users\hra\Documents\github\zma\src\Release\zma.exe
 C:\Users\hra\Documents\github\HRA_product\zma\src\Release\zma.exe
+D:\github\HRA_product\zma\src\Release\zma.exe

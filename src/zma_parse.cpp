@@ -1378,6 +1378,7 @@ bool CZMA_PARSE::opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1
 		return false;
 	}
 	if( this->check_location_hl( 1 ) ) {
+		this->set_code_size( &info, 2 );
 		if( !this->expression( info, i + 2, n ) ) {
 			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 			return false;
@@ -1391,7 +1392,6 @@ bool CZMA_PARSE::opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1
 			info.error_disable = true;
 			return false;
 		}
-		this->set_code_size( &info, 2 );
 		if( this->is_data_fixed ) {
 			return true;
 		}
@@ -1401,6 +1401,7 @@ bool CZMA_PARSE::opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1
 		return true;
 	}
 	if( this->check_location_ix( 1 ) ) {
+		this->set_code_size( &info, 4 );
 		//	LD [IX + nn], mm
 		//	       ^
 		if( words[3] == "+" || words[3] == "-" ) {
@@ -1438,7 +1439,6 @@ bool CZMA_PARSE::opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1
 			info.error_disable = true;
 			return false;
 		}
-		this->set_code_size( &info, 4 );
 		if( this->is_data_fixed ) {
 			return true;
 		}
@@ -1450,6 +1450,7 @@ bool CZMA_PARSE::opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1
 		return true;
 	}
 	if( this->check_location_iy( 1 ) ) {
+		this->set_code_size( &info, 4 );
 		//	LD [IY + nn], mm
 		//	       ^
 		if( words[3] == "+" || words[3] == "-" ) {
@@ -1487,7 +1488,6 @@ bool CZMA_PARSE::opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1
 			info.error_disable = true;
 			return false;
 		}
-		this->set_code_size( &info, 4 );
 		if( this->is_data_fixed ) {
 			return true;
 		}
