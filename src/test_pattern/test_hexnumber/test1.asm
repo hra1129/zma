@@ -33,3 +33,11 @@
 
 	ld		hl, CODE_ADDRESS
 	ld		hl, FILE_ADDRESS
+
+	call	9800h
+	call	9800H
+
+	ld		a, 80h+15
+	ld		a, 15+80h
+	ld		a, 80H+15
+	ld		a, 15+80H

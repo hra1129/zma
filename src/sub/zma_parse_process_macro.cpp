@@ -164,6 +164,10 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 	update_flags( &info, p_last_line );
 	if( !this->is_loaded ) {
 		p_macro = info.macro_list[words[0]];	//	¦•K‚¸‘¶İ‚·‚é
+		if( p_macro == nullptr ) {
+			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::SYNTAX_ERROR ) );
+			return false;
+		}
 		//	ˆø”‚ğæ‚è‚Ş
 		id = 0;
 		for( i = 1; i < (int)words.size(); i++ ) {

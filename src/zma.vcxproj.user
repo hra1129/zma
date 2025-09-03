@@ -11,8 +11,8 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>..\iplrom_512k_rev300.asm iplrom_512k_rev300.bin</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>test1.asm test1.asm.bin</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerWorkingDirectory>.\test_iplrom\compile</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>.\test_pattern\test_hexnumber</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
 </Project>

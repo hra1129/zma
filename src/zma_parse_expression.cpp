@@ -242,6 +242,7 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 	if( isdigit( s[0] ) ) {
 		//	êîéö
 		num = "";
+		index++;
 		if( s[ s.size() - 1 ] == 'H' ){
 			for( auto c : s ){
 				if( isxdigit( c ) ){
@@ -264,7 +265,6 @@ bool CZMA_PARSE::operator_single( CZMA_INFORMATION& info, int &index, CVALUE& re
 			}
 			return true;
 		}
-		index++;
 		for( auto c : s ) {
 			if( isdigit( c ) ) {
 				num = num + c;
