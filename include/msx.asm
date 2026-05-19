@@ -5,25 +5,25 @@
 ;  All rights reserved.
 ;                           https://github.com/hra1129/zma
 ;
-;  �{�\�t�g�E�F�A����і{�\�t�g�E�F�A�Ɋ�Â��č쐬���ꂽ�h�����́A�ȉ��̏�����
-;  �������ꍇ�Ɍ���A�ĔЕz����юg�p��������܂��B
+;  本ソフトウェアおよび本ソフトウェアに基づいて作成された派生物は、以下の条件を
+;  満たす場合に限り、再頒布および使用が許可されます。
 ;
-;  1.�\�[�X�R�[�h�`���ōĔЕz����ꍇ�A��L�̒��쌠�\���A�{�����ꗗ�A����щ��L
-;    �Ɛӏ��������̂܂܂̌`�ŕێ����邱�ƁB
-;  2.�o�C�i���`���ōĔЕz����ꍇ�A�Еz���ɕt���̃h�L�������g���̎����ɁA��L��
-;    ���쌠�\���A�{�����ꗗ�A����щ��L�Ɛӏ������܂߂邱�ƁB
-;  3.���ʂɂ�鎖�O�̋��Ȃ��ɁA�{�\�t�g�E�F�A��̔��A����я��ƓI�Ȑ��i�⊈��
-;    �Ɏg�p���Ȃ����ƁB
+;  1.ソースコード形式で再頒布する場合、上記の著作権表示、本条件一覧、および下記
+;    免責条項をそのままの形で保持すること。
+;  2.バイナリ形式で再頒布する場合、頒布物に付属のドキュメント等の資料に、上記の
+;    著作権表示、本条件一覧、および下記免責条項を含めること。
+;  3.書面による事前の許可なしに、本ソフトウェアを販売、および商業的な製品や活動
+;    に使用しないこと。
 ;
-;  �{�\�t�g�E�F�A�́A���쌠�҂ɂ���āu����̂܂܁v�񋟂���Ă��܂��B���쌠�҂́A
-;  ����ړI�ւ̓K�����̕ۏ؁A���i���̕ۏ؁A�܂�����Ɍ��肳��Ȃ��A�����Ȃ閾��
-;  �I�������͈ÖقȕۏؐӔC�������܂���B���쌠�҂́A���R�̂�������킸�A���Q
-;  �����̌�����������킸�A���ӔC�̍������_��ł��邩���i�ӔC�ł��邩�i�ߎ�
-;  ���̑��́j�s�@�s�ׂł��邩���킸�A���ɂ��̂悤�ȑ��Q����������\����m��
-;  ����Ă����Ƃ��Ă��A�{�\�t�g�E�F�A�̎g�p�ɂ���Ĕ��������i��֕i�܂��͑�p�T
-;  �[�r�X�̒��B�A�g�p�̑r���A�f�[�^�̑r���A���v�̑r���A�Ɩ��̒��f���܂߁A�܂���
-;  ��Ɍ��肳��Ȃ��j���ڑ��Q�A�Ԑڑ��Q�A�����I�ȑ��Q�A���ʑ��Q�A�����I���Q�A��
-;  ���͌��ʑ��Q�ɂ��āA��ؐӔC�𕉂�Ȃ����̂Ƃ��܂��B
+;  本ソフトウェアは、著作権者によって「現状のまま」提供されています。著作権者は、
+;  特定目的への適合性の保証、商品性の保証、またそれに限定されない、いかなる明示
+;  的もしくは暗黙な保証責任も負いません。著作権者は、事由のいかんを問わず、損害
+;  発生の原因いかんを問わず、かつ責任の根拠が契約であるか厳格責任であるか（過失
+;  その他の）不法行為であるかを問わず、仮にそのような損害が発生する可能性を知ら
+;  されていたとしても、本ソフトウェアの使用によって発生した（代替品または代用サ
+;  ービスの調達、使用の喪失、データの喪失、利益の喪失、業務の中断も含め、またそ
+;  れに限定されない）直接損害、間接損害、偶発的な損害、特別損害、懲罰的損害、ま
+;  たは結果損害について、一切責任を負わないものとします。
 ;
 ;  Note that above Japanese version license is the formal document.
 ;  The following translation is only for reference.
@@ -136,16 +136,16 @@ STRTMS						:= 0x0099
 ;	for GAME I/O access
 GTSTICK						:= 0x00D5
 GTTRIG						:= 0x00D8
-GTPAD						:= 0x00DB		; note: MSXturboR�ł̓��C�g�y��(A=8�`11)�͏��0���Ԃ�
-GRPDL						:= 0x00DE		; note: MSXturboR�ł͏��0���Ԃ�
+GTPAD						:= 0x00DB		; note: MSXturboRではライトペン(A=8～11)は常に0が返る
+GRPDL						:= 0x00DE		; note: MSXturboRでは常に0が返る
 
-TAPION						:= 0x00e1		; note: MSXturboR�ł͏��Cy=1(�G���[)���Ԃ�
-TAPIN						:= 0x00e4		; note: MSXturboR�ł͏��Cy=1(�G���[)���Ԃ�
-TAPIOF						:= 0x00e7		; note: MSXturboR�ł͏��Cy=1(�G���[)���Ԃ�
-TAPOON						:= 0x00ea		; note: MSXturboR�ł͏��Cy=1(�G���[)���Ԃ�
-TAPOUT						:= 0x00ed		; note: MSXturboR�ł͏��Cy=1(�G���[)���Ԃ�
-TAPOOF						:= 0x00f0		; note: MSXturboR�ł͏��Cy=1(�G���[)���Ԃ�
-STMOTR						:= 0x00f3		; note: MSXturboR�ł͉��������ɕԂ�
+TAPION						:= 0x00e1		; note: MSXturboRでは常にCy=1(エラー)が返る
+TAPIN						:= 0x00e4		; note: MSXturboRでは常にCy=1(エラー)が返る
+TAPIOF						:= 0x00e7		; note: MSXturboRでは常にCy=1(エラー)が返る
+TAPOON						:= 0x00ea		; note: MSXturboRでは常にCy=1(エラー)が返る
+TAPOUT						:= 0x00ed		; note: MSXturboRでは常にCy=1(エラー)が返る
+TAPOOF						:= 0x00f0		; note: MSXturboRでは常にCy=1(エラー)が返る
+STMOTR						:= 0x00f3		; note: MSXturboRでは何もせずに返る
 
 CHGCAP						:= 0x0132
 CHGSND						:= 0x0135
@@ -197,14 +197,14 @@ RAMAD2						:= 0xF343		; 1byte, Page2 RAM Slot (Require DISK DRIVE)
 RAMAD3						:= 0xF344		; 1byte, Page3 RAM Slot (Require DISK DRIVE)
 MASTERS						:= 0xF348		; 1byte, MasterCartridgeSlot (Require DISK DRIVE)
 
-RDPRIM						:= 0xF380		; 5bytes, ��{�X���b�g����̓ǂݍ���
-WRPRIM						:= 0xF385		; 7bytes, ��{�X���b�g�ւ̏�������
-CLPRIM						:= 0xF38C		; 14bytes, ��{�X���b�g�R�[��
+RDPRIM						:= 0xF380		; 5bytes, 基本スロットからの読み込み
+WRPRIM						:= 0xF385		; 7bytes, 基本スロットへの書き込み
+CLPRIM						:= 0xF38C		; 14bytes, 基本スロットコール
 
-CLIKSW						:= 0xF3DB		; 1byte, �L�[�N���b�N�X�C�b�` (0=OFF, others=ON)
-CSRY						:= 0xF3DC		; 1byte, �J�[�\����Y���W
-CSRX						:= 0xF3DD		; 1byte, �J�[�\����X���W
-CNSDFG						:= 0xF3DE		; 1byte, �t�@���N�V�����L�[�\���X�C�b�` (0=ON, others=OFF)
+CLIKSW						:= 0xF3DB		; 1byte, キークリックスイッチ (0=OFF, others=ON)
+CSRY						:= 0xF3DC		; 1byte, カーソルのY座標
+CSRX						:= 0xF3DD		; 1byte, カーソルのX座標
+CNSDFG						:= 0xF3DE		; 1byte, ファンクションキー表示スイッチ (0=ON, others=OFF)
 
 ;	VDP Registeter backup area1
 RG0SAV						:= 0xF3DF		; VDP R#0
@@ -221,7 +221,7 @@ FORCLR						:= 0xF3E9		; Fore ground color
 BAKCLR						:= 0xF3EA		; Back ground color
 BDRCLR						:= 0xF3EB		; Border color
 
-FNKSTR						:= 0xF87F		; 16byte * 10, �t�@���N�V�����L�[�ɑΉ����镶����
+FNKSTR						:= 0xF87F		; 16byte * 10, ファンクションキーに対応する文字列
 
 ;	SUB-ROM SLOT
 ;	bit   7    6    5    4    3    2    1    0
@@ -233,17 +233,17 @@ HOKVLD						:= 0xFB20
 
 ;	BASE SLOT EXTEND INFORMATION
 ;
-EXPTBL						:= 0xFCC1		; 4bytes, �e�X���b�g�̊g���̗L��
+EXPTBL						:= 0xFCC1		; 4bytes, 各スロットの拡張の有無
 EXPTBL0						:= 0xFCC1		; [ext][N/A][N/A][N/A][EXT.SLOT][BASESLOT]	MAIN-ROM slot
 EXPTBL1						:= 0xFCC2		; [ext][N/A][N/A][N/A][N/A][N/A][N/A][N/A]	slot#1
 EXPTBL2						:= 0xFCC3		; [ext][N/A][N/A][N/A][N/A][N/A][N/A][N/A]	slot#2
 EXPTBL3						:= 0xFCC4		; [ext][N/A][N/A][N/A][N/A][N/A][N/A][N/A]	slot#3
 
-SLTTBL						:= 0xFCC5		; 4bytes, �e�X���b�g�̊g���X���b�g���W�X�^�̌��݂̑I����
-SLTATR						:= 0xFCC9		; 64bytes, �e�X���b�g�p�̑���
-SLTWRK						:= 0xFD09		; 128bytes, �e�X���b�g�p�̓���̃��[�N�G���A���m��
-PROCNM						:= 0xFD89		; 16bytes, �g���X�e�[�g�����g, �g���f�o�C�X�̖��O������, ASCIIZ
-DEVICE						:= 0xFD99		; 1byte, �J�[�g���b�W�p�̑��u����
+SLTTBL						:= 0xFCC5		; 4bytes, 各スロットの拡張スロットレジスタの現在の選択状況
+SLTATR						:= 0xFCC9		; 64bytes, 各スロット用の属性
+SLTWRK						:= 0xFD09		; 128bytes, 各スロット用の特定のワークエリアを確保
+PROCNM						:= 0xFD89		; 16bytes, 拡張ステートメント, 拡張デバイスの名前が入る, ASCIIZ
+DEVICE						:= 0xFD99		; 1byte, カートリッジ用の装置識別
 
 ;	MSX I/O INTERRUPT HOOK
 H_KEYI						:= 0xFD9A
@@ -282,9 +282,9 @@ RG21SAV						:= 0xFFF4		; VDP R#21
 RG22SAV						:= 0xFFF5		; VDP R#22
 RG23SAV						:= 0xFFF6		; VDP R#23
 
-RG25SAV						:= 0xFFF8		; VDP R#25
-RG26SAV						:= 0xFFF9		; VDP R#26
-RG27SAV						:= 0xFFFA		; VDP R#27
+RG25SAV						:= 0xFFFA		; VDP R#25
+RG26SAV						:= 0xFFFB		; VDP R#26
+RG27SAV						:= 0xFFFC		; VDP R#27
 
 
 ; =============================================================================
@@ -501,12 +501,12 @@ USE_WAIT_VDP_COMMAND		MACRO	intr_ctrl
 		message		" break)"
 		message		"    A, B, C, F"
 		message		" function)"
-		message		"    VDP�R�}���h���ғ����ł���΁A��������܂őҋ@����B"
+		message		"    VDPコマンドが稼働中であれば、完了するまで待機する。"
 		if intr_ctrl
-			message	"    �����Ŋ��荞�݋֎~�E�������s���̂Œ��ӁB"
+			message	"    内部で割り込み禁止・解除を行うので注意。"
 		else
-			message	"    ���荞�݋֎~�E�����͍s��Ȃ��B���荞�݋֎~��Ԃ�"
-			message	"    �ĂԂ��Ƃ��O��B"
+			message	"    割り込み禁止・解除は行わない。割り込み禁止状態で"
+			message	"    呼ぶことが前提。"
 		endif
 		message		"**********************************************************"
 		scope		sc_wait_vdp_command
@@ -535,18 +535,18 @@ USE_VDP_COMMAND		MACRO	intr_ctrl
 		message		"**********************************************************"
 		message		" VDP_COMMAND"
 		message		" input)"
-		message		"    HL ... R#32�`46 �ɃZ�b�g������e���i�[�����e�[�u���̃A�h���X"
+		message		"    HL ... R#32～46 にセットする内容を格納したテーブルのアドレス"
 		message		" output)"
 		message		"    none."
 		message		" break)"
 		message		"    A, B, C, H, L, F"
 		message		" function)"
-		message		"    VDP�R�}���h�̑ҋ@�͍s��Ȃ��B�K�v�ɉ����ĕʓr�s�����ƁB"
+		message		"    VDPコマンドの待機は行わない。必要に応じて別途行うこと。"
 		if intr_ctrl
-			message	"    �����Ŋ��荞�݋֎~�E�������s���̂Œ��ӁB"
+			message	"    内部で割り込み禁止・解除を行うので注意。"
 		else
-			message	"    ���荞�݋֎~�E�����͍s��Ȃ��B���荞�݋֎~��Ԃ�"
-			message	"    �ĂԂ��Ƃ��O��B"
+			message	"    割り込み禁止・解除は行わない。割り込み禁止状態で"
+			message	"    呼ぶことが前提。"
 		endif
 		message		"**********************************************************"
 		scope		sc_vdp_command
