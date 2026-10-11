@@ -30,6 +30,8 @@ protected:
 	int line_no;
 	bool is_analyze_phase;
 	static int number_of_error;
+	static bool is_trial;
+	static int trial_errors;
 	int number_of_error_for_this;
 	std::string last_error;
 	CZMA_LOG log;
@@ -257,6 +259,17 @@ public:
 	// ----------------------------------------------------------------
 	static int get_number_of_errors() {
 		return number_of_error;
+	}
+
+	static void set_trial_mode( bool enabled ) {
+		is_trial = enabled;
+		if( enabled ) {
+			trial_errors = 0;
+		}
+	}
+
+	static int get_trial_errors() {
+		return trial_errors;
 	}
 
 	// ----------------------------------------------------------------

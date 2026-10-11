@@ -35,6 +35,9 @@ static std::map< CZMA_ERROR_CODE, const std::string > error_message = {
 	{ CZMA_ERROR_CODE::OUT_OF_RANGE_BIT_NUMBER, "Out of range bit number." },
 	{ CZMA_ERROR_CODE::THE_NUMERICAL_VALUE_IS_INCORRECT, "The numerical value is incorrect." },
 	{ CZMA_ERROR_CODE::DIVIDED_BY_ZERO, "Divided by zero." },
+	{ CZMA_ERROR_CODE::CONDITIONAL_NOT_RESOLVED, "No consistent, valid IF layout could be determined." },
+	{ CZMA_ERROR_CODE::CONDITIONAL_SEARCH_LIMIT, "IF layout search exceeded 1024 candidates; minimum size is not guaranteed." },
+	{ CZMA_ERROR_CODE::ASSEMBLY_DID_NOT_CONVERGE, "Assembly layout did not converge." },
 };
 
 // --------------------------------------------------------------------

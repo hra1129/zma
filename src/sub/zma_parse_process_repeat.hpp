@@ -16,12 +16,17 @@ public:
 
 	std::string counter_symbol;
 	int counter_end;
-	bool is_counter_end_fixed;
+	bool is_counter_end_fixed = false;
 	std::string scope_name;
 	CZMA_TEXT m_text;							//	展開前のソースコード
 	CZMA_LOG log_header;
 
 	using CZMA_PARSE::CZMA_PARSE;
+	~CZMA_PARSE_REPEAT() override {
+		for( auto text : m_text_list ) {
+			delete text;
+		}
+	}
 	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;
 	void block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ) override;
 	std::vector< std::vector< std::string > > get_words( void ) override;

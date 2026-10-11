@@ -74,4 +74,5 @@ public:
 
 	void analyze_structure( void );
 	bool all_process( CZMA_INFORMATION &info );
+	bool analyze( CZMA_INFORMATION &info );
 };

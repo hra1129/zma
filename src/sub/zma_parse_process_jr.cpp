@@ -20,6 +20,10 @@
 bool CZMA_PARSE_JR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 
 	update_flags( &info, p_last_line );
+	if( words.size() < 2 ) {
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
+		return false;
+	}
 
 	if( opecode_condition_offset( info, 0x18, 0x20 ) ) {
 		//	log
@@ -38,4 +42,3 @@ bool CZMA_PARSE_JR::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line ) {
 	}
 	return false;
 }
-

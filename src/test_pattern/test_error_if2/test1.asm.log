@@ -1,0 +1,27 @@
+Z80 Macro Assembler ZMA v1.0.19
+=====================================================
+Programmed by t.hara
+
+  DEFS is DEFINE STRING (default).
+  OUTPUT TYPE: BINARY
+
+<< code >>
+LINE# |OFFSET|ADDR|MNEMONIC
+======+======+====+==================================
+     5|      |    |ORG 0
+------+------+----+----------------------------------
+     6|      |    |START :
+      |      |    |  label [START] address: 0x000000
+------+------+----+----------------------------------
+    10|      |    |JP END_LABEL
+    10|ERROR |    |Illegal operand.: test1.asm(10)
+    12|      |    |END_LABEL :
+      |      |    |  label address: 0xXXXXXX
+------+------+----+----------------------------------
+    13|      |    |RET
+      |      |    |  Z80:11cyc R800:5cyc
+      |XXXXXX|XXXX|  C9
+------+------+----+----------------------------------
+<< label >>
+END_LABEL ... ????
+START ....... 0 ( 0x0 )

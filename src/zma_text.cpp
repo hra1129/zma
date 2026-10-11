@@ -7,6 +7,136 @@
 #include "zma_text.hpp"
 #include <fstream>
 #include <iostream>
+#include <limits>
+#include <utility>
+#include "zma_parse_process_if.hpp"
+
+namespace {
+struct SOURCE_LINE {
+	std::vector<std::string> words;
+	const char *file_name;
+	int line_no;
+};
+
+struct ASSEMBLY_INPUT {
+	std::vector<SOURCE_LINE> lines;
+	std::map<std::string, CVALUE> dict;
+	std::vector<std::string> include_path;
+	std::vector<std::string> macro_names;
+	std::map<std::string, CZMA_CHAR_SET> char_sets;
+	bool defs_is_space;
+	bool all_error_enable;
+	CZMA_INFORMATION::OUTPUT_TYPE output_type;
+
+	ASSEMBLY_INPUT( CZMA_TEXT &text, const CZMA_INFORMATION &info ):
+		dict( info.dict ), include_path( info.include_path ), char_sets( info.char_set_list ),
+		defs_is_space( info.defs_is_space ), all_error_enable( info.all_error_enable ), output_type( info.output_type ) {
+		for( auto p : text.m_text ) {
+			lines.push_back( { p->words, p->get_file_name(), p->get_line_no() } );
+		}
+		for( const auto &macro : info.macro_list ) {
+			macro_names.push_back( macro.first );
+		}
+	}
+
+	void build( CZMA_TEXT &text, CZMA_INFORMATION &info ) const {
+		for( auto p : text.m_text ) {
+			delete p;
+		}
+		text.m_text.clear();
+		info.clear();
+		info.conditional_candidates.clear();
+		info.dict = dict;
+		info.include_path = include_path;
+		info.char_set_list = char_sets;
+		info.macro_list.clear();
+		info.link_list.clear();
+		info.p_sub_dict = nullptr;
+		info.macro_instance_index = 0;
+		info.defs_is_space = defs_is_space;
+		info.all_error_enable = all_error_enable;
+		info.output_type = output_type;
+		for( const auto &name : macro_names ) {
+			info.macro_list[name] = nullptr;
+		}
+		for( const auto &line : lines ) {
+			auto words = line.words;
+			text.m_text.push_back( CZMA_PARSE::create( info, words, line.file_name, line.line_no ) );
+		}
+		text.analyze_structure();
+	}
+};
+
+class TRIAL_DIAGNOSTICS {
+public:
+	TRIAL_DIAGNOSTICS() { CZMA_PARSE::set_trial_mode( true ); }
+	~TRIAL_DIAGNOSTICS() { CZMA_PARSE::set_trial_mode( false ); }
+};
+
+bool resolve_conditions( CZMA_TEXT &text, CZMA_INFORMATION &info, const ASSEMBLY_INPUT &input ) {
+	using CHOICES = std::map<std::string, int>;
+	std::vector<CHOICES> pending( 1 );
+	CHOICES best;
+	int best_size = std::numeric_limits<int>::max();
+	bool found = false;
+	unsigned int evaluations = 0;
+
+	while( !pending.empty() && evaluations < 1024 ) {
+		CHOICES choices = std::move( pending.back() );
+		pending.pop_back();
+		evaluations++;
+		CZMA_INFORMATION trial_info;
+		CZMA_TEXT trial_text;
+		TRIAL_DIAGNOSTICS diagnostics;
+		input.build( trial_text, trial_info );
+		trial_info.conditional_choices = choices;
+		if( CZMA_PARSE::get_trial_errors() || !trial_text.analyze( trial_info ) ) {
+			continue;
+		}
+		auto undecided = trial_info.conditional_candidates;
+		undecided.insert( trial_info.unresolved_conditions.begin(), trial_info.unresolved_conditions.end() );
+		for( const auto &choice : choices ) {
+			undecided.erase( choice.first );
+		}
+		if( !undecided.empty() ) {
+			const auto &unresolved = *undecided.begin();
+			for( int i = unresolved.second->number_of_choices() - 1; i >= 0; i-- ) {
+				CHOICES next = choices;
+				next[unresolved.first] = i;
+				pending.push_back( std::move( next ) );
+			}
+			continue;
+		}
+		trial_info.validate_conditions = true;
+		trial_info.clear();
+		unsigned int success_count;
+		auto last = trial_text.process( trial_info, success_count, nullptr, true );
+		trial_text.calc_code_size();
+		if( CZMA_PARSE::get_trial_errors() || !trial_info.scope.empty() || last == nullptr ||
+			!last->is_fixed_next_code_address() || trial_text.get_code_size() < 0 ) {
+			continue;
+		}
+		if( trial_text.get_code_size() < best_size ) {
+			best_size = trial_text.get_code_size();
+			best = std::move( choices );
+			found = true;
+		}
+	}
+	if( !pending.empty() || !found ) {
+		auto line = !info.conditional_candidates.empty() ?
+			info.conditional_candidates.begin()->second : info.unresolved_conditions.begin()->second;
+		line->set_output_mode();
+		line->put_error( CZMA_ERROR::get( pending.empty() ?
+			CZMA_ERROR_CODE::CONDITIONAL_NOT_RESOLVED : CZMA_ERROR_CODE::CONDITIONAL_SEARCH_LIMIT ) );
+		return false;
+	}
+	// Replay only the winner, so speculative symbols, diagnostics and expansions cannot escape.
+	input.build( text, info );
+	info.conditional_choices = std::move( best );
+	info.validate_conditions = true;
+	return text.analyze( info );
+}
+}
 
 // ----------------------------------------------------------------
 //	Constructor
@@ -115,7 +245,10 @@ CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_co
 	success_count = 0;
 	std::vector<std::string> words;
 
+	size_t line_index = 0;
 	for( auto p = m_text.begin(); p != m_text.end(); ) {
+		const std::string path = info.conditional_path;
+		info.conditional_path += "/" + std::to_string( line_index++ );
 		if( output_mode ) {
 			(*p)->set_output_mode();
 		}
@@ -124,6 +257,7 @@ CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_co
 			words = CZMA_PARSE::get_word_split( ( *p )->get_line() );
 			CZMA_PARSE *p_parse = CZMA_PARSE::create( info, words, ( *p )->get_file_name(), ( *p )->get_line_no() );
 			if( !( p_parse->is_parse_error() ) ){
+				delete *p;
 				p = m_text.erase( p );
 				p = m_text.insert( p, p_parse );
 			}
@@ -135,6 +269,7 @@ CZMA_PARSE *CZMA_TEXT::process( CZMA_INFORMATION &info, unsigned int &success_co
 		if( ( *p )->process( info, p_prev ) ){
 			success_count++;
 		}
+		info.conditional_path = path;
 		p_prev = ( *p );
 		p++;
 	}
@@ -152,21 +287,40 @@ void CZMA_TEXT::analyze_structure( void ){
 }
 
 // --------------------------------------------------------------------
+bool CZMA_TEXT::analyze( CZMA_INFORMATION& info ) {
+	unsigned int success_count;
+	for( unsigned int pass = 0; pass < 1024; pass++ ) {
+		info.clear();
+		this->process( info, success_count, nullptr, false );
+		info.set_evaluated_for_all_links();
+		if( !info.is_updated ) {
+			return true;
+		}
+	}
+	if( !m_text.empty() ) {
+		m_text.front()->set_output_mode();
+		m_text.front()->put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ASSEMBLY_DID_NOT_CONVERGE ) );
+	}
+	return false;
+}
+
+// --------------------------------------------------------------------
 bool CZMA_TEXT::all_process( CZMA_INFORMATION& info ) {
 	unsigned int success_count;
 	CZMA_PARSE* p_last_line;
+	const ASSEMBLY_INPUT input( *this, info );
 
 	this->analyze_structure();
 	if( CZMA_PARSE::get_number_of_errors() ){
 		return false;
 	}
-	for( ; ; ) {
-		info.clear();
-		p_last_line = this->process( info, success_count, nullptr, false );
-		info.set_evaluated_for_all_links();
-		if( !info.is_updated ) {
-			break;
-		}
+	if( !analyze( info ) ) {
+		return false;
+	}
+	if( (!info.unresolved_conditions.empty() || !info.conditional_candidates.empty()) &&
+		!resolve_conditions( *this, info, input ) ) {
+		std::cerr << "Found " << CZMA_PARSE::get_number_of_errors() << " error(s).\n";
+		return false;
 	}
 	info.clear();
 	p_last_line = this->process( info, success_count, nullptr, true );

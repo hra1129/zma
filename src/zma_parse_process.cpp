@@ -115,6 +115,8 @@
 
 // --------------------------------------------------------------------
 int CZMA_PARSE::number_of_error = 0;
+bool CZMA_PARSE::is_trial = false;
+int CZMA_PARSE::trial_errors = 0;
 
 // --------------------------------------------------------------------
 static std::map< std::string, CZMA_COMMAND_TYPE > command_list = {

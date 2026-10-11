@@ -42,6 +42,7 @@ public:
 	CZMA_TEXT m_text;
 	CZMA_LOG log_header;
 	bool is_loaded = false;
+	std::string scope_name;
 
 	using CZMA_PARSE::CZMA_PARSE;
 	bool process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line = nullptr ) override;

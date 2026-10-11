@@ -25,6 +25,7 @@ void CZMA_PARSE_REPEAT::block_structure( std::vector<CZMA_PARSE *> &m_text, std:
 	while( pp_current != m_text.end() ){
 		//	ENDR か？
 		if( ( *pp_current )->words.size() > 0 && ( *pp_current )->words[ 0 ] == "ENDR" ){
+			delete *pp_current;
 			//	ENDR自体はもう不要なので削除
 			pp_current = m_text.erase( pp_current );
 			break;
@@ -157,7 +158,10 @@ bool CZMA_PARSE_REPEAT::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_line
 	//	中身を処理する
 	for( i = 0; i < this->counter_end; i++ ){
 		info.dict[ this->counter_symbol ].i = i;
+		const std::string path = info.conditional_path;
+		info.conditional_path += "/repeat" + std::to_string( i );
 		p_last_line = this->m_text_list[ i ]->process( info, sub_success_count, p_last_line, !is_analyze_phase );
+		info.conditional_path = path;
 	}
 
 	//	データが確定したか確認する

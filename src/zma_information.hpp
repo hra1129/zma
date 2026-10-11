@@ -20,6 +20,7 @@
 
 class CZMA_PARSE_MACRO;
 class CZMA_PARSE_LINK;
+class CZMA_PARSE_IF_BLOCK;
 
 // --------------------------------------------------------------------
 class CZMA_CHAR_SET {
@@ -45,6 +46,7 @@ public:
 	std::vector< std::string >		include_path;
 
 	unsigned int auto_label_index;
+	unsigned int macro_instance_index = 0;
 
 	bool		defs_is_space;		//	false: DEFS疑似命令は文字列配置(default), true: DEFS疑似命令は領域確保
 	bool		all_error_enable;	//	false: アドレス未確定以降のエラーを抑止, true: 全てのエラーを表示
@@ -57,6 +59,11 @@ public:
 	OUTPUT_TYPE	output_type;
 	CZMA_HEXFILE_WRITER hexfile;
 	bool is_updated;
+	std::string conditional_path;
+	std::map< std::string, int > conditional_choices;
+	std::map< std::string, CZMA_PARSE_IF_BLOCK* > unresolved_conditions;
+	std::map< std::string, CZMA_PARSE_IF_BLOCK* > conditional_candidates;
+	bool validate_conditions = false;
 
 	std::map< std::string, CZMA_PARSE_MACRO* >	macro_list;
 	std::map< std::string, CZMA_PARSE_LINK * >	link_list;
@@ -83,6 +90,8 @@ public:
 		is_updated = false;
 		auto_label_index = 0;
 		error_disable = false;
+		conditional_path.clear();
+		unresolved_conditions.clear();
 	}
 
 	// --------------------------------------------------------------------

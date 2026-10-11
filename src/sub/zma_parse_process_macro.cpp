@@ -25,6 +25,7 @@ void CZMA_PARSE_MACRO::block_structure( std::vector<CZMA_PARSE *> &m_text, std::
 	while( pp_current != m_text.end() ){
 		//	ENDM ‚©H
 		if( ( *pp_current )->words.size() > 0 && ( *pp_current )->words[ 0 ] == "ENDM" ){
+			delete *pp_current;
 			//	ENDMŽ©‘Ì‚Í‚à‚¤•s—v‚È‚Ì‚Åíœ
 			pp_current = m_text.erase( pp_current );
 			break;
@@ -226,7 +227,10 @@ bool CZMA_PARSE_MACRO_INS::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_l
 		this->is_loaded = true;
 		info.is_updated = true;
 	}
-	info.scope.push_back( "@MACRO" + std::to_string( info.get_auto_label_index() ) );
+	if( scope_name.empty() ) {
+		scope_name = "@MACRO" + std::to_string( info.macro_instance_index++ );
+	}
+	info.scope.push_back( scope_name );
 
 	p_last_line = m_text.process( info, success_count, p_last_line, !this->is_analyze_phase );
 	if( !this->is_data_fixed ) {

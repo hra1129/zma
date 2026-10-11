@@ -15,7 +15,7 @@
 
 // --------------------------------------------------------------------
 std::string CZMA_PARSE::get_word( int index ) {
-	if( index >= (int)words.size() ) {
+	if( index < 0 || index >= (int)words.size() ) {
 		return "";
 	}
 	return words[index];
@@ -296,6 +296,10 @@ void CZMA_PARSE::put_error( std::string message, bool is_all_error, bool error_d
 	if( this->is_analyze_phase ) {
 		return;
 	}
+	if( is_trial ) {
+		trial_errors++;
+		return;
+	}
 	if( number_of_error_for_this == 0 ){
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, this->get_line() );
 	}
@@ -330,7 +334,7 @@ void CZMA_PARSE::put_message( std::string message ) {
 	std::stringstream ss;
 	std::string s;
 
-	if(this->is_analyze_phase) {
+	if(this->is_analyze_phase || is_trial) {
 		return;
 	}
 	ss << "MESSAGE: " << this->escape( message ) << ": " << p_file_name << "(" << line_no << ")";
@@ -348,6 +352,10 @@ void CZMA_PARSE::put_structure_error( std::string message, bool is_all_error, bo
 		return;
 	}
 	this->is_structure_error = true;
+	if( is_trial ) {
+		trial_errors++;
+		return;
+	}
 	ss << message << ": " << p_file_name << "(" << line_no << ")";
 	s = ss.str();
 	std::cerr << s << "\n";
@@ -605,7 +613,7 @@ bool CZMA_PARSE::opecode_c_source8( CZMA_INFORMATION& info, unsigned char op1, u
 		return false;
 	}
 	n++;
-	if( words.size() >= 6 && words[1] == "[" && words[n] == "," && words[n+1] == "A" ) {
+	if( (int)words.size() == (n + 2) && words[1] == "[" && words[n] == "," && words[n+1] == "A" ) {
 		this->set_code_size( &info, 2 );
 		if( !this->expression( info, 2, nn ) ) {
 			return false;
@@ -675,7 +683,7 @@ bool CZMA_PARSE::opecode_bit_source8( CZMA_INFORMATION& info, unsigned char op1,
 			if( n == 0 ) {
 				return false;
 			}
-			if( words[ n ] != "]" ){
+			if( get_word( n ) != "]" ){
 				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 				return false;
 			}
@@ -1281,12 +1289,12 @@ bool CZMA_PARSE::opecode_memory_hl_source8( CZMA_INFORMATION& info, unsigned cha
 	int i, sss;
 	CVALUE nn;
 
-	if( words[1] != "[" ) {
+	if( words.size() < 6 || words[1] != "[" ) {
 		return false;
 	}
 	for( i = 2; i < (int)words.size() && words[i] != "]"; i++ ) {
 	}
-	if( i >= (int)words.size() ) {
+	if( (int)words.size() != (i + 3) ) {
 		return false;
 	}
 	if( words[i + 1] != "," || !info.is_sss_or_ddd( words[i + 2] ) ) {
@@ -1366,12 +1374,12 @@ bool CZMA_PARSE::opecode_memory_hl_n8( CZMA_INFORMATION& info, unsigned char op1
 	int i;
 	CVALUE n, d;
 
-	if( words[1] != "[" ) {
+	if( words.size() < 6 || words[1] != "[" ) {
 		return false;
 	}
 	for( i = 2; i < (int) words.size() && words[i] != "]"; i++ ) {
 	}
-	if( i >= (int) words.size() ) {
+	if( (i + 2) >= (int)words.size() ) {
 		return false;
 	}
 	if( words[i + 1] != "," || info.is_sss_or_ddd( words[i + 2] ) ) {
@@ -1531,7 +1539,7 @@ bool CZMA_PARSE::opecode_a_memory_bc( CZMA_INFORMATION& info, unsigned char op1 
 			//	別の命令の可能性があるので、ここではエラーを出さない
 			return false;	//	この命令にはマッチしなかったという意味で false
 		}
-		if( words[index] != "]" ) {
+		if( get_word( index ) != "]" ) {
 			put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 			return false;
 		}
@@ -1618,7 +1626,7 @@ bool CZMA_PARSE::opecode_memory16_source16( CZMA_INFORMATION& info, unsigned cha
 	int i, rp;
 	CVALUE nn;
 
-	if( words[1] != "[" ) {
+	if( words.size() < 6 || words[1] != "[" ) {
 		return false;
 	}
 	for( i = 2; i < (int) words.size() && words[i] != "]"; i++ ) {
@@ -1865,7 +1873,7 @@ bool CZMA_PARSE::opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int
 				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 				return false;
 			}
-			if( words[ n ] != "]" ){
+			if( get_word( n ) != "]" ){
 				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 				return false;
 			}
@@ -1917,7 +1925,7 @@ bool CZMA_PARSE::opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int
 				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 				return false;
 			}
-			if( words[ n ] != "]" ){
+			if( get_word( n ) != "]" ){
 				put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::ILLEGAL_OPERAND ) );
 				return false;
 			}

@@ -19,6 +19,7 @@ public:
 	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
 	void set_output_mode( void ) override;
 	std::vector< std::vector< std::string > > get_words( void ) override;
+	bool evaluate_condition( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line, CVALUE &result );
 };
 
 // --------------------------------------------------------------------
@@ -62,6 +63,10 @@ public:
 	std::vector< std::vector< std::string > > get_words( void ) override;
 
 	using CZMA_PARSE::CZMA_PARSE;
+	~CZMA_PARSE_IF_BLOCK() override;
+	int number_of_choices() const;
+	bool validate_choice( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line, int selected );
+	bool process_choice( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line, int selected );
 	bool sub_process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line );
 	bool process( CZMA_INFORMATION &info, CZMA_PARSE *p_last_line = nullptr ) override;
 	bool write_output_and_log( CZMA_INFORMATION &info, std::ofstream *f ) override;
