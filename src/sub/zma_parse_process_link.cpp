@@ -21,12 +21,16 @@
 //	load 時は、このクラスは LINKの1行目単独を示している。
 //	この関数では、LINK～ENDL全体を示すように変更する。
 void CZMA_PARSE_LINK::block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ){
+	bool b_found_endl;
+
+	b_found_endl = false;
 
 	while( pp_current != m_text.end() ){
 		//	ENDL か？
 		if( ( *pp_current )->words.size() > 0 && ( *pp_current )->words[ 0 ] == "ENDL" ){
 			//	ENDL自体はもう不要なので削除
 			pp_current = m_text.erase( pp_current );
+			b_found_endl = true;
 			break;
 		}
 		//	中身を this->m_text に詰める
@@ -42,6 +46,11 @@ void CZMA_PARSE_LINK::block_structure( std::vector<CZMA_PARSE *> &m_text, std::v
 			this->m_text.m_text.push_back( *pp_current );
 			pp_current = m_text.erase( pp_current );
 		}
+	}
+	if( !b_found_endl ){
+		//	ENDL が無い場合はエラー
+		set_output_mode();
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::BLOCK_PROCESSING_IS_NOT_CLOSED ) );
 	}
 	pp_current--;
 }

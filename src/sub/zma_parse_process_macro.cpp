@@ -21,6 +21,9 @@
 //	load 時は、このクラスは MACROの1行目単独を示している。
 //	この関数では、MACRO～ENDM全体を示すように変更する。
 void CZMA_PARSE_MACRO::block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ){
+	bool b_found_endm;
+
+	b_found_endm = false;
 
 	while( pp_current != m_text.end() ){
 		//	ENDM か？
@@ -28,6 +31,7 @@ void CZMA_PARSE_MACRO::block_structure( std::vector<CZMA_PARSE *> &m_text, std::
 			delete *pp_current;
 			//	ENDM自体はもう不要なので削除
 			pp_current = m_text.erase( pp_current );
+			b_found_endm = true;
 			break;
 		}
 		//	中身を this->m_text に詰める
@@ -43,6 +47,11 @@ void CZMA_PARSE_MACRO::block_structure( std::vector<CZMA_PARSE *> &m_text, std::
 			this->m_text.m_text.push_back( *pp_current );
 			pp_current = m_text.erase( pp_current );
 		}
+	}
+	if( !b_found_endm ){
+		//	ENDM が無い場合はエラー
+		set_output_mode();
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::BLOCK_PROCESSING_IS_NOT_CLOSED ) );
 	}
 	pp_current--;
 }

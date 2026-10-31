@@ -25,6 +25,7 @@ void CZMA_PARSE_IF::block_structure( std::vector<CZMA_PARSE *> &m_text, std::vec
 	CZMA_PARSE_IF_BLOCK *p_block;
 	CZMA_IF_BLOCK_T *p_sub;
 	bool b_do_else;
+	bool b_found_endif;
 
 	//	この IF そのものの IF_BLOCK を作る。
 	p_block = new CZMA_PARSE_IF_BLOCK( this->words, this->p_file_name, this->line_no );
@@ -32,12 +33,14 @@ void CZMA_PARSE_IF::block_structure( std::vector<CZMA_PARSE *> &m_text, std::vec
 	pp_current++;										//	pp_current が IF を指すように移動させる
 
 	b_do_else = false;
+	b_found_endif = false;
 	while( pp_current != m_text.end() ){
 		//	ENDIF か？
 		if( ( *pp_current )->words.size() > 0 && ( *pp_current )->words[ 0 ] == "ENDIF" ){
 			delete *pp_current;
 			//	ENDIF自体はもう不要なので削除
 			pp_current = m_text.erase( pp_current );
+			b_found_endif = true;
 			break;
 		}
 		//	IF, ELSEIF を sub に追加
@@ -69,6 +72,11 @@ void CZMA_PARSE_IF::block_structure( std::vector<CZMA_PARSE *> &m_text, std::vec
 			p_sub->p_if->m_text.m_text.push_back( *pp_current );
 			pp_current = m_text.erase( pp_current );
 		}
+	}
+	if( !b_found_endif ){
+		//	ENDIF が無い場合はエラー
+		set_output_mode();
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::BLOCK_PROCESSING_IS_NOT_CLOSED ) );
 	}
 	pp_current--;
 }

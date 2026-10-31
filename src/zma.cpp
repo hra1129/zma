@@ -10,7 +10,7 @@
 #include <algorithm>
 #include "zma_text.hpp"
 
-static const char* p_version = "v1.0.20";
+static const char* p_version = "v1.0.21";
 
 // --------------------------------------------------------------------
 static void usage( const char* p_name ) {
@@ -38,6 +38,8 @@ static void option_d( CZMA_INFORMATION &info, std::string s_argument ){
 		}
 		s_name = s_name + s_argument[ i ];
 	}
+	//	シンボル名は大文字に統一する（値の大文字小文字は保持する）
+	std::transform( s_name.begin(), s_name.end(), s_name.begin(), toupper );
 	i++;
 	for( ; i < s_argument.size(); i++ ){
 		s_value = s_value + s_argument[ i ];
@@ -73,30 +75,33 @@ static void option_d( CZMA_INFORMATION &info, std::string s_argument ){
 static std::vector<std::string> get_command_line_options( int argc, char *argv[], CZMA_INFORMATION &info ){
 	int i;
 	std::string s_argument;
+	std::string s_option;
 	std::vector<std::string> sa_options;
 
 	for( i = 1; i < argc; i++ ){
 		s_argument = argv[ i ];
 		if( s_argument[ 0 ] == '-' || s_argument[ 0 ] == '/' ){
 			s_argument[ 0 ] = '-';
-			std::transform( s_argument.begin(), s_argument.end(), s_argument.begin(), toupper );
-			if( s_argument == "-H" || s_argument == "-HELP" ){
+			//	オプション名の照合には大文字化したコピーを使う（引数の値の大文字小文字は保持する）
+			s_option = s_argument;
+			std::transform( s_option.begin(), s_option.end(), s_option.begin(), toupper );
+			if( s_option == "-H" || s_option == "-HELP" ){
 				usage( argv[ 0 ] );
 				exit( 1 );
 			}
-			else if( s_argument == "-DEFS" ){
+			else if( s_option == "-DEFS" ){
 				info.defs_is_space = true;
 			}
-			else if( s_argument[ 1 ] == 'I' ){
+			else if( s_option[ 1 ] == 'I' ){
 				info.add_include_path( s_argument.substr( 2 ).c_str() );
 			}
-			else if( s_argument[ 1 ] == 'D' ){
+			else if( s_option[ 1 ] == 'D' ){
 				option_d( info, s_argument );
 			}
-			else if( s_argument == "-HEX" ){
+			else if( s_option == "-HEX" ){
 				info.output_type = CZMA_INFORMATION::OUTPUT_TYPE::CZMA_INTELHEX;
 			}
-			else if( s_argument == "-EALL" ){
+			else if( s_option == "-EALL" ){
 				info.all_error_enable = true;
 			}
 		}

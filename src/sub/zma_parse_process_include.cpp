@@ -107,11 +107,16 @@ bool CZMA_PARSE_INCLUDE::process( CZMA_INFORMATION& info, CZMA_PARSE* p_last_lin
 	if( !this->is_analyze_phase ) {
 		log.write_line_infomation( this->line_no, this->code_address, this->file_address, get_line() );
 	}
-	if( p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
+	if( p_last_line != nullptr && p_last_line->is_fixed_file_address() && p_last_line->is_fixed_code_size() ) {
 		this->file_address = p_last_line->get_file_address() + p_last_line->get_code_size();
 	}
 	p_last_line = this->m_text.process( info, success_count, p_last_line, !this->is_analyze_phase );
-	if( p_last_line->is_fixed_next_code_address() ) {
+	if( p_last_line == nullptr ) {
+		//	前行が無く (先頭行が INCLUDE)、インクルード対象も空の場合は何も出力しない
+		this->next_code_address = this->code_address;
+		this->code_size = 0;
+	}
+	else if( p_last_line->is_fixed_next_code_address() ) {
 		this->next_code_address = p_last_line->get_next_code_address();
 		this->code_size = p_last_line->get_file_address() + p_last_line->get_code_size() - this->file_address;
 	}

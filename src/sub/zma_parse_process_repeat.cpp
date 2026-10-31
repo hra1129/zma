@@ -21,13 +21,16 @@
 //	load 時は、このクラスは REPEATの1行目単独を示している。
 //	この関数では、REPEAT～ENDR全体を示すように変更する。
 void CZMA_PARSE_REPEAT::block_structure( std::vector<CZMA_PARSE *> &m_text, std::vector<CZMA_PARSE *>::iterator &pp_current ){
+	bool b_found_endr;
 
+	b_found_endr = false;
 	while( pp_current != m_text.end() ){
 		//	ENDR か？
 		if( ( *pp_current )->words.size() > 0 && ( *pp_current )->words[ 0 ] == "ENDR" ){
 			delete *pp_current;
 			//	ENDR自体はもう不要なので削除
 			pp_current = m_text.erase( pp_current );
+			b_found_endr = true;
 			break;
 		}
 		//	中身を this->m_text に詰める
@@ -43,6 +46,11 @@ void CZMA_PARSE_REPEAT::block_structure( std::vector<CZMA_PARSE *> &m_text, std:
 			this->m_text.m_text.push_back( *pp_current );
 			pp_current = m_text.erase( pp_current );
 		}
+	}
+	if( !b_found_endr ){
+		//	ENDR が無い場合はエラー
+		set_output_mode();
+		put_error( CZMA_ERROR::get( CZMA_ERROR_CODE::BLOCK_PROCESSING_IS_NOT_CLOSED ) );
 	}
 	pp_current--;
 }
