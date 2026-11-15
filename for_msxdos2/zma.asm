@@ -1,5 +1,6 @@
 ; =============================================================================
 ;	ZMA for MSX-DOS2  --  Z80 macro assembler, MSX-DOS2 native version
+;	Phase 1 core increment: skeleton / expressions / symbols / encoder core
 ;	Build: cross ZMA  (zma zma.asm ZMA.COM)
 ; =============================================================================
 
@@ -62,7 +63,7 @@ usage_exit:
 		jr		term_raw
 
 s_banner:
-		db		"ZMA for MSX-DOS2 v1.0.21", 13, 10, 0
+		db		"ZMA for MSX-DOS2 v1.0.21a", 13, 10, 0
 s_need_dos2:
 		db		"Needs MSX-DOS2.", 13, 10, 0
 s_usage:
@@ -5231,21 +5232,20 @@ lw_message_line:
 		ret
 
 ; ---------------------------------------------------------------------------
-;	Label section (log) + zma.sym: collect defined symbols, sort by
-;	name (byte order), dump.
+;	Label section (log) + zma.sym: stream defined symbols in
+;	storage order (hash bucket / chain order).  No sort and
+;	no count cap: every defined symbol is dumped.  (Author
+;	ruling 2026-11-15 -- completeness over sorted order;
+;	the former SYMTAB_MAX = 2,048 cap silently dropped the
+;	overflow from both dumps.)
 ; ---------------------------------------------------------------------------
-SYMTAB_MAX	:= 2048
-symtab:
-		space	SYMTAB_MAX * 4
-symtab_count:
+st_count:
 		dw		0
-symtab_maxlen:
+st_maxlen:
 		db		0
 st_rec:
 		space	4
 st_nbuf_a:
-		space	64
-st_nbuf_b:
 		space	64
 
 ;	st_fetch_name: record offset in st_rec, DE = dest -> copies name,
@@ -5284,23 +5284,23 @@ stfn_done:
 stfn_dst:
 		dw		0
 
-;	st_collect: fill symtab with offsets of DEFINED records
-st_collect:
-		xor		a, a
-		ld		[symtab_count], a
-		ld		[symtab_count + 1], a
-		ld		[symtab_maxlen], a
-		ld		hl, 0			; bucket index in HL via st_bkt cell
+;	st_walk: visit every DEFINED record in storage order and
+;	call [st_cb] for each.  The callback runs with st_rec =
+;	record offset and must preserve st_rec, st_bkt and st_nx
+;	(the walker reads the chain link from st_rec after the
+;	callback returns).
+st_walk:
+		ld		hl, 0		; bucket index in HL via st_bkt cell
 		ld		[st_bkt], hl
-stc_bl:
+stw_bl:
 		ld		hl, [st_bkt]
 		ld		a, l
 		cp		a, 0x00
-		jr		nz, stc_bgo
+		jr		nz, stw_bgo
 		ld		a, h
 		cp		a, 4			; 1024 buckets = 0x400
 		ret		nc
-stc_bgo:
+stw_bgo:
 		; chain head = hash_table[bucket]
 		ld		hl, [st_bkt]
 		add		hl, hl
@@ -5316,263 +5316,95 @@ stc_bgo:
 		ld		b, [hl]			; BC:DE = record offset
 		ld		[st_rec], de
 		ld		[st_rec + 2], bc
-stc_chain:
+stw_chain:
 		ld		hl, st_rec
-		call	off_is_zero
-		jp		z, stc_nextb
+		call		off_is_zero
+		jp		z, stw_nextb
 		; flags
 		ld		hl, st_rec
 		ld		a, SYM_FLAGS
-		call	off_copy_add
-		call	pio_read8
+		call		off_copy_add
+		call		pio_read8
 		bit		0, a			; DEFINED?
-		jr		z, stc_skip
-		; append to symtab
-		ld		hl, [symtab_count]
-		ld		a, l
-		cp		a, SYMTAB_MAX & 0xFF
-		jr		nz, stc_app
-		ld		a, h
-		cp		a, SYMTAB_MAX >> 8
-		jr		z, stc_skip		; table full: skip extras
-stc_app:
-		add		hl, hl
-		add		hl, hl
-		ld		de, symtab
-		add		hl, de
-		ld		de, [st_rec]
-		ld		[hl], e
-		inc		hl
-		ld		[hl], d
-		inc		hl
-		ld		de, [st_rec + 2]
-		ld		[hl], e
-		inc		hl
-		ld		[hl], d
-		ld		hl, [symtab_count]
-		inc		hl
-		ld		[symtab_count], hl
-		; maxlen update
-		ld		hl, st_rec
-		ld		a, SYM_NLEN
-		call	off_copy_add
-		call	pio_read8
-		ld		b, a
-		ld		a, [symtab_maxlen]
-		cp		a, b
-		jr		nc, stc_skip
-		ld		a, b
-		ld		[symtab_maxlen], a
-stc_skip:
+		jr		z, stw_skip
+		call		st_call_cb
+stw_skip:
 		; next = record[0..3]
 		ld		hl, st_rec
 		xor		a, a
-		call	off_copy_add
-		call	pio_read8
+		call		off_copy_add
+		call		pio_read8
 		ld		[st_nx], a
-		call	pio_inc
-		call	pio_read8
+		call		pio_inc
+		call		pio_read8
 		ld		[st_nx + 1], a
-		call	pio_inc
-		call	pio_read8
+		call		pio_inc
+		call		pio_read8
 		ld		[st_nx + 2], a
-		call	pio_inc
-		call	pio_read8
+		call		pio_inc
+		call		pio_read8
 		ld		[st_nx + 3], a
 		ld		hl, [st_nx]
 		ld		[st_rec], hl
 		ld		hl, [st_nx + 2]
 		ld		[st_rec + 2], hl
-		jp		stc_chain
-stc_nextb:
+		jp		stw_chain
+stw_nextb:
 		ld		hl, [st_bkt]
 		inc		hl
 		ld		[st_bkt], hl
-		jp		stc_bl
+		jp		stw_bl
+st_call_cb:
+		ld		hl, [st_cb]
+		jp		hl
+st_cb:
+		dw		0
 st_bkt:
 		dw		0
 st_nx:
 		space	4
 
-;	st_sort: insertion sort of symtab by symbol name
-st_sort:
-		ld		hl, 1			; i = 1
-		ld		[st_i], hl
-sts_il:
-		ld		hl, [st_i]
-		ld		de, [symtab_count]
-		ld		a, l
-		cp		a, e
-		jr		nz, sts_go
-		ld		a, h
-		cp		a, d
-		ret		nc				; i >= count: done (covers >)
-		ret		z
-sts_go:
-		; key = symtab[i]
-		ld		hl, [st_i]
-		add		hl, hl
-		add		hl, hl
-		ld		de, symtab
-		add		hl, de
-		ld		e, [hl]
+;	stc_count: pre-pass callback -- count DEFINED records and
+;	track the longest name (log rows pad names to maxlen + 3).
+stc_count:
+		ld		hl, [st_count]
 		inc		hl
-		ld		d, [hl]
-		inc		hl
-		ld		c, [hl]
-		inc		hl
-		ld		b, [hl]
-		ld		[st_key], de
-		ld		[st_key + 2], bc
-		; j = i - 1
-		ld		hl, [st_i]
-		dec		hl
-		ld		[st_j], hl
-sts_jl:
-		ld		hl, [st_j]
-		ld		a, h
-		and		a, 0x80
-		jr		nz, sts_ins		; j < 0 -> insert at j+1
-		; compare name(symtab[j]) vs name(key): if <=, stop
-		ld		hl, [st_j]
-		add		hl, hl
-		add		hl, hl
-		ld		de, symtab
-		add		hl, de
-		ld		e, [hl]
-		inc		hl
-		ld		d, [hl]
-		inc		hl
-		ld		c, [hl]
-		inc		hl
-		ld		b, [hl]
-		ld		[st_rec], de
-		ld		[st_rec + 2], bc
-		ld		de, st_nbuf_a
-		call	st_fetch_name
-		ld		hl, [st_key]
-		ld		[st_rec], hl
-		ld		hl, [st_key + 2]
-		ld		[st_rec + 2], hl
-		ld		de, st_nbuf_b
-		call	st_fetch_name
-		; compare st_nbuf_a (existing) vs st_nbuf_b (key):
-		; if a <= b -> stop (insert after j)
-		ld		hl, st_nbuf_a
-		ld		de, st_nbuf_b
-		call	str_cmp_lex		; CY if a < b, Z if equal
-		jr		z, sts_ins
-		jr		c, sts_ins
-		; shift symtab[j] -> symtab[j+1] (byte-wise, top down)
-		ld		hl, [st_j]
-		inc		hl
-		add		hl, hl
-		add		hl, hl
-		ld		de, symtab + 3
-		add		hl, de			; HL = &symtab[j+1]+3
-		ex		de, hl			; DE = dest end
-		ld		hl, [st_j]
-		add		hl, hl
-		add		hl, hl
-		ld		bc, symtab + 3
-		add		hl, bc			; HL = &symtab[j]+3
-		ld		b, 4
-sts_shl:
-		ld		a, [hl]
-		ld		[de], a
-		dec		hl
-		dec		de
-		djnz	sts_shl
-		ld		hl, [st_j]
-		dec		hl
-		ld		[st_j], hl
-		jp		sts_jl
-sts_ins:
-		; symtab[j+1] = key
-		ld		hl, [st_j]
-		inc		hl
-		add		hl, hl
-		add		hl, hl
-		ld		de, symtab
-		add		hl, de
-		ld		de, [st_key]
-		ld		[hl], e
-		inc		hl
-		ld		[hl], d
-		inc		hl
-		ld		de, [st_key + 2]
-		ld		[hl], e
-		inc		hl
-		ld		[hl], d
-		ld		hl, [st_i]
-		inc		hl
-		ld		[st_i], hl
-		jp		sts_il
-st_i:
-		dw		0
-st_j:
-		dw		0
-st_key:
-		space	4
-
-;	str_cmp_lex: HL, DE = NUL-terminated strings.
-;	-> CY if HL < DE (unsigned byte order), Z if equal, else NC+NZ
-str_cmp_lex:
-		ld		a, [de]
+		ld		[st_count], hl
+		ld		hl, st_rec
+		ld		a, SYM_NLEN
+		call		off_copy_add
+		call		pio_read8
 		ld		b, a
-		ld		a, [hl]
+		ld		a, [st_maxlen]
 		cp		a, b
-		jr		nz, scl_ne
-		or		a, a
-		ret		z				; both NUL: equal
-		inc		hl
-		inc		de
-		jr		str_cmp_lex
-scl_ne:
-		ret		c				; A < B -> CY
-		; A > B: return NC, NZ
-		ld		a, 1
-		or		a, a
-		scf
-		ccf					; NC
+		ret		nc
+		ld		a, b
+		ld		[st_maxlen], a
 		ret
 
-;	log_finish: label section into ZMA.LOG, close it, write ZMA.SYM
-log_finish:
-		call	st_collect
-		call	st_sort
-		ld		a, [log_active]
-		or		a, a
-		jp		z, lf_sym
-		ld		hl, [symtab_count]
-		ld		a, h
-		or		a, l
-		jp		z, lf_nosec
-		ld		hl, s_log_labelsec
-		call	lw_puts
-		xor		a, a
-		ld		[st_i], a
-		ld		[st_i + 1], a
-lf_ll:
-		ld		hl, [st_i]
-		ld		de, [symtab_count]
-		ld		a, l
-		cp		a, e
-		jr		nz, lf_lgo
-		ld		a, h
-		cp		a, d
-		jp		z, lf_nosec
-lf_lgo:
-		call	st_load_i		; st_rec = symtab[i], sym_get done
+;	st_load_rec: sym_get for the record in st_rec
+;	-> val_tmp, [st_flg]
+st_load_rec:
+		ld		hl, [st_rec]
+		ld		[sym_off], hl
+		ld		hl, [st_rec + 2]
+		ld		[sym_off + 2], hl
+		call		sym_get		; val_tmp = value, A = flags
+		ld		[st_flg], a
+		ret
+
+;	std_log: ZMA.LOG label-section row for the record in st_rec
+std_log:
+		call		st_load_rec	; sym_get done
 		ld		de, st_nbuf_a
-		call	st_fetch_name	; A = len
+		call		st_fetch_name	; A = len
 		ld		[st_nl], a
 		ld		hl, st_nbuf_a
-		call	lw_puts
+		call		lw_puts
 		ld		a, ' '
-		call	lw_putc
+		call		lw_putc
 		; dots: (maxlen + 3) - len
-		ld		a, [symtab_maxlen]
+		ld		a, [st_maxlen]
 		add		a, 3
 		ld		b, a
 		ld		a, [st_nl]
@@ -5583,90 +5415,59 @@ lf_lgo:
 		ld		b, a
 lf_dots:
 		ld		a, '.'
-		push	bc
-		call	lw_putc
+		push		bc
+		call		lw_putc
 		pop		bc
-		djnz	lf_dots
+		djnz		lf_dots
 lf_val:
 		ld		a, ' '
-		call	lw_putc
+		call		lw_putc
 		; value by flags (A from sym_get was saved to st_flg)
 		ld		a, [st_flg]
 		bit		3, a			; string?
 		jr		nz, lf_vstr
 		ld		hl, val_tmp
 		ld		de, sbuf_a
-		call	dec32_to_buf
+		call		dec32_to_buf
 		ld		hl, sbuf_a
-		call	lw_write
+		call		lw_write
 		ld		hl, s_lf_hexp		; " ( 0x" (label section format)
-		call	lw_puts
+		call		lw_puts
 		ld		hl, val_tmp
-		call	lw_hexl
+		call		lw_hexl
 		ld		hl, s_log_rp	; ")"
-		call	lw_puts
-		call	lw_nl
-		jr		lf_lnext
+		call		lw_puts
+		jp		lw_nl
 lf_vstr:
 		ld		a, '"'
-		call	lw_putc
+		call		lw_putc
 		ld		hl, val_tmp
 		ld		de, sbuf_a
-		call	str_fetch
+		call		str_fetch
 		ld		hl, sbuf_a
-		call	lw_write
+		call		lw_write
 		ld		a, '"'
-		call	lw_putc
-		call	lw_nl
-lf_lnext:
-		ld		hl, [st_i]
-		inc		hl
-		ld		[st_i], hl
-		jp		lf_ll
-lf_nosec:
-		call	lw_close
-		xor		a, a
-		ld		[log_active], a
-lf_sym:
-		; ---- zma.sym ----
-		ld		hl, lw_name_sym
-		call	lw_open
-		ret		c
-		xor		a, a
-		ld		[st_i], a
-		ld		[st_i + 1], a
-lf_sl:
-		ld		hl, [st_i]
-		ld		de, [symtab_count]
-		ld		a, l
-		cp		a, e
-		jr		nz, lf_sgo
-		ld		a, h
-		cp		a, d
-		jr		z, lf_sdone
-lf_sgo:
-		call	st_load_i
+		call		lw_putc
+		jp		lw_nl
+
+;	std_sym: ZMA.SYM row for the record in st_rec
+;	(strings are not listed in zma.sym)
+std_sym:
+		call		st_load_rec
 		ld		a, [st_flg]
-		bit		3, a			; strings not listed in zma.sym
-		jr		nz, lf_snext
+		bit		3, a			; string?
+		ret		nz
 		ld		de, st_nbuf_a
-		call	st_fetch_name
+		call		st_fetch_name
 		ld		hl, st_nbuf_a
-		call	lw_puts
+		call		lw_puts
 		ld		hl, s_sym_equ	; " equ 0"
-		call	lw_puts
+		call		lw_puts
 		ld		hl, val_tmp
-		call	lw_hexl
+		call		lw_hexl
 		ld		a, 'h'
-		call	lw_putc
-		call	lw_nl
-lf_snext:
-		ld		hl, [st_i]
-		inc		hl
-		ld		[st_i], hl
-		jr		lf_sl
-lf_sdone:
-		jp		lw_close
+		call		lw_putc
+		jp		lw_nl
 s_log_rp:
 		db		" )", 0
 s_lf_hexp:
@@ -5678,27 +5479,41 @@ st_nl:
 st_flg:
 		db		0
 
-;	st_load_i: st_rec = symtab[[st_i]]; sym_get -> val_tmp, [st_flg]
-st_load_i:
-		ld		hl, [st_i]
-		add		hl, hl
-		add		hl, hl
-		ld		de, symtab
-		add		hl, de
-		ld		e, [hl]
-		inc		hl
-		ld		d, [hl]
-		inc		hl
-		ld		c, [hl]
-		inc		hl
-		ld		b, [hl]
-		ld		[sym_off], de
-		ld		[sym_off + 2], bc
-		ld		[st_rec], de
-		ld		[st_rec + 2], bc
-		call	sym_get			; val_tmp = value, A = flags
-		ld		[st_flg], a
-		ret
+;	log_finish: label section into ZMA.LOG, close it, write ZMA.SYM
+log_finish:
+		; pre-pass: count DEFINED records + longest name
+		xor		a, a
+		ld		[st_count], a
+		ld		[st_count + 1], a
+		ld		[st_maxlen], a
+		ld		hl, stc_count
+		ld		[st_cb], hl
+		call		st_walk
+		ld		a, [log_active]
+		or		a, a
+		jp		z, lf_sym
+		ld		hl, [st_count]
+		ld		a, h
+		or		a, l
+		jp		z, lf_nosec
+		ld		hl, s_log_labelsec
+		call		lw_puts
+		ld		hl, std_log
+		ld		[st_cb], hl
+		call		st_walk
+lf_nosec:
+		call		lw_close
+		xor		a, a
+		ld		[log_active], a
+lf_sym:
+		; ---- zma.sym ----
+		ld		hl, lw_name_sym
+		call		lw_open
+		ret		c
+		ld		hl, std_sym
+		ld		[st_cb], hl
+		call		st_walk
+		jp		lw_close
 
 
 ;	lw_scope_enter / lw_scope_exit: scope enter/exit lines
