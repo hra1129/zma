@@ -63,7 +63,7 @@ usage_exit:
 		jr		term_raw
 
 s_banner:
-		db		"ZMA for MSX-DOS2 v1.0.21a", 13, 10, 0
+		db		"ZMA for MSX-DOS2 v1.0.22", 13, 10, 0
 s_need_dos2:
 		db		"Needs MSX-DOS2.", 13, 10, 0
 s_usage:
@@ -7558,10 +7558,18 @@ po_ixd2:
 		ld		a, 2
 po_ixd:
 		ld		[po_tmpc], a		; pfx
-		; optional +/- expr
+		; optional +/- expr; no expr when the closer follows
+		; immediately ((IX) / [IX] = displacement 0)
 		call	skip_lp_spaces
 		call	lp_char
-		cp		a, ')'
+		ld		b, a			; B = current char
+		ld		a, [po_bracket]
+		or		a, a
+		ld		a, ')'
+		jr		z, po_ixd_zc
+		ld		a, ']'
+po_ixd_zc:
+		cp		a, b
 		jr		z, po_ixd_zero
 		; expression includes the sign: evaluate from here
 		ld		hl, [lp]
@@ -12222,7 +12230,7 @@ ld_r8:
 		cp		a, OPK_IMM
 		jr		z, ld_r8_n
 		cp		a, OPK_IXD
-		jr		z, ld_r8_ixd
+		jp		z, ld_r8_ixd
 		cp		a, OPK_MEMNN
 		jp		z, ld_r8_memnn
 		cp		a, OPK_MEMBCDE
@@ -12233,6 +12241,21 @@ ld_r8:
 		jp		z, ld_a_r
 		jp		bad_op
 ld_r8_r8:
+		; (HL) with an index half-reg operand does not exist
+		ld		a, [op1_blk + OK_CODE]
+		cp		a, 6
+		jr		nz, ld_r8r8_x1
+		ld		a, [op2_blk + OK_PFX]
+		or		a, a
+		jp		nz, bad_op
+ld_r8r8_x1:
+		ld		a, [op2_blk + OK_CODE]
+		cp		a, 6
+		jr		nz, ld_r8r8_x2
+		ld		a, [op1_blk + OK_PFX]
+		or		a, a
+		jp		nz, bad_op
+ld_r8r8_x2:
 		; (HL),(HL) is HALT encoding -> error
 		ld		a, [op1_blk + OK_CODE]
 		cp		a, 6
@@ -12287,6 +12310,15 @@ ld_r8_ixd:
 		ld		a, [op1_blk + OK_CODE]
 		cp		a, 6
 		jp		z, bad_op
+		; dst half-reg prefix must match the memory prefix
+		ld		a, [op1_blk + OK_PFX]
+		or		a, a
+		jr		z, ld_r8_ixd_ok
+		ld		b, a
+		ld		a, [op2_blk + OK_PFX]
+		cp		a, b
+		jp		nz, bad_op
+ld_r8_ixd_ok:
 		call	emit_pfx2
 		ld		a, [op1_blk + OK_CODE]
 		rlca
@@ -12373,6 +12405,15 @@ ld_ixd_r8:
 		ld		a, [op2_blk + OK_CODE]
 		cp		a, 6
 		jp		z, bad_op
+		; src half-reg prefix must match the memory prefix
+		ld		a, [op2_blk + OK_PFX]
+		or		a, a
+		jr		z, ld_ixd_r8_ok
+		ld		b, a
+		ld		a, [op1_blk + OK_PFX]
+		cp		a, b
+		jp		nz, bad_op
+ld_ixd_r8_ok:
 		call	emit_pfx1
 		ld		a, [op2_blk + OK_CODE]
 		or		a, 0x70

@@ -817,10 +817,27 @@ bool CZMA_PARSE::opecode_destination8_memory_hl( CZMA_INFORMATION& info, unsigne
 	int ddd, index;
 	CVALUE d;
 
-	if( words.size() < 6 || !info.is_sss_or_ddd( words[1] ) || words[2] != "," || (!check_location_hl( 3 ) && !check_location_ix( 3 ) && !check_location_iy( 3 )) ) {
+	if( words.size() < 6 || (!info.is_sss_or_ddd( words[1] ) && !info.is_ix_hl( words[1] ) && !info.is_iy_hl( words[1] )) || words[2] != "," || (!check_location_hl( 3 ) && !check_location_ix( 3 ) && !check_location_iy( 3 )) ) {
 		return false;
 	}
-	ddd = info.sss_or_ddd_id[words[1]];
+	//	IXH/IXL (IYH/IYL) as the destination is only valid together with
+	//	the matching [IX+d] ([IY+d]) memory operand; it then encodes
+	//	exactly like H/L (id 4/5) under the DD (FD) prefix.
+	if( info.is_ix_hl( words[1] ) && !check_location_ix( 3 ) ) {
+		return false;
+	}
+	if( info.is_iy_hl( words[1] ) && !check_location_iy( 3 ) ) {
+		return false;
+	}
+	if( info.is_sss_or_ddd( words[1] ) ) {
+		ddd = info.sss_or_ddd_id[words[1]];
+	}
+	else if( info.is_ix_hl( words[1] ) ) {
+		ddd = info.ix_hl[words[1]];
+	}
+	else {
+		ddd = info.iy_hl[words[1]];
+	}
 	if( words.size() >= 6 && check_location_ix( 3 ) ) {
 		this->set_code_size( &info, 3 );
 		if( words[5] == "+" || words[5] == "-" ) {
@@ -1297,10 +1314,27 @@ bool CZMA_PARSE::opecode_memory_hl_source8( CZMA_INFORMATION& info, unsigned cha
 	if( (int)words.size() != (i + 3) ) {
 		return false;
 	}
-	if( words[i + 1] != "," || !info.is_sss_or_ddd( words[i + 2] ) ) {
+	if( words[i + 1] != "," || (!info.is_sss_or_ddd( words[i + 2] ) && !info.is_ix_hl( words[i + 2] ) && !info.is_iy_hl( words[i + 2] )) ) {
 		return false;
 	}
-	sss = info.sss_or_ddd_id[words[i + 2]];
+	//	IXH/IXL (IYH/IYL) as the source is only valid together with
+	//	the matching [IX+d] ([IY+d]) memory operand; it then encodes
+	//	exactly like H/L (id 4/5) under the DD (FD) prefix.
+	if( info.is_sss_or_ddd( words[i + 2] ) ) {
+		sss = info.sss_or_ddd_id[words[i + 2]];
+	}
+	else if( info.is_ix_hl( words[i + 2] ) ) {
+		if( !this->check_location_ix( 1 ) ) {
+			return false;
+		}
+		sss = info.ix_hl[words[i + 2]];
+	}
+	else {
+		if( !this->check_location_iy( 1 ) ) {
+			return false;
+		}
+		sss = info.iy_hl[words[i + 2]];
+	}
 	if( this->check_location_hl( 1 ) ) {
 		if( this->is_data_fixed ) {
 			return true;
