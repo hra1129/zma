@@ -63,7 +63,7 @@ usage_exit:
 		jr		term_raw
 
 s_banner:
-		db		"ZMA for MSX-DOS2 v1.0.22", 13, 10, 0
+		db		"ZMA for MSX-DOS2 v1.0.23", 13, 10, 0
 s_need_dos2:
 		db		"Needs MSX-DOS2.", 13, 10, 0
 s_usage:
@@ -13428,6 +13428,8 @@ im_table:
 ; ---- BIT / RES / SET -----------------------------------------------------------------
 enc_bit:
 		ld		[bit_base], a
+		ld		a, 6
+		ld		[ddcb_ddd], a
 		call	parse_two_operands
 		call	check_ops_ok
 		ld		a, [op1_blk + OK_KIND]
@@ -13459,19 +13461,90 @@ bit_reg8:
 		call	emit8
 		ret
 bit_ixd:
+		ld		a, [bit_base]
+		cp		a, 0x40
+		call	nz, ddcb_third	; RES/SET: optional ,r copy target (BIT has none)
 		call	emit_pfx2
 		ld		a, 0xCB
 		call	emit8
 		ld		a, [op2_blk + OK_DISP]
 		call	emit8
 		ld		a, [bit_opc]
-		or		a, 6
+		ld		c, a
+		ld		a, [ddcb_ddd]
+		or		a, c
 		call	emit8
 		ret
 bit_base:
 		db		0
 bit_opc:
 		db		0
+
+; ddcb_ddd: register code for the DDCB register-copy form;
+; 6 = plain memory form.  ddcb_third: after an IXD operand of a
+; DDCB instruction, if the line continues with ",r" where r is a
+; plain 8-bit register name, [ddcb_ddd] = its code; otherwise 6.
+; Register names only -- no expression evaluation, mirroring the
+; cross version, which silently ignores a non-register third
+; operand.  Callers: bit_ixd (RES/SET only) and sh_ixd.
+ddcb_ddd:
+		db		6
+ddcb_third:
+		ld		a, 6
+		ld		[ddcb_ddd], a
+		call	skip_lp_spaces
+		call	lp_char
+		cp		a, ','
+		ret	nz
+		ld		hl, [lp]
+		inc	hl
+		ld		[lp], hl
+		call	skip_lp_spaces
+		call	scan_opw_lp
+		ret	nc
+		ld		de, w_b
+		call	opw_is
+		jr		z, dt_b
+		ld		de, w_c
+		call	opw_is
+		jr		z, dt_c
+		ld		de, w_d
+		call	opw_is
+		jr		z, dt_d
+		ld		de, w_e
+		call	opw_is
+		jr		z, dt_e
+		ld		de, w_h
+		call	opw_is
+		jr		z, dt_h
+		ld		de, w_l
+		call	opw_is
+		jr		z, dt_l
+		ld		de, w_a
+		call	opw_is
+		ret	nz
+		ld		a, 7
+		jr		dt_set
+dt_b:
+		xor		a, a
+		jr		dt_set
+dt_c:
+		ld		a, 1
+		jr		dt_set
+dt_d:
+		ld		a, 2
+		jr		dt_set
+dt_e:
+		ld		a, 3
+		jr		dt_set
+dt_h:
+		ld		a, 4
+		jr		dt_set
+dt_l:
+		ld		a, 5
+dt_set:
+		ld		[ddcb_ddd], a
+		ret
 
 ; ---- CB shifts ------------------------------------------------------------------------
 enc_shift:
@@ -13496,13 +13569,16 @@ sh_reg8:
 		call	emit8
 		ret
 sh_ixd:
+		call	ddcb_third	; optional ,r copy target
 		call	emit_pfx1
 		ld		a, 0xCB
 		call	emit8
 		ld		a, [op1_blk + OK_DISP]
 		call	emit8
 		ld		a, [bit_base]
-		or		a, 6
+		ld		c, a
+		ld		a, [ddcb_ddd]
+		or		a, c
 		call	emit8
 		ret
 

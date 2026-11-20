@@ -676,7 +676,7 @@ bool CZMA_PARSE::opecode_bit_source8( CZMA_INFORMATION& info, unsigned char op1,
 		this->data.push_back( op1 | (b.i << 3) | 0x06 );
 		return true;
 	}
-	if( (int) words.size() >= (n + 5) && this->check_location_ix( n ) ) {
+	if( (int) words.size() >= (n + 3) && this->check_location_ix( n ) ) {
 		this->set_code_size( &info, 4 );
 		if( words[n + 2] == "+" || words[n + 2] == "-" ) {
 			n = this->expression( info, n + 2, d );
@@ -704,7 +704,12 @@ bool CZMA_PARSE::opecode_bit_source8( CZMA_INFORMATION& info, unsigned char op1,
 		}
 		else {
 			d.i = 0;
-			ddd = 6;
+			if( !no_3operand && words.size() > (unsigned)(n + 4) && words[ n + 3 ] == "," && info.is_sss_or_ddd( words[ n + 4 ] ) ){
+				ddd = info.sss_or_ddd_id[ words[ n + 4 ] ];
+			}
+			else{
+				ddd = 6;
+			}
 		}
 		if( this->is_data_fixed ) {
 			return true;
@@ -716,7 +721,7 @@ bool CZMA_PARSE::opecode_bit_source8( CZMA_INFORMATION& info, unsigned char op1,
 		this->data.push_back( op1 | (b.i << 3) | ddd );
 		return true;
 	}
-	if( (int) words.size() >= (n + 5) && this->check_location_iy( n ) ) {
+	if( (int) words.size() >= (n + 3) && this->check_location_iy( n ) ) {
 		this->set_code_size( &info, 4 );
 		if( words[n + 2] == "+" || words[n + 2] == "-" ) {
 			n = this->expression( info, n + 2, d );
@@ -740,7 +745,12 @@ bool CZMA_PARSE::opecode_bit_source8( CZMA_INFORMATION& info, unsigned char op1,
 		}
 		else{
 			d.i = 0;
-			ddd = 6;
+			if( !no_3operand && words.size() > (unsigned)(n + 4) && words[ n + 3 ] == "," && info.is_sss_or_ddd( words[ n + 4 ] ) ){
+				ddd = info.sss_or_ddd_id[ words[ n + 4 ] ];
+			}
+			else{
+				ddd = 6;
+			}
 		}
 		if( this->is_data_fixed ) {
 			return true;
@@ -1894,7 +1904,7 @@ bool CZMA_PARSE::opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int
 		}
 		return true;
 	}
-	if( words.size() >= 6 && this->check_location_ix( 1 ) ) {
+	if( words.size() >= 4 && this->check_location_ix( 1 ) ) {
 		if( op2 != -1 ) {
 			this->set_code_size( &info, 4 );
 		}
@@ -1928,7 +1938,12 @@ bool CZMA_PARSE::opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int
 		}
 		else {
 			nn.i = 0;
-			ddd = 6;
+			if( words.size() > 5 && words[ 4 ] == "," && info.is_sss_or_ddd( words[ 5 ] ) ){
+				ddd = info.sss_or_ddd_id[ words[ 5 ] ];
+			}
+			else{
+				ddd = 6;
+			}
 		}
 		if( this->is_data_fixed ) {
 			return true;
@@ -1946,7 +1961,7 @@ bool CZMA_PARSE::opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int
 		}
 		return true;
 	}
-	if( words.size() >= 6 && this->check_location_iy( 1 ) ) {
+	if( words.size() >= 4 && this->check_location_iy( 1 ) ) {
 		if( op2 != -1 ) {
 			this->set_code_size( &info, 4 );
 		}
@@ -1980,7 +1995,12 @@ bool CZMA_PARSE::opecode_source8( CZMA_INFORMATION& info, unsigned char op1, int
 		}
 		else{
 			nn.i = 0;
-			ddd = 6;
+			if( words.size() > 5 && words[ 4 ] == "," && info.is_sss_or_ddd( words[ 5 ] ) ){
+				ddd = info.sss_or_ddd_id[ words[ 5 ] ];
+			}
+			else{
+				ddd = 6;
+			}
 		}
 		if( this->is_data_fixed ) {
 			return true;

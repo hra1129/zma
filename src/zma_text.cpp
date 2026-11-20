@@ -287,6 +287,28 @@ void CZMA_TEXT::analyze_structure( void ){
 }
 
 // --------------------------------------------------------------------
+// --------------------------------------------------------------------
+//	コードサイズが確定していない行に仮サイズを与える
+//	オペランドの解釈に失敗した行（エラー行）はコードサイズが確定せず、
+//	その行でアドレスの伝播が止まって後続のラベルまで未確定になり、
+//	無関係な行がエラーとして巻き添えになっていた。収束時点でサイズが
+//	確定していない行に仮サイズを与えて解析を継続することで、後続行の
+//	アドレスとラベルを確定させ、本物のエラーだけが報告されるようにする。
+//	仮サイズを与えた行が1行でもあれば true を返す。
+// --------------------------------------------------------------------
+bool CZMA_TEXT::assign_provisional_code_sizes( CZMA_INFORMATION& info ) {
+	bool assigned = false;
+
+	for( auto &p : this->m_text ) {
+		if( !p->is_fixed_code_size() ) {
+			p->set_provisional_code_size( &info );
+			assigned = true;
+		}
+	}
+	return assigned;
+}
+
+// --------------------------------------------------------------------
 bool CZMA_TEXT::analyze( CZMA_INFORMATION& info ) {
 	unsigned int success_count;
 	for( unsigned int pass = 0; pass < 1024; pass++ ) {
@@ -294,6 +316,11 @@ bool CZMA_TEXT::analyze( CZMA_INFORMATION& info ) {
 		this->process( info, success_count, nullptr, false );
 		info.set_evaluated_for_all_links();
 		if( !info.is_updated ) {
+			//	サイズが確定しなかった行（エラー行）が残っている場合は、
+			//	仮サイズを与えてアドレス確定を継続させる
+			if( this->assign_provisional_code_sizes( info ) ) {
+				continue;
+			}
 			return true;
 		}
 	}
